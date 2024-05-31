@@ -1,0 +1,20 @@
+{
+  "home": {
+    "subtitle": "The most flexible and secure voting protocol to organize any kind of voting process: single-choice, multiple-choice, weighted, quadratic voting and much more.",
+    "title": "Vocdoni explorer"
+  },
+  "stats": {
+    "average_block_time": "Average block time",
+    "electionCount_one": "{{ count }} election",
+    "electionCount_other": "{{ count }} elections",
+    "organizations_one": "{{ count }} organization",
+    "organizations_other": "{{ count }} organizations",
+    "seconds_one": "{{ count }} second",
+    "seconds_other": "{{ count }} seconds",
+    "total_elections": "Total processes",
+    "total_organizations": "Total organizations",
+    "total_votes": "Total votes",
+    "votes_one": "{{ count }} vote",
+    "votes_other": "{{ count }} votes"
+  }
+}

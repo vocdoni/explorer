@@ -1,0 +1,24 @@
+{
+  "home": {
+    "subtitle": "The most flexible and secure voting protocol to organize any kind of voting process: single-choice, multiple-choice, weighted, quadratic voting and much more.",
+    "title": ""
+  },
+  "stats": {
+    "average_block_time": "",
+    "electionCount_one": "",
+    "electionCount_many": "",
+    "electionCount_other": "",
+    "organizations_one": "",
+    "organizations_many": "",
+    "organizations_other": "",
+    "seconds_one": "",
+    "seconds_many": "",
+    "seconds_other": "",
+    "total_elections": "",
+    "total_organizations": "",
+    "total_votes": "",
+    "votes_one": "",
+    "votes_many": "",
+    "votes_other": ""
+  }
+}
