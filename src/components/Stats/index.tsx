@@ -1,6 +1,7 @@
-import { Card, CardBody, Flex, Heading, Text } from '@chakra-ui/react'
+import { Card, CardBody, Flex, Grid, Heading, Text } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { useChainInfo } from '~src/queries/stats'
+import { LatestBlocks } from '~components/Stats/LatestBlocks'
 
 interface IStatsCardProps {
   title: string
@@ -12,7 +13,6 @@ const StatsCard = ({ title, description }: IStatsCardProps) => {
     <Card>
       <CardBody>
         <Heading size='xs'>{title}</Heading>
-
         <Text pt='2' fontSize='sm'>
           {description}
         </Text>
@@ -22,7 +22,9 @@ const StatsCard = ({ title, description }: IStatsCardProps) => {
 }
 
 const Stats = () => {
-  const { data: stats } = useChainInfo()
+  const { data: stats } = useChainInfo({
+    refetchInterval: 10000,
+  })
   const { t } = useTranslation()
 
   const averageBlockTime = Number((stats?.blockTime[0] || 0) / 1000).toFixed(1)
@@ -56,11 +58,16 @@ const Stats = () => {
 
   return (
     <Flex direction={'column'}>
-      <Flex gap={4}>
+      <Grid templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4} mb={8}>
         {statsCards.map((card, i) => (
           <StatsCard key={i} title={card.title} description={card.description} />
         ))}
-      </Flex>
+      </Grid>
+      <Card>
+        <CardBody>
+          <LatestBlocks />
+        </CardBody>
+      </Card>
     </Flex>
   )
 }

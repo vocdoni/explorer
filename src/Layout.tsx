@@ -1,12 +1,29 @@
 import { Box, Grid } from '@chakra-ui/react'
 import { Outlet } from 'react-router-dom'
 import { TopBar } from '~components/TopBar'
+import { PropsWithChildren } from 'react'
+
+const DefaultLayout = ({ children }: PropsWithChildren) => {
+  return (
+    <Box
+      p={{
+        base: '0 15px',
+        md: '0 15px',
+      }}
+      margin='0 auto'
+    >
+      {children}
+    </Box>
+  )
+}
 
 const Layout = () => (
   <Box>
     <Grid p={3}>
       <TopBar />
-      <Outlet />
+      <DefaultLayout>
+        <Outlet />
+      </DefaultLayout>
     </Grid>
   </Box>
 )
