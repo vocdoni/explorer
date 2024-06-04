@@ -12,6 +12,8 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
         md: '0 15px',
       }}
       margin='0 auto'
+      maxW={'1152px'}
+      w='100%'
     >
       {children}
     </Box>

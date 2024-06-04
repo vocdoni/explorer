@@ -30,13 +30,13 @@ export const TopBar = () => {
   let headerUrl
   switch (env) {
     case 'prod':
-      headerUrl = 'images/logo-header.png'
+      headerUrl = '/images/logo-header.png'
       break
     case 'stg':
-      headerUrl = 'images/logo-header-stg.png'
+      headerUrl = '/images/logo-header-stg.png'
       break
     default:
-      headerUrl = 'images/logo-header-dev.png'
+      headerUrl = '/images/logo-header-dev.png'
       break
   }
 
@@ -84,7 +84,6 @@ export const TopBar = () => {
       width='100%'
       zIndex='100'
       minHeight='50px'
-      position='fixed'
       top='0'
       padding='10px 0'
       backdropFilter='blur(10px)'
