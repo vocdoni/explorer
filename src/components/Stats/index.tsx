@@ -1,7 +1,11 @@
-import { Card, CardBody, Flex, Grid, Heading, Text } from '@chakra-ui/react'
+import { Box, Card, CardBody, CardHeader, Flex, Grid, Heading, HStack, Text } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { useChainInfo } from '~src/queries/stats'
 import { LatestBlocks } from '~components/Stats/LatestBlocks'
+import React, { PropsWithChildren, ReactNode } from 'react'
+import { VscGraphLine } from 'react-icons/vsc'
+import { MdSpeed } from 'react-icons/md'
+import { ChainInfo } from '~components/Stats/ChainInfo'
 
 interface IStatsCardProps {
   title: string
@@ -17,6 +21,29 @@ const StatsCard = ({ title, description }: IStatsCardProps) => {
           {description}
         </Text>
       </CardBody>
+    </Card>
+  )
+}
+
+interface StatisticsCardProps {
+  title: string
+  icon: ReactNode
+}
+
+const StatisticsCardWrapper = ({ title, icon, children }: StatisticsCardProps & PropsWithChildren) => {
+  return (
+    <Card flex='1' w={'full'} minH={'500px'}>
+      <CardHeader pb={0}>
+        <HStack gap={2} align={'bottom'}>
+          <Box color={'textAccent1'} fontSize='2xl'>
+            {icon}
+          </Box>
+          <Text fontSize='2xl' fontWeight={'bold'}>
+            {title}
+          </Text>
+        </HStack>
+      </CardHeader>
+      <CardBody>{children}</CardBody>
     </Card>
   )
 }
@@ -63,11 +90,14 @@ const Stats = () => {
           <StatsCard key={i} title={card.title} description={card.description} />
         ))}
       </Grid>
-      <Card>
-        <CardBody>
+      <Flex direction={{ base: 'column', lg: 'row' }} minWidth='max-content' alignItems='start' gap={4}>
+        <StatisticsCardWrapper title={t('stats.latest_blocks')} icon={<VscGraphLine />}>
           <LatestBlocks />
-        </CardBody>
-      </Card>
+        </StatisticsCardWrapper>
+        <StatisticsCardWrapper title={t('stats.blockchain_info')} icon={<MdSpeed />}>
+          <ChainInfo />
+        </StatisticsCardWrapper>
+      </Flex>
     </Flex>
   )
 }

@@ -4,6 +4,7 @@ import { ElectionHeader, ElectionTitle } from './election'
 import Questions from './questions'
 import Radio from './radio'
 import ElectionResults from './results'
+import { colors } from '~src/theme/colors'
 
 const theme = extendTheme(vtheme, {
   components: {
@@ -13,6 +14,7 @@ const theme = extendTheme(vtheme, {
     Radio,
     ElectionResults,
   },
+  colors,
 })
 
 export default theme
