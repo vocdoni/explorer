@@ -2,6 +2,7 @@ import { Box, Grid } from '@chakra-ui/react'
 import { Outlet } from 'react-router-dom'
 import { TopBar } from '~components/TopBar'
 import { PropsWithChildren } from 'react'
+import { Footer } from '~components/Footer'
 
 const DefaultLayout = ({ children }: PropsWithChildren) => {
   return (
@@ -25,6 +26,7 @@ const Layout = () => (
         <Outlet />
       </DefaultLayout>
     </Grid>
+    <Footer />
   </Box>
 )
 
