@@ -1,30 +1,23 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Button, ButtonProps, Tooltip, useClipboard, useToast } from '@chakra-ui/react'
 import { IoCopy } from 'react-icons/io5'
-import { Box, Flex, Icon, Tooltip, useClipboard, useToast } from '@chakra-ui/react'
 
-interface ICopyButton {
+type ICopyButton = ButtonProps & {
   toCopy: string
-  text: string
-  size?: string
-  color?: string
 }
 
-export const CopyButton = ({ toCopy, text, size, color = 'inherit' }: ICopyButton) => {
+export const CopyButton = ({ toCopy, ...rest }: ICopyButton) => {
   const { t } = useTranslation()
   const toast = useToast()
   const { onCopy, value, setValue } = useClipboard('')
 
-  const handleCopy = (e: any) => {
-    e.cancelBubble = true
-    e.stopPropagation()
-    e.preventDefault()
-    e.target.focus()
+  const handleCopy = () => {
     onCopy()
     toast({
       title: t('copy.copied_to_the_clipboard'),
       status: 'success',
-      duration: 4000,
+      duration: 2000,
       isClosable: true,
     })
   }
@@ -34,21 +27,23 @@ export const CopyButton = ({ toCopy, text, size, color = 'inherit' }: ICopyButto
   }, [toCopy])
 
   return (
-    <Box onClick={handleCopy} style={{ width: 'fit-content' }}>
-      <Flex align='center' color={color} gap={1} justify={'end'}>
-        {text}
-        <Tooltip label={t('copy.copy_to_clipboard')} aria-label='Copy to clipboard'>
-          <Box as='span'>
-            <Icon as={IoCopy} w={size} h={size} css={{ cursor: 'pointer' }} />
-          </Box>
-        </Tooltip>
-      </Flex>
-    </Box>
+    <Tooltip label={t('copy.copy_to_clipboard')} aria-label='Copy to clipboard'>
+      <Button variant={'text'} onClick={handleCopy} rightIcon={<IoCopy />} {...rest} />
+    </Tooltip>
   )
 }
 
-export const ReducedTextAndCopy = ({ text, ...rest }: ICopyButton) => {
-  const entityTxt =
-    text.length < 13 ? text : text.substring(0, 5) + '...' + text.substring(text.length - 4, text.length)
-  return <CopyButton text={entityTxt} {...rest} />
+export const ReducedTextAndCopy = ({ children, ...rest }: ICopyButton) => {
+  let text = children
+  if (typeof children === 'string') {
+    text =
+      children.length < 13
+        ? children
+        : children.substring(0, 5) + '...' + children.substring(children.length - 4, children.length)
+  }
+  return (
+    <CopyButton fontWeight={'normal'} h={0} fontSize={'xs'} p={0} pt={1} {...rest}>
+      {text}
+    </CopyButton>
+  )
 }
