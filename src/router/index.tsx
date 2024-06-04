@@ -1,10 +1,10 @@
-import { useClient } from '@vocdoni/react-providers'
 import { lazy } from 'react'
-import { createHashRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
-import Error404 from '~src/pages/Error404'
-import RouteError from '~src/pages/RouteError'
+import { useClient } from '@vocdoni/react-providers'
+import { SuspenseLoader } from '~src/router/SuspenseLoader'
 import Layout from '~src/layout/Default'
-import { SuspenseLoader } from './SuspenseLoader'
+import RouteError from '~src/pages/RouteError'
+import Error404 from '~src/pages/Error404'
+import { createHashRouter, RouteObject, RouterProvider } from 'react-router-dom'
 
 const Home = lazy(() => import('~src/pages/Home'))
 const Organization = lazy(() => import('~src/pages/Organization'))
@@ -12,39 +12,46 @@ const Vote = lazy(() => import('~src/pages/Vote'))
 
 export const RoutesProvider = () => {
   const { client } = useClient()
-  const router = createHashRouter(
-    createRoutesFromElements(
-      <Route path='/' element={<Layout />} errorElement={<RouteError />}>
-        <Route
-          index
-          element={
+  const routes: RouteObject[] = [
+    {
+      path: '/',
+      element: <Layout />,
+      errorElement: <RouteError />,
+      children: [
+        {
+          index: true,
+          element: (
             <SuspenseLoader>
               <Home />
             </SuspenseLoader>
-          }
-        />
-        <Route
-          element={
+          ),
+        },
+        {
+          path: '/process/:pid',
+          element: (
             <SuspenseLoader>
               <Vote />
             </SuspenseLoader>
-          }
-          path='/process/:pid'
-          loader={async ({ params }) => await client.fetchElection(params.pid)}
-        />
-        <Route
-          element={
+          ),
+          loader: async ({ params }) => await client.fetchElection(params.pid),
+        },
+        {
+          path: '/organization/:pid',
+          element: (
             <SuspenseLoader>
               <Organization />
             </SuspenseLoader>
-          }
-          path='/organization/:pid'
-          loader={async ({ params }) => await client.fetchAccount(params.pid)}
-        />
-        <Route path='*' element={<Error404 />} />
-      </Route>
-    )
-  )
+          ),
+          loader: async ({ params }) => await client.fetchAccount(params.pid),
+        },
+        {
+          path: '*',
+          element: <Error404 />,
+        },
+      ],
+    },
+  ]
+  const router = createHashRouter(routes)
 
   return <RouterProvider router={router} />
 }
