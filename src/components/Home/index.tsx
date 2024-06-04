@@ -1,17 +1,7 @@
-import { Box, Card, CardBody, Flex, Text } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
 import Stats from '~components/Stats'
-
-const StatsCard = ({ title, subtitle }: { title: string; subtitle: string }) => {
-  return (
-    <Card>
-      <CardBody>
-        <Text fontWeight='bold'>{title}</Text>
-        <Text>{subtitle}</Text>
-      </CardBody>
-    </Card>
-  )
-}
+import { FeaturedContent } from '~components/Home/FeaturedContent'
 
 const LandingPage = () => {
   return (
@@ -36,7 +26,10 @@ const LandingPage = () => {
             multiple-choice, weighted, quadratic voting and much more.
           </Trans>
         </Text>
-        <Stats />
+        <Flex direction={'column'} gap={10}>
+          <Stats />
+          <FeaturedContent />
+        </Flex>
       </Flex>
     </>
   )

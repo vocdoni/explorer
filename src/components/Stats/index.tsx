@@ -84,7 +84,7 @@ const Stats = () => {
   ]
 
   return (
-    <Flex direction={'column'}>
+    <Flex direction={'column'} gap={4}>
       <Grid templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4} mb={8}>
         {statsCards.map((card, i) => (
           <StatsCard key={i} title={card.title} description={card.description} />
