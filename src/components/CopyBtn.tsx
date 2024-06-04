@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, ButtonProps, Tooltip, useClipboard, useToast } from '@chakra-ui/react'
 import { IoCopy } from 'react-icons/io5'
+import { shortHex } from '~src/utils/strings'
 
 type ICopyButton = ButtonProps & {
   toCopy: string
@@ -35,11 +36,8 @@ export const CopyButton = ({ toCopy, ...rest }: ICopyButton) => {
 
 export const ReducedTextAndCopy = ({ children, ...rest }: ICopyButton) => {
   let text = children
-  if (typeof children === 'string') {
-    text =
-      children.length < 13
-        ? children
-        : children.substring(0, 5) + '...' + children.substring(children.length - 4, children.length)
+  if (typeof children === 'string' && children.length > 13) {
+    text = shortHex(children)
   }
   return (
     <CopyButton fontWeight={'normal'} h={0} fontSize={'xs'} p={0} pt={1} {...rest}>

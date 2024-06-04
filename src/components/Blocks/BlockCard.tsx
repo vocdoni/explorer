@@ -17,11 +17,11 @@ export const BlockCard = ({ height, time, proposer }: { height: number; time: st
             </Text>
           </Flex>
           <Text fontSize={'sm'}>
-            <Flex gap={2}>
+            <Flex gap={2} align={'center'}>
               <Trans i18nKey='blocks.proposer'>Proposer:</Trans>
-              <Flex align={'center'} color={'textAccent1'}>
-                <ReducedTextAndCopy toCopy={proposer}>{proposer}</ReducedTextAndCopy>
-              </Flex>
+              <ReducedTextAndCopy color={'textAccent1'} toCopy={proposer}>
+                {proposer}
+              </ReducedTextAndCopy>
             </Flex>
           </Text>
         </Flex>
