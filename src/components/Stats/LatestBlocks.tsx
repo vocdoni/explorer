@@ -1,4 +1,5 @@
-import { Card, CardBody, SkeletonText, Stack } from '@chakra-ui/react'
+import { Button, Card, CardBody, SkeletonText, Stack } from '@chakra-ui/react'
+import { Trans } from 'react-i18next'
 import { BlockCard } from '~components/Blocks/BlockCard'
 import { useBlockList } from '~src/queries/blocks'
 import { useChainInfo } from '~src/queries/stats'
@@ -36,6 +37,9 @@ export const LatestBlocks = () => {
           <BlockCard height={block.header.height} time={block.header.time} proposer={block.header.proposerAddress} />
         )
       })}
+      <Button bgColor='accent1' color={'white'}>
+        <Trans i18nKey='stats.view_all_blocks'>View all blocks</Trans>
+      </Button>
     </Stack>
   )
 }

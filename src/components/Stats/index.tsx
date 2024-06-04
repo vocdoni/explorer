@@ -32,7 +32,7 @@ interface StatisticsCardProps {
 
 const StatisticsCardWrapper = ({ title, icon, children }: StatisticsCardProps & PropsWithChildren) => {
   return (
-    <Card flex='1' w={'full'} minH={'500px'}>
+    <Card flex='1' w={'full'} minH={'530px'}>
       <CardHeader pb={0}>
         <HStack gap={2} align={'bottom'}>
           <Box color={'textAccent1'} fontSize='2xl'>

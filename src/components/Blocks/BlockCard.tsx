@@ -9,7 +9,7 @@ export const BlockCard = ({ height, time, proposer }: { height: number; time: st
   return (
     <Card>
       <CardBody>
-        <Flex gap={3} direction={'column'}>
+        <Flex gap={1} direction={'column'}>
           <Flex gap={3}>
             <Text fontWeight='bold'># {height}</Text>
             <Text fontWeight={100} color={'lighterText'}>
