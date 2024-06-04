@@ -19,8 +19,8 @@ export const LatestBlocks = () => {
   if (isLoading || !stats || !stats?.height || !blocks) {
     return (
       <Stack>
-        {Array.from({ length: blockListSize }).map((_, index) => (
-          <Card>
+        {Array.from({ length: blockListSize }).map((_, i) => (
+          <Card key={i}>
             <CardBody>
               <SkeletonText noOfLines={3} spacing='3' skeletonHeight='3' />
             </CardBody>
@@ -32,9 +32,14 @@ export const LatestBlocks = () => {
 
   return (
     <Stack>
-      {blocks.map((block) => {
+      {blocks.map((block, i) => {
         return (
-          <BlockCard height={block.header.height} time={block.header.time} proposer={block.header.proposerAddress} />
+          <BlockCard
+            key={i}
+            height={block.header.height}
+            time={block.header.time}
+            proposer={block.header.proposerAddress}
+          />
         )
       })}
       <Button bgColor='accent1' color={'white'}>

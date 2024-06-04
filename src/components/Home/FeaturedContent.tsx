@@ -41,8 +41,8 @@ export const FeaturedContent = () => {
   return (
     <Flex direction={'column'} gap={12}>
       <Flex justify={'space-between'} wrap={'wrap'}>
-        {icons.map((icon) => (
-          <Image maxW={icon.width} src={icon.src} alt={icon.alt} />
+        {icons.map((icon, i) => (
+          <Image key={i} maxW={icon.width} src={icon.src} alt={icon.alt} />
         ))}
       </Flex>
       <Box>

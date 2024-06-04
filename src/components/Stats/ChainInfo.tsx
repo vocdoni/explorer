@@ -39,9 +39,9 @@ export const ChainInfo = () => {
 
   return (
     <Flex direction={'column'} gap={8} align={'start'}>
-      {statsCards.map((stat) => {
+      {statsCards.map((stat, i) => {
         return (
-          <Flex direction={'column'} gap={2} align={'start'}>
+          <Flex key={i} direction={'column'} gap={2} align={'start'}>
             <Heading size={'sm'}>{stat.name}</Heading>
             {!stats ? (
               <SkeletonText noOfLines={1} spacing='3' skeletonHeight='3' />
