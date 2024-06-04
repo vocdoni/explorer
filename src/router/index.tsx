@@ -3,7 +3,7 @@ import { lazy } from 'react'
 import { createHashRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import Error404 from '~src/pages/Error404'
 import RouteError from '~src/pages/RouteError'
-import Layout from '~src/Layout'
+import Layout from '~src/layout/Default'
 import { SuspenseLoader } from './SuspenseLoader'
 
 const Home = lazy(() => import('~src/pages/Home'))

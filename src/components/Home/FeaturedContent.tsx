@@ -54,26 +54,26 @@ export const FeaturedContent = () => {
           position='absolute'
           left={0}
           zIndex={-1}
-        >
-          <Flex gap={6} justify={'center'} align={'center'}>
-            <Flex direction={'column'} gap={6}>
-              <Text fontSize={'3xl'}>
-                <Trans i18nKey={'featured.a_cutting_edge_voting_protocol'}>A cutting edge voting protocol</Trans>
-              </Text>
-              <Text fontSize={'md'} lineHeight={10}>
-                <Trans i18nKey={'featured.leveraging'}>
-                  A fully anonymous voting system ensuring data availability
-                  <br />
-                  Leveraging on decentralized technologies
-                </Trans>
-              </Text>
-              <Button bgColor='accent1' color={'white'}>
-                <Trans i18nKey='featured.know_more'>Know more</Trans>
-              </Button>
-            </Flex>
-            <Image width='400px' src='/images/featured/edge-protocol.png' alt={t('featured.edge_protocol_image_alt')} />
+          h={'360px'}
+        />
+        <Flex gap={6} justify={'center'} align={'center'}>
+          <Flex direction={'column'} gap={6}>
+            <Text fontSize={'3xl'}>
+              <Trans i18nKey={'featured.a_cutting_edge_voting_protocol'}>A cutting edge voting protocol</Trans>
+            </Text>
+            <Text fontSize={'md'} lineHeight={10}>
+              <Trans i18nKey={'featured.leveraging'}>
+                A fully anonymous voting system ensuring data availability
+                <br />
+                Leveraging on decentralized technologies
+              </Trans>
+            </Text>
+            <Button bgColor='accent1' color={'white'}>
+              <Trans i18nKey='featured.know_more'>Know more</Trans>
+            </Button>
           </Flex>
-        </Box>
+          <Image width='400px' src='/images/featured/edge-protocol.png' alt={t('featured.edge_protocol_image_alt')} />
+        </Flex>
       </Box>
     </Flex>
   )

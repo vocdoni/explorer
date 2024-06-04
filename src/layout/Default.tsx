@@ -18,7 +18,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
 }
 
 const Layout = () => (
-  <Box>
+  <Box minH='100vh' display='flex' flexDirection='column'>
     <Grid p={3}>
       <TopBar />
       <DefaultLayout>
