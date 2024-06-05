@@ -17,6 +17,10 @@ import { generatePath } from 'react-router-dom'
 import { VocdoniEnvironment } from '~constants'
 import { ORGANIZATIONS_LIST_PATH } from '~src/router'
 
+import logoUrl from '/images/logo-header.png'
+import logoStgUrl from '/images/logo-header-stg.png'
+import logoDevUrl from '/images/logo-header-dev.png'
+
 interface HeaderLink {
   name: string
   url: string
@@ -31,13 +35,13 @@ export const TopBar = () => {
   let headerUrl
   switch (env) {
     case 'prod':
-      headerUrl = '/images/logo-header.png'
+      headerUrl = logoUrl
       break
     case 'stg':
-      headerUrl = '/images/logo-header-stg.png'
+      headerUrl = logoStgUrl
       break
     default:
-      headerUrl = '/images/logo-header-dev.png'
+      headerUrl = logoDevUrl
       break
   }
 

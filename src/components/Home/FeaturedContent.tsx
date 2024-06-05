@@ -1,39 +1,47 @@
 import { Box, Button, Flex, Image, Text } from '@chakra-ui/react'
 import { Trans, useTranslation } from 'react-i18next'
 
+import anonymous from 'images/featured/anonymous.png'
+import open from 'images/featured/open-source.png'
+import scalable from 'images/featured/scalable.png'
+import inexpensive from 'images/featured/inexpensive.png'
+import censorship from 'images/featured/censorship_subtitle.png'
+import verifiable from 'images/featured/verifiable.png'
+import edge from '/images/featured/edge-protocol.png'
+
 export const FeaturedContent = () => {
   const { t } = useTranslation()
 
   const icons = [
     {
       width: '96px',
-      src: 'images/featured/anonymous.png',
+      src: anonymous,
       alt: t('featured.anonymous_image_alt'),
     },
     {
       width: '110px',
-      src: 'images/featured/open-source.png',
+      src: open,
       alt: t('featured.open_source_image_alt'),
     },
     {
       width: '84px',
-      src: 'images/featured/scalable.png',
+      src: scalable,
       alt: t('featured.scalable_image_alt'),
     },
 
     {
       width: '98px',
-      src: 'images/featured/inexpensive.png',
+      src: inexpensive,
       alt: t('featured.inexpensive_image_alt'),
     },
     {
       width: '70px',
-      src: 'images/featured/censorship_subtitle.png',
+      src: censorship,
       alt: t('featured.open_source_image_alt'),
     },
     {
       width: '100px',
-      src: 'images/featured/verifiable.png',
+      src: verifiable,
       alt: t('featured.verifiable_image_alt'),
     },
   ]
@@ -72,7 +80,7 @@ export const FeaturedContent = () => {
               <Trans i18nKey='featured.know_more'>Know more</Trans>
             </Button>
           </Flex>
-          <Image width='400px' src='/images/featured/edge-protocol.png' alt={t('featured.edge_protocol_image_alt')} />
+          <Image width='400px' src={edge} alt={t('featured.edge_protocol_image_alt')} />
         </Flex>
       </Box>
     </Flex>
