@@ -1,12 +1,12 @@
 import { Box, Button, Flex, Image, Text } from '@chakra-ui/react'
 import { Trans, useTranslation } from 'react-i18next'
 
-import anonymous from 'images/featured/anonymous.png'
-import open from 'images/featured/open-source.png'
-import scalable from 'images/featured/scalable.png'
-import inexpensive from 'images/featured/inexpensive.png'
-import censorship from 'images/featured/censorship_subtitle.png'
-import verifiable from 'images/featured/verifiable.png'
+import anonymous from '/images/featured/anonymous.png'
+import open from '/images/featured/open-source.png'
+import scalable from '/images/featured/scalable.png'
+import inexpensive from '/images/featured/inexpensive.png'
+import censorship from '/images/featured/censorship_subtitle.png'
+import verifiable from '/images/featured/verifiable.png'
 import edge from '/images/featured/edge-protocol.png'
 
 export const FeaturedContent = () => {
