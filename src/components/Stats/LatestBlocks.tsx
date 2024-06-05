@@ -3,7 +3,7 @@ import { Trans } from 'react-i18next'
 import { BlockCard } from '~components/Blocks/BlockCard'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
-import { LoadingCards } from '~src/router/SuspenseLoader'
+import { LoadingCards } from '~src/layout/Loading'
 
 export const LatestBlocks = () => {
   const blockListSize = 4

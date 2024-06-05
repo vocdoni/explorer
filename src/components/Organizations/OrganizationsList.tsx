@@ -3,12 +3,12 @@ import { useOrganizationCount, useOrganizationList } from '~queries/organization
 import { debounce } from '~utils/debounce'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
-import { LoadingCards } from '~src/router/SuspenseLoader'
 import OrganizationCard from '~components/Organizations/Card'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import LoadingError from '~src/layout/LoadingError'
 import { useTranslation } from 'react-i18next'
 import { ORGANIZATIONS_LIST_PATH } from '~src/router'
+import { LoadingCards } from '~src/layout/Loading'
 
 export const OrganizationsFilter = () => {
   const { t } = useTranslation()
