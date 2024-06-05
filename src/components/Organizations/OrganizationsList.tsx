@@ -3,7 +3,7 @@ import { useOrganizationCount, useOrganizationList } from '~queries/organization
 import { debounce } from '~utils/debounce'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
-import { Loading } from '~src/router/SuspenseLoader'
+import { LoadingCards } from '~src/router/SuspenseLoader'
 import OrganizationCard from '~components/Organizations/Card'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import LoadingError from '~src/layout/LoadingError'
@@ -51,7 +51,7 @@ export const OrganizationsList = () => {
   const isLoading = isLoadingCount || isLoadingOrgs
 
   if (isLoading) {
-    return <Loading />
+    return <LoadingCards />
   }
 
   if (!orgs || orgs?.organizations.length === 0 || isError) {
