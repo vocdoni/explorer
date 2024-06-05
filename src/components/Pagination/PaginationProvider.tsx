@@ -3,7 +3,7 @@ import { createContext, PropsWithChildren, useContext, useState } from 'react'
 export type PaginationContextProps = {
   page: number
   setPage: (page: number) => void
-  totalPages: number
+  totalPages?: number
 }
 
 export type RoutedPaginationContextProps = Omit<PaginationContextProps, 'setPage' | 'page'> & {

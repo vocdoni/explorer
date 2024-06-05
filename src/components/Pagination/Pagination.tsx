@@ -1,45 +1,199 @@
-import { Button, ButtonGroup } from '@chakra-ui/react'
-import { ReactElement, useMemo } from 'react'
-import { generatePath, Link as RouterLink, useParams } from 'react-router-dom'
+import { Button, ButtonGroup, ButtonGroupProps, ButtonProps, Input } from '@chakra-ui/react'
+import { ReactElement, useMemo, useState } from 'react'
+import { generatePath, Link as RouterLink, useNavigate, useParams } from 'react-router-dom'
 import { usePagination, useRoutedPagination } from './PaginationProvider'
 
-export const Pagination = () => {
-  const { page, setPage, totalPages } = usePagination()
-
-  const pages: ReactElement[] = useMemo(() => {
-    const pages: ReactElement[] = []
-    for (let i = 0; i < totalPages; i++) {
-      pages.push(
-        <Button key={i} onClick={() => setPage(i)} isActive={page === i}>
-          {i + 1}
-        </Button>
-      )
-    }
-    return pages
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, totalPages])
-
-  return <ButtonGroup isAttached>{pages.map((page) => page)}</ButtonGroup>
+export type PaginationProps = ButtonGroupProps & {
+  maxButtons?: number | false
+  buttonProps?: ButtonProps
 }
 
-export const RoutedPagination = () => {
-  const { path, totalPages } = useRoutedPagination()
-  const { page }: { page?: number } = useParams()
+const createButton = (page: number, currentPage: number, props: ButtonProps) => (
+  <Button key={page} isActive={currentPage === page} {...props}>
+    {page + 1}
+  </Button>
+)
 
-  const p = Number(page) || 0
+const createEllipsisButton = (
+  key: string,
+  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
+  showInput: boolean,
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void,
+  onBlur: () => void
+) => {
+  if (showInput) {
+    return <Input key={key} placeholder='Page #' width='50px' onKeyDown={onKeyDown} onBlur={onBlur} autoFocus />
+  } else {
+    return (
+      <Button key={key} as='a' href='#goto-page' onClick={onClick}>
+        ...
+      </Button>
+    )
+  }
+}
 
-  const pages: ReactElement[] = useMemo(() => {
-    const pages: ReactElement[] = []
+const usePaginationPages = (
+  currentPage: number,
+  totalPages: number | undefined,
+  maxButtons: number | undefined | false,
+  gotoPage: (page: number) => void,
+  createPageButton: (i: number) => ReactElement
+) => {
+  const [startEllipsisInput, setStartEllipsisInput] = useState(false)
+  const [endEllipsisInput, setEndEllipsisInput] = useState(false)
+
+  return useMemo(() => {
+    if (totalPages === undefined) return []
+
+    let pages: ReactElement[] = []
+
+    // Create an array of all page buttons
     for (let i = 0; i < totalPages; i++) {
-      pages.push(
-        <Button as={RouterLink} key={i} to={generatePath(path, { page: i })} isActive={p === i}>
-          {i + 1}
-        </Button>
-      )
+      pages.push(createPageButton(i))
     }
-    return pages
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [p, totalPages])
 
-  return <ButtonGroup isAttached>{pages.map((page) => page)}</ButtonGroup>
+    if (!maxButtons || totalPages <= maxButtons) {
+      return pages
+    }
+
+    const startEllipsis = createEllipsisButton(
+      'start-ellipsis',
+      (e) => {
+        e.preventDefault()
+        setStartEllipsisInput(true)
+      },
+      startEllipsisInput,
+      (e) => {
+        if (e.key === 'Enter') {
+          const pageNumber = Number((e.target as HTMLInputElement).value)
+          gotoPage(pageNumber - 1)
+          setStartEllipsisInput(false)
+        }
+      },
+      () => setStartEllipsisInput(false)
+    )
+
+    const endEllipsis = createEllipsisButton(
+      'end-ellipsis',
+      (e) => {
+        e.preventDefault()
+        setEndEllipsisInput(true)
+      },
+      endEllipsisInput,
+      (e) => {
+        if (e.key === 'Enter') {
+          const pageNumber = Number((e.target as HTMLInputElement).value)
+          gotoPage(pageNumber - 1)
+          setEndEllipsisInput(false)
+        }
+      },
+      () => setEndEllipsisInput(false)
+    )
+
+    // Add ellipsis and slice the array accordingly
+    const sideButtons = 2 // First and last page
+    const availableButtons = maxButtons - sideButtons // Buttons we can distribute around the current page
+
+    if (currentPage <= availableButtons / 2) {
+      // Near the start
+      return [...pages.slice(0, availableButtons), endEllipsis, pages[totalPages - 1]]
+    } else if (currentPage >= totalPages - 1 - availableButtons / 2) {
+      // Near the end
+      return [pages[0], startEllipsis, ...pages.slice(totalPages - availableButtons, totalPages)]
+    } else {
+      // In the middle
+      const startPage = currentPage - Math.floor((availableButtons - 1) / 2)
+      const endPage = currentPage + Math.floor(availableButtons / 2)
+      return [pages[0], startEllipsis, ...pages.slice(startPage + 1, endPage), endEllipsis, pages[totalPages - 1]]
+    }
+  }, [currentPage, totalPages, maxButtons, gotoPage, startEllipsisInput, endEllipsisInput])
+}
+
+export const Pagination = ({ maxButtons = 10, buttonProps, ...rest }: PaginationProps) => {
+  const { page, setPage, totalPages } = usePagination()
+
+  const pages = usePaginationPages(
+    page,
+    totalPages,
+    maxButtons,
+    (page) => {
+      if (page >= 0 && totalPages && page < totalPages) {
+        setPage(page)
+      }
+    },
+    (i) => createButton(i, page, { onClick: () => setPage(i), ...buttonProps })
+  )
+
+  return (
+    <ButtonGroup {...rest}>
+      {totalPages === undefined ? (
+        <>
+          <Button key='previous' onClick={() => setPage(page - 1)} isDisabled={page === 0} {...buttonProps}>
+            Previous
+          </Button>
+          <Button key='next' onClick={() => setPage(page + 1)} {...buttonProps}>
+            Next
+          </Button>
+        </>
+      ) : (
+        pages
+      )}
+    </ButtonGroup>
+  )
+}
+
+export const RoutedPagination = ({ maxButtons = 10, buttonProps, ...rest }: PaginationProps) => {
+  const { path, totalPages } = useRoutedPagination()
+  const { page, ...extraParams }: { page?: number } = useParams()
+  const navigate = useNavigate()
+
+  const p = Number(page) - 1 || 0
+
+  const pages = usePaginationPages(
+    p,
+    totalPages,
+    maxButtons,
+    (page) => {
+      if (page >= 0 && totalPages && page < totalPages) {
+        navigate(generatePath(path, { page: page + 1, ...extraParams }))
+      }
+    },
+    (i) => (
+      <Button
+        as={RouterLink}
+        key={i}
+        to={generatePath(path, { page: i + 1, ...extraParams })}
+        isActive={p === i}
+        {...buttonProps}
+      >
+        {i + 1}
+      </Button>
+    )
+  )
+
+  return (
+    <ButtonGroup {...rest}>
+      {totalPages === undefined ? (
+        <>
+          <Button
+            key='previous'
+            onClick={() => navigate(generatePath(path, { page: p, ...extraParams }))}
+            isDisabled={p === 0}
+            {...buttonProps}
+          >
+            Previous
+          </Button>
+          <Button
+            key='next'
+            onClick={() => navigate(generatePath(path, { page: p + 2, ...extraParams }))}
+            {...buttonProps}
+          >
+            Next
+          </Button>
+        </>
+      ) : (
+        pages
+      )}
+    </ButtonGroup>
+  )
 }

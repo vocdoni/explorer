@@ -1,22 +1,22 @@
-import { InputSearch } from '~src/layout/Inputs'
-import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
-import { debounce } from '~utils/debounce'
+import { ChangeEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
 import OrganizationCard from '~components/Organizations/Card'
 import { RoutedPagination } from '~components/Pagination/Pagination'
-import LoadingError from '~src/layout/LoadingError'
-import { useTranslation } from 'react-i18next'
+import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
+import { InputSearch } from '~src/layout/Inputs'
 import { LoadingCards } from '~src/layout/Loading'
+import LoadingError from '~src/layout/LoadingError'
 import { organizationsListPath } from '~src/router'
-import { ChangeEvent } from 'react'
+import { debounce } from '~utils/debounce'
 
 export const OrganizationsFilter = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
   const debouncedSearch = debounce((value) => {
-    navigate(generatePath(organizationsListPath, { page: '0', query: value as string }))
+    navigate(generatePath(organizationsListPath, { page: '1', query: value as string }))
   }, 1000)
 
   return (
@@ -41,7 +41,7 @@ export const PaginatedOrganizationsList = () => {
     isError,
     error,
   } = useOrganizationList({
-    page: Number(page || 0),
+    page: Number(page || 1),
     organizationId: query,
   })
 
@@ -56,7 +56,7 @@ export const PaginatedOrganizationsList = () => {
   }
 
   return (
-    <RoutedPaginationProvider totalPages={Math.ceil(count / 10)} path={organizationsListPath}>
+    <RoutedPaginationProvider totalPages={!query ? Math.ceil(count / 10) : undefined} path={organizationsListPath}>
       {orgs?.organizations.map((org) => (
         <OrganizationCard key={org.organizationID} id={org.organizationID} electionCount={org.electionCount} />
       ))}

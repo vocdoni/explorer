@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
-import { useClient } from '@vocdoni/react-providers'
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
+import { useClient } from '@vocdoni/react-providers'
 import { IChainOrganizationCountResponse, IChainOrganizationListResponse } from '@vocdoni/sdk'
 
 export const useOrganizationList = ({
@@ -14,7 +14,7 @@ export const useOrganizationList = ({
   const { client } = useClient<ExtendedSDKClient>()
   return useQuery({
     queryKey: ['organizations', 'list', page, organizationId],
-    queryFn: () => client.organizationList(page, organizationId),
+    queryFn: () => client.organizationList(page - 1, organizationId),
     ...options,
   })
 }
