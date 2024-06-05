@@ -1,4 +1,4 @@
-import { OrganizationsFilter, OrganizationsList } from '~components/Organizations/OrganizationsList'
+import { OrganizationsFilter, PaginatedOrganizationsList } from '~components/Organizations/OrganizationsList'
 import ListPageLayout from '~src/layout/ListPageLayout'
 import { useOrganizationCount } from '~queries/organizations'
 import { useTranslation } from 'react-i18next'
@@ -15,7 +15,7 @@ const OrganizationList = () => {
       subtitle={subtitle}
       rightComponent={<OrganizationsFilter />}
     >
-      <OrganizationsList />
+      <PaginatedOrganizationsList />
     </ListPageLayout>
   )
 }

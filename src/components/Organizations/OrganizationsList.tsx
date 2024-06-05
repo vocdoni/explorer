@@ -33,7 +33,7 @@ export const OrganizationsFilter = () => {
   return <InputSearch maxW={'300px'} placeholder={t('organizations.search_by_org_id')} onChange={searchOnChange} />
 }
 
-export const OrganizationsList = () => {
+export const PaginatedOrganizationsList = () => {
   const { page, orgId }: { page?: number; orgId?: string } = useParams()
   const { data: orgsCount, isLoading: isLoadingCount } = useOrganizationCount()
   const count = orgsCount?.count || 0
