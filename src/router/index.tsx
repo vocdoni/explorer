@@ -7,7 +7,8 @@ import RouteError from '~pages/RouteError'
 import Layout from '~src/layout/Default'
 
 const Home = lazy(() => import('~pages/Home'))
-const Organization = lazy(() => import('~pages/Organization'))
+const Organization = lazy(() => import('~pages/Organization/Organization'))
+const OrganizationList = lazy(() => import('~pages/Organization/List'))
 const Vote = lazy(() => import('~pages/Vote'))
 
 export const RoutesProvider = () => {
@@ -23,6 +24,14 @@ export const RoutesProvider = () => {
           element: (
             <SuspenseLoader>
               <Home />
+            </SuspenseLoader>
+          ),
+        },
+        {
+          path: '/organizations/:page?',
+          element: (
+            <SuspenseLoader>
+              <OrganizationList />
             </SuspenseLoader>
           ),
         },
