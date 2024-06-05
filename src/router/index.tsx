@@ -28,7 +28,7 @@ export const RoutesProvider = () => {
           ),
         },
         {
-          path: '/organizations/:page?',
+          path: '/organizations/:page?/:orgId?',
           element: (
             <SuspenseLoader>
               <OrganizationList />
