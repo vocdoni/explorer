@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
 import { Button, ButtonProps, Tooltip, useClipboard, useToast } from '@chakra-ui/react'
+import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { IoCopy } from 'react-icons/io5'
-import { shortHex } from '~src/utils/strings'
+import { shortHex } from '~utils/strings'
 
 type ICopyButton = ButtonProps & {
   toCopy: string

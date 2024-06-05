@@ -11,11 +11,17 @@
       "~constants/*": [
         "constants/*"
       ],
-      "~elements/*": [
-        "elements/*"
-      ],
       "~hooks/*": [
         "hooks/*"
+      ],
+      "~pages/*": [
+        "pages/*"
+      ],
+      "~queries/*": [
+        "queries/*"
+      ],
+      "~utils/*": [
+        "utils/*"
       ],
       "~i18n": [
         "i18n/index.ts"

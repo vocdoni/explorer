@@ -1,11 +1,11 @@
 import { Box, Card, CardBody, CardHeader, Flex, Grid, Heading, HStack, Text } from '@chakra-ui/react'
+import { PropsWithChildren, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useChainInfo } from '~src/queries/stats'
-import { LatestBlocks } from '~components/Stats/LatestBlocks'
-import React, { PropsWithChildren, ReactNode } from 'react'
-import { VscGraphLine } from 'react-icons/vsc'
 import { MdSpeed } from 'react-icons/md'
+import { VscGraphLine } from 'react-icons/vsc'
 import { ChainInfo } from '~components/Stats/ChainInfo'
+import { LatestBlocks } from '~components/Stats/LatestBlocks'
+import { useChainInfo } from '~queries/stats'
 
 interface IStatsCardProps {
   title: string

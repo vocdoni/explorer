@@ -1,8 +1,8 @@
 import { Button, Card, CardBody, SkeletonText, Stack } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
 import { BlockCard } from '~components/Blocks/BlockCard'
-import { useBlockList } from '~src/queries/blocks'
-import { useChainInfo } from '~src/queries/stats'
+import { useBlockList } from '~queries/blocks'
+import { useChainInfo } from '~queries/stats'
 
 export const LatestBlocks = () => {
   const blockListSize = 4

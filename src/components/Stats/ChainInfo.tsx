@@ -1,7 +1,7 @@
 import { Flex, Heading, SkeletonText, Text } from '@chakra-ui/react'
 import { formatDistance } from 'date-fns'
 import { useTranslation } from 'react-i18next'
-import { useChainInfo } from '~src/queries/stats'
+import { useChainInfo } from '~queries/stats'
 
 export const ChainInfo = () => {
   const { t } = useTranslation()
