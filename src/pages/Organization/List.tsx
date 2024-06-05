@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 const OrganizationList = () => {
   const { t } = useTranslation()
-  const { data: orgsCount, isLoading, error: countError } = useOrganizationCount()
+  const { data: orgsCount, isLoading } = useOrganizationCount()
 
   const subtitle = !isLoading ? t('organizations.organizations_count', { count: orgsCount?.count || 0 }) : ''
 

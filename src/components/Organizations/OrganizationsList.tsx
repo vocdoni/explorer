@@ -35,7 +35,7 @@ export const OrganizationsFilter = () => {
 
 export const OrganizationsList = () => {
   const { page, orgId }: { page?: number; orgId?: string } = useParams()
-  const { data: orgsCount, isLoading: isLoadingCount, error: countError } = useOrganizationCount()
+  const { data: orgsCount, isLoading: isLoadingCount } = useOrganizationCount()
   const count = orgsCount?.count || 0
 
   const {
@@ -59,13 +59,11 @@ export const OrganizationsList = () => {
   }
 
   return (
-    <>
-      <RoutedPaginationProvider totalPages={Math.ceil(count / 10)} path='/organizations/:page?/:orgId?'>
-        {orgs?.organizations.map((org) => (
-          <OrganizationCard key={org.organizationID} id={org.organizationID} electionCount={org.electionCount} />
-        ))}
-        <RoutedPagination />
-      </RoutedPaginationProvider>
-    </>
+    <RoutedPaginationProvider totalPages={Math.ceil(count / 10)} path='/organizations/:page?/:orgId?'>
+      {orgs?.organizations.map((org) => (
+        <OrganizationCard key={org.organizationID} id={org.organizationID} electionCount={org.electionCount} />
+      ))}
+      <RoutedPagination />
+    </RoutedPaginationProvider>
   )
 }
