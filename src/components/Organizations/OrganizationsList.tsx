@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
-import { InputSearch } from '~src/layout/inputs'
+import { InputSearch } from '~src/layout/Inputs'
 import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
 import { debounce } from '~utils/debounce'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
