@@ -1,5 +1,3 @@
-import { Box, Flex, Heading, Text } from '@chakra-ui/react'
-import { useTranslation } from 'react-i18next'
 import { InputSearch } from '~src/layout/Inputs'
 import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
 import { debounce } from '~utils/debounce'
@@ -9,14 +7,12 @@ import { Loading } from '~src/router/SuspenseLoader'
 import OrganizationCard from '~components/Organizations/Card'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import LoadingError from '~src/layout/LoadingError'
+import { useTranslation } from 'react-i18next'
 
-export const OrganizationsListHeader = () => {
+export const OrganizationsFilter = () => {
   const { t } = useTranslation()
-  const { data: orgsCount, isLoading, error: countError } = useOrganizationCount()
   const { page, orgId }: { page?: number; orgId?: string } = useParams()
   const navigate = useNavigate()
-
-  const count = orgsCount?.count || 0
 
   const debouncedSearch = debounce((value) => {
     const getPath = () => {
@@ -33,19 +29,7 @@ export const OrganizationsListHeader = () => {
     debouncedSearch(event.target.value)
   }
 
-  return (
-    <Flex direction={{ base: 'column', md: 'row' }} justify={'space-between'}>
-      <Flex direction={'column'}>
-        <Heading isTruncated wordBreak='break-word'>
-          {t('organizations.organizations_list')}
-        </Heading>
-        {!isLoading && <Text color={'lighterText'}>{t('organizations.organizations_count', { count: count })}</Text>}
-      </Flex>
-      <Box>
-        <InputSearch maxW={'300px'} placeholder={t('organizations.search_by_org_id')} onChange={searchOnChange} />
-      </Box>
-    </Flex>
-  )
+  return <InputSearch maxW={'300px'} placeholder={t('organizations.search_by_org_id')} onChange={searchOnChange} />
 }
 
 export const OrganizationsList = () => {
