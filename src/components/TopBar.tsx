@@ -13,7 +13,9 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { RxHamburgerMenu } from 'react-icons/rx'
+import { generatePath } from 'react-router-dom'
 import { VocdoniEnvironment } from '~constants'
+import { ORGANIZATIONS_LIST_PATH } from '~src/router'
 
 interface HeaderLink {
   name: string
@@ -42,7 +44,7 @@ export const TopBar = () => {
   const links: HeaderLink[] = [
     {
       name: t('links.organizations'),
-      url: '',
+      url: generatePath(ORGANIZATIONS_LIST_PATH, { page: null, query: null }),
     },
     {
       name: t('links.processes'),
