@@ -13,7 +13,13 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { RxHamburgerMenu } from 'react-icons/rx'
+import { generatePath } from 'react-router-dom'
 import { VocdoniEnvironment } from '~constants'
+import { ORGANIZATIONS_LIST_PATH } from '~src/router'
+
+import logoUrl from '/images/logo-header.png'
+import logoStgUrl from '/images/logo-header-stg.png'
+import logoDevUrl from '/images/logo-header-dev.png'
 
 interface HeaderLink {
   name: string
@@ -29,20 +35,20 @@ export const TopBar = () => {
   let headerUrl
   switch (env) {
     case 'prod':
-      headerUrl = '/images/logo-header.png'
+      headerUrl = logoUrl
       break
     case 'stg':
-      headerUrl = '/images/logo-header-stg.png'
+      headerUrl = logoStgUrl
       break
     default:
-      headerUrl = '/images/logo-header-dev.png'
+      headerUrl = logoDevUrl
       break
   }
 
   const links: HeaderLink[] = [
     {
       name: t('links.organizations'),
-      url: '',
+      url: generatePath(ORGANIZATIONS_LIST_PATH, { page: null, query: null }),
     },
     {
       name: t('links.processes'),

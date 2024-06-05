@@ -2,6 +2,8 @@ import { Box, Flex, Img, Link } from '@chakra-ui/react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import logo from '/images/logo-classic.svg'
+
 export const Footer = () => {
   const { i18n } = useTranslation()
 
@@ -38,7 +40,7 @@ export const Footer = () => {
     <Flex h={'90px'} mt={'auto'} bottom={0} w={'full'} align={'center'} justify={'space-between'}>
       <Box m={{ base: '20px auto', md: '0 40px' }}>
         <Link href={'/'}>
-          <Img maxH={'35px'} src='images/logo-classic.svg' alt='Vocdoni' />
+          <Img maxH={'35px'} src={logo} alt='Vocdoni' />
         </Link>
       </Box>
       <Flex gap={4} wrap={'wrap'} mr={6}>

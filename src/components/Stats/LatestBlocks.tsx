@@ -1,8 +1,9 @@
-import { Button, Card, CardBody, SkeletonText, Stack } from '@chakra-ui/react'
+import { Button, Stack } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
 import { BlockCard } from '~components/Blocks/BlockCard'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
+import { LoadingCards } from '~src/layout/Loading'
 
 export const LatestBlocks = () => {
   const blockListSize = 4
@@ -17,17 +18,7 @@ export const LatestBlocks = () => {
   const isLoading = isLoadingStats || isLoadingBlocks
 
   if (isLoading || !stats || !stats?.height || !blocks) {
-    return (
-      <Stack>
-        {Array.from({ length: blockListSize }).map((_, i) => (
-          <Card key={i}>
-            <CardBody>
-              <SkeletonText noOfLines={3} spacing='3' skeletonHeight='3' />
-            </CardBody>
-          </Card>
-        ))}
-      </Stack>
-    )
+    return <LoadingCards length={blockListSize} />
   }
 
   return (
