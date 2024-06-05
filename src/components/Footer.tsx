@@ -38,7 +38,7 @@ export const Footer = () => {
     <Flex h={'90px'} mt={'auto'} bottom={0} w={'full'} align={'center'} justify={'space-between'}>
       <Box m={{ base: '20px auto', md: '0 40px' }}>
         <Link href={'/'}>
-          <Img maxH={'35px'} src='images/logo-classic.svg' alt='Vocdoni' />
+          <Img maxH={'35px'} src='/images/logo-classic.svg' alt='Vocdoni' />
         </Link>
       </Box>
       <Flex gap={4} wrap={'wrap'} mr={6}>
