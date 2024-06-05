@@ -1,14 +1,14 @@
 import { lazy } from 'react'
 import { useClient } from '@vocdoni/react-providers'
 import { SuspenseLoader } from '~src/router/SuspenseLoader'
-import Error404 from '~src/pages/Error404'
+import Error404 from '~pages/Error404'
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom'
-import RouteError from '~src/pages/RouteError'
+import RouteError from '~pages/RouteError'
 import Layout from '~src/layout/Default'
 
-const Home = lazy(() => import('~src/pages/Home'))
-const Organization = lazy(() => import('~src/pages/Organization'))
-const Vote = lazy(() => import('~src/pages/Vote'))
+const Home = lazy(() => import('~pages/Home'))
+const Organization = lazy(() => import('~pages/Organization'))
+const Vote = lazy(() => import('~pages/Vote'))
 
 export const RoutesProvider = () => {
   const { client } = useClient()
