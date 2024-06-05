@@ -1,19 +1,71 @@
 {
+  "blocks": {
+    "proposer": "Proposer:"
+  },
+  "copy": {
+    "copied_to_the_clipboard": "",
+    "copy_to_clipboard": ""
+  },
+  "featured": {
+    "a_cutting_edge_voting_protocol": "A cutting edge voting protocol",
+    "anonymous_image_alt": "",
+    "edge_protocol_image_alt": "",
+    "inexpensive_image_alt": "",
+    "know_more": "Know more",
+    "leveraging": "A fully anonymous voting system ensuring data availability<1></1>Leveraging on decentralized technologies",
+    "open_source_image_alt": "",
+    "scalable_image_alt": "",
+    "verifiable_image_alt": ""
+  },
   "home": {
     "subtitle": "The most flexible and secure voting protocol to organize any kind of voting process: single-choice, multiple-choice, weighted, quadratic voting and much more.",
     "title": "Vocdoni explorer"
   },
+  "links": {
+    "about": "",
+    "blocks": "",
+    "blog": "",
+    "docs": "",
+    "help": "",
+    "organizations": "",
+    "processes": "",
+    "stats": "",
+    "support": "",
+    "tools": "",
+    "transactions": "",
+    "validators": "",
+    "verify_vote": ""
+  },
+  "organization": {
+    "process_count_one": "<0>Process:</0> {{count}}",
+    "process_count_other": "<0>Process:</0> {{count}}"
+  },
+  "organizations": {
+    "organizations_count_one": "",
+    "organizations_count_other": "",
+    "organizations_list": "Organizations"
+  },
   "stats": {
     "average_block_time": "Average block time",
+    "block_height": "",
+    "blockchain_info": "",
     "electionCount_one": "{{ count }} election",
     "electionCount_other": "{{ count }} elections",
+    "genesis_block_date": "",
+    "in_sync": "",
+    "latest_blocks": "",
+    "network_id": "",
+    "nr_of_validators": "",
     "organizations_one": "{{ count }} organization",
     "organizations_other": "{{ count }} organizations",
     "seconds_one": "{{ count }} second",
     "seconds_other": "{{ count }} seconds",
+    "sync_status": "",
+    "syncing": "",
     "total_elections": "Total processes",
     "total_organizations": "Total organizations",
     "total_votes": "Total votes",
+    "view_all_blocks": "View all blocks",
     "votes_one": "{{ count }} vote",
     "votes_other": "{{ count }} votes"
   }
