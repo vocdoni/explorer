@@ -1,5 +1,4 @@
 import { Box, Card, CardBody, CardHeader, Flex } from '@chakra-ui/react'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { Election, OrganizationAvatar, OrganizationDescription, OrganizationName } from '@vocdoni/chakra-components'
 import { OrganizationProvider } from '@vocdoni/react-providers'
 import { PublishedElection } from '@vocdoni/sdk'
@@ -24,7 +23,7 @@ const Vote = () => {
           </Flex>
         </CardHeader>
         <CardBody borderTop='3px solid' borderColor='blue.700'>
-          <Election election={election} ConnectButton={ConnectButton} />
+          <Election election={election} />
         </CardBody>
       </Card>
     </OrganizationProvider>
