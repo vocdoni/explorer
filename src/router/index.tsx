@@ -14,6 +14,7 @@ export const organizationPath = '/organization/:pid'
 const Home = lazy(() => import('~pages/Home'))
 const Organization = lazy(() => import('~pages/Organization/Organization'))
 const OrganizationList = lazy(() => import('~pages/Organization/List'))
+const ProcessList = lazy(() => import('~pages/Process/List'))
 const Vote = lazy(() => import('~pages/Vote'))
 
 export const RoutesProvider = () => {
@@ -37,6 +38,14 @@ export const RoutesProvider = () => {
           element: (
             <SuspenseLoader>
               <OrganizationList />
+            </SuspenseLoader>
+          ),
+        },
+        {
+          path: processListPath,
+          element: (
+            <SuspenseLoader>
+              <ProcessList />
             </SuspenseLoader>
           ),
         },
