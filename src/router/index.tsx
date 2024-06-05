@@ -6,9 +6,9 @@ import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-d
 import RouteError from '~src/pages/RouteError'
 import Layout from '~src/layout/Default'
 
-const Home = lazy(() => import('~src/pages/Home'))
-const Organization = lazy(() => import('~src/pages/Organization'))
-const Vote = lazy(() => import('~src/pages/Vote'))
+const Home = lazy(() => import('~pages/Home'))
+const Organization = lazy(() => import('~pages/Organization'))
+const Vote = lazy(() => import('~pages/Vote'))
 
 export const RoutesProvider = () => {
   const { client } = useClient()
