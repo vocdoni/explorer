@@ -51,7 +51,7 @@ export const PaginatedOrganizationsList = () => {
   }
 
   return (
-    <RoutedPaginationProvider totalPages={Math.ceil(count / 10)} path='/organizations/:page?/:orgId?'>
+    <RoutedPaginationProvider totalPages={Math.ceil(count / 10)} path={ORGANIZATIONS_LIST_PATH}>
       {orgs?.organizations.map((org) => (
         <OrganizationCard key={org.organizationID} id={org.organizationID} electionCount={org.electionCount} />
       ))}
