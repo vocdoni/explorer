@@ -7,23 +7,15 @@ import OrganizationCard from '~components/Organizations/Card'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import LoadingError from '~src/layout/LoadingError'
 import { useTranslation } from 'react-i18next'
-import { ORGANIZATIONS_LIST_PATH } from '~src/router'
 import { LoadingCards } from '~src/layout/Loading'
+import { ORGANIZATIONS_LIST_PATH } from '~src/router'
 
 export const OrganizationsFilter = () => {
   const { t } = useTranslation()
-  const { page, orgId }: { page?: number; orgId?: string } = useParams()
   const navigate = useNavigate()
 
   const debouncedSearch = debounce((value) => {
-    const getPath = () => {
-      // If previous state has not org id, ensure to look at the first page
-      if (!orgId || orgId.length === 0) {
-        return generatePath(ORGANIZATIONS_LIST_PATH, { page: '0', query: value as string })
-      }
-      return generatePath(ORGANIZATIONS_LIST_PATH, { page: page?.toString() || '0', query: value as string })
-    }
-    navigate(getPath())
+    navigate(generatePath(ORGANIZATIONS_LIST_PATH, { page: '0', query: value as string }))
   }, 1000)
 
   const searchOnChange = (event: any) => {
@@ -34,7 +26,7 @@ export const OrganizationsFilter = () => {
 }
 
 export const PaginatedOrganizationsList = () => {
-  const { page, orgId }: { page?: number; orgId?: string } = useParams()
+  const { page, query }: { page?: number; query?: string } = useParams()
   const { data: orgsCount, isLoading: isLoadingCount } = useOrganizationCount()
   const count = orgsCount?.count || 0
 
@@ -45,7 +37,7 @@ export const PaginatedOrganizationsList = () => {
     error,
   } = useOrganizationList({
     page: Number(page || 0),
-    organizationId: orgId,
+    organizationId: query,
   })
 
   const isLoading = isLoadingCount || isLoadingOrgs
