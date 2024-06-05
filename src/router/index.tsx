@@ -6,21 +6,22 @@ import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-d
 import RouteError from '~pages/RouteError'
 import Layout from '~src/layout/Default'
 
-export const BASE_PATH = '/'
-export const ORGANIZATIONS_LIST_PATH = '/organizations/:page?/:query?'
-export const PROCESS_PATH = '/process/:pid'
-export const ORGANIZATION_PATH = '/organization/:pid'
+export const basePath = '/'
+export const organizationsListPath = '/organizations/:page?/:query?'
+export const processPath = '/process/:pid'
+export const organizationPath = '/organization/:pid'
 
 const Home = lazy(() => import('~pages/Home'))
 const Organization = lazy(() => import('~pages/Organization/Organization'))
 const OrganizationList = lazy(() => import('~pages/Organization/List'))
+const ProcessList = lazy(() => import('~pages/Process/List'))
 const Vote = lazy(() => import('~pages/Vote'))
 
 export const RoutesProvider = () => {
   const { client } = useClient()
   const routes: RouteObject[] = [
     {
-      path: BASE_PATH,
+      path: basePath,
       element: <Layout />,
       errorElement: <RouteError />,
       children: [
@@ -33,7 +34,7 @@ export const RoutesProvider = () => {
           ),
         },
         {
-          path: ORGANIZATIONS_LIST_PATH,
+          path: organizationsListPath,
           element: (
             <SuspenseLoader>
               <OrganizationList />
@@ -41,7 +42,15 @@ export const RoutesProvider = () => {
           ),
         },
         {
-          path: PROCESS_PATH,
+          path: processListPath,
+          element: (
+            <SuspenseLoader>
+              <ProcessList />
+            </SuspenseLoader>
+          ),
+        },
+        {
+          path: processPath,
           element: (
             <SuspenseLoader>
               <Vote />
@@ -50,7 +59,7 @@ export const RoutesProvider = () => {
           loader: async ({ params }) => await client.fetchElection(params.pid),
         },
         {
-          path: ORGANIZATION_PATH,
+          path: organizationPath,
           element: (
             <SuspenseLoader>
               <Organization />
