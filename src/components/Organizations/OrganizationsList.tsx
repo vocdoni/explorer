@@ -8,6 +8,7 @@ import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvi
 import { Loading } from '~src/router/SuspenseLoader'
 import OrganizationCard from '~components/Organizations/Card'
 import { RoutedPagination } from '~components/Pagination/Pagination'
+import LoadingError from '~src/layout/LoadingError'
 
 export const OrganizationsListHeader = () => {
   const { t } = useTranslation()
@@ -52,7 +53,12 @@ export const OrganizationsList = () => {
   const { data: orgsCount, isLoading: isLoadingCount, error: countError } = useOrganizationCount()
   const count = orgsCount?.count || 0
 
-  const { data: orgs, isLoading: isLoadingOrgs } = useOrganizationList({
+  const {
+    data: orgs,
+    isLoading: isLoadingOrgs,
+    isError,
+    error,
+  } = useOrganizationList({
     page: Number(page || 0),
     organizationId: orgId,
   })
@@ -61,6 +67,10 @@ export const OrganizationsList = () => {
 
   if (isLoading) {
     return <Loading />
+  }
+
+  if (!orgs || orgs?.organizations.length === 0 || isError) {
+    return <LoadingError error={error} />
   }
 
   return (
