@@ -11,10 +11,9 @@ import {
   MenuList,
   useBreakpointValue,
 } from '@chakra-ui/react'
-import '@rainbow-me/rainbowkit/styles.css'
 import { useTranslation } from 'react-i18next'
-import { VocdoniEnvironment } from '~constants'
 import { RxHamburgerMenu } from 'react-icons/rx'
+import { VocdoniEnvironment } from '~constants'
 
 interface HeaderLink {
   name: string
