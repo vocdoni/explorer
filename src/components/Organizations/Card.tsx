@@ -2,7 +2,7 @@ import { Box, Card, CardBody, Text } from '@chakra-ui/react'
 import { Trans, useTranslation } from 'react-i18next'
 import { ReducedTextAndCopy } from '~components/CopyBtn'
 import { OrganizationProvider, useOrganization } from '@vocdoni/react-providers'
-import { OrganizationAvatar as Avatar, OrganizationName } from '@vocdoni/chakra-components'
+import { OrganizationImage as Avatar, OrganizationName } from '@vocdoni/chakra-components'
 
 interface IOrganizationCardProps {
   id: string
