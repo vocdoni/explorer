@@ -18,7 +18,7 @@ const OrganizationCard = ({ id, ...rest }: IOrganizationCardProps) => {
 }
 
 const OrganizationCardContent = ({ id, electionCount }: IOrganizationCardProps) => {
-  const { organization } = useOrganization()
+  const { organization, loading } = useOrganization()
   const { t } = useTranslation()
 
   return (
@@ -33,7 +33,13 @@ const OrganizationCardContent = ({ id, electionCount }: IOrganizationCardProps) 
         />
       </Box>
       <CardBody>
-        <OrganizationName fontWeight={'bold'} wordBreak='break-all' size='sm' />
+        {loading ? (
+          <Text fontWeight={'bold'} wordBreak='break-all' size='sm'>
+            {id}
+          </Text>
+        ) : (
+          <OrganizationName fontWeight={'bold'} wordBreak='break-all' size='sm' />
+        )}
         <ReducedTextAndCopy color={'textAccent1'} toCopy={id}>
           {id}
         </ReducedTextAndCopy>
