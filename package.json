@@ -47,5 +47,11 @@
     "typescript": "^5.0.2",
     "vite": "^4.2.1",
     "vite-tsconfig-paths": "^4.0.7"
+  },
+  "engines": {
+    "npm": "please use yarn",
+    "pnpm": "please use yarn",
+    "yarn": "^1.19.x",
+    "node": "20.x"
   }
 }
