@@ -1,19 +1,15 @@
 import { Flex, Heading, SkeletonText, Text } from '@chakra-ui/react'
-import { formatDistance } from 'date-fns'
 import { useTranslation } from 'react-i18next'
 import { useChainInfo } from '~queries/stats'
-import i18n from '~i18n'
-import { dateLocales } from '~i18n/locales'
+import { useDateFns } from '~i18n/use-date-fns'
 
 export const ChainInfo = () => {
   const { t } = useTranslation()
-  const { data: stats, isLoading } = useChainInfo()
-  const locale = dateLocales[i18n.language]
+  const { data: stats } = useChainInfo()
+  const { formatDistance } = useDateFns()
 
   const syncing = stats?.syncing ? t('stats.syncing') : t('stats.in_sync')
-  const genesisBlockDate = stats?.genesisTime
-    ? formatDistance(new Date(stats?.genesisTime), new Date(), { addSuffix: true, locale })
-    : ''
+  const genesisBlockDate = stats?.genesisTime ? formatDistance(new Date(stats?.genesisTime), new Date()) : ''
 
   const statsCards = [
     {
