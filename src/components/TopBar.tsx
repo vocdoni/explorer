@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { generatePath } from 'react-router-dom'
 import { VocdoniEnvironment } from '~constants'
-import { organizationsListPath } from '~src/router'
+import { organizationsListPath, processListPath } from '~src/router'
 
 import logoUrl from '/images/logo-header.png'
 import logoStgUrl from '/images/logo-header-stg.png'
@@ -52,7 +52,7 @@ export const TopBar = () => {
     },
     {
       name: t('links.processes'),
-      url: '',
+      url: generatePath(processListPath, { page: null }),
     },
     {
       name: t('links.blocks'),

@@ -1,4 +1,4 @@
-import { Box, Card, CardBody, Text } from '@chakra-ui/react'
+import { Box, Card, CardBody, Flex, Text } from '@chakra-ui/react'
 import { Trans, useTranslation } from 'react-i18next'
 import { ReducedTextAndCopy } from '~components/CopyBtn'
 import { OrganizationProvider, useOrganization } from '@vocdoni/react-providers'
@@ -12,12 +12,12 @@ interface IOrganizationCardProps {
 const OrganizationCard = ({ id, ...rest }: IOrganizationCardProps) => {
   return (
     <OrganizationProvider id={id}>
-      <OrganizationCardContent id={id} {...rest} />
+      <LargeOrganizationCard id={id} {...rest} />
     </OrganizationProvider>
   )
 }
 
-const OrganizationCardContent = ({ id, electionCount }: IOrganizationCardProps) => {
+const LargeOrganizationCard = ({ id, electionCount }: IOrganizationCardProps) => {
   const { organization, loading } = useOrganization()
   const { t } = useTranslation()
 
@@ -50,6 +50,30 @@ const OrganizationCardContent = ({ id, electionCount }: IOrganizationCardProps) 
         </Text>
       </CardBody>
     </Card>
+  )
+}
+
+export const SmallOrganizationCard = ({ id }: IOrganizationCardProps) => {
+  const { organization } = useOrganization()
+  const { t } = useTranslation()
+
+  const name = organization?.account.name.default || organization?.address
+
+  return (
+    <Flex direction={'row'} alignItems='center' overflow={'scroll'} gap={2}>
+      <Box w={'25px'}>
+        <Avatar
+          mx='auto'
+          fallbackSrc={'/images/fallback-account-dark.png'}
+          alt={t('organization.avatar_alt', {
+            name: organization?.account.name.default || organization?.address,
+          }).toString()}
+        />
+      </Box>
+      <ReducedTextAndCopy color={'textAccent1'} size='sm' toCopy={id}>
+        {name}
+      </ReducedTextAndCopy>
+    </Flex>
   )
 }
 
