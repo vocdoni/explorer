@@ -14,7 +14,7 @@ export const useProcessList = ({
 } & Omit<UseQueryOptions<IElectionListResponse, Error, { elections: PublishedElection[] }>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
   return useQuery({
-    queryKey: ['organizations', 'list', page],
+    queryKey: ['organizations', 'list', page, filters],
     queryFn: () => client.electionList(page, { ...filters }),
     select: (data) => {
       const elections = data?.elections.map((election) => {
