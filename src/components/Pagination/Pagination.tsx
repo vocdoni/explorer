@@ -23,13 +23,12 @@ const createEllipsisButton = (
 ) => {
   if (showInput) {
     return <Input key={key} placeholder='Page #' width='50px' onKeyDown={onKeyDown} onBlur={onBlur} autoFocus />
-  } else {
-    return (
-      <Button key={key} as='a' href='#goto-page' onClick={onClick}>
-        ...
-      </Button>
-    )
   }
+  return (
+    <Button key={key} as='a' href='#goto-page' onClick={onClick}>
+      ...
+    </Button>
+  )
 }
 
 const usePaginationPages = (
