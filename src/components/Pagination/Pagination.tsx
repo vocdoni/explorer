@@ -174,15 +174,15 @@ export const RoutedPagination = ({ maxButtons = 10, buttonProps, ...rest }: Pagi
         <>
           <Button
             key='previous'
-            onClick={() => navigate(generatePath(path, { page: p, ...extraParams }))}
-            isDisabled={p === 0}
+            onClick={() => navigate(generatePath(path, { page: p - 1, ...extraParams }))}
+            isDisabled={p === 1}
             {...buttonProps}
           >
             Previous
           </Button>
           <Button
             key='next'
-            onClick={() => navigate(generatePath(path, { page: p + 2, ...extraParams }))}
+            onClick={() => navigate(generatePath(path, { page: p + 1, ...extraParams }))}
             {...buttonProps}
           >
             Next
