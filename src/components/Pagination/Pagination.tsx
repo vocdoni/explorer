@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, ButtonGroupProps, ButtonProps, Input } from '@chakra-ui/react'
+import { Button, ButtonGroup, ButtonGroupProps, ButtonProps, Input, InputProps } from '@chakra-ui/react'
 import { ReactElement, useMemo, useState } from 'react'
 import { generatePath, Link as RouterLink, useNavigate, useParams } from 'react-router-dom'
 import { usePagination, useRoutedPagination } from './PaginationProvider'
@@ -6,6 +6,7 @@ import { usePagination, useRoutedPagination } from './PaginationProvider'
 export type PaginationProps = ButtonGroupProps & {
   maxButtons?: number | false
   buttonProps?: ButtonProps
+  inputProps?: InputProps
 }
 
 const createButton = (page: number, currentPage: number, props: ButtonProps) => (
@@ -14,18 +15,45 @@ const createButton = (page: number, currentPage: number, props: ButtonProps) => 
   </Button>
 )
 
-const createEllipsisButton = (
-  key: string,
-  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
-  showInput: boolean,
-  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void,
-  onBlur: () => void
-) => {
-  if (showInput) {
-    return <Input key={key} placeholder='Page #' width='50px' onKeyDown={onKeyDown} onBlur={onBlur} autoFocus />
+type EllipsisButtonProps = ButtonProps & {
+  gotoPage: (page: number) => void
+  inputProps?: InputProps
+}
+
+const EllipsisButton = ({ key, gotoPage, inputProps, ...rest }: EllipsisButtonProps) => {
+  const [ellipsisInput, setEllipsisInput] = useState(false)
+
+  if (ellipsisInput) {
+    return (
+      <Input
+        key={key}
+        placeholder='Page #'
+        width='50px'
+        {...inputProps}
+        onKeyDown={(e) => {
+          if (e.target instanceof HTMLInputElement && e.key === 'Enter') {
+            const pageNumber = Number(e.target.value)
+            gotoPage(pageNumber)
+            setEllipsisInput(false)
+          }
+        }}
+        onBlur={() => setEllipsisInput(false)}
+        autoFocus
+      />
+    )
   }
+
   return (
-    <Button key={key} as='a' href='#goto-page' onClick={onClick}>
+    <Button
+      key={key}
+      as='a'
+      href='#goto-page'
+      {...rest}
+      onClick={(e) => {
+        e.preventDefault()
+        setEllipsisInput(true)
+      }}
+    >
       ...
     </Button>
   )
@@ -36,11 +64,10 @@ const usePaginationPages = (
   totalPages: number | undefined,
   maxButtons: number | undefined | false,
   gotoPage: (page: number) => void,
-  createPageButton: (i: number) => ReactElement
+  createPageButton: (i: number) => ReactElement,
+  inputProps?: InputProps,
+  buttonProps?: ButtonProps
 ) => {
-  const [startEllipsisInput, setStartEllipsisInput] = useState(false)
-  const [endEllipsisInput, setEndEllipsisInput] = useState(false)
-
   return useMemo(() => {
     if (totalPages === undefined) return []
 
@@ -55,38 +82,11 @@ const usePaginationPages = (
       return pages
     }
 
-    const startEllipsis = createEllipsisButton(
-      'start-ellipsis',
-      (e) => {
-        e.preventDefault()
-        setStartEllipsisInput(true)
-      },
-      startEllipsisInput,
-      (e) => {
-        if (e.key === 'Enter') {
-          const pageNumber = Number((e.target as HTMLInputElement).value)
-          gotoPage(pageNumber - 1)
-          setStartEllipsisInput(false)
-        }
-      },
-      () => setStartEllipsisInput(false)
+    const startEllipsis = (
+      <EllipsisButton key='start-ellipsis' gotoPage={gotoPage} inputProps={inputProps} {...buttonProps} />
     )
-
-    const endEllipsis = createEllipsisButton(
-      'end-ellipsis',
-      (e) => {
-        e.preventDefault()
-        setEndEllipsisInput(true)
-      },
-      endEllipsisInput,
-      (e) => {
-        if (e.key === 'Enter') {
-          const pageNumber = Number((e.target as HTMLInputElement).value)
-          gotoPage(pageNumber - 1)
-          setEndEllipsisInput(false)
-        }
-      },
-      () => setEndEllipsisInput(false)
+    const endEllipsis = (
+      <EllipsisButton key='end-ellipsis' gotoPage={gotoPage} inputProps={inputProps} {...buttonProps} />
     )
 
     // Add ellipsis and slice the array accordingly
@@ -105,10 +105,10 @@ const usePaginationPages = (
       const endPage = currentPage + Math.floor(availableButtons / 2)
       return [pages[0], startEllipsis, ...pages.slice(startPage + 1, endPage), endEllipsis, pages[totalPages - 1]]
     }
-  }, [currentPage, totalPages, maxButtons, gotoPage, startEllipsisInput, endEllipsisInput])
+  }, [currentPage, totalPages, maxButtons, gotoPage])
 }
 
-export const Pagination = ({ maxButtons = 10, buttonProps, ...rest }: PaginationProps) => {
+export const Pagination = ({ maxButtons = 10, buttonProps, inputProps, ...rest }: PaginationProps) => {
   const { page, setPage, totalPages } = usePagination()
 
   const pages = usePaginationPages(
@@ -154,14 +154,14 @@ export const RoutedPagination = ({ maxButtons = 10, buttonProps, ...rest }: Pagi
     maxButtons,
     (page) => {
       if (page >= 0 && totalPages && page < totalPages) {
-        navigate(generatePath(path, { page: page + 1, ...extraParams }))
+        navigate(generatePath(path, { page: page, ...extraParams }))
       }
     },
     (i) => (
       <Button
         as={RouterLink}
         key={i}
-        to={generatePath(path, { page: i + 1, ...extraParams })}
+        to={generatePath(path, { page: i, ...extraParams })}
         isActive={p === i}
         {...buttonProps}
       >
