@@ -114,7 +114,7 @@ export const Pagination = ({ maxButtons = 10, buttonProps, inputProps, ...rest }
   const pages = usePaginationPages(
     page,
     totalPages,
-    maxButtons,
+    maxButtons ? Math.max(5, maxButtons) : false,
     (page) => {
       if (page >= 0 && totalPages && page < totalPages) {
         setPage(page)
@@ -151,7 +151,7 @@ export const RoutedPagination = ({ maxButtons = 10, buttonProps, ...rest }: Pagi
   const pages = usePaginationPages(
     p,
     totalPages,
-    maxButtons,
+    maxButtons ? Math.max(5, maxButtons) : false,
     (page) => {
       if (page >= 0 && totalPages && page < totalPages) {
         navigate(generatePath(path, { page: page, ...extraParams }))
