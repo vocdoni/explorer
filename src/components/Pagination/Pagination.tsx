@@ -20,13 +20,12 @@ type EllipsisButtonProps = ButtonProps & {
   inputProps?: InputProps
 }
 
-const EllipsisButton = ({ key, gotoPage, inputProps, ...rest }: EllipsisButtonProps) => {
+const EllipsisButton = ({ gotoPage, inputProps, ...rest }: EllipsisButtonProps) => {
   const [ellipsisInput, setEllipsisInput] = useState(false)
 
   if (ellipsisInput) {
     return (
       <Input
-        key={key}
         placeholder='Page #'
         width='50px'
         {...inputProps}
@@ -45,7 +44,6 @@ const EllipsisButton = ({ key, gotoPage, inputProps, ...rest }: EllipsisButtonPr
 
   return (
     <Button
-      key={key}
       as='a'
       href='#goto-page'
       {...rest}
@@ -146,7 +144,7 @@ export const RoutedPagination = ({ maxButtons = 10, buttonProps, ...rest }: Pagi
   const { page, ...extraParams }: { page?: number } = useParams()
   const navigate = useNavigate()
 
-  const p = Number(page) - 1 || 0
+  const p = Number(page) || 1
 
   const pages = usePaginationPages(
     p,
@@ -161,8 +159,8 @@ export const RoutedPagination = ({ maxButtons = 10, buttonProps, ...rest }: Pagi
       <Button
         as={RouterLink}
         key={i}
-        to={generatePath(path, { page: i, ...extraParams })}
-        isActive={p === i}
+        to={generatePath(path, { page: i + 1, ...extraParams })}
+        isActive={p - 1 === i}
         {...buttonProps}
       >
         {i + 1}
