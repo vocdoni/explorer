@@ -101,7 +101,7 @@ const usePaginationPages = (
       // In the middle
       const startPage = currentPage - Math.floor((availableButtons - 1) / 2)
       const endPage = currentPage + Math.floor(availableButtons / 2)
-      return [pages[0], startEllipsis, ...pages.slice(startPage + 1, endPage), endEllipsis, pages[totalPages - 1]]
+      return [pages[0], startEllipsis, ...pages.slice(startPage, endPage - 1), endEllipsis, pages[totalPages - 1]]
     }
   }, [currentPage, totalPages, maxButtons, gotoPage])
 }
