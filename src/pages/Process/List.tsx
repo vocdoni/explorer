@@ -1,7 +1,7 @@
 import ListPageLayout from '~src/layout/ListPageLayout'
 import { useTranslation } from 'react-i18next'
 import { useProcessesCount } from '~queries/processes'
-import { PaginatedProcessList, PorcessSearchBox } from '~components/Process/ProcessList'
+import { PaginatedProcessList, ProcessByTypeFilter, ProcessSearchBox } from '~components/Process/ProcessList'
 
 const ProcessList = () => {
   const { t } = useTranslation()
@@ -10,7 +10,8 @@ const ProcessList = () => {
   const subtitle = !isLoading ? t('process.process_count', { count: data || 0 }) : ''
 
   return (
-    <ListPageLayout title={t('process.process_list')} subtitle={subtitle} rightComponent={<PorcessSearchBox />}>
+    <ListPageLayout title={t('process.process_list')} subtitle={subtitle} rightComponent={<ProcessSearchBox />}>
+      <ProcessByTypeFilter />
       <PaginatedProcessList />
     </ListPageLayout>
   )

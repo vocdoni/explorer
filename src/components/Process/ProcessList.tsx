@@ -10,13 +10,13 @@ import { Trans, useTranslation } from 'react-i18next'
 import useQueryParams from '~src/router/use-query-params'
 import { InputSearch } from '~src/layout/Inputs'
 import { IElectionListFilter } from '@vocdoni/sdk'
-import { Checkbox, Flex } from '@chakra-ui/react'
+import { Button, Checkbox, Flex } from '@chakra-ui/react'
 
 type FilterQueryParams = {
   [K in keyof Omit<IElectionListFilter, 'organizationId'>]: string
 }
 
-export const PorcessSearchBox = () => {
+export const ProcessSearchBox = () => {
   const { t } = useTranslation()
   const { queryParams, setQueryParams } = useQueryParams<FilterQueryParams>()
 
@@ -38,6 +38,45 @@ export const PorcessSearchBox = () => {
     </Flex>
   )
 }
+
+export const ProcessByTypeFilter = () => {
+  const { t } = useTranslation()
+  const { queryParams, setQueryParams } = useQueryParams<FilterQueryParams>()
+
+  const processStatusFilters = [
+    {
+      label: t('process.by_status_all'),
+      value: undefined,
+    },
+    {
+      label: t('process.by_status_all_active'),
+      value: 'READY',
+    },
+    {
+      label: t('process.by_status_paused'),
+      value: 'PAUSED',
+    },
+    {
+      label: t('process.by_status_ended'),
+      value: 'ENDED',
+    },
+  ]
+
+  return (
+    <Flex align={'center'} justify={'center'} gap={4} wrap={'wrap'}>
+      {processStatusFilters.map((filter, i) => (
+        <Button
+          flex={{ base: 'none', md: '1' }}
+          key={i}
+          onClick={() => setQueryParams({ ...queryParams, status: filter.value })}
+        >
+          {filter.label}
+        </Button>
+      ))}
+    </Flex>
+  )
+}
+
 export const PaginatedProcessList = () => {
   const { page }: { page?: number } = useParams()
   const { data: processCount, isLoading: isLoadingCount } = useProcessesCount()
@@ -55,7 +94,7 @@ export const PaginatedProcessList = () => {
       electionId: processFilters.electionId,
       // organizationId: processFilters.electionId,
       status: processFilters.status as IElectionListFilter['status'],
-      withResults: processFilters.withResults === 'true',
+      withResults: processFilters.withResults ? processFilters.withResults === 'true' : undefined,
     },
   })
 
