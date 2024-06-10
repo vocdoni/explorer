@@ -1,8 +1,10 @@
-import { Box, Card, CardBody, Flex, Text } from '@chakra-ui/react'
+import { Box, Card, CardBody, Flex, Link, Text } from '@chakra-ui/react'
 import { OrganizationImage as Avatar, OrganizationName } from '@vocdoni/chakra-components'
 import { OrganizationProvider, useOrganization } from '@vocdoni/react-providers'
 import { Trans, useTranslation } from 'react-i18next'
+import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/CopyButton'
+import { FallbackAccountImg, RoutePath } from '~constants'
 
 interface IOrganizationCardProps {
   id: string
@@ -12,7 +14,9 @@ interface IOrganizationCardProps {
 const OrganizationCard = ({ id, ...rest }: IOrganizationCardProps) => {
   return (
     <OrganizationProvider id={id}>
-      <LargeOrganizationCard id={id} {...rest} />
+      <Link as={RouterLink} to={generatePath(RoutePath.Organization, { pid: id })}>
+        <LargeOrganizationCard id={id} {...rest} />
+      </Link>
     </OrganizationProvider>
   )
 }
@@ -26,7 +30,7 @@ const LargeOrganizationCard = ({ id, electionCount }: IOrganizationCardProps) =>
       <Box w={'50px'}>
         <Avatar
           mx='auto'
-          fallbackSrc={'/images/fallback-account-dark.png'}
+          fallbackSrc={FallbackAccountImg}
           alt={t('organization.avatar_alt', {
             name: organization?.account.name.default || organization?.address,
           }).toString()}
