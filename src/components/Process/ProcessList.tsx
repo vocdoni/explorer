@@ -11,6 +11,7 @@ import useQueryParams from '~src/router/use-query-params'
 import { InputSearch } from '~src/layout/Inputs'
 import { IElectionListFilter } from '@vocdoni/sdk'
 import { Button, Checkbox, Flex } from '@chakra-ui/react'
+import { isEmpty } from '~utils/objects'
 
 type FilterQueryParams = {
   [K in keyof Omit<IElectionListFilter, 'organizationId'>]: string
@@ -22,7 +23,9 @@ export const ProcessSearchBox = () => {
 
   return (
     <Flex direction={{ base: 'column', lg: 'row' }} align={'center'} justify={'end'} gap={4}>
-      <Checkbox onChange={(e) => setQueryParams({ ...queryParams, withResults: e.target.checked ? 'true' : 'false' })}>
+      <Checkbox
+        onChange={(e) => setQueryParams({ ...queryParams, withResults: e.target.checked ? 'true' : undefined })}
+      >
         <Trans i18nKey='process.show_with_results'>Show only processes with results</Trans>
       </Checkbox>
       <Flex justify='flex-end'>
@@ -83,6 +86,12 @@ export const PaginatedProcessList = () => {
   const count = processCount || 0
   const { queryParams: processFilters } = useQueryParams<FilterQueryParams>()
 
+  // If no filters applied we can calculate the total pages using process total count
+  let totalPages: number | undefined = undefined
+  if (isEmpty(processFilters)) {
+    totalPages = Math.ceil(count / 10)
+  }
+
   const {
     data: processes,
     isLoading: isLoadingOrgs,
@@ -109,7 +118,7 @@ export const PaginatedProcessList = () => {
   }
 
   return (
-    <RoutedPaginationProvider totalPages={Math.ceil(count / 10)} path={processListPath}>
+    <RoutedPaginationProvider totalPages={totalPages} path={processListPath}>
       {processes?.elections.map((election, i) => <ElectionCard key={i} election={election} />)}
       <RoutedPagination />
     </RoutedPaginationProvider>
