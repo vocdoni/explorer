@@ -1,7 +1,13 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
-import { IChainOrganizationCountResponse, IChainOrganizationListResponse } from '@vocdoni/sdk'
+import {
+  ArchivedElection,
+  IChainOrganizationCountResponse,
+  IChainOrganizationListResponse,
+  InvalidElection,
+  PublishedElection,
+} from '@vocdoni/sdk'
 
 export const useOrganizationList = ({
   page,
@@ -24,6 +30,25 @@ export const useOrganizationCount = (options?: Omit<UseQueryOptions<IChainOrgani
   return useQuery({
     queryKey: ['organizations', 'count'],
     queryFn: client.organizationCount,
+    ...options,
+  })
+}
+
+export const useOrganizationElections = ({
+  address,
+  page = 0,
+  options,
+}: {
+  address: string
+  page?: number
+  options?: Omit<UseQueryOptions<Array<PublishedElection | InvalidElection | ArchivedElection>>, 'queryKey'>
+}) => {
+  const { client } = useClient()
+
+  return useQuery({
+    enabled: !!address,
+    queryKey: ['organization', 'elections', address, page],
+    queryFn: async () => client.fetchElections(address, page),
     ...options,
   })
 }
