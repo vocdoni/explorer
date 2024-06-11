@@ -1,4 +1,4 @@
-import { OrganizationsFilter, PaginatedOrganizationsList } from '~components/Organizations/OrganizationsList'
+import { OrganizationsFilter, PaginatedOrganizationsList } from '~components/Organizations/List'
 import ListPageLayout from '~src/layout/ListPageLayout'
 import { useOrganizationCount } from '~queries/organizations'
 import { useTranslation } from 'react-i18next'
