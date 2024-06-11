@@ -16,6 +16,7 @@ import { LoadingCards } from '~src/layout/Loading'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { Pagination } from '~components/Pagination/Pagination'
 import ElectionCard from '~components/Process/Card'
+import ShowRawButton from '~src/layout/ShowRawButton'
 
 const OrganizationDetail = () => {
   const { organization: org } = useOrganization()
@@ -81,6 +82,7 @@ const OrganizationDetail = () => {
         <Trans i18nKey={'organization.elections_list'}>Elections List:</Trans>
       </Text>
       <OrganizationElections org={org} />
+      <ShowRawButton obj={org} />
     </>
   )
 }
