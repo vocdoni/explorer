@@ -6,14 +6,16 @@ import {
   OrganizationName,
 } from '@vocdoni/chakra-components'
 import { OrganizationProvider } from '@vocdoni/react-providers'
-import { AccountData } from '@vocdoni/sdk'
+import { AccountData, ensure0x } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
 import { useLoaderData } from 'react-router-dom'
-import { FallbackAccountImg, FallbackHeaderImg } from '~constants'
+import { AppBaseURL, FallbackAccountImg, FallbackHeaderImg } from '~constants'
 import { CopyButton, ReducedTextAndCopy } from '~components/CopyBtn'
 
 const Organization = () => {
   const org = useLoaderData() as AccountData
+
+  const id = org.address
   const isSmallScreen = useBreakpointValue({ base: true, sm: false })
 
   return (
@@ -30,27 +32,34 @@ const Organization = () => {
           <VStack>
             <OrganizationName fontSize='4xl' />
             {isSmallScreen ? (
-              <ReducedTextAndCopy
-                color={'textAccent1'}
-                toCopy={org.address}
-                fontWeight={'normal'}
-                h={0}
-                fontSize={'md'}
-              >
-                {org.address}
+              <ReducedTextAndCopy color={'textAccent1'} toCopy={id} fontWeight={'normal'} h={0} fontSize={'md'}>
+                {id}
               </ReducedTextAndCopy>
             ) : (
-              <CopyButton toCopy={org.address} color={'textAccent1'} fontWeight={'normal'} h={0} fontSize={'md'}>
-                {org.address}
+              <CopyButton toCopy={id} color={'textAccent1'} fontWeight={'normal'} h={0} fontSize={'md'}>
+                {id}
               </CopyButton>
             )}
           </VStack>
         </Flex>
         <VStack align='start' gap={2}>
-          <Text fontSize='xl' color={'blueText'}>
-            <Trans i18nKey={'organization.description'}>Description</Trans>
+          {org.account.description.default && (
+            <>
+              <Text fontSize='xl' color={'blueText'}>
+                <Trans i18nKey={'organization.description'}>Description</Trans>
+              </Text>
+              <OrganizationDescription />
+            </>
+          )}
+          <Text
+            as={'a'}
+            target='blank'
+            href={`${AppBaseURL}/organization/${ensure0x(id)}`}
+            fontSize='xl'
+            color={'blueText'}
+          >
+            <Trans i18nKey={'organization.view_profile'}>(View profile)</Trans>
           </Text>
-          <OrganizationDescription />
         </VStack>
       </OrganizationProvider>
     </Flex>

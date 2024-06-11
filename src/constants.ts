@@ -3,12 +3,13 @@ import fallbackAccount from '/images/fallback-account-dark.png'
 
 const evocdoni = import.meta.env.VOCDONI_ENVIRONMENT
 
-let explorer = 'https://explorer.vote'
+let appUrl = 'https://app.vocdoni.io'
 if (['stg', 'dev'].includes(evocdoni)) {
-  explorer = `https://${evocdoni}.explorer.vote`
+  appUrl = `https://app-${evocdoni}.vocdoni.io`
 }
 
-export const ExplorerBaseURL = explorer
+export const AppBaseURL = appUrl
+
 export const VocdoniEnvironment = evocdoni
 
 export const FallbackHeaderImg = fallbackHeader
