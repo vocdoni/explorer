@@ -1,20 +1,24 @@
-import { Card, CardBody, Flex, HStack } from '@chakra-ui/react'
-import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/react-providers'
-import { InvalidElection, PublishedElection } from '@vocdoni/sdk'
-import { ElectionSchedule, ElectionTitle } from '@vocdoni/chakra-components'
-import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
-import { SmallOrganizationCard } from '~components/Organizations/Card'
+import {Card, CardBody, Flex, HStack} from '@chakra-ui/react'
+import {ElectionProvider, OrganizationProvider, useElection} from '@vocdoni/react-providers'
+import {InvalidElection, PublishedElection} from '@vocdoni/sdk'
+import {ElectionSchedule, ElectionTitle} from '@vocdoni/chakra-components'
+import {ElectionStatusBadge} from '~components/Organizations/StatusBadge'
+import {SmallOrganizationCard} from '~components/Organizations/Card'
 
-// const ElectionCard = (election: IElectionSummary) => {
-const ElectionCard = ({ election }: { election: PublishedElection }) => {
+/**
+ * Show election card information
+ * @param id If id provided it will fetch the election from the API
+ * @param election already loaded election info to show
+ * @constructor
+ */
+const ElectionCard = ({ id, election }: { id?: string; election?: PublishedElection }) => {
   return (
-    <ElectionProvider id={election.id} election={election}>
+    <ElectionProvider id={id} election={election}>
       <ElectionCardContent />
     </ElectionProvider>
   )
 }
 
-// const ElectionCardContent = ({ electionId, organizationId, status, startDate }: IElectionSummary) => {
 const ElectionCardContent = () => {
   const { election } = useElection()
 
