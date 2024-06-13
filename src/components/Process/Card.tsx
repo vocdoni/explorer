@@ -1,8 +1,11 @@
+import { Box, Card, CardBody, CardProps, Flex, HStack, Link } from '@chakra-ui/react'
 import { Box, Card, CardBody, CardProps, Flex, HStack } from '@chakra-ui/react'
 import { OrganizationImage as Avatar, ElectionSchedule, ElectionTitle } from '@vocdoni/chakra-components'
 import { ElectionProvider, OrganizationProvider, useElection, useOrganization } from '@vocdoni/react-providers'
 import { InvalidElection, PublishedElection } from '@vocdoni/sdk'
 import { useTranslation } from 'react-i18next'
+import { generatePath } from 'react-router-dom'
+import { processPath } from '~src/router'
 import { ReducedTextAndCopy } from '~components/CopyButton'
 import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
 
@@ -32,6 +35,7 @@ const ElectionCardSkeleton = (rest: CardProps) => {
 
   return (
     <Card direction={'row'} alignItems='center' pl={4} {...rest}>
+      <Link href={generatePath(processPath, { pid: election.id })}>
       <CardBody>
         <Flex direction={'column'} align={'start'} gap={4}>
           <HStack>
@@ -50,6 +54,7 @@ const ElectionCardSkeleton = (rest: CardProps) => {
           <SmallOrganizationCard id={election.organizationId} />
         </OrganizationProvider>
       </CardBody>
+      </Link>
     </Card>
   )
 }

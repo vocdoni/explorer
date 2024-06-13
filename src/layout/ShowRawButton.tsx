@@ -11,12 +11,20 @@ const ShowRawButton = ({ obj, ...props }: { obj: object } & Omit<ButtonProps, 'o
       <Button {...buttonProps} {...props}>
         <Trans i18nKey={'raw_content'}>Raw content</Trans>
       </Button>
-      <Box {...disclosureProps} wordBreak='break-all' whiteSpace='pre' color='white' borderRadius='md' maxW={'90vw'}>
-        <Code w={'full'} wordBreak='break-all' p='4' fontFamily='monospace' overflowX='auto'>
-          {JSON.stringify(obj, null, 2)}
-        </Code>
+      <Box {...disclosureProps}>
+        <RawContentBox obj={obj} />
       </Box>
     </>
+  )
+}
+
+export const RawContentBox = ({ obj, ...rest }: { obj: object } & BoxProps) => {
+  return (
+    <Box wordBreak='break-all' whiteSpace='pre' color='white' borderRadius='md' maxW={'90vw'} {...rest}>
+      <Code w={'full'} wordBreak='break-all' p='4' fontFamily='monospace' overflowX='auto'>
+        {JSON.stringify(obj, null, 2)}
+      </Code>
+    </Box>
   )
 }
 
