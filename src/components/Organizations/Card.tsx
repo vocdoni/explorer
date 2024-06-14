@@ -38,8 +38,8 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
   if (!pid) return null
 
   return (
-    <Card direction={'row'} alignItems='center' pl={4} {...rest}>
-      <Link href={generatePath(RoutePath.Organization, { pid })}>
+    <Link href={generatePath(RoutePath.Organization, { pid })}>
+      <Card direction={'row'} alignItems='center' pl={4} {...rest}>
         <Box w={'50px'}>
           <Avatar
             mx='auto'
@@ -68,7 +68,7 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
             </Text>
           )}
         </CardBody>
-      </Link>
-    </Card>
+      </Card>
+    </Link>
   )
 }
