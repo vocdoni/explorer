@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardBody,
   CardHeader,
@@ -6,6 +7,7 @@ import {
   Flex,
   Grid,
   GridItem,
+  Icon,
   Tab,
   TabList,
   TabPanel,
@@ -24,7 +26,13 @@ import {
   ElectionTitle,
 } from '@vocdoni/chakra-components'
 import { useElection } from '@vocdoni/react-providers'
-import { ElectionStatus, IElectionInfoResponse, InvalidElection as InvalidElectionType } from '@vocdoni/sdk'
+import {
+  ElectionStatus,
+  IElectionInfoResponse,
+  IElectionVote,
+  InvalidElection as InvalidElectionType,
+  PublishedElection,
+} from '@vocdoni/sdk'
 import { FallbackHeaderImg } from '~constants'
 import { HeroHeaderLayout } from '~src/layout/HeroHeaderLayout'
 import { CopyButton, ReducedTextAndCopy } from '~components/CopyButton'
@@ -32,7 +40,11 @@ import { Trans, useTranslation } from 'react-i18next'
 import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
 import { OrganizationCard } from '~components/Organizations/Card'
 import { RawContentBox } from '~src/layout/ShowRawButton'
-import { useElectionKeys } from '~queries/processes'
+import { useElectionKeys, useElectionVotesList } from '~queries/processes'
+import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
+import { LoadingCards } from '~src/layout/Loading'
+import { Pagination } from '~components/Pagination/Pagination'
+import { BiEnvelope } from 'react-icons/bi'
 import { ucfirst } from '~utils/strings'
 import InvalidElection from '~components/Process/InvalidElection'
 
@@ -156,7 +168,7 @@ const Detail = () => {
             <ElectionResults />
           </TabPanel>
           <TabPanel>
-            <p>three!</p>
+            <EnvelopeExplorer />
           </TabPanel>
           <TabPanel>
             <RawContentBox obj={raw} />
@@ -200,6 +212,92 @@ const ElectionKeys = ({ electionId }: { electionId: string }) => {
         </GridItem>
       </Grid>
     </Flex>
+  )
+}
+
+const EnvelopeExplorer = () => {
+  const { election: e } = useElection()
+  const election = e as PublishedElection
+
+  if (!election || election.voteCount === 0) {
+    return (
+      <Text>
+        <Trans i18nKey={'election.no_votes_yet'}>No votes yet!</Trans>
+      </Text>
+    )
+  }
+
+  return (
+    <PaginationProvider totalPages={Math.ceil(election.voteCount / 10)}>
+      <Flex direction={'column'} gap={4}>
+        <EnvelopeList />
+        <Pagination />
+      </Flex>
+    </PaginationProvider>
+  )
+}
+
+const EnvelopeList = () => {
+  const { page } = usePagination()
+  const { election: e } = useElection()
+  const election = e as PublishedElection
+
+  const { data: envelopes, isLoading } = useElectionVotesList({
+    electionId: election?.id ?? '',
+    page: page,
+    enabled: !!election?.id,
+  })
+
+  if (isLoading) {
+    return <LoadingCards />
+  }
+
+  return (
+    <Grid
+      templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(5, 1fr)' }}
+      gap={4}
+    >
+      {envelopes?.votes.map((envelope, i) => {
+        return <EnvelopeCard envelope={envelope} count={page * 10 + i + 1} />
+      })}
+    </Grid>
+  )
+}
+
+const EnvelopeCard = ({ envelope, count }: { envelope: IElectionVote; count: number }) => {
+  const { i18n } = useTranslation()
+  return (
+    <Card maxW='xs'>
+      <CardHeader>
+        <Flex justify={'space-between'}>
+          <Text fontWeight={'bold'}>
+            <Trans i18nKey={'envelope.envelope_number'} num={count}>
+              Envelope nº {{ num: count }}
+            </Trans>
+          </Text>
+          <Box>
+            <Icon color={'lightText'} as={BiEnvelope} />
+          </Box>
+        </Flex>
+      </CardHeader>
+      <CardBody>
+        <Flex direction={'column'}>
+          <Text>
+            <Trans i18nKey={'envelope.block'} height={envelope.blockHeight}>
+              Block {{ height: envelope.blockHeight }}
+            </Trans>
+          </Text>
+          <Text>
+            <Trans i18nKey={'envelope.tx_number'} transactionIndex={envelope.transactionIndex}>
+              Transaction: {{ transactionIndex: envelope.transactionIndex }}
+            </Trans>
+          </Text>
+          <Text>
+            <Trans i18nKey={'envelope.details'}>Details</Trans>
+          </Text>
+        </Flex>
+      </CardBody>
+    </Card>
   )
 }
 

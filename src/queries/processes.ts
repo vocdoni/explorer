@@ -6,6 +6,7 @@ import {
   IElectionKeysResponse,
   IElectionListFilter,
   IElectionListResponse,
+  IElectionVoteListResponse,
   PublishedElection,
 } from '@vocdoni/sdk'
 import { useChainInfo, useChainInfoOptions } from '~queries/stats'
@@ -56,6 +57,22 @@ export const useElectionKeys = ({
   return useQuery({
     queryKey: ['process', 'electionKeys', electionId],
     queryFn: () => client.electionKeys(electionId),
+    ...options,
+  })
+}
+
+export const useElectionVotesList = ({
+  electionId,
+  page,
+  ...options
+}: {
+  electionId: string
+  page?: number
+} & Omit<UseQueryOptions<IElectionVoteListResponse>, 'queryKey'>) => {
+  const { client } = useClient<ExtendedSDKClient>()
+  return useQuery({
+    queryKey: ['process', 'envelopes', electionId, page],
+    queryFn: () => client.electionVotesList(electionId, page),
     ...options,
   })
 }
