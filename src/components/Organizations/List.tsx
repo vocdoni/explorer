@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
-import OrganizationCard from '~components/Organizations/Card'
+import { OrganizationCard } from '~components/Organizations/Card'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
 import { RoutePath } from '~constants'

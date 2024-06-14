@@ -11,7 +11,7 @@ import { LoadingCards } from '~src/layout/Loading'
 import LoadingError from '~src/layout/LoadingError'
 import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
-import ElectionCard from './Card'
+import { ElectionCard } from './Card'
 
 type FilterQueryParams = {
   [K in keyof Omit<IElectionListFilter, 'organizationId'>]: string

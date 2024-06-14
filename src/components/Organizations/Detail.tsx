@@ -15,8 +15,8 @@ import { useOrganizationElections } from '~queries/organizations'
 import { LoadingCards } from '~src/layout/Loading'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { Pagination } from '~components/Pagination/Pagination'
-import ElectionCard from '~components/Process/Card'
 import ShowRawButton from '~src/layout/ShowRawButton'
+import { ElectionCard } from '~components/Process/Card'
 
 const OrganizationDetail = () => {
   const { organization: org } = useOrganization()
