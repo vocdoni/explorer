@@ -115,7 +115,9 @@ export const TopBar = () => {
               <MenuList>
                 {[...links, ...rightLinks].map((link) => (
                   <MenuItem key={link.name}>
-                    <Link {...link}>{link.name}</Link>
+                    <Link as={RouterLink} to={link.url}>
+                      {link.name}
+                    </Link>
                   </MenuItem>
                 ))}
               </MenuList>
@@ -124,7 +126,7 @@ export const TopBar = () => {
         ) : (
           <Flex alignItems='center'>
             {rightLinks.map((link, i) => (
-              <Button as={'a'} key={i} href={link.url}>
+              <Button as={RouterLink} key={i} to={link.url}>
                 {link.name}
               </Button>
             ))}

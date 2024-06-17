@@ -2,7 +2,7 @@ import { Box, Card, CardBody, CardProps, Link, Text } from '@chakra-ui/react'
 import { OrganizationImage as Avatar, OrganizationName } from '@vocdoni/chakra-components'
 import { OrganizationProvider, useOrganization } from '@vocdoni/react-providers'
 import { Trans, useTranslation } from 'react-i18next'
-import { generatePath } from 'react-router-dom'
+import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/CopyButton'
 import { FallbackAccountImg, RoutePath } from '~constants'
 
@@ -38,8 +38,8 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
   if (!pid) return null
 
   return (
-    <Link href={generatePath(RoutePath.Organization, { pid })}>
-      <Card direction={'row'} alignItems='center' pl={4} {...rest}>
+    <Link as={RouterLink} to={generatePath(RoutePath.Organization, { pid })}>
+      <Card direction={'row'} alignItems='center' overflow={'scroll'} pl={4} {...rest}>
         <Box w={'50px'}>
           <Avatar
             mx='auto'
