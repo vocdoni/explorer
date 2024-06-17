@@ -119,7 +119,7 @@ export const PaginatedProcessList = () => {
 
   return (
     <RoutedPaginationProvider totalPages={totalPages} path={RoutePath.ProcessesList}>
-      {processes?.elections.map((election, i) => <ElectionCard key={i} election={election} />)}
+      {processes?.elections.map((election, i) => <ElectionCard key={i} id={election.id} election={election} />)}
       <RoutedPagination />
     </RoutedPaginationProvider>
   )
