@@ -10,7 +10,6 @@ const vocdoniStatusBadge = definePartsStyle({
     height: '18px',
     fontStyle: 'normal',
     fontWeight: '700',
-    fontFamily: 'Manrope',
     fontSize: '12px',
     lineHeight: '150%',
     color: '#fff',
