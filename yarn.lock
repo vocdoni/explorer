@@ -1959,16 +1959,16 @@
     react-refresh "^0.14.0"
 
 "@vocdoni/chakra-components@~0.8.1":
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/@vocdoni/chakra-components/-/chakra-components-0.8.3.tgz#b286d5b7313ac963cad59174bbe3792de1878629"
-  integrity sha512-iCCDXyHZ4i8rC3T5OmV9mtj8+aFjvBVn/G7icZKSyKLMRG1D4rEsUYqKMXH/az4XP8RVVeGCRIOrXtV/EZ3hLg==
+  version "0.8.5"
+  resolved "https://registry.yarnpkg.com/@vocdoni/chakra-components/-/chakra-components-0.8.5.tgz#c4ea39243f69420359ffef46d29a384abdd78949"
+  integrity sha512-qAxslKof1zQsrPqEZS894193f/rQi00MfYSoIYDyQZ8hfu6h25ocqTEfUr+bTz4hZ7i2cJwe4xac5Zqy0WPKGA==
   dependencies:
-    "@vocdoni/react-providers" "~0.4.1"
+    "@vocdoni/react-providers" "~0.4.3"
 
-"@vocdoni/extended-sdk@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@vocdoni/extended-sdk/-/extended-sdk-0.0.1.tgz#224be07c05fafcfd4b863b8b01826496091ee62d"
-  integrity sha512-fuEqaPMzeiUr54LEg92yfAk6/dHsVgsSJDyKxNkg8iRqALK2kOw2L4N0PVTnLbC3iT7Kwaa9LrhDTopgr8kWQA==
+"@vocdoni/extended-sdk@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@vocdoni/extended-sdk/-/extended-sdk-0.0.2.tgz#837563b282ca7ebebdd2748921eb495fda66174f"
+  integrity sha512-S34T8fd1UoEfbYHEhVLluOCl4b7pAOq36Krd53kBx2Rb+cOeUbqs7M+RrqM9wOc34AxEYNeMnMA2MVQM7napaA==
 
 "@vocdoni/proto@1.15.5":
   version "1.15.5"
@@ -1978,10 +1978,10 @@
     long "^5.2.1"
     protobufjs "^7.1.2"
 
-"@vocdoni/react-providers@~0.4.1":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@vocdoni/react-providers/-/react-providers-0.4.2.tgz#5d465b23914d3074b25e427d7afe7d5e33d82bdb"
-  integrity sha512-tFlmeLCQZjHrB+6Fm2IvZMIh6+JPr0iIu2ERe3DGzMmlmLf6ba1uYufXdgWT2QyFtW59rWDfXQrUm38MGwUOUw==
+"@vocdoni/react-providers@~0.4.3":
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/@vocdoni/react-providers/-/react-providers-0.4.3.tgz#0ce49356db26b75a9b1d09d1703bf0451a0aaaa5"
+  integrity sha512-wgrzodMdNwwe+PvZqxfe8r56KM1dhFUZ1p6RnCZ+RKqsoB1J4VzPH/AUG3iPC66bbzG17dwkr5PFgqkNsv/lvA==
 
 "@vocdoni/sdk@~0.8.1":
   version "0.8.1"

@@ -3,7 +3,9 @@ import { useClient } from '@vocdoni/react-providers'
 import { IChainGetInfoResponse } from '@vocdoni/sdk'
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 
-export const useChainInfo = (options?: Omit<UseQueryOptions<IChainGetInfoResponse>, 'queryKey'>) => {
+export type useChainInfoOptions = Omit<UseQueryOptions<IChainGetInfoResponse>, 'queryKey'>
+
+export const useChainInfo = (options?: useChainInfoOptions) => {
   const { client } = useClient<ExtendedSDKClient>()
 
   return useQuery({

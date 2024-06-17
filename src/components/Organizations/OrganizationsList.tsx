@@ -1,31 +1,26 @@
-import { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
+import { InputSearch } from '~src/layout/Inputs'
+import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import OrganizationCard from '~components/Organizations/Card'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
-import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
-import { InputSearch } from '~src/layout/Inputs'
 import { LoadingCards } from '~src/layout/Loading'
 import LoadingError from '~src/layout/LoadingError'
 import { organizationsListPath } from '~src/router'
-import { debounce } from '~utils/debounce'
 
 export const OrganizationsFilter = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
-  const debouncedSearch = debounce((value) => {
-    navigate(generatePath(organizationsListPath, { page: '1', query: value as string }))
-  }, 1000)
-
   return (
     <InputSearch
       maxW={'300px'}
       placeholder={t('organizations.search_by_org_id')}
-      onChange={(event: ChangeEvent<HTMLInputElement>) => {
-        debouncedSearch(event.target.value)
+      onChange={(value: string) => {
+        navigate(generatePath(organizationsListPath, { page: '0', query: value as string }))
       }}
+      debounceTime={500}
     />
   )
 }
