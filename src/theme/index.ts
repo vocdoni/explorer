@@ -5,7 +5,7 @@ import Questions from './questions'
 import Radio from './radio'
 import ElectionResults from './results'
 import { colors } from '~src/theme/colors'
-import { tagTheme } from '~src/theme/components/StatusBage'
+import { tagTheme } from '~src/theme/components/Tag'
 
 const theme = extendTheme(vtheme, {
   components: {
