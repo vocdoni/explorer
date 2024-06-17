@@ -1,10 +1,8 @@
-import { useParams } from 'react-router-dom'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import LoadingError from '~src/layout/LoadingError'
 import { LoadingCards } from '~src/layout/Loading'
 import { useProcessesCount, useProcessList } from '~queries/processes'
-import ElectionCard from './Card'
 import { processListPath } from '~src/router'
 import { Trans, useTranslation } from 'react-i18next'
 import useQueryParams from '~src/router/use-query-params'
@@ -12,6 +10,7 @@ import { InputSearch } from '~src/layout/Inputs'
 import { IElectionListFilter } from '@vocdoni/sdk'
 import { Button, Checkbox, Flex } from '@chakra-ui/react'
 import { isEmpty } from '~utils/objects'
+import ElectionCard from '~components/Process/Card'
 
 type FilterQueryParams = {
   [K in keyof Omit<IElectionListFilter, 'organizationId'>]: string
@@ -81,8 +80,7 @@ export const ProcessByTypeFilter = () => {
 }
 
 export const PaginatedProcessList = () => {
-  const { page }: { page?: number } = useParams()
-  const { data: processCount, isLoading: isLoadingCount } = useProcessesCount()
+  const { data: processCount, isLoading, isError, error } = useProcessesCount()
   const count = processCount || 0
   const { queryParams: processFilters } = useQueryParams<FilterQueryParams>()
 
@@ -92,9 +90,28 @@ export const PaginatedProcessList = () => {
     totalPages = Math.ceil(count / 10)
   }
 
+  if (isLoading) {
+    return <LoadingCards />
+  }
+
+  if (isError) {
+    return <LoadingError error={error} />
+  }
+
+  return (
+    <RoutedPaginationProvider totalPages={totalPages} path={processListPath}>
+      <ProcessList />
+    </RoutedPaginationProvider>
+  )
+}
+
+const ProcessList = () => {
+  const { page } = useRoutedPagination()
+  const { queryParams: processFilters } = useQueryParams<FilterQueryParams>()
+
   const {
     data: processes,
-    isLoading: isLoadingOrgs,
+    isLoading,
     isError,
     error,
   } = useProcessList({
@@ -107,8 +124,6 @@ export const PaginatedProcessList = () => {
     },
   })
 
-  const isLoading = isLoadingCount || isLoadingOrgs
-
   if (isLoading) {
     return <LoadingCards />
   }
@@ -118,9 +133,9 @@ export const PaginatedProcessList = () => {
   }
 
   return (
-    <RoutedPaginationProvider totalPages={totalPages} path={processListPath}>
+    <>
       {processes?.elections.map((election, i) => <ElectionCard key={i} election={election} />)}
       <RoutedPagination />
-    </RoutedPaginationProvider>
+    </>
   )
 }

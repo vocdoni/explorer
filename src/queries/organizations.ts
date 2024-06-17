@@ -14,7 +14,7 @@ export const useOrganizationList = ({
   const { client } = useClient<ExtendedSDKClient>()
   return useQuery({
     queryKey: ['organizations', 'list', page, organizationId],
-    queryFn: () => client.organizationList(page - 1, organizationId),
+    queryFn: () => client.organizationList(page, organizationId),
     ...options,
   })
 }

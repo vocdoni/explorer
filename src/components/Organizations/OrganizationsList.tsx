@@ -4,7 +4,7 @@ import { useOrganizationCount, useOrganizationList } from '~queries/organization
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import OrganizationCard from '~components/Organizations/Card'
 import { RoutedPagination } from '~components/Pagination/Pagination'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { LoadingCards } from '~src/layout/Loading'
 import LoadingError from '~src/layout/LoadingError'
 import { organizationsListPath } from '~src/router'
@@ -26,21 +26,38 @@ export const OrganizationsFilter = () => {
 }
 
 export const PaginatedOrganizationsList = () => {
-  const { page, query }: { page?: number; query?: string } = useParams()
-  const { data: orgsCount, isLoading: isLoadingCount } = useOrganizationCount()
+  const { query }: { query?: string } = useParams()
+  const { data: orgsCount, isLoading, error, isError } = useOrganizationCount()
   const count = orgsCount?.count || 0
+
+  if (isLoading) {
+    return <LoadingCards />
+  }
+
+  if (isError) {
+    return <LoadingError error={error} />
+  }
+
+  return (
+    <RoutedPaginationProvider totalPages={!query ? Math.ceil(count / 10) : undefined} path={organizationsListPath}>
+      <OrganizationsList />
+    </RoutedPaginationProvider>
+  )
+}
+
+const OrganizationsList = () => {
+  const { query }: { query?: string } = useParams()
+  const { page } = useRoutedPagination()
 
   const {
     data: orgs,
-    isLoading: isLoadingOrgs,
+    isLoading,
     isError,
     error,
   } = useOrganizationList({
-    page: Number(page || 1),
+    page: Number(page || 0),
     organizationId: query,
   })
-
-  const isLoading = isLoadingCount || isLoadingOrgs
 
   if (isLoading) {
     return <LoadingCards />
@@ -51,11 +68,11 @@ export const PaginatedOrganizationsList = () => {
   }
 
   return (
-    <RoutedPaginationProvider totalPages={!query ? Math.ceil(count / 10) : undefined} path={organizationsListPath}>
+    <>
       {orgs?.organizations.map((org) => (
         <OrganizationCard key={org.organizationID} id={org.organizationID} electionCount={org.electionCount} />
       ))}
       <RoutedPagination />
-    </RoutedPaginationProvider>
+    </>
   )
 }
