@@ -1,5 +1,5 @@
 {
-  "name": "vocdoni-explorer-v3",
+  "name": "vocdoni-explorer",
   "private": true,
   "description": "Frontend to explore the Vocdoni voting blockchain",
   "license": "unlicense",

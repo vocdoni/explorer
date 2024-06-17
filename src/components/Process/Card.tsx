@@ -1,9 +1,9 @@
-import {Card, CardBody, Flex, HStack} from '@chakra-ui/react'
-import {ElectionProvider, OrganizationProvider, useElection} from '@vocdoni/react-providers'
-import {InvalidElection, PublishedElection} from '@vocdoni/sdk'
-import {ElectionSchedule, ElectionTitle} from '@vocdoni/chakra-components'
-import {ElectionStatusBadge} from '~components/Organizations/StatusBadge'
-import {SmallOrganizationCard} from '~components/Organizations/Card'
+import { Card, CardBody, Flex, HStack } from '@chakra-ui/react'
+import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/react-providers'
+import { InvalidElection, PublishedElection } from '@vocdoni/sdk'
+import { ElectionSchedule, ElectionTitle } from '@vocdoni/chakra-components'
+import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
+import { SmallOrganizationCard } from '~components/Organizations/Card'
 
 /**
  * Show election card information
