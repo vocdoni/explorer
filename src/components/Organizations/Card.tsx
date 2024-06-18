@@ -1,8 +1,8 @@
 import { Box, Card, CardBody, Flex, Text } from '@chakra-ui/react'
+import { OrganizationImage as Avatar, OrganizationName } from '@vocdoni/chakra-components'
+import { OrganizationProvider, useOrganization } from '@vocdoni/react-providers'
 import { Trans, useTranslation } from 'react-i18next'
 import { ReducedTextAndCopy } from '~components/CopyBtn'
-import { OrganizationProvider, useOrganization } from '@vocdoni/react-providers'
-import { OrganizationImage as Avatar, OrganizationName } from '@vocdoni/chakra-components'
 
 interface IOrganizationCardProps {
   id: string
@@ -22,7 +22,7 @@ const LargeOrganizationCard = ({ id, electionCount }: IOrganizationCardProps) =>
   const { t } = useTranslation()
 
   return (
-    <Card direction={'row'} alignItems='center' overflow={'scroll'} pl={4}>
+    <Card direction={'row'} alignItems='center' pl={4}>
       <Box w={'50px'}>
         <Avatar
           mx='auto'
@@ -60,7 +60,7 @@ export const SmallOrganizationCard = ({ id }: IOrganizationCardProps) => {
   const name = organization?.account.name.default || organization?.address
 
   return (
-    <Flex direction={'row'} alignItems='center' overflow={'scroll'} gap={2}>
+    <Flex direction={'row'} alignItems='center' gap={2}>
       <Box w={'25px'}>
         <Avatar
           mx='auto'

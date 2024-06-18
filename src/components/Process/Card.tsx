@@ -1,9 +1,9 @@
 import { Card, CardBody, Flex, HStack } from '@chakra-ui/react'
+import { ElectionSchedule, ElectionTitle } from '@vocdoni/chakra-components'
 import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/react-providers'
 import { InvalidElection, PublishedElection } from '@vocdoni/sdk'
-import { ElectionSchedule, ElectionTitle } from '@vocdoni/chakra-components'
-import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
 import { SmallOrganizationCard } from '~components/Organizations/Card'
+import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
 
 /**
  * Show election card information
@@ -25,7 +25,7 @@ const ElectionCardContent = () => {
   if (election instanceof InvalidElection || !election) return null
 
   return (
-    <Card direction={'row'} alignItems='center' overflow={'scroll'} pl={4}>
+    <Card direction={'row'} alignItems='center' pl={4}>
       <CardBody>
         <Flex direction={'column'} align={'start'} gap={4}>
           <HStack>
