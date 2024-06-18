@@ -14,8 +14,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
-import { VocdoniEnvironment } from '~constants'
-import { organizationsListPath, processListPath } from '~src/router'
+import { RoutePath, VocdoniEnvironment } from '~constants'
 
 import logoDevUrl from '/images/logo-header-dev.png'
 import logoStgUrl from '/images/logo-header-stg.png'
@@ -48,11 +47,11 @@ export const TopBar = () => {
   const links: HeaderLink[] = [
     {
       name: t('links.organizations'),
-      url: generatePath(organizationsListPath, { page: null, query: null }),
+      url: generatePath(RoutePath.OrganizationsList, { page: null, query: null }),
     },
     {
       name: t('links.processes'),
-      url: generatePath(processListPath, { page: null }),
+      url: generatePath(RoutePath.ProcessesList, { page: null }),
     },
     {
       name: t('links.blocks'),

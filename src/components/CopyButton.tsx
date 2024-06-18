@@ -11,7 +11,9 @@ type ICopyButton = ButtonProps & {
 export const CopyButton = ({ toCopy, ...rest }: ICopyButton) => {
   const { t } = useTranslation()
   const { onCopy, setValue, hasCopied } = useClipboard(toCopy, { timeout: 1000 })
-  const label = hasCopied ? t('copy.copied_to_clipboard') : t('copy.copy_to_clipboard')
+  const label = hasCopied
+    ? t('copy.copied_to_clipboard', { defaultValue: 'Copied!' })
+    : t('copy.copy_to_clipboard', { defaultValue: 'Copy to clipboard' })
 
   useEffect(() => {
     setValue(toCopy)

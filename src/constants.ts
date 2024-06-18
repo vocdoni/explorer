@@ -6,3 +6,12 @@ if (['stg', 'dev'].includes(evocdoni)) {
 
 export const ExplorerBaseURL = explorer
 export const VocdoniEnvironment = evocdoni
+
+// route paths
+export enum RoutePath {
+  Base = '/',
+  Organization = '/organization/:pid',
+  OrganizationsList = '/organizations/:page?/:query?',
+  Process = '/process/:pid',
+  ProcessesList = '/processes/:page?',
+}

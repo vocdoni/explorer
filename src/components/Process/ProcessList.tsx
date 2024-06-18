@@ -1,17 +1,17 @@
-import { useParams } from 'react-router-dom'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
-import { RoutedPagination } from '~components/Pagination/Pagination'
-import LoadingError from '~src/layout/LoadingError'
-import { LoadingCards } from '~src/layout/Loading'
-import { useProcessesCount, useProcessList } from '~queries/processes'
-import ElectionCard from './Card'
-import { processListPath } from '~src/router'
-import { Trans, useTranslation } from 'react-i18next'
-import useQueryParams from '~src/router/use-query-params'
-import { InputSearch } from '~src/layout/Inputs'
-import { IElectionListFilter } from '@vocdoni/sdk'
 import { Button, Checkbox, Flex } from '@chakra-ui/react'
+import { IElectionListFilter } from '@vocdoni/sdk'
+import { Trans, useTranslation } from 'react-i18next'
+import { useParams } from 'react-router-dom'
+import { RoutedPagination } from '~components/Pagination/Pagination'
+import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { RoutePath } from '~constants'
+import { useProcessesCount, useProcessList } from '~queries/processes'
+import { InputSearch } from '~src/layout/Inputs'
+import { LoadingCards } from '~src/layout/Loading'
+import LoadingError from '~src/layout/LoadingError'
+import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
+import ElectionCard from './Card'
 
 type FilterQueryParams = {
   [K in keyof Omit<IElectionListFilter, 'organizationId'>]: string
@@ -118,7 +118,7 @@ export const PaginatedProcessList = () => {
   }
 
   return (
-    <RoutedPaginationProvider totalPages={totalPages} path={processListPath}>
+    <RoutedPaginationProvider totalPages={totalPages} path={RoutePath.ProcessesList}>
       {processes?.elections.map((election, i) => <ElectionCard key={i} election={election} />)}
       <RoutedPagination />
     </RoutedPaginationProvider>

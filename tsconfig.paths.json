@@ -6,10 +6,7 @@
         "components/*"
       ],
       "~constants": [
-        "constants/index.ts"
-      ],
-      "~constants/*": [
-        "constants/*"
+        "constants.ts"
       ],
       "~hooks/*": [
         "hooks/*"

@@ -1,28 +1,23 @@
-import { lazy } from 'react'
 import { useClient } from '@vocdoni/react-providers'
-import { SuspenseLoader } from '~src/router/SuspenseLoader'
-import Error404 from '~pages/Error404'
+import { lazy } from 'react'
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom'
-import RouteError from '~pages/RouteError'
+import { RoutePath } from '~constants'
 import Layout from '~src/layout/Default'
-
-export const basePath = '/'
-export const organizationsListPath = '/organizations/:page?/:query?'
-export const processListPath = '/processs/:page?'
-export const processPath = '/process/:pid'
-export const organizationPath = '/organization/:pid'
+import Error404 from '~src/router/Error404'
+import RouteError from '~src/router/RouteError'
+import { SuspenseLoader } from '~src/router/SuspenseLoader'
 
 const Home = lazy(() => import('~pages/Home'))
-const Organization = lazy(() => import('~pages/Organization/Organization'))
-const OrganizationList = lazy(() => import('~pages/Organization/List'))
-const ProcessList = lazy(() => import('~pages/Process/List'))
-const Vote = lazy(() => import('~pages/Vote'))
+const Organization = lazy(() => import('~pages/organization'))
+const OrganizationsList = lazy(() => import('~pages/organizations'))
+const ProcessList = lazy(() => import('~pages/processes'))
+const Process = lazy(() => import('~pages/process'))
 
 export const RoutesProvider = () => {
   const { client } = useClient()
   const routes: RouteObject[] = [
     {
-      path: basePath,
+      path: RoutePath.Base,
       element: <Layout />,
       errorElement: <RouteError />,
       children: [
@@ -35,15 +30,15 @@ export const RoutesProvider = () => {
           ),
         },
         {
-          path: organizationsListPath,
+          path: RoutePath.OrganizationsList,
           element: (
             <SuspenseLoader>
-              <OrganizationList />
+              <OrganizationsList />
             </SuspenseLoader>
           ),
         },
         {
-          path: processListPath,
+          path: RoutePath.ProcessesList,
           element: (
             <SuspenseLoader>
               <ProcessList />
@@ -51,16 +46,16 @@ export const RoutesProvider = () => {
           ),
         },
         {
-          path: processPath,
+          path: RoutePath.Process,
           element: (
             <SuspenseLoader>
-              <Vote />
+              <Process />
             </SuspenseLoader>
           ),
           loader: async ({ params }) => await client.fetchElection(params.pid),
         },
         {
-          path: organizationPath,
+          path: RoutePath.Organization,
           element: (
             <SuspenseLoader>
               <Organization />

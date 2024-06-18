@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next'
-import { InputSearch } from '~src/layout/Inputs'
-import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import OrganizationCard from '~components/Organizations/Card'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { RoutePath } from '~constants'
+import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
+import { InputSearch } from '~src/layout/Inputs'
 import { LoadingCards } from '~src/layout/Loading'
 import LoadingError from '~src/layout/LoadingError'
-import { organizationsListPath } from '~src/router'
 
 export const OrganizationsFilter = () => {
   const { t } = useTranslation()
@@ -18,7 +18,7 @@ export const OrganizationsFilter = () => {
       maxW={'300px'}
       placeholder={t('organizations.search_by_org_id')}
       onChange={(value: string) => {
-        navigate(generatePath(organizationsListPath, { page: '0', query: value as string }))
+        navigate(generatePath(RoutePath.OrganizationsList, { page: '0', query: value as string }))
       }}
       debounceTime={500}
     />
@@ -51,7 +51,10 @@ export const PaginatedOrganizationsList = () => {
   }
 
   return (
-    <RoutedPaginationProvider totalPages={!query ? Math.ceil(count / 10) : undefined} path={organizationsListPath}>
+    <RoutedPaginationProvider
+      totalPages={!query ? Math.ceil(count / 10) : undefined}
+      path={RoutePath.OrganizationsList}
+    >
       {orgs?.organizations.map((org) => (
         <OrganizationCard key={org.organizationID} id={org.organizationID} electionCount={org.electionCount} />
       ))}
