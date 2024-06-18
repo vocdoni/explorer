@@ -1,8 +1,8 @@
-import {Box, Button, ButtonProps, Code, useDisclosure} from '@chakra-ui/react'
-import {Trans} from 'react-i18next'
+import { Box, Button, ButtonProps, Code, useDisclosure } from '@chakra-ui/react'
+import { Trans } from 'react-i18next'
 
-const ShowRawButton = ({obj, ...props}: { obj: object } & Omit<ButtonProps, 'onClick'>) => {
-  const {getDisclosureProps, getButtonProps} = useDisclosure()
+const ShowRawButton = ({ obj, ...props }: { obj: object } & Omit<ButtonProps, 'onClick'>) => {
+  const { getDisclosureProps, getButtonProps } = useDisclosure()
   const buttonProps = getButtonProps()
   const disclosureProps = getDisclosureProps()
 
