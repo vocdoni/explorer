@@ -1,7 +1,7 @@
-import { Button, ButtonProps, Tooltip, useClipboard, useToast } from '@chakra-ui/react'
+import { Button, ButtonProps, Tooltip, useClipboard } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { IoCopy } from 'react-icons/io5'
+import { IoCheckmark, IoCopy } from 'react-icons/io5'
 import { shortHex } from '~utils/strings'
 
 type ICopyButton = ButtonProps & {
@@ -10,26 +10,21 @@ type ICopyButton = ButtonProps & {
 
 export const CopyButton = ({ toCopy, ...rest }: ICopyButton) => {
   const { t } = useTranslation()
-  const toast = useToast()
-  const { onCopy, value, setValue } = useClipboard('')
-
-  const handleCopy = () => {
-    onCopy()
-    toast({
-      title: t('copy.copied_to_the_clipboard'),
-      status: 'success',
-      duration: 2000,
-      isClosable: true,
-    })
-  }
+  const { onCopy, setValue, hasCopied } = useClipboard(toCopy, { timeout: 1000 })
+  const label = hasCopied ? t('copy.copied_to_clipboard') : t('copy.copy_to_clipboard')
 
   useEffect(() => {
     setValue(toCopy)
   }, [toCopy])
 
   return (
-    <Tooltip label={t('copy.copy_to_clipboard')} aria-label='Copy to clipboard'>
-      <Button variant={'text'} onClick={handleCopy} rightIcon={<IoCopy />} {...rest} />
+    <Tooltip label={label} aria-label={label} isOpen={hasCopied ? hasCopied : undefined} placement='top'>
+      <Button
+        variant={'text'}
+        onClick={() => onCopy()}
+        rightIcon={hasCopied ? <IoCheckmark /> : <IoCopy />}
+        {...rest}
+      />
     </Tooltip>
   )
 }

@@ -1,6 +1,6 @@
 import { Box, Card, CardBody, Flex, Text } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
-import { ReducedTextAndCopy } from '~components/CopyBtn'
+import { ReducedTextAndCopy } from '~components/CopyButton'
 import { useDateFns } from '~i18n/use-date-fns'
 
 export const BlockCard = ({ height, time, proposer }: { height: number; time: string; proposer: string }) => {
