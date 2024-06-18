@@ -13,13 +13,13 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { RxHamburgerMenu } from 'react-icons/rx'
-import { generatePath } from 'react-router-dom'
+import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { VocdoniEnvironment } from '~constants'
 import { organizationsListPath, processListPath } from '~src/router'
 
-import logoUrl from '/images/logo-header.png'
-import logoStgUrl from '/images/logo-header-stg.png'
 import logoDevUrl from '/images/logo-header-dev.png'
+import logoStgUrl from '/images/logo-header-stg.png'
+import logoUrl from '/images/logo-header.png'
 
 interface HeaderLink {
   name: string
@@ -96,13 +96,13 @@ export const TopBar = () => {
     >
       <Flex justifyContent='space-between' alignItems='start' flexWrap='wrap' px={{ base: 4, md: 8 }}>
         <Flex alignItems='center'>
-          <Link href={'/'}>
+          <Link as={RouterLink} to={'/'}>
             <Image src={headerUrl} alt='Vocdoni' marginTop='6px' maxHeight='45px' maxWidth='200px' />
           </Link>
 
           <Flex display={{ base: 'none', md: 'flex' }} gap={4} marginLeft='20px' wrap={'wrap'}>
-            {links.map((link) => (
-              <Link key={link.name} href={link.url}>
+            {links.map((link, i) => (
+              <Link key={i} as={RouterLink} to={link.url}>
                 {link.name}
               </Link>
             ))}
