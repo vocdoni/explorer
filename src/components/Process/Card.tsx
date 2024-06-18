@@ -1,31 +1,37 @@
-import { Card, CardBody, Flex, HStack } from '@chakra-ui/react'
-import { ElectionSchedule, ElectionTitle } from '@vocdoni/chakra-components'
-import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/react-providers'
+import { Box, Card, CardBody, CardProps, Flex, HStack } from '@chakra-ui/react'
+import { OrganizationImage as Avatar, ElectionSchedule, ElectionTitle } from '@vocdoni/chakra-components'
+import { ElectionProvider, OrganizationProvider, useElection, useOrganization } from '@vocdoni/react-providers'
 import { InvalidElection, PublishedElection } from '@vocdoni/sdk'
-import { SmallOrganizationCard } from '~components/Organizations/Card'
+import { useTranslation } from 'react-i18next'
+import { ReducedTextAndCopy } from '~components/CopyButton'
 import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
 
+export type ElectionCardProps = { id?: string; election?: PublishedElection } & CardProps
+
 /**
- * Show election card information
+ * Show election card information. If not id or election provided will asume it is already inside an ElectionProvider
  * @param id If id provided it will fetch the election from the API
  * @param election already loaded election info to show
+ * @param rest chakra CardProps
  * @constructor
  */
-const ElectionCard = ({ id, election }: { id?: string; election?: PublishedElection }) => {
+export const ElectionCard = ({ id, election, ...rest }: ElectionCardProps) => {
+  if (!id && !election) return <ElectionCardSkeleton {...rest} />
+
   return (
     <ElectionProvider id={id} election={election}>
-      <ElectionCardContent />
+      <ElectionCardSkeleton {...rest} />
     </ElectionProvider>
   )
 }
 
-const ElectionCardContent = () => {
+const ElectionCardSkeleton = (rest: CardProps) => {
   const { election } = useElection()
 
   if (election instanceof InvalidElection || !election) return null
 
   return (
-    <Card direction={'row'} alignItems='center' pl={4}>
+    <Card direction={'row'} alignItems='center' pl={4} {...rest}>
       <CardBody>
         <Flex direction={'column'} align={'start'} gap={4}>
           <HStack>
@@ -48,4 +54,26 @@ const ElectionCardContent = () => {
   )
 }
 
-export default ElectionCard
+const SmallOrganizationCard = ({ id }: { id: string }) => {
+  const { organization } = useOrganization()
+  const { t } = useTranslation()
+
+  const name = organization?.account.name.default || organization?.address
+
+  return (
+    <Flex direction={'row'} alignItems='center' gap={2}>
+      <Box w={'25px'}>
+        <Avatar
+          mx='auto'
+          fallbackSrc={'/images/fallback-account-dark.png'}
+          alt={t('organization.avatar_alt', {
+            name: organization?.account.name.default || organization?.address,
+          }).toString()}
+        />
+      </Box>
+      <ReducedTextAndCopy color={'textAccent1'} size='sm' toCopy={id}>
+        {name}
+      </ReducedTextAndCopy>
+    </Flex>
+  )
+}

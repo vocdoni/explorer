@@ -4,14 +4,14 @@ import { Trans, useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
-import { RoutePath } from '~constants'
+import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useProcessesCount, useProcessList } from '~queries/processes'
 import { InputSearch } from '~src/layout/Inputs'
 import { LoadingCards } from '~src/layout/Loading'
 import LoadingError from '~src/layout/LoadingError'
 import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
-import ElectionCard from './Card'
+import { ElectionCard } from './Card'
 
 type FilterQueryParams = {
   [K in keyof Omit<IElectionListFilter, 'organizationId'>]: string
@@ -89,7 +89,7 @@ export const PaginatedProcessList = () => {
   // If no filters applied we can calculate the total pages using process total count
   let totalPages: number | undefined = undefined
   if (isEmpty(processFilters)) {
-    totalPages = Math.ceil(count / 10)
+    totalPages = Math.ceil(count / PaginationItemsPerPage)
   }
 
   const {
@@ -119,7 +119,7 @@ export const PaginatedProcessList = () => {
 
   return (
     <RoutedPaginationProvider totalPages={totalPages} path={RoutePath.ProcessesList}>
-      {processes?.elections.map((election, i) => <ElectionCard key={i} election={election} />)}
+      {processes?.elections.map((election, i) => <ElectionCard key={i} id={election.id} election={election} />)}
       <RoutedPagination />
     </RoutedPaginationProvider>
   )
