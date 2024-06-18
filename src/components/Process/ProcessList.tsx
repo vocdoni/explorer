@@ -4,7 +4,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
-import { RoutePath } from '~constants'
+import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useProcessesCount, useProcessList } from '~queries/processes'
 import { InputSearch } from '~src/layout/Inputs'
 import { LoadingCards } from '~src/layout/Loading'
@@ -89,7 +89,7 @@ export const PaginatedProcessList = () => {
   // If no filters applied we can calculate the total pages using process total count
   let totalPages: number | undefined = undefined
   if (isEmpty(processFilters)) {
-    totalPages = Math.ceil(count / 10)
+    totalPages = Math.ceil(count / PaginationItemsPerPage)
   }
 
   const {

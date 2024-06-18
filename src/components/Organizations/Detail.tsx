@@ -13,7 +13,7 @@ import { CopyButton, ReducedTextAndCopy } from '~components/CopyButton'
 import { Pagination } from '~components/Pagination/Pagination'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { ElectionCard } from '~components/Process/Card'
-import { AppBaseURL, FallbackAccountImg, FallbackHeaderImg } from '~constants'
+import { AppBaseURL, FallbackAccountImg, FallbackHeaderImg, PaginationItemsPerPage } from '~constants'
 import { useOrganizationElections } from '~queries/organizations'
 import { LoadingCards } from '~src/layout/Loading'
 import ShowRawButton from '~src/layout/ShowRawButton'
@@ -97,7 +97,7 @@ const OrganizationElections = ({ org }: { org: AccountData }) => {
   }
 
   return (
-    <PaginationProvider totalPages={Math.ceil(org.electionIndex / 10)}>
+    <PaginationProvider totalPages={Math.ceil(org.electionIndex / PaginationItemsPerPage)}>
       <Flex direction={'column'} gap={4}>
         <OrganizationElectionsList org={org} />
         <Pagination />

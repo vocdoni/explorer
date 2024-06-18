@@ -14,6 +14,8 @@ export const VocdoniEnvironment = evocdoni
 
 export const FallbackHeaderImg = fallbackHeader
 export const FallbackAccountImg = fallbackAccount
+
+export const PaginationItemsPerPage = 10
 // route paths
 export enum RoutePath {
   Base = '/',

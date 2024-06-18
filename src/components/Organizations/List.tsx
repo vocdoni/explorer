@@ -3,7 +3,7 @@ import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { OrganizationCard } from '~components/Organizations/Card'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
-import { RoutePath } from '~constants'
+import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
 import { InputSearch } from '~src/layout/Inputs'
 import { LoadingCards } from '~src/layout/Loading'
@@ -52,7 +52,7 @@ export const PaginatedOrganizationsList = () => {
 
   return (
     <RoutedPaginationProvider
-      totalPages={!query ? Math.ceil(count / 10) : undefined}
+      totalPages={!query ? Math.ceil(count / PaginationItemsPerPage) : undefined}
       path={RoutePath.OrganizationsList}
     >
       {orgs?.organizations.map((org) => (
