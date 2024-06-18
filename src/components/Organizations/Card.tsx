@@ -39,7 +39,7 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
 
   return (
     <Link as={RouterLink} to={generatePath(RoutePath.Organization, { pid })}>
-      <Card direction={'row'} alignItems='center' overflow={'scroll'} pl={4} {...rest}>
+      <Card direction={'row'} alignItems='center' pl={4} {...rest}>
         <Box w={'50px'}>
           <Avatar
             mx='auto'
