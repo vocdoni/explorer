@@ -1,22 +1,18 @@
 import { Box, Flex, Icon, Text, useBreakpointValue, VStack } from '@chakra-ui/react'
-import {
-  OrganizationDescription,
-  OrganizationHeader,
-  OrganizationImage,
-  OrganizationName,
-} from '@vocdoni/chakra-components'
+import { OrganizationDescription, OrganizationHeader, OrganizationName } from '@vocdoni/chakra-components'
 import { useOrganization } from '@vocdoni/react-providers'
 import { AccountData, ensure0x, PublishedElection } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
+import { AppBaseURL, FallbackHeaderImg, PaginationItemsPerPage } from '~constants'
 import { FaUserAlt } from 'react-icons/fa'
 import { CopyButton, ReducedTextAndCopy } from '~components/CopyButton'
 import { Pagination } from '~components/Pagination/Pagination'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { ElectionCard } from '~components/Process/Card'
-import { AppBaseURL, FallbackAccountImg, FallbackHeaderImg, PaginationItemsPerPage } from '~constants'
 import { useOrganizationElections } from '~queries/organizations'
 import { LoadingCards } from '~src/layout/Loading'
 import ShowRawButton from '~src/layout/ShowRawButton'
+import { HeroHeaderLayout } from '~src/layout/HeroHeaderLayout'
 
 const OrganizationDetail = () => {
   const { organization: org } = useOrganization()
@@ -29,14 +25,7 @@ const OrganizationDetail = () => {
 
   return (
     <>
-      <OrganizationHeader fallbackSrc={FallbackHeaderImg} />
-      <Flex gap={4} direction={'column'} align={'center'} mt={{ base: '-80px', md: '-100px' }}>
-        <OrganizationImage
-          objectFit='cover'
-          maxW={{ base: '80px', md: '120px', lg: '140px' }}
-          maxH={'140px'}
-          fallbackSrc={FallbackAccountImg}
-        />
+      <HeroHeaderLayout header={<OrganizationHeader fallbackSrc={FallbackHeaderImg} />}>
         <VStack>
           <OrganizationName fontSize='4xl' />
           {isSmallScreen ? (
@@ -67,7 +56,8 @@ const OrganizationDetail = () => {
             </Box>
           </Flex>
         </VStack>
-      </Flex>
+      </HeroHeaderLayout>
+
       <Flex align='start' gap={2}>
         {org.account.description.default && (
           <>

@@ -1,33 +1,33 @@
-import { Box, Card, CardBody, CardHeader, Flex } from '@chakra-ui/react'
-import { Election, OrganizationAvatar, OrganizationDescription, OrganizationName } from '@vocdoni/chakra-components'
-import { OrganizationProvider } from '@vocdoni/react-providers'
-import { PublishedElection } from '@vocdoni/sdk'
 import { useLoaderData } from 'react-router-dom'
+import { ArchivedElection, InvalidElection as InvalidElectionType, PublishedElection } from '@vocdoni/sdk'
+import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/react-providers'
+import Detail from '~components/Process/Detail'
+import { Flex } from '@chakra-ui/react'
+import InvalidElection from '~components/Process/InvalidElection'
 
-const Vote = () => {
-  const election = useLoaderData() as PublishedElection
+const ProcessView = () => {
+  const { election } = useElection()
+  if (!election) return <></>
+  if (election instanceof InvalidElectionType) {
+    return <InvalidElection />
+  }
 
   return (
     <OrganizationProvider id={election.organizationId}>
-      <Card>
-        <CardHeader>
-          <Flex gap='4'>
-            <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-              <OrganizationAvatar maxW='200px' />
-
-              <Box flex='1'>
-                <OrganizationName as='h1' fontSize='2rem' fontWeight='bold' />
-                <OrganizationDescription />
-              </Box>
-            </Flex>
-          </Flex>
-        </CardHeader>
-        <CardBody borderTop='3px solid' borderColor='blue.700'>
-          <Election election={election} />
-        </CardBody>
-      </Card>
+      <Detail />
     </OrganizationProvider>
   )
 }
 
-export default Vote
+const Process = () => {
+  const election = useLoaderData() as PublishedElection | ArchivedElection
+  return (
+    <Flex direction={'column'} mt={'40px'} gap={6}>
+      <ElectionProvider election={election}>
+        <ProcessView />
+      </ElectionProvider>
+    </Flex>
+  )
+}
+
+export default Process

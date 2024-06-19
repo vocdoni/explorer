@@ -1,10 +1,13 @@
-import { Box, Card, CardBody, CardProps, Flex, HStack } from '@chakra-ui/react'
-import { OrganizationImage as Avatar, ElectionSchedule, ElectionTitle } from '@vocdoni/chakra-components'
+import { Box, Card, CardBody, CardProps, Flex, HStack, Link } from '@chakra-ui/react'
+import { ElectionSchedule, ElectionTitle, OrganizationImage as Avatar } from '@vocdoni/chakra-components'
 import { ElectionProvider, OrganizationProvider, useElection, useOrganization } from '@vocdoni/react-providers'
-import { InvalidElection, PublishedElection } from '@vocdoni/sdk'
+import { InvalidElection as InvalidElectionType, PublishedElection } from '@vocdoni/sdk'
 import { useTranslation } from 'react-i18next'
+import { generatePath } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/CopyButton'
 import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
+import { RoutePath } from '~constants'
+import InvalidElection from '~components/Process/InvalidElection'
 
 export type ElectionCardProps = { id?: string; election?: PublishedElection } & CardProps
 
@@ -28,28 +31,33 @@ export const ElectionCard = ({ id, election, ...rest }: ElectionCardProps) => {
 const ElectionCardSkeleton = (rest: CardProps) => {
   const { election } = useElection()
 
-  if (election instanceof InvalidElection || !election) return null
+  if (!election) return null
+  if (election instanceof InvalidElectionType) {
+    return <InvalidElection />
+  }
 
   return (
     <Card direction={'row'} alignItems='center' pl={4} {...rest}>
-      <CardBody>
-        <Flex direction={'column'} align={'start'} gap={4}>
-          <HStack>
-            <ElectionStatusBadge status={election.status} />
-            <ElectionSchedule
-              showRemaining
-              fontWeight={'normal'}
-              fontSize={'sm'}
-              textAlign={'start'}
-              fontStyle={'normal'}
-            />
-          </HStack>
-          <ElectionTitle textAlign={'start'} fontWeight={'bold'} wordBreak='break-all' fontSize='lg' />
-        </Flex>
-        <OrganizationProvider id={election.organizationId}>
-          <SmallOrganizationCard id={election.organizationId} />
-        </OrganizationProvider>
-      </CardBody>
+      <Link href={generatePath(RoutePath.Process, { pid: election.id })}>
+        <CardBody>
+          <Flex direction={'column'} align={'start'} gap={4}>
+            <HStack>
+              <ElectionStatusBadge status={election.status} />
+              <ElectionSchedule
+                showRemaining
+                fontWeight={'normal'}
+                fontSize={'sm'}
+                textAlign={'start'}
+                fontStyle={'normal'}
+              />
+            </HStack>
+            <ElectionTitle textAlign={'start'} fontWeight={'bold'} wordBreak='break-all' fontSize='lg' />
+          </Flex>
+          <OrganizationProvider id={election.organizationId}>
+            <SmallOrganizationCard id={election.organizationId} />
+          </OrganizationProvider>
+        </CardBody>
+      </Link>
     </Card>
   )
 }
