@@ -1,12 +1,16 @@
 import { useLoaderData } from 'react-router-dom'
-import { ArchivedElection, PublishedElection } from '@vocdoni/sdk'
+import { ArchivedElection, InvalidElection as InvalidElectionType, PublishedElection } from '@vocdoni/sdk'
 import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/react-providers'
 import Detail from '~components/Process/Detail'
 import { Flex } from '@chakra-ui/react'
+import InvalidElection from '~components/Process/InvalidElection'
 
 const ProcessView = () => {
   const { election } = useElection()
-  if (!election || !(election instanceof PublishedElection)) return <></>
+  if (!election) return <></>
+  if (election instanceof InvalidElectionType) {
+    return <InvalidElection />
+  }
 
   return (
     <OrganizationProvider id={election.organizationId}>

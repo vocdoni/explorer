@@ -24,7 +24,7 @@ import {
   ElectionTitle,
 } from '@vocdoni/chakra-components'
 import { useElection } from '@vocdoni/react-providers'
-import { ElectionStatus, IElectionInfoResponse, PublishedElection } from '@vocdoni/sdk'
+import { ElectionStatus, IElectionInfoResponse, InvalidElection as InvalidElectionType } from '@vocdoni/sdk'
 import { FallbackHeaderImg } from '~constants'
 import { HeroHeaderLayout } from '~src/layout/HeroHeaderLayout'
 import { CopyButton, ReducedTextAndCopy } from '~components/CopyButton'
@@ -35,13 +35,18 @@ import { OrganizationCard } from '~components/Organizations/Card'
 import { RawContentBox } from '~src/layout/ShowRawButton'
 import { useElectionKeys } from '~queries/processes'
 import { ucfirst } from '~utils/strings'
+import InvalidElection from '~components/Process/InvalidElection'
 
 const Detail = () => {
   const { election } = useElection()
   const { t } = useTranslation()
-
-  if (!election || !(election instanceof PublishedElection)) return null
   const isSmallScreen = useBreakpointValue({ base: true, md: false })
+
+  if (!election) return null
+  if (election instanceof InvalidElectionType) {
+    return <InvalidElection />
+  }
+
   const id = election.id
 
   const raw = election.raw as IElectionInfoResponse
