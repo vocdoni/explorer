@@ -27,14 +27,14 @@ import { useElection } from '@vocdoni/react-providers'
 import { ElectionStatus, IElectionInfoResponse, PublishedElection } from '@vocdoni/sdk'
 import { FallbackHeaderImg } from '~constants'
 import { HeroHeaderLayout } from '~src/layout/HeroHeaderLayout'
-import { CopyButton, ReducedTextAndCopy } from '~components/CopyBtn'
+import { CopyButton, ReducedTextAndCopy } from '~components/CopyButton'
 import { Trans, useTranslation } from 'react-i18next'
 import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
-import { ucfirst } from '~constants/strings'
 import { PropsWithChildren } from 'react'
 import { OrganizationCard } from '~components/Organizations/Card'
 import { RawContentBox } from '~src/layout/ShowRawButton'
 import { useElectionKeys } from '~queries/processes'
+import { ucfirst } from '~utils/strings'
 
 const Detail = () => {
   const { election } = useElection()

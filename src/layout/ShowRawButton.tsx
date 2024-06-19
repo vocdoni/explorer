@@ -1,4 +1,4 @@
-import { Box, Button, ButtonProps, Code, useDisclosure } from '@chakra-ui/react'
+import { Box, BoxProps, Button, ButtonProps, Code, useDisclosure } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
 
 const ShowRawButton = ({ obj, ...props }: { obj: object } & Omit<ButtonProps, 'onClick'>) => {
