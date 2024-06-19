@@ -8,7 +8,7 @@ import { OrganizationImage } from '@vocdoni/chakra-components'
  * @param header - The header component, usually de ElectionHeader or the OrganizationHeader
  * @param children - The content of the page under the lofo of the organization
  */
-export const HeroHeaderLayout = ({ header, children }: { header: ReactNode } & PropsWithChildren) => {
+export const HeroHeaderLayout = ({ header, children }: PropsWithChildren<{ header: ReactNode }>) => {
   return (
     <Flex direction={'column'} mt={'40px'} gap={6}>
       {header}
