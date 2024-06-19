@@ -30,7 +30,6 @@ import { HeroHeaderLayout } from '~src/layout/HeroHeaderLayout'
 import { CopyButton, ReducedTextAndCopy } from '~components/CopyButton'
 import { Trans, useTranslation } from 'react-i18next'
 import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
-import { PropsWithChildren } from 'react'
 import { OrganizationCard } from '~components/Organizations/Card'
 import { RawContentBox } from '~src/layout/ShowRawButton'
 import { useElectionKeys } from '~queries/processes'
@@ -168,7 +167,7 @@ const Detail = () => {
   )
 }
 
-const InfoCard = ({ title, children, ...rest }: { title: string } & PropsWithChildren & CardProps) => {
+const InfoCard = ({ title, children, ...rest }: { title: string } & CardProps) => {
   return (
     <Card {...rest}>
       <CardHeader>{title}</CardHeader>
