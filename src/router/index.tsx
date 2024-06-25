@@ -6,6 +6,7 @@ import Layout from '~src/layout/Default'
 import Error404 from '~src/router/Error404'
 import RouteError from '~src/router/RouteError'
 import { SuspenseLoader } from '~src/router/SuspenseLoader'
+import BlocksList from '~pages/blocks'
 
 const Home = lazy(() => import('~pages/Home'))
 const Organization = lazy(() => import('~pages/organization'))
@@ -26,6 +27,14 @@ export const RoutesProvider = () => {
           element: (
             <SuspenseLoader>
               <Home />
+            </SuspenseLoader>
+          ),
+        },
+        {
+          path: RoutePath.BlocksList,
+          element: (
+            <SuspenseLoader>
+              <BlocksList />
             </SuspenseLoader>
           ),
         },

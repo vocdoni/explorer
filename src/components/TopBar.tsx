@@ -55,7 +55,7 @@ export const TopBar = () => {
     },
     {
       name: t('links.blocks'),
-      url: '',
+      url: generatePath(RoutePath.BlocksList, { page: null }),
     },
     {
       name: t('links.transactions'),
