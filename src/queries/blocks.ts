@@ -14,7 +14,7 @@ export const useBlockList = ({
   const { client } = useClient<ExtendedSDKClient>()
 
   return useQuery({
-    queryKey: ['blocks', 'list'],
+    queryKey: ['blocks', 'list', from, listSize],
     queryFn: () => client.blockList(from, listSize),
     ...options,
   })

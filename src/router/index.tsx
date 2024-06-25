@@ -6,15 +6,18 @@ import Layout from '~src/layout/Default'
 import Error404 from '~src/router/Error404'
 import RouteError from '~src/router/RouteError'
 import { SuspenseLoader } from '~src/router/SuspenseLoader'
+import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 
 const Home = lazy(() => import('~pages/Home'))
+const Block = lazy(() => import('~pages/block'))
+const BlocksList = lazy(() => import('~pages/blocks'))
 const Organization = lazy(() => import('~pages/organization'))
 const OrganizationsList = lazy(() => import('~pages/organizations'))
 const ProcessList = lazy(() => import('~pages/processes'))
 const Process = lazy(() => import('~pages/process'))
 
 export const RoutesProvider = () => {
-  const { client } = useClient()
+  const { client } = useClient<ExtendedSDKClient>()
   const routes: RouteObject[] = [
     {
       path: RoutePath.Base,
@@ -26,6 +29,23 @@ export const RoutesProvider = () => {
           element: (
             <SuspenseLoader>
               <Home />
+            </SuspenseLoader>
+          ),
+        },
+        {
+          path: RoutePath.Block,
+          element: (
+            <SuspenseLoader>
+              <Block />
+            </SuspenseLoader>
+          ),
+          loader: async ({ params }) => await client.blockByHeight(Number(params.height)),
+        },
+        {
+          path: RoutePath.BlocksList,
+          element: (
+            <SuspenseLoader>
+              <BlocksList />
             </SuspenseLoader>
           ),
         },
