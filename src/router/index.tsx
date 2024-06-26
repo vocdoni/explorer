@@ -15,6 +15,7 @@ const Organization = lazy(() => import('~pages/organization'))
 const OrganizationsList = lazy(() => import('~pages/organizations'))
 const ProcessList = lazy(() => import('~pages/processes'))
 const Process = lazy(() => import('~pages/process'))
+const TransactionsList = lazy(() => import('~pages/transactions'))
 
 export const RoutesProvider = () => {
   const { client } = useClient<ExtendedSDKClient>()
@@ -50,6 +51,15 @@ export const RoutesProvider = () => {
           ),
         },
         {
+          path: RoutePath.Organization,
+          element: (
+            <SuspenseLoader>
+              <Organization />
+            </SuspenseLoader>
+          ),
+          loader: async ({ params }) => await client.fetchAccount(params.pid),
+        },
+        {
           path: RoutePath.OrganizationsList,
           element: (
             <SuspenseLoader>
@@ -75,13 +85,12 @@ export const RoutesProvider = () => {
           loader: async ({ params }) => await client.fetchElection(params.pid),
         },
         {
-          path: RoutePath.Organization,
+          path: RoutePath.TransactionsList,
           element: (
             <SuspenseLoader>
-              <Organization />
+              <TransactionsList />
             </SuspenseLoader>
           ),
-          loader: async ({ params }) => await client.fetchAccount(params.pid),
         },
         {
           path: '*',

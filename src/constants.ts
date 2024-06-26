@@ -26,4 +26,6 @@ export enum RoutePath {
   OrganizationsList = '/organizations/:page?/:query?',
   Process = '/process/:pid',
   ProcessesList = '/processes/:page?',
+  Transaction = '/transactions/:block/:index',
+  TransactionsList = '/transactions/:page?',
 }
