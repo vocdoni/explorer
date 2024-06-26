@@ -21,7 +21,7 @@ const ListPageLayout = ({
           {subtitle && <Text color={'lighterText'}>{subtitle}</Text>}
         </Flex>
         {rightComponent && (
-          <Flex align={'end'} justify={'end'} w={'full'}>
+          <Flex align={'end'} justify={'end'}>
             {rightComponent}
           </Flex>
         )}
