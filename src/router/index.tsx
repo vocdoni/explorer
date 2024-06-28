@@ -15,6 +15,7 @@ const Organization = lazy(() => import('~pages/organization'))
 const OrganizationsList = lazy(() => import('~pages/organizations'))
 const ProcessList = lazy(() => import('~pages/processes'))
 const Process = lazy(() => import('~pages/process'))
+const Transaction = lazy(() => import('~pages/transaction'))
 const TransactionsList = lazy(() => import('~pages/transactions'))
 
 export const RoutesProvider = () => {
@@ -83,6 +84,15 @@ export const RoutesProvider = () => {
             </SuspenseLoader>
           ),
           loader: async ({ params }) => await client.fetchElection(params.pid),
+        },
+        {
+          path: RoutePath.Transaction,
+          element: (
+            <SuspenseLoader>
+              <Transaction />
+            </SuspenseLoader>
+          ),
+          loader: async ({ params }) => await client.txInfoByBlock(Number(params.block), Number(params.index)),
         },
         {
           path: RoutePath.TransactionsList,

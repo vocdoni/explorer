@@ -14,3 +14,14 @@ export const useChainInfo = (options?: useChainInfoOptions) => {
     ...options,
   })
 }
+
+// todo(kon): implement this function
+export const useBlockToDate = ({ height }: { height: number }) => {
+  const { client } = useClient<ExtendedSDKClient>()
+  return { data: new Date() }
+  // return useQuery({
+  //   queryKey: ['blocks', 'blockToDate', height],
+  //   queryFn: () => client.chainService.blockToDate(height),
+  //   ...options,
+  // })
+}
