@@ -1,11 +1,11 @@
-import { IVoteInfoResponse } from '@vocdoni/sdk'
 import { Flex, Heading, Image, Link, Text } from '@chakra-ui/react'
-import { Trans, useTranslation } from 'react-i18next'
-import voteImage from '/images/vocdoni-vote.png'
+import { IVoteInfoResponse } from '@vocdoni/sdk'
 import { formatDistance } from 'date-fns'
+import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { RoutePath } from '~constants'
 import ShowRawButton from '~src/layout/ShowRawButton'
+import voteImage from '/images/vocdoni-vote.png'
 
 const EnvelopeDetail = (envelope: IVoteInfoResponse) => {
   const { t } = useTranslation()

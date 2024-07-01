@@ -1,10 +1,10 @@
 import { Box, Button, Flex, Image, Text } from '@chakra-ui/react'
-import addVote from '/images/add-vote.svg'
-import { InputSearch } from '~src/layout/Inputs'
-import { generatePath, useNavigate, useParams } from 'react-router-dom'
-import { Trans, useTranslation } from 'react-i18next'
 import { useState } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
+import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { RoutePath } from '~constants'
+import { InputSearch } from '~src/layout/Inputs'
+import addVote from '/images/add-vote.svg'
 
 const SearchVote = ({ compact }: { compact?: boolean }) => {
   const { verifier: urlVerifier }: { verifier?: string } = useParams()
@@ -16,7 +16,7 @@ const SearchVote = ({ compact }: { compact?: boolean }) => {
   return (
     <Flex direction={compact ? 'row' : 'column'} gap={2} align={'center'} w={'full'}>
       <InputSearch
-        w={'100vh'}
+        w='full'
         placeholder={t('verify.add_your_vote_id')}
         onChange={(value: string) => {
           setVerifier(value)
