@@ -30,6 +30,7 @@ export enum RoutePath {
   Transaction = '/transactions/:block/:index',
   TransactionsList = '/transactions/:page?',
   Validators = '/validators',
+  Verify = '/verify/:verifier?',
 }
 
 // Used to test if a string is base64 encoded. Used by b64ToHex
