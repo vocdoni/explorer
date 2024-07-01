@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
 import { PaginationItemsPerPage, RoutePath } from '~constants'
@@ -6,6 +6,34 @@ import { LoadingCards } from '~src/layout/Loading'
 import LoadingError from '~src/layout/LoadingError'
 import { useTransactionList, useTransactionsCount } from '~queries/transactions'
 import { TransactionCard } from '~components/Transactions/TransactionCard'
+import { useTranslation } from 'react-i18next'
+import { InputSearch } from '~src/layout/Inputs'
+
+export const TransactionFilter = () => {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { data, isLoading: isLoadingCount } = useTransactionsCount()
+
+  return (
+    <InputSearch
+      maxW={'300px'}
+      placeholder={t('transactions.search_tx')}
+      onChange={(value: string) => {
+        if (!data) {
+          return
+        }
+        const num = parseInt(value)
+        let page = 0 // By default return to first page
+        if (!isNaN(num) && num >= 0) {
+          page = Math.ceil((data - num + 1) / PaginationItemsPerPage)
+        }
+        navigate(generatePath(RoutePath.TransactionsList, { page: page.toString() }))
+      }}
+      debounceTime={500}
+      type={'number'}
+    />
+  )
+}
 
 export const PaginatedTransactionList = () => {
   const { page }: { page?: number } = useParams()
@@ -13,7 +41,9 @@ export const PaginatedTransactionList = () => {
 
   const totalPages = Math.ceil(count / PaginationItemsPerPage)
 
-  const { data, isLoading: isLoadingTx, isError, error } = useTransactionList({ page: Number(page || 1) })
+  // todo(kon): when paginator is fixed, it won't be needed to do page - 1
+  const currentPage = page && page > 0 ? Number(page - 1) : 0
+  const { data, isLoading: isLoadingTx, isError, error } = useTransactionList({ page: currentPage })
 
   const isLoading = isLoadingCount || isLoadingTx
 
