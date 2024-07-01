@@ -41,7 +41,6 @@ export const PaginatedTransactionList = () => {
 
   const totalPages = Math.ceil(count / PaginationItemsPerPage)
 
-  // todo(kon): when paginator is fixed, it won't be needed to do page - 1
   const currentPage = page && page > 0 ? Number(page - 1) : 0
   const { data, isLoading: isLoadingTx, isError, error } = useTransactionList({ page: currentPage })
 
