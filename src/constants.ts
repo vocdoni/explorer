@@ -22,6 +22,7 @@ export enum RoutePath {
   Base = '/',
   Block = '/block/:height',
   BlocksList = '/blocks/:page?',
+  Envelope = '/envelope/:verifier',
   Organization = '/organization/:pid',
   OrganizationsList = '/organizations/:page?/:query?',
   Process = '/process/:pid',

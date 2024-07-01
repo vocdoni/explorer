@@ -33,7 +33,7 @@ import {
   InvalidElection as InvalidElectionType,
   PublishedElection,
 } from '@vocdoni/sdk'
-import { FallbackHeaderImg } from '~constants'
+import { FallbackHeaderImg, RoutePath } from '~constants'
 import { HeroHeaderLayout } from '~src/layout/HeroHeaderLayout'
 import { CopyButton, ReducedTextAndCopy } from '~components/CopyButton'
 import { Trans, useTranslation } from 'react-i18next'
@@ -47,6 +47,7 @@ import { Pagination } from '~components/Pagination/Pagination'
 import { BiEnvelope } from 'react-icons/bi'
 import { ucfirst } from '~utils/strings'
 import InvalidElection from '~components/Process/InvalidElection'
+import { generatePath, Link as RouterLink } from 'react-router-dom'
 
 const Detail = () => {
   const { election } = useElection()
@@ -292,7 +293,7 @@ const EnvelopeCard = ({ envelope, count }: { envelope: IElectionVote; count: num
               Transaction: {{ transactionIndex: envelope.transactionIndex }}
             </Trans>
           </Text>
-          <Text>
+          <Text as={RouterLink} to={generatePath(RoutePath.Envelope, { verifier: envelope.voteID })}>
             <Trans i18nKey={'envelope.details'}>Details</Trans>
           </Text>
         </Flex>

@@ -11,6 +11,7 @@ import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 const Home = lazy(() => import('~pages/Home'))
 const Block = lazy(() => import('~pages/block'))
 const BlocksList = lazy(() => import('~pages/blocks'))
+const Envelope = lazy(() => import('~pages/envelope'))
 const Organization = lazy(() => import('~pages/organization'))
 const OrganizationsList = lazy(() => import('~pages/organizations'))
 const ProcessList = lazy(() => import('~pages/processes'))
@@ -60,6 +61,15 @@ export const RoutesProvider = () => {
             </SuspenseLoader>
           ),
           loader: async ({ params }) => await client.fetchAccount(params.pid),
+        },
+        {
+          path: RoutePath.Envelope,
+          element: (
+            <SuspenseLoader>
+              <Envelope />
+            </SuspenseLoader>
+          ),
+          loader: async ({ params }) => await client.voteInfo(params.verifier as string),
         },
         {
           path: RoutePath.OrganizationsList,
