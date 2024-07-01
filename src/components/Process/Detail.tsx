@@ -33,7 +33,7 @@ import {
   InvalidElection as InvalidElectionType,
   PublishedElection,
 } from '@vocdoni/sdk'
-import { FallbackHeaderImg } from '~constants'
+import { FallbackHeaderImg, RoutePath } from '~constants'
 import { HeroHeaderLayout } from '~src/layout/HeroHeaderLayout'
 import { CopyButton, ReducedTextAndCopy } from '~components/CopyButton'
 import { Trans, useTranslation } from 'react-i18next'
@@ -47,6 +47,7 @@ import { Pagination } from '~components/Pagination/Pagination'
 import { BiEnvelope } from 'react-icons/bi'
 import { ucfirst } from '~utils/strings'
 import InvalidElection from '~components/Process/InvalidElection'
+import { generatePath, Link as RouterLink } from 'react-router-dom'
 
 const Detail = () => {
   const { election } = useElection()
@@ -282,17 +283,23 @@ const EnvelopeCard = ({ envelope, count }: { envelope: IElectionVote; count: num
       </CardHeader>
       <CardBody>
         <Flex direction={'column'}>
-          <Text>
+          <Text as={RouterLink} to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString() })}>
             <Trans i18nKey={'envelope.block'} height={envelope.blockHeight}>
               Block {{ height: envelope.blockHeight }}
             </Trans>
           </Text>
-          <Text>
+          <Text
+            as={RouterLink}
+            to={generatePath(RoutePath.Transaction, {
+              block: envelope.blockHeight.toString(),
+              index: envelope.transactionIndex.toString(),
+            })}
+          >
             <Trans i18nKey={'envelope.tx_number'} transactionIndex={envelope.transactionIndex}>
               Transaction: {{ transactionIndex: envelope.transactionIndex }}
             </Trans>
           </Text>
-          <Text>
+          <Text as={RouterLink} to={generatePath(RoutePath.Envelope, { verifier: envelope.voteID })}>
             <Trans i18nKey={'envelope.details'}>Details</Trans>
           </Text>
         </Flex>
