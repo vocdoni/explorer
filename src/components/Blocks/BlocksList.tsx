@@ -50,7 +50,6 @@ export const PaginatedBlocksList = () => {
   const totalPages = Math.ceil(count / PaginationItemsPerPage)
 
   // Calculate the first block index for the current page
-  // todo(kon): when paginator is fixed, it won't be needed to do page - 1
   const currentPage = page && page > 0 ? Number(page - 1) : 0
   // Get the first block of the page
   const firstPageIndex = count - currentPage * PaginationItemsPerPage

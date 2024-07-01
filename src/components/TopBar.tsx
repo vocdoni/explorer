@@ -59,7 +59,7 @@ export const TopBar = () => {
     },
     {
       name: t('links.transactions'),
-      url: '',
+      url: generatePath(RoutePath.TransactionsList, { page: null }),
     },
     {
       name: t('links.validators'),

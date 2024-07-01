@@ -1,10 +1,31 @@
 {
   "blocks": {
-    "proposer": "Proposer:"
+    "block_detail": "Block Detail",
+    "blocks_count_one": "",
+    "blocks_count_other": "",
+    "blocks_list": "",
+    "hash": "Hash: {{hash}}",
+    "previous_block_hash": "Previous block hash: ",
+    "proposer": "Proposer:",
+    "proposer_id": "Proposer: {{proposer}}",
+    "transactions_count_one": "Transactions: {{count}}",
+    "transactions_count_other": "Transactions: {{count}}"
   },
   "copy": {
-    "copied_to_the_clipboard": "",
+    "copied_to_clipboard": "Copied!",
     "copy_to_clipboard": ""
+  },
+  "election": {
+    "no_votes_yet": "No votes yet!"
+  },
+  "envelope": {
+    "block": "Block {{height}}",
+    "details": "Details",
+    "envelope_number": "Envelope nº {{num}}",
+    "tx_number": "Transaction: {{transactionIndex}}"
+  },
+  "errors": {
+    "content_error": "Looks like the content you were accessing threw an error."
   },
   "featured": {
     "a_cutting_edge_voting_protocol": "A cutting edge voting protocol",
@@ -36,15 +57,60 @@
     "validators": "",
     "verify_vote": ""
   },
+  "loading": "Loading...",
   "organization": {
+    "avatar_alt": "",
+    "description": "Description",
+    "elections_list": "Elections List:",
+    "no_elections": "No elections yet!",
     "process_count_one": "<0>Process:</0> {{count}}",
-    "process_count_other": "<0>Process:</0> {{count}}"
+    "process_count_other": "<0>Process:</0> {{count}}",
+    "view_profile": "(View profile)"
   },
   "organizations": {
     "organizations_count_one": "",
     "organizations_count_other": "",
-    "organizations_list": "Organizations"
+    "organizations_list": "Organizations",
+    "search_by_org_id": ""
   },
+  "process": {
+    "badge": {
+      "anonymous": "Anonymous",
+      "archive": "From archive"
+    },
+    "by_status_all": "",
+    "by_status_all_active": "",
+    "by_status_ended": "",
+    "by_status_paused": "",
+    "detailed_data": "Detailed data",
+    "encryption_keys": "Election encryption keys",
+    "process_count_one": "",
+    "process_count_other": "",
+    "process_details": "Process details",
+    "process_list": "",
+    "search_by": "",
+    "show_with_results": "Show only processes with results",
+    "tab_description": "Description",
+    "tab_envelopes": "Envelopes",
+    "tab_raw": "Raw",
+    "tab_results": "Results"
+  },
+  "processes": {
+    "envelope_recount": "",
+    "envelope_type_badge": {
+      "encrypted_votes": "",
+      "not_encrypted_votes": ""
+    },
+    "invalid_election": "Invalid Election",
+    "process_mode_badge": {
+      "autostart": "",
+      "notAutostart": ""
+    },
+    "published_keys": "",
+    "revealed": "",
+    "total_questions": ""
+  },
+  "raw_content": "Raw content",
   "stats": {
     "average_block_time": "Average block time",
     "block_height": "",
@@ -68,5 +134,17 @@
     "view_all_blocks": "View all blocks",
     "votes_one": "{{ count }} vote",
     "votes_other": "{{ count }} votes"
+  },
+  "transactions": {
+    "belong_to_organization": "Belongs to organization: <a>{{organization}}</a>",
+    "belongs_to_process": "Belongs to process: <a>{{process}}</a>",
+    "created_on": "Created {{createdOn}}",
+    "on_block_n": "On Block {{height}}",
+    "transaction_index": "Transaction index: {{txIndex}}",
+    "transactions_list": "",
+    "tx_count_one": "",
+    "tx_count_other": "",
+    "tx_detail": "Transaction Details",
+    "vote_package": "Vote package:"
   }
 }

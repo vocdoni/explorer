@@ -26,4 +26,9 @@ export enum RoutePath {
   OrganizationsList = '/organizations/:page?/:query?',
   Process = '/process/:pid',
   ProcessesList = '/processes/:page?',
+  Transaction = '/transactions/:block/:index',
+  TransactionsList = '/transactions/:page?',
 }
+
+// Used to test if a string is base64 encoded. Used by b64ToHex
+export const isB64Regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/
