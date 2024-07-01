@@ -3,11 +3,11 @@ import { Box, Card, CardBody, Code, Flex, Heading, Link, Text } from '@chakra-ui
 import { Trans } from 'react-i18next'
 import ShowRawButton from '~src/layout/ShowRawButton'
 import { useBlockToDate } from '~queries/stats'
-import { b64ToHex, objectB64StringsToHex } from '~utils/strings'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { RoutePath } from '~constants'
 import { useDateFns } from '~i18n/use-date-fns'
 import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
+import { b64ToHex, objectB64StringsToHex } from '~utils/objects'
 
 export const TransactionDetail = (tx: Tx) => {
   const { data: date } = useBlockToDate({ height: tx.txInfo.blockHeight })
