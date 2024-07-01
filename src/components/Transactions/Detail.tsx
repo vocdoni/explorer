@@ -10,10 +10,14 @@ import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
 import { b64ToHex, objectB64StringsToHex } from '~utils/objects'
 
 export const TransactionDetail = (tx: Tx) => {
-  const { data: date } = useBlockToDate({ height: tx.txInfo.blockHeight })
+  const { data } = useBlockToDate({ height: tx.txInfo.blockHeight })
   const { formatDistance } = useDateFns()
 
-  const createdOn = formatDistance(date, new Date())
+  let createdOn = ''
+  if (data) {
+    createdOn = formatDistance(new Date(data.date), new Date())
+  }
+
   const blockHeight = tx.txInfo.blockHeight
   const txIndex = tx.txInfo.transactionIndex
 

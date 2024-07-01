@@ -20,7 +20,7 @@ export const useBlockToDate = ({
   ...options
 }: {
   height: number
-} & Omit<UseQueryOptions<ReturnType<typeof ChainAPI.blockToDate>>, 'queryKey'>) => {
+} & Omit<UseQueryOptions<Awaited<ReturnType<typeof ChainAPI.blockToDate>>>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
   return useQuery({
     queryKey: ['blocks', 'blockToDate', height],
