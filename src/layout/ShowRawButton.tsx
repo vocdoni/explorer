@@ -1,5 +1,6 @@
-import { Box, BoxProps, Button, ButtonProps, Code, useDisclosure } from '@chakra-ui/react'
+import { Box, BoxProps, Button, ButtonProps, useDisclosure } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
+import { JsonViewer } from './JsonViewer'
 
 const ShowRawButton = ({ obj, ...props }: { obj: object } & Omit<ButtonProps, 'onClick'>) => {
   const { getDisclosureProps, getButtonProps } = useDisclosure()
@@ -19,10 +20,8 @@ const ShowRawButton = ({ obj, ...props }: { obj: object } & Omit<ButtonProps, 'o
 }
 
 export const RawContentBox = ({ obj, ...rest }: { obj: object } & BoxProps) => (
-  <Box wordBreak='break-all' whiteSpace='pre' color='white' borderRadius='md' maxW={'90vw'} {...rest}>
-    <Code w={'full'} wordBreak='break-all' p='4' fontFamily='monospace' overflowX='auto'>
-      {JSON.stringify(obj, null, 2)}
-    </Code>
+  <Box borderRadius='md' backgroundColor='gray.50' {...rest}>
+    <JsonViewer json={obj} />
   </Box>
 )
 
