@@ -283,12 +283,18 @@ const EnvelopeCard = ({ envelope, count }: { envelope: IElectionVote; count: num
       </CardHeader>
       <CardBody>
         <Flex direction={'column'}>
-          <Text>
+          <Text as={RouterLink} to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString() })}>
             <Trans i18nKey={'envelope.block'} height={envelope.blockHeight}>
               Block {{ height: envelope.blockHeight }}
             </Trans>
           </Text>
-          <Text>
+          <Text
+            as={RouterLink}
+            to={generatePath(RoutePath.Transaction, {
+              block: envelope.blockHeight.toString(),
+              index: envelope.transactionIndex.toString(),
+            })}
+          >
             <Trans i18nKey={'envelope.tx_number'} transactionIndex={envelope.transactionIndex}>
               Transaction: {{ transactionIndex: envelope.transactionIndex }}
             </Trans>
