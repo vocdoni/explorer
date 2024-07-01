@@ -1,13 +1,13 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
-import Stats from '~components/Stats'
 import { FeaturedContent } from '~components/Home/FeaturedContent'
+import Stats from '~components/Stats'
 
 const LandingPage = () => {
   return (
     <>
       <Box
-        w='100vw'
+        w='full'
         h='400px'
         sx={{
           background: 'linear-gradient(180deg, #f0ffde 20.98%, #e0ffff 73.1%, transparent 100%, transparent 100%)',
