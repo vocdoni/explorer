@@ -17,6 +17,7 @@ const ProcessList = lazy(() => import('~pages/processes'))
 const Process = lazy(() => import('~pages/process'))
 const Transaction = lazy(() => import('~pages/transaction'))
 const TransactionsList = lazy(() => import('~pages/transactions'))
+const Validators = lazy(() => import('~pages/validators'))
 
 export const RoutesProvider = () => {
   const { client } = useClient<ExtendedSDKClient>()
@@ -101,6 +102,15 @@ export const RoutesProvider = () => {
               <TransactionsList />
             </SuspenseLoader>
           ),
+        },
+        {
+          path: RoutePath.Validators,
+          element: (
+            <SuspenseLoader>
+              <Validators />
+            </SuspenseLoader>
+          ),
+          loader: async ({ params }) => await client.validatorsList(),
         },
         {
           path: '*',
