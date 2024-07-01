@@ -63,7 +63,7 @@ export const TopBar = () => {
     },
     {
       name: t('links.validators'),
-      url: '',
+      url: generatePath(RoutePath.Validators),
     },
     {
       name: t('links.stats'),
