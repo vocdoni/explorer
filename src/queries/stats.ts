@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 import { useClient } from '@vocdoni/react-providers'
-import { IChainGetInfoResponse } from '@vocdoni/sdk'
+import { ChainAPI, IChainGetInfoResponse } from '@vocdoni/sdk'
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 
 export type useChainInfoOptions = Omit<UseQueryOptions<IChainGetInfoResponse>, 'queryKey'>
@@ -15,13 +15,16 @@ export const useChainInfo = (options?: useChainInfoOptions) => {
   })
 }
 
-// todo(kon): implement this function
-export const useBlockToDate = ({ height }: { height: number }) => {
+export const useBlockToDate = ({
+  height,
+  ...options
+}: {
+  height: number
+} & Omit<UseQueryOptions<ReturnType<typeof ChainAPI.blockToDate>>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
-  return { data: new Date() }
-  // return useQuery({
-  //   queryKey: ['blocks', 'blockToDate', height],
-  //   queryFn: () => client.chainService.blockToDate(height),
-  //   ...options,
-  // })
+  return useQuery({
+    queryKey: ['blocks', 'blockToDate', height],
+    queryFn: () => client.blockToDate(height),
+    ...options,
+  })
 }
