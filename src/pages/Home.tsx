@@ -1,7 +1,5 @@
 import LandingPage from '~components/Home'
 
-const Home = () => {
-  return <LandingPage />
-}
+const Home = () => <LandingPage />
 
 export default Home
