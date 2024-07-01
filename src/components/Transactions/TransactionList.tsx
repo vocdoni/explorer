@@ -17,20 +17,18 @@ export const PaginatedTransactionList = () => {
 
   const isLoading = isLoadingCount || isLoadingTx
 
-  if (isLoading) {
-    return <LoadingCards />
-  }
-
-  if (!data || data?.transactions.length === 0 || isError) {
-    return <LoadingError error={error} />
-  }
-
   return (
-    <RoutedPaginationProvider totalPages={totalPages} path={RoutePath.BlocksList}>
-      {data.transactions.map((tx, i) => (
-        <TransactionCard key={i} {...tx} />
-      ))}
-      <RoutedPagination />
-    </RoutedPaginationProvider>
+    <>
+      {isLoading && <LoadingCards />}
+      {!data || data?.transactions.length === 0 || (isError && <LoadingError error={error} />)}
+      {data && data.transactions.length > 0 && (
+        <RoutedPaginationProvider totalPages={totalPages} path={RoutePath.TransactionsList}>
+          {data.transactions.map((tx, i) => (
+            <TransactionCard key={i} {...tx} />
+          ))}
+          <RoutedPagination />
+        </RoutedPaginationProvider>
+      )}
+    </>
   )
 }
