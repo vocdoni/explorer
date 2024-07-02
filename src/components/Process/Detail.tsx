@@ -259,7 +259,7 @@ const EnvelopeList = () => {
       gap={4}
     >
       {envelopes?.votes.map((envelope, i) => {
-        return <EnvelopeCard envelope={envelope} count={page * 10 + i + 1} />
+        return <EnvelopeCard key={i} envelope={envelope} count={page * 10 + i + 1} />
       })}
     </Grid>
   )

@@ -12,21 +12,23 @@ const ListPageLayout = ({
   rightComponent?: ReactNode
 } & PropsWithChildren) => {
   return (
-    <Flex direction={'column'} mt={'40px'} gap={6}>
-      <Flex direction={{ base: 'column', md: 'row' }} justify={'space-between'} gap={4}>
-        <Flex direction={'column'}>
+    <Flex direction='column' mt={10} gap={6}>
+      <Flex direction={{ base: 'column', md: 'row' }} justify='space-between' gap={4}>
+        <Flex direction='column'>
           <Heading isTruncated wordBreak='break-word'>
             {title}
           </Heading>
-          {subtitle && <Text color={'lighterText'}>{subtitle}</Text>}
+          {subtitle && <Text color='lighterText'>{subtitle}</Text>}
         </Flex>
         {rightComponent && (
-          <Flex align={'end'} justify={'end'}>
+          <Flex align='end' justify='end'>
             {rightComponent}
           </Flex>
         )}
       </Flex>
-      {children}
+      <Flex gap={6} flexDir='column'>
+        {children}
+      </Flex>
     </Flex>
   )
 }
