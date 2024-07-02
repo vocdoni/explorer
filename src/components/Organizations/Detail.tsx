@@ -27,7 +27,7 @@ const OrganizationDetail = () => {
     <>
       <HeroHeaderLayout header={<OrganizationHeader fallbackSrc={FallbackHeaderImg} />}>
         <VStack>
-          <OrganizationName fontSize='4xl' />
+          <OrganizationName fontSize='4xl' wordBreak='break-word' />
           {isSmallScreen ? (
             <ReducedTextAndCopy color={'textAccent1'} toCopy={id} fontWeight={'normal'} h={0} fontSize={'md'}>
               {id}
@@ -58,7 +58,7 @@ const OrganizationDetail = () => {
         </VStack>
       </HeroHeaderLayout>
 
-      <Flex align='start' gap={2}>
+      <Flex align='start' gap={2} direction={'column'}>
         {org.account.description.default && (
           <>
             <Text fontSize='xl' color={'blueText'}>
@@ -72,7 +72,7 @@ const OrganizationDetail = () => {
         <Trans i18nKey={'organization.elections_list'}>Elections List:</Trans>
       </Text>
       <OrganizationElections org={org} />
-      <ShowRawButton obj={org} />
+      <ShowRawButton obj={org} mt={4} />
     </>
   )
 }
