@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Image, Link, Text } from '@chakra-ui/react'
 import { Trans, useTranslation } from 'react-i18next'
 
 import anonymous from '/images/featured/anonymous.png'
@@ -76,7 +76,7 @@ export const FeaturedContent = () => {
                 Leveraging on decentralized technologies
               </Trans>
             </Text>
-            <Button bgColor='accent1' color={'white'}>
+            <Button as={Link} bgColor='accent1' color={'white'} href={'https://app-dev.vocdoni.io/'}>
               <Trans i18nKey='featured.know_more'>Know more</Trans>
             </Button>
           </Flex>
