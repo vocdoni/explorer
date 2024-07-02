@@ -1,14 +1,14 @@
+import { keepPreviousData } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
-import { RoutedPagination } from '~components/Pagination/Pagination'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
-import { PaginationItemsPerPage, RoutePath } from '~constants'
+import { InputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
 import LoadingError from '~components/Layout/LoadingError'
-import { useTransactionList, useTransactionsCount } from '~queries/transactions'
+import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { TransactionCard } from '~components/Transactions/TransactionCard'
-import { useTranslation } from 'react-i18next'
-import { InputSearch } from '~components/Layout/Inputs'
-import { keepPreviousData } from '@tanstack/react-query'
+import { PaginationItemsPerPage, RoutePath } from '~constants'
+import { useTransactionList, useTransactionsCount } from '~queries/transactions'
 
 export const TransactionFilter = () => {
   const { t } = useTranslation()

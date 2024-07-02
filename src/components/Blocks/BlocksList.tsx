@@ -1,15 +1,15 @@
+import { keepPreviousData } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
-import { RoutedPagination } from '~components/Pagination/Pagination'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
-import { PaginationItemsPerPage, RefreshIntervalBlocks, RoutePath } from '~constants'
+import { BlockCard } from '~components/Blocks/BlockCard'
+import { InputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
 import LoadingError from '~components/Layout/LoadingError'
+import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { RoutedPagination } from '~components/Pagination/RoutedPagination'
+import { PaginationItemsPerPage, RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
-import { BlockCard } from '~components/Blocks/BlockCard'
-import { useTranslation } from 'react-i18next'
-import { InputSearch } from '~components/Layout/Inputs'
-import { keepPreviousData } from '@tanstack/react-query'
 
 export const BlocksFilter = () => {
   const { t } = useTranslation()

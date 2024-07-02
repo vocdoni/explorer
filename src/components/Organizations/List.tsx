@@ -1,14 +1,14 @@
+import { keepPreviousData } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
-import { OrganizationCard } from '~components/Organizations/Card'
-import { RoutedPagination } from '~components/Pagination/Pagination'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
-import { PaginationItemsPerPage, RoutePath } from '~constants'
-import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
 import { InputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
 import LoadingError from '~components/Layout/LoadingError'
-import { keepPreviousData } from '@tanstack/react-query'
+import { OrganizationCard } from '~components/Organizations/Card'
+import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { RoutedPagination } from '~components/Pagination/RoutedPagination'
+import { PaginationItemsPerPage, RoutePath } from '~constants'
+import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
 
 export const OrganizationsFilter = () => {
   const { t } = useTranslation()

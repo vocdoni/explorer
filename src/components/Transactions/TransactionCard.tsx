@@ -1,9 +1,8 @@
 import { Box, Card, CardBody, Flex, Link, Tag, Text } from '@chakra-ui/react'
-import { Trans } from 'react-i18next'
-import { ReducedTextAndCopy } from '~components/CopyButton'
 import { IChainTxReference, TransactionType } from '@vocdoni/sdk'
-import React from 'react'
-import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { Trans } from 'react-i18next'
+import { Link as RouterLink, generatePath } from 'react-router-dom'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { RoutePath } from '~constants'
 
 export const TransactionTypeBadge = ({ transactionType }: { transactionType: TransactionType }) => {
