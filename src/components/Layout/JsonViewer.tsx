@@ -42,7 +42,7 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({ json, space = 2 }) => {
 
   return (
     <VStack align='start'>
-      <Box as='pre' p={4} overflow='auto' width='full'>
+      <Box as='pre' p={4} overflow='auto' maxW={'90vw'}>
         {renderHighlightedJson(prettifiedJson)}
       </Box>
     </VStack>
