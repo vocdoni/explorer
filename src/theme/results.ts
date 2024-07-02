@@ -29,32 +29,42 @@ const baseStyle = definePartsStyle({
   },
 
   body: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: { base: 'center', md: 'start' },
-    gap: 3,
-    mb: 5,
-    w: 'full',
-    flexBasis: '33%',
-    flexGrow: 0,
-    flexShrink: 0,
-    '& div': {
-      flexBasis: '33%',
+    '& > div': {
       display: 'flex',
       flexDirection: { base: 'column', md: 'row' },
       alignItems: { base: 'center', md: 'start' },
-      w: 'full',
+      gap: 3,
+      mb: 5,
     },
   },
-
-  progress: {
-    w: 'full',
-  },
-
   choiceTitle: {
     maxW: '100%',
     flexBasis: '33%',
     flexGrow: 1,
+  },
+  choiceVotes: {
+    mx: 4,
+  },
+
+  progress: {
+    w: 'full',
+    flexBasis: '33%',
+    flexGrow: 0,
+    flexShrink: 0,
+    h: 6,
+    borderRadius: 'md',
+    bgColor: 'results.progressbar_bg',
+    overflow: 'hidden',
+    position: 'relative',
+
+    '& div': {
+      h: 6,
+      background: {
+        base: `linear-gradient(to right, #2DD1BD 0%, #179B87 50%, #006350 100%) left/var(--p,100%) fixed;`,
+        md: `linear-gradient(to right, #2DD1BD 65%, #179B87 79.5%, #006350 94%) left/var(--p,100%) fixed;`,
+        xl: `linear-gradient(to right, #2DD1BD 46%, #179B87 56%, #006350 66%) left/var(--p,100%) fixed;`,
+      },
+    },
   },
 
   wrapper: {
