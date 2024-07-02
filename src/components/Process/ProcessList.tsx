@@ -1,18 +1,18 @@
 import { Button, Checkbox, Flex } from '@chakra-ui/react'
+import { keepPreviousData } from '@tanstack/react-query'
 import { IElectionListFilter } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
-import { RoutedPagination } from '~components/Pagination/Pagination'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
-import { PaginationItemsPerPage, RoutePath } from '~constants'
-import { useProcessesCount, useProcessList } from '~queries/processes'
 import { InputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
 import LoadingError from '~components/Layout/LoadingError'
+import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { RoutedPagination } from '~components/Pagination/RoutedPagination'
+import { PaginationItemsPerPage, RoutePath } from '~constants'
+import { useProcessesCount, useProcessList } from '~queries/processes'
 import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
 import { ElectionCard } from './Card'
-import { keepPreviousData } from '@tanstack/react-query'
 
 type FilterQueryParams = {
   [K in keyof Omit<IElectionListFilter, 'organizationId'>]: string
