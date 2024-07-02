@@ -1,4 +1,4 @@
-import { ButtonProps, IconButton, Tooltip, useClipboard } from '@chakra-ui/react'
+import { Button, ButtonProps, IconButton, Tooltip, useClipboard } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IoCheckmark, IoCopy } from 'react-icons/io5'
@@ -8,29 +8,39 @@ type ICopyButton = ButtonProps & {
   toCopy: string
 }
 
-export const CopyButton = ({ toCopy, ...rest }: ICopyButton) => {
-  const { t } = useTranslation()
-  const { onCopy, setValue, hasCopied } = useClipboard(toCopy, { timeout: 1000 })
-  const label = hasCopied
-    ? t('copy.copied_to_clipboard', { defaultValue: 'Copied!' })
-    : t('copy.copy_to_clipboard', { defaultValue: 'Copy to clipboard' })
+const withCopyLogic = (Component: typeof IconButton | typeof Button) => {
+  return ({ toCopy, ...rest }: ICopyButton) => {
+    const { t } = useTranslation()
+    const { onCopy, setValue, hasCopied } = useClipboard(toCopy, { timeout: 1000 })
+    const label = hasCopied
+      ? t('copy.copied_to_clipboard', { defaultValue: 'Copied!' })
+      : t('copy.copy_to_clipboard', { defaultValue: 'Copy to clipboard' })
 
-  useEffect(() => {
-    setValue(toCopy)
-  }, [toCopy])
+    useEffect(() => {
+      setValue(toCopy)
+    }, [toCopy, setValue])
 
-  return (
-    <Tooltip label={label} aria-label={label} isOpen={hasCopied ? hasCopied : undefined} placement='top'>
-      <IconButton
-        variant={'text'}
-        aria-label={label}
-        onClick={() => onCopy()}
-        icon={hasCopied ? <IoCheckmark /> : <IoCopy />}
-        {...rest}
-      />
-    </Tooltip>
-  )
+    const icon = hasCopied ? <IoCheckmark /> : <IoCopy />
+
+    return (
+      <Tooltip label={label} aria-label={label} isOpen={hasCopied ? hasCopied : undefined} placement='top'>
+        <Component
+          variant={'text'}
+          aria-label={label}
+          onClick={(e) => {
+            e.preventDefault()
+            onCopy()
+          }}
+          {...(Component === Button ? { rightIcon: icon } : { icon })}
+          {...rest}
+        />
+      </Tooltip>
+    )
+  }
 }
+
+export const CopyButton = withCopyLogic(Button)
+export const CopyButtonIcon = withCopyLogic(IconButton)
 
 export const ReducedTextAndCopy = ({ children, ...rest }: ICopyButton) => {
   let text = children
