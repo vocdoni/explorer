@@ -1,4 +1,4 @@
-import { Button, ButtonProps, Tooltip, useClipboard } from '@chakra-ui/react'
+import { ButtonProps, IconButton, Tooltip, useClipboard } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IoCheckmark, IoCopy } from 'react-icons/io5'
@@ -21,10 +21,11 @@ export const CopyButton = ({ toCopy, ...rest }: ICopyButton) => {
 
   return (
     <Tooltip label={label} aria-label={label} isOpen={hasCopied ? hasCopied : undefined} placement='top'>
-      <Button
+      <IconButton
         variant={'text'}
+        aria-label={label}
         onClick={() => onCopy()}
-        rightIcon={hasCopied ? <IoCheckmark /> : <IoCopy />}
+        icon={hasCopied ? <IoCheckmark /> : <IoCopy />}
         {...rest}
       />
     </Tooltip>
