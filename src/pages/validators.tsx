@@ -1,4 +1,4 @@
-import ListPageLayout from '~src/layout/ListPageLayout'
+import ListPageLayout from '~components/Layout/ListPageLayout'
 import { useTranslation } from 'react-i18next'
 import { useLoaderData } from 'react-router-dom'
 import { IChainValidatorsListResponse } from '@vocdoni/sdk'

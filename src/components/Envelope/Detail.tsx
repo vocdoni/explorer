@@ -4,7 +4,7 @@ import { formatDistance } from 'date-fns'
 import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { RoutePath } from '~constants'
-import ShowRawButton from '~src/layout/ShowRawButton'
+import ShowRawButton from '~components/Layout/ShowRawButton'
 import voteImage from '/images/vocdoni-vote.png'
 
 const EnvelopeDetail = (envelope: IVoteInfoResponse) => {

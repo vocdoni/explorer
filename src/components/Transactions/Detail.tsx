@@ -1,7 +1,7 @@
 import { AdminTx, ensure0x, NewProcessTx, SetProcessTx, TransactionType, Tx, VoteEnvelope } from '@vocdoni/sdk'
 import { Box, Card, CardBody, Code, Flex, Heading, Link, Text } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
-import ShowRawButton from '~src/layout/ShowRawButton'
+import ShowRawButton from '~components/Layout/ShowRawButton'
 import { useBlockToDate } from '~queries/stats'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { RoutePath } from '~constants'

@@ -5,9 +5,9 @@ import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
 import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
-import { InputSearch } from '~src/layout/Inputs'
-import { LoadingCards } from '~src/layout/Loading'
-import LoadingError from '~src/layout/LoadingError'
+import { InputSearch } from '~components/Layout/Inputs'
+import { LoadingCards } from '~components/Layout/Loading'
+import LoadingError from '~components/Layout/LoadingError'
 
 export const OrganizationsFilter = () => {
   const { t } = useTranslation()

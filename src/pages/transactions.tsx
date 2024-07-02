@@ -1,4 +1,4 @@
-import ListPageLayout from '~src/layout/ListPageLayout'
+import ListPageLayout from '~components/Layout/ListPageLayout'
 import { useTranslation } from 'react-i18next'
 import { PaginatedTransactionList, TransactionFilter } from '~components/Transactions/TransactionList'
 import { useTransactionsCount } from '~queries/transactions'

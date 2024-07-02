@@ -1,4 +1,4 @@
-import ListPageLayout from '~src/layout/ListPageLayout'
+import ListPageLayout from '~components/Layout/ListPageLayout'
 import { useTranslation } from 'react-i18next'
 import { useProcessesCount } from '~queries/processes'
 import { PaginatedProcessList, ProcessByTypeFilter, ProcessSearchBox } from '~components/Process/ProcessList'

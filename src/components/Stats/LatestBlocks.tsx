@@ -5,7 +5,7 @@ import { BlockCard } from '~components/Blocks/BlockCard'
 import { RoutePath } from '~constants'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
-import { LoadingCards } from '~src/layout/Loading'
+import { LoadingCards } from '~components/Layout/Loading'
 
 export const LatestBlocks = () => {
   const blockListSize = 4

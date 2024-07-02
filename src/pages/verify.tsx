@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useVoteInfo } from '~queries/vote'
 import { VerifyForm, VerifyFormMinified } from '~components/Verify'
-import { Loading } from '~src/layout/Loading'
+import { Loading } from '~components/Layout/Loading'
 import { Flex, Heading } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
 import EnvelopeDetail from '~components/Envelope/Detail'

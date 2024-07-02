@@ -10,9 +10,9 @@ import { Pagination } from '~components/Pagination/Pagination'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { ElectionCard } from '~components/Process/Card'
 import { useOrganizationElections } from '~queries/organizations'
-import { LoadingCards } from '~src/layout/Loading'
-import ShowRawButton from '~src/layout/ShowRawButton'
-import { HeroHeaderLayout } from '~src/layout/HeroHeaderLayout'
+import { LoadingCards } from '~components/Layout/Loading'
+import ShowRawButton from '~components/Layout/ShowRawButton'
+import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
 
 const OrganizationDetail = () => {
   const { organization: org } = useOrganization()

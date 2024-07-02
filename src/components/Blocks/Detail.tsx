@@ -4,7 +4,7 @@ import { Flex, Heading, Link, Text } from '@chakra-ui/react'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { Trans } from 'react-i18next'
 import { RoutePath } from '~constants'
-import ShowRawButton from '~src/layout/ShowRawButton'
+import ShowRawButton from '~components/Layout/ShowRawButton'
 
 export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
   const proposer = block.header.proposerAddress

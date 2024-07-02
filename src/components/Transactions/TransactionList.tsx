@@ -2,12 +2,12 @@ import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
 import { PaginationItemsPerPage, RoutePath } from '~constants'
-import { LoadingCards } from '~src/layout/Loading'
-import LoadingError from '~src/layout/LoadingError'
+import { LoadingCards } from '~components/Layout/Loading'
+import LoadingError from '~components/Layout/LoadingError'
 import { useTransactionList, useTransactionsCount } from '~queries/transactions'
 import { TransactionCard } from '~components/Transactions/TransactionCard'
 import { useTranslation } from 'react-i18next'
-import { InputSearch } from '~src/layout/Inputs'
+import { InputSearch } from '~components/Layout/Inputs'
 
 export const TransactionFilter = () => {
   const { t } = useTranslation()
