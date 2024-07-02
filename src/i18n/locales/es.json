@@ -1,173 +1,179 @@
 {
   "blocks": {
-    "block_detail": "Block Detail",
-    "blocks_count_one": "",
-    "blocks_count_many": "",
-    "blocks_count_other": "",
-    "blocks_list": "",
+    "block_detail": "Detalle del Bloque",
+    "blocks_count_one": "Total {{ count }} Bloque",
+    "blocks_count_other": "Total {{ count }} Bloques",
+    "blocks_list": "Bloques",
     "hash": "Hash: {{hash}}",
-    "previous_block_hash": "Previous block hash: ",
-    "proposer": "Proposer:",
-    "proposer_id": "Proposer: {{proposer}}",
-    "search_block": "",
-    "transactions_count_one": "Transactions: {{count}}",
-    "transactions_count_many": "Transactions: {{count}}",
-    "transactions_count_other": "Transactions: {{count}}"
+    "previous_block_hash": "Hash del bloque anterior: ",
+    "proposer": "Proponente:",
+    "proposer_id": "Proponente: {{proposer}}",
+    "search_block": "Buscar bloque",
+    "transactions_count_one": "Transacciones: {{count}}",
+    "transactions_count_other": "Transacciones: {{count}}"
   },
   "copy": {
-    "copied_to_clipboard": "Copied!",
-    "copy_to_clipboard": ""
+    "copied_to_clipboard": "¡Copiado!",
+    "copy_to_clipboard": "Copiar al portapapeles"
   },
   "election": {
-    "no_votes_yet": "No votes yet!"
+    "no_votes_yet": "¡Aún no hay votos!"
   },
   "envelope": {
-    "block": "Block {{height}}",
-    "details": "Details",
-    "envelope_number": "Envelope nº {{num}}",
-    "tx_number": "Transaction: {{transactionIndex}}"
+    "block": "Bloque {{height}}",
+    "details": "Detalles",
+    "envelope_number": "Sobre nº {{num}}",
+    "tx_number": "Transacción: {{transactionIndex}}"
   },
   "envelopes": {
-    "belongs_to_process": "",
-    "commited_in_block": "",
-    "emitted": "Emitted {{emitted}}",
-    "encryption_keys": "Encryption keys: {{encKeys}}",
-    "envelope_detail": "Envelope Detail",
-    "envelope_weight": "Envelope weight: {{weight}}",
-    "overwrite_count": "Overwrite count: {{overwriteCount}}",
-    "registered_correctly": "Vote has been registered correctly",
-    "verifier_code": "Verifier code",
-    "vote_registered": ""
+    "belongs_to_process": "Pertenece al proceso <a>{{pid}}</a>",
+    "committed_in_block": "Registrado en el bloque <a>#{{block}}</a>",
+    "emitted": "Emitido {{emitted}}",
+    "encryption_keys": "Claves de cifrado: {{encKeys}}",
+    "envelope_detail": "Detalle del Sobre",
+    "envelope_weight": "Peso del sobre: {{weight}}",
+    "not_found": "Sobre no encontrado",
+    "overwrite_count": "Conteo de sobrescritura: {{overwriteCount}}",
+    "registered_correctly": "El voto ha sido registrado correctamente",
+    "verifier_code": "Código verificador",
+    "vote_registered": "Voto registrado"
   },
   "errors": {
-    "content_error": "Looks like the content you were accessing threw an error."
+    "content_error": "Parece que el contenido al que accediste arrojó un error."
   },
   "featured": {
-    "a_cutting_edge_voting_protocol": "A cutting edge voting protocol",
-    "anonymous_image_alt": "",
-    "edge_protocol_image_alt": "",
-    "inexpensive_image_alt": "",
-    "know_more": "Know more",
-    "leveraging": "A fully anonymous voting system ensuring data availability<1></1>Leveraging on decentralized technologies",
-    "open_source_image_alt": "",
-    "scalable_image_alt": "",
-    "verifiable_image_alt": ""
+    "a_cutting_edge_voting_protocol": "Un protocolo de votación de vanguardia",
+    "anonymous_image_alt": "Anónimo",
+    "edge_protocol_image_alt": "Protocolo de vanguardia",
+    "inexpensive_image_alt": "Económico",
+    "know_more": "Saber más",
+    "leveraging": "Un sistema de votación completamente anónimo que garantiza la disponibilidad de datos<1></1>Apalancando tecnologías descentralizadas",
+    "open_source_image_alt": "Código abierto",
+    "scalable_image_alt": "Escalable",
+    "verifiable_image_alt": "Verificable de extremo a extremo"
   },
   "home": {
-    "subtitle": "The most flexible and secure voting protocol to organize any kind of voting process: single-choice, multiple-choice, weighted, quadratic voting and much more.",
-    "title": ""
+    "subtitle": "El protocolo de votación más flexible y seguro para organizar cualquier tipo de proceso de votación: de opción única, de opción múltiple, ponderada, votación cuadrática y mucho más.",
+    "title": "Explorador de Vocdoni"
   },
   "links": {
-    "about": "",
-    "blocks": "",
-    "blog": "",
-    "docs": "",
-    "help": "",
-    "organizations": "",
-    "processes": "",
-    "stats": "",
-    "support": "",
-    "tools": "",
-    "transactions": "",
-    "validators": "",
-    "verify_vote": ""
+    "about": "Acerca de",
+    "blocks": "Bloques",
+    "blog": "Blog",
+    "docs": "Documentación",
+    "help": "Ayuda",
+    "organizations": "Organizaciones",
+    "processes": "Procesos",
+    "support": "Soporte",
+    "transactions": "Transacciones",
+    "validators": "Validadores",
+    "verify_vote": "Verificar Voto"
   },
-  "loading": "Loading...",
+  "loading": "Cargando...",
+  "menu": {
+    "burger_aria_label": "Menú"
+  },
   "organization": {
-    "avatar_alt": "",
-    "description": "Description",
-    "elections_list": "Elections List:",
-    "no_elections": "No elections yet!",
-    "process_count_one": "<0>Process:</0> {{count}}",
-    "process_count_many": "<0>Process:</0> {{count}}",
-    "process_count_other": "<0>Process:</0> {{count}}",
-    "view_profile": "(View profile)"
+    "avatar_alt": "Avatar",
+    "description": "Descripción",
+    "elections_list": "Lista de Elecciones:",
+    "no_elections": "¡Aún no hay elecciones!",
+    "process_count_one": "<0>Proceso:</0> {{count}}",
+    "process_count_other": "<0>Proceso:</0> {{count}}",
+    "view_profile": "(Ver perfil)"
   },
   "organizations": {
-    "organizations_count_one": "",
-    "organizations_count_many": "",
-    "organizations_count_other": "",
-    "organizations_list": "",
-    "search_by_org_id": ""
+    "organizations_count_one": "Total {{ count }} organización",
+    "organizations_count_other": "Total {{ count }} organizaciones",
+    "organizations_list": "Organizaciones",
+    "search_by_org_id": "Buscar por id de organización"
   },
   "process": {
     "badge": {
-      "anonymous": "Anonymous",
-      "archive": "From archive"
+      "anonymous": "Anónimo",
+      "archive": "Del archivo"
     },
-    "by_status_all": "",
-    "by_status_all_active": "",
-    "by_status_ended": "",
-    "by_status_paused": "",
-    "detailed_data": "Detailed data",
-    "encryption_keys": "Election encryption keys",
-    "process_count_one": "",
-    "process_count_many": "",
-    "process_count_other": "",
-    "process_details": "Process details",
-    "process_list": "",
-    "search_by": "",
-    "show_with_results": "Show only processes with results",
-    "tab_description": "Description",
-    "tab_envelopes": "Envelopes",
-    "tab_raw": "Raw",
-    "tab_results": "Results"
+    "by_status_all": "Todos",
+    "by_status_all_active": "Activos",
+    "by_status_ended": "Finalizados",
+    "by_status_paused": "Pausados",
+    "detailed_data": "Datos detallados",
+    "encryption_keys": "Claves de cifrado de la elección",
+    "process_count_one": "Total {{count}} proceso",
+    "process_count_other": "Total {{count}} procesos",
+    "process_details": "Detalles del proceso",
+    "process_list": "Procesos",
+    "search_by": "Buscar por proceso u organización",
+    "show_with_results": "Mostrar solo procesos con resultados",
+    "tab_description": "Descripción",
+    "tab_envelopes": "Sobres",
+    "tab_raw": "Bruto",
+    "tab_results": "Resultados"
   },
   "processes": {
-    "envelope_recount": "",
+    "envelope_recount": "Recuento de sobres",
     "envelope_type_badge": {
-      "encrypted_votes": "",
-      "not_encrypted_votes": ""
+      "encrypted_votes": "Votos cifrados",
+      "not_encrypted_votes": "Votos no cifrados"
     },
-    "invalid_election": "Invalid Election",
+    "invalid_election": "Elección no válida",
     "process_mode_badge": {
-      "autostart": "",
-      "notAutostart": ""
+      "autostart": "Inicio automático",
+      "notAutostart": "No inicio automático"
     },
-    "published_keys": "",
-    "revealed": "",
-    "total_questions": ""
+    "published_keys": "Claves publicadas",
+    "revealed": "Revelados",
+    "total_questions": "Total de preguntas"
   },
-  "raw_content": "Raw content",
+  "raw_content": "Contenido bruto",
   "stats": {
-    "average_block_time": "",
-    "block_height": "",
-    "blockchain_info": "",
-    "electionCount_one": "",
-    "electionCount_many": "",
-    "electionCount_other": "",
-    "genesis_block_date": "",
-    "in_sync": "",
-    "latest_blocks": "",
-    "network_id": "",
-    "nr_of_validators": "",
-    "organizations_one": "",
-    "organizations_many": "",
-    "organizations_other": "",
-    "seconds_one": "",
-    "seconds_many": "",
-    "seconds_other": "",
-    "sync_status": "",
-    "syncing": "",
-    "total_elections": "",
-    "total_organizations": "",
-    "total_votes": "",
-    "view_all_blocks": "View all blocks",
-    "votes_one": "",
-    "votes_many": "",
-    "votes_other": ""
+    "average_block_time": "Tiempo promedio por bloque",
+    "block_height": "Altura del bloque",
+    "blockchain_info": "Información de la blockchain",
+    "electionCount_one": "{{ count }} elección",
+    "electionCount_other": "{{ count }} elecciones",
+    "genesis_block_date": "Fecha del bloque génesis",
+    "in_sync": "En sincronización",
+    "latest_block": "Últimos bloques",
+    "network_id": "ID de red",
+    "nr_of_validators": "Número de validadores",
+    "organizations_one": "{{ count }} organización",
+    "organizations_other": "{{ count }} organizaciones",
+    "seconds_one": "{{ count }} segundo",
+    "seconds_other": "{{ count }} segundos",
+    "sync_status": "Estado de sincronización",
+    "syncing": "Sincronizando",
+    "total_elections": "Total de procesos",
+    "total_organizations": "Total de organizaciones",
+    "total_votes": "Total de votos",
+    "view_all_blocks": "Ver todos los bloques",
+    "votes_one": "{{ count }} voto",
+    "votes_other": "{{ count }} votos"
   },
   "transactions": {
-    "belong_to_organization": "",
-    "belongs_to_process": "",
-    "created_on": "Created {{createdOn}}",
-    "on_block_n": "On Block {{height}}",
-    "transaction_index": "Transaction index: {{txIndex}}",
-    "transactions_list": "",
-    "tx_count_one": "",
-    "tx_count_many": "",
-    "tx_count_other": "",
-    "tx_detail": "Transaction Details",
-    "vote_package": "Vote package:"
+    "belong_to_organization": "Pertenece a la organización: <a>{{organization}}</a>",
+    "belongs_to_process": "Pertenece al proceso: <a>{{process}}</a>",
+    "created_on": "Creado el {{createdOn}}",
+    "on_block_n": "En el bloque {{height}}",
+    "search_tx": "Buscar transacción",
+    "transaction_index": "Índice de transacción: {{txIndex}}",
+    "transactions_list": "Transacciones",
+    "tx_count_one": "Total {{ count }} transacción",
+    "tx_count_other": "Total {{ count }} transacciones",
+    "tx_detail": "Detalles de la Transacción",
+    "vote_package": "Paquete de votos:"
+  },
+  "validators": {
+    "pubkey": "Clave pública:",
+    "validators": "Validadores",
+    "validators_count_one": "Total {{ count }} validador",
+    "validators_count_other": "Total {{ count }} validadores",
+    "voting_power": "Poder de voto: {{power}}"
+  },
+  "verify": {
+    "add_your_vote_id": "Añade tu id de voto",
+    "subtitle": "Ingresa el recibo de votación que recibiste después de votar para verificar tu voto",
+    "title": "Verifica tu voto",
+    "verify": "Verificar"
   }
 }

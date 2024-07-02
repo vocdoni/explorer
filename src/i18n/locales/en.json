@@ -1,19 +1,20 @@
 {
   "blocks": {
     "block_detail": "Block Detail",
-    "blocks_count_one": "",
-    "blocks_count_other": "",
-    "blocks_list": "",
+    "blocks_count_one": "Total {{ count }} Block",
+    "blocks_count_other": "Total {{ count }} Blocks",
+    "blocks_list": "Blocks",
     "hash": "Hash: {{hash}}",
     "previous_block_hash": "Previous block hash: ",
     "proposer": "Proposer:",
     "proposer_id": "Proposer: {{proposer}}",
+    "search_block": "Search block",
     "transactions_count_one": "Transactions: {{count}}",
     "transactions_count_other": "Transactions: {{count}}"
   },
   "copy": {
     "copied_to_clipboard": "Copied!",
-    "copy_to_clipboard": ""
+    "copy_to_clipboard": "Copy to clipboard"
   },
   "election": {
     "no_votes_yet": "No votes yet!"
@@ -31,47 +32,49 @@
     "encryption_keys": "Encryption keys: {{encKeys}}",
     "envelope_detail": "Envelope Detail",
     "envelope_weight": "Envelope weight: {{weight}}",
+    "not_found": "Envelope not found",
     "overwrite_count": "Overwrite count: {{overwriteCount}}",
     "registered_correctly": "Vote has been registered correctly",
     "verifier_code": "Verifier code",
-    "vote_registered": ""
+    "vote_registered": "Vote registered"
   },
   "errors": {
     "content_error": "Looks like the content you were accessing threw an error."
   },
   "featured": {
     "a_cutting_edge_voting_protocol": "A cutting edge voting protocol",
-    "anonymous_image_alt": "",
-    "edge_protocol_image_alt": "",
-    "inexpensive_image_alt": "",
+    "anonymous_image_alt": "Anonymous",
+    "edge_protocol_image_alt": "Edge protocol",
+    "inexpensive_image_alt": "Inexpensive",
     "know_more": "Know more",
     "leveraging": "A fully anonymous voting system ensuring data availability<1></1>Leveraging on decentralized technologies",
-    "open_source_image_alt": "",
-    "scalable_image_alt": "",
-    "verifiable_image_alt": ""
+    "open_source_image_alt": "Open Source",
+    "scalable_image_alt": "Scalable",
+    "verifiable_image_alt": "E2E Verifiable"
   },
   "home": {
     "subtitle": "The most flexible and secure voting protocol to organize any kind of voting process: single-choice, multiple-choice, weighted, quadratic voting and much more.",
     "title": "Vocdoni explorer"
   },
   "links": {
-    "about": "",
-    "blocks": "",
-    "blog": "",
-    "docs": "",
-    "help": "",
-    "organizations": "",
-    "processes": "",
-    "stats": "",
-    "support": "",
-    "tools": "",
-    "transactions": "",
-    "validators": "",
-    "verify_vote": ""
+    "about": "About",
+    "blocks": "Blocks",
+    "blog": "Blog",
+    "docs": "Docs",
+    "help": "Help",
+    "organizations": "Organizations",
+    "processes": "Processes",
+    "support": "Support",
+    "transactions": "Transactions",
+    "validators": "Validators",
+    "verify_vote": "Verify Vote"
   },
   "loading": "Loading...",
+  "menu": {
+    "burger_aria_label": "Menu"
+  },
   "organization": {
-    "avatar_alt": "",
+    "avatar_alt": "Avatar",
     "description": "Description",
     "elections_list": "Elections List:",
     "no_elections": "No elections yet!",
@@ -80,27 +83,27 @@
     "view_profile": "(View profile)"
   },
   "organizations": {
-    "organizations_count_one": "",
-    "organizations_count_other": "",
+    "organizations_count_one": "Total {{ count }} organization",
+    "organizations_count_other": "Total {{ count }} organizations",
     "organizations_list": "Organizations",
-    "search_by_org_id": ""
+    "search_by_org_id": "Search by organization id"
   },
   "process": {
     "badge": {
       "anonymous": "Anonymous",
       "archive": "From archive"
     },
-    "by_status_all": "",
-    "by_status_all_active": "",
-    "by_status_ended": "",
-    "by_status_paused": "",
+    "by_status_all": "All",
+    "by_status_all_active": "Active",
+    "by_status_ended": "Ended",
+    "by_status_paused": "Paused",
     "detailed_data": "Detailed data",
     "encryption_keys": "Election encryption keys",
-    "process_count_one": "",
-    "process_count_other": "",
+    "process_count_one": "Total {{count}} proces",
+    "process_count_other": "Total {{count}} processes",
     "process_details": "Process details",
-    "process_list": "",
-    "search_by": "",
+    "process_list": "Processes",
+    "search_by": "Search by process or organization",
     "show_with_results": "Show only processes with results",
     "tab_description": "Description",
     "tab_envelopes": "Envelopes",
@@ -108,38 +111,38 @@
     "tab_results": "Results"
   },
   "processes": {
-    "envelope_recount": "",
+    "envelope_recount": "Envelope recount",
     "envelope_type_badge": {
-      "encrypted_votes": "",
-      "not_encrypted_votes": ""
+      "encrypted_votes": "Encrypted votes",
+      "not_encrypted_votes": "Not encrypted votes"
     },
     "invalid_election": "Invalid Election",
     "process_mode_badge": {
-      "autostart": "",
-      "notAutostart": ""
+      "autostart": "Autostart",
+      "notAutostart": "Not autostart"
     },
-    "published_keys": "",
-    "revealed": "",
-    "total_questions": ""
+    "published_keys": "Published keys",
+    "revealed": "Revealed",
+    "total_questions": "Total questions"
   },
   "raw_content": "Raw content",
   "stats": {
     "average_block_time": "Average block time",
-    "block_height": "",
-    "blockchain_info": "",
+    "block_height": "Block height",
+    "blockchain_info": "Blockchain info",
     "electionCount_one": "{{ count }} election",
     "electionCount_other": "{{ count }} elections",
-    "genesis_block_date": "",
-    "in_sync": "",
-    "latest_blocks": "",
-    "network_id": "",
-    "nr_of_validators": "",
+    "genesis_block_date": "Genesis block date",
+    "in_sync": "In sync",
+    "latest_block": "Latest blocks",
+    "network_id": "Network id",
+    "nr_of_validators": "Nr of validators",
     "organizations_one": "{{ count }} organization",
     "organizations_other": "{{ count }} organizations",
     "seconds_one": "{{ count }} second",
     "seconds_other": "{{ count }} seconds",
-    "sync_status": "",
-    "syncing": "",
+    "sync_status": "Sync status",
+    "syncing": "Syncing",
     "total_elections": "Total processes",
     "total_organizations": "Total organizations",
     "total_votes": "Total votes",
@@ -152,11 +155,25 @@
     "belongs_to_process": "Belongs to process: <a>{{process}}</a>",
     "created_on": "Created {{createdOn}}",
     "on_block_n": "On Block {{height}}",
+    "search_tx": "Search transaction",
     "transaction_index": "Transaction index: {{txIndex}}",
-    "transactions_list": "",
-    "tx_count_one": "",
-    "tx_count_other": "",
+    "transactions_list": "Transactions",
+    "tx_count_one": "Total {{ count }} transaction",
+    "tx_count_other": "Total {{ count }} transactions",
     "tx_detail": "Transaction Details",
     "vote_package": "Vote package:"
+  },
+  "validators": {
+    "pubkey": "PubKey:",
+    "validators": "Validators",
+    "validators_count_one": "Total {{ count }} validator",
+    "validators_count_other": "Total {{ count }} validators",
+    "voting_power": "Voting power: {{power}}"
+  },
+  "verify": {
+    "add_your_vote_id": "Add your vote id",
+    "subtitle": "Enter the voting receipt you received after voting to verify your vote",
+    "title": "Verify your vote",
+    "verify": "Verify"
   }
 }
