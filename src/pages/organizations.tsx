@@ -2,10 +2,13 @@ import { OrganizationsFilter, PaginatedOrganizationsList } from '~components/Org
 import ListPageLayout from '~components/Layout/ListPageLayout'
 import { useOrganizationCount } from '~queries/organizations'
 import { useTranslation } from 'react-i18next'
+import { RefetchInterval } from '~constants'
 
 const OrganizationList = () => {
   const { t } = useTranslation()
-  const { data: orgsCount, isLoading } = useOrganizationCount()
+  const { data: orgsCount, isLoading } = useOrganizationCount({
+    refetchInterval: RefetchInterval,
+  })
 
   const subtitle = !isLoading ? t('organizations.organizations_count', { count: orgsCount?.count || 0 }) : ''
 

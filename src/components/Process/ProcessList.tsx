@@ -12,6 +12,7 @@ import LoadingError from '~components/Layout/LoadingError'
 import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
 import { ElectionCard } from './Card'
+import { keepPreviousData } from '@tanstack/react-query'
 
 type FilterQueryParams = {
   [K in keyof Omit<IElectionListFilter, 'organizationId'>]: string
@@ -105,6 +106,7 @@ export const PaginatedProcessList = () => {
       status: processFilters.status as IElectionListFilter['status'],
       withResults: processFilters.withResults ? processFilters.withResults === 'true' : undefined,
     },
+    placeholderData: keepPreviousData,
   })
 
   const isLoading = isLoadingCount || isLoadingOrgs
