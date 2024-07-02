@@ -1,14 +1,15 @@
+import { useBreakpointValue } from '@chakra-ui/react'
+import { keepPreviousData } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
+import { InputSearch } from '~components/Layout/Inputs'
+import { LoadingCards } from '~components/Layout/Loading'
+import LoadingError from '~components/Layout/LoadingError'
 import { OrganizationCard } from '~components/Organizations/Card'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
 import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
-import { InputSearch } from '~components/Layout/Inputs'
-import { LoadingCards } from '~components/Layout/Loading'
-import LoadingError from '~components/Layout/LoadingError'
-import { keepPreviousData } from '@tanstack/react-query'
 
 export const OrganizationsFilter = () => {
   const { t } = useTranslation()
@@ -29,6 +30,7 @@ export const OrganizationsFilter = () => {
 export const PaginatedOrganizationsList = () => {
   const { page, query }: { page?: number; query?: string } = useParams()
   const { data: orgsCount, isLoading: isLoadingCount } = useOrganizationCount()
+  const maxButtons = useBreakpointValue({ base: 6, lg: 10 })
   const count = orgsCount?.count || 0
 
   const {
@@ -60,7 +62,7 @@ export const PaginatedOrganizationsList = () => {
       {orgs?.organizations.map((org) => (
         <OrganizationCard key={org.organizationID} id={org.organizationID} electionCount={org.electionCount} />
       ))}
-      <RoutedPagination />
+      <RoutedPagination maxButtons={maxButtons} />
     </RoutedPaginationProvider>
   )
 }
