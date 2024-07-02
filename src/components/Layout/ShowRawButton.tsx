@@ -1,6 +1,6 @@
 import { Box, BoxProps, Button, ButtonProps, useDisclosure } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
-import { CopyButtonIcon } from '~components/CopyButton'
+import { CopyButtonIcon } from '~components/Layout/CopyButton'
 import { JsonViewer } from '~components/Layout/JsonViewer'
 
 const ShowRawButton = ({ obj, ...props }: { obj: object } & Omit<ButtonProps, 'onClick'>) => {

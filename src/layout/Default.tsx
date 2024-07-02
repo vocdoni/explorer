@@ -1,7 +1,7 @@
 import { Box, BoxProps, Grid } from '@chakra-ui/react'
 import { Outlet, ScrollRestoration } from 'react-router-dom'
-import { Footer } from '~components/Footer'
-import { TopBar } from '~components/TopBar'
+import { Footer } from '~components/Layout/Footer'
+import { TopBar } from '~components/Layout/TopBar'
 
 const DefaultLayout = (props: BoxProps) => (
   <Box

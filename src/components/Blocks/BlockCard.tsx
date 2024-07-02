@@ -1,9 +1,9 @@
 import { Box, Card, CardBody, Flex, Link, Text } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
-import { ReducedTextAndCopy } from '~components/CopyButton'
-import { useDateFns } from '~i18n/use-date-fns'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { RoutePath } from '~constants'
+import { useDateFns } from '~i18n/use-date-fns'
 
 export const BlockCard = ({ height, time, proposer }: { height: number; time: string; proposer: string }) => {
   const date = new Date(time)

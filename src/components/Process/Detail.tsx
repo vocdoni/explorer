@@ -33,21 +33,21 @@ import {
   InvalidElection as InvalidElectionType,
   PublishedElection,
 } from '@vocdoni/sdk'
-import { FallbackHeaderImg, RoutePath } from '~constants'
-import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
-import { CopyButton, ReducedTextAndCopy } from '~components/CopyButton'
 import { Trans, useTranslation } from 'react-i18next'
-import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
-import { OrganizationCard } from '~components/Organizations/Card'
-import { RawContentBox } from '~components/Layout/ShowRawButton'
-import { useElectionKeys, useElectionVotesList } from '~queries/processes'
-import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
-import { LoadingCards } from '~components/Layout/Loading'
-import { Pagination } from '~components/Pagination/Pagination'
 import { BiEnvelope } from 'react-icons/bi'
-import { ucfirst } from '~utils/strings'
-import InvalidElection from '~components/Process/InvalidElection'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { CopyButton, ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
+import { LoadingCards } from '~components/Layout/Loading'
+import { RawContentBox } from '~components/Layout/ShowRawButton'
+import { OrganizationCard } from '~components/Organizations/Card'
+import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
+import { Pagination } from '~components/Pagination/Pagination'
+import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
+import InvalidElection from '~components/Process/InvalidElection'
+import { FallbackHeaderImg, RoutePath } from '~constants'
+import { useElectionKeys, useElectionVotesList } from '~queries/processes'
+import { ucfirst } from '~utils/strings'
 
 const Detail = () => {
   const { election } = useElection()

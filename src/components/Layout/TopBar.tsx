@@ -13,9 +13,10 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { RxHamburgerMenu } from 'react-icons/rx'
-import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { generatePath, Link as RouterLink, useLocation } from 'react-router-dom'
 import { RoutePath, VocdoniEnvironment } from '~constants'
 
+import { LanguagesMenu } from './Languages'
 import logoDevUrl from '/images/logo-header-dev.png'
 import logoStgUrl from '/images/logo-header-stg.png'
 import logoUrl from '/images/logo-header.png'
@@ -29,6 +30,7 @@ interface HeaderLink {
 export const TopBar = () => {
   const isSmallScreen = useBreakpointValue({ base: true, lg: false })
   const { t } = useTranslation()
+  const location = useLocation()
   const env = VocdoniEnvironment
 
   let headerUrl
@@ -46,83 +48,95 @@ export const TopBar = () => {
 
   const links: HeaderLink[] = [
     {
-      name: t('links.organizations'),
+      name: t('links.organizations', { defaultValue: 'Organizations' }),
       url: generatePath(RoutePath.OrganizationsList, { page: null, query: null }),
     },
     {
-      name: t('links.processes'),
+      name: t('links.processes', { defaultValue: 'Processes' }),
       url: generatePath(RoutePath.ProcessesList, { page: null }),
     },
     {
-      name: t('links.blocks'),
+      name: t('links.blocks', { defaultValue: 'Blocks' }),
       url: generatePath(RoutePath.BlocksList, { page: null }),
     },
     {
-      name: t('links.transactions'),
+      name: t('links.transactions', { defaultValue: 'Transactions' }),
       url: generatePath(RoutePath.TransactionsList, { page: null }),
     },
     {
-      name: t('links.validators'),
+      name: t('links.validators', { defaultValue: 'Validators' }),
       url: generatePath(RoutePath.Validators),
     },
   ]
 
   const rightLinks: HeaderLink[] = [
     {
-      name: t('links.verify_vote'),
+      name: t('links.verify_vote', { defaultValue: 'Verify vote' }),
       url: generatePath(RoutePath.Verify, { verifier: null }),
     },
   ]
 
+  const isActive = (link: HeaderLink) => location.pathname === link.url
+
   return (
     <Box
       as='header'
-      width='100%'
+      w='full'
       zIndex='100'
       minHeight='50px'
       top='0'
       padding='10px 0'
       backdropFilter='blur(10px)'
       bg='white'
+      px={{ base: 4, md: 8 }}
     >
-      <Flex justifyContent='space-between' alignItems='start' flexWrap='wrap' px={{ base: 4, md: 8 }}>
-        <Flex alignItems='center'>
-          <Link as={RouterLink} to={'/'}>
-            <Image src={headerUrl} alt='Vocdoni' marginTop='6px' maxHeight='45px' maxWidth='200px' />
-          </Link>
+      <Flex w='full' gap={5}>
+        <Link as={RouterLink} to={'/'}>
+          <Image src={headerUrl} alt='Vocdoni' maxW='200px' />
+        </Link>
 
-          <Flex display={isSmallScreen ? 'none' : 'flex'} gap={4} marginLeft='20px' wrap={'wrap'}>
+        <Flex gap={4} w='full' display={isSmallScreen ? 'none' : 'flex'}>
+          <Flex gap={4} alignItems='center'>
             {links.map((link, i) => (
-              <Link key={i} as={RouterLink} to={link.url}>
+              <Button variant='link' key={i} as={RouterLink} to={link.url} isActive={isActive(link)}>
                 {link.name}
-              </Link>
+              </Button>
             ))}
           </Flex>
+          <Box ml='auto' display='flex'>
+            <LanguagesMenu />
+            <Flex alignItems='center'>
+              {rightLinks.map((link, i) => (
+                <Button as={RouterLink} size='sm' key={i} to={link.url}>
+                  {link.name}
+                </Button>
+              ))}
+            </Flex>
+          </Box>
         </Flex>
-
-        {isSmallScreen ? (
-          <Box pr={2}>
+        {isSmallScreen && (
+          <Box pr={2} ml='auto'>
+            <LanguagesMenu />
             <Menu>
-              <MenuButton as={IconButton} aria-label='Options' icon={<RxHamburgerMenu />} variant='outline' />
+              <MenuButton as={IconButton} aria-label='Menu' icon={<RxHamburgerMenu />} variant='outline' />
               <MenuList>
                 {[...links, ...rightLinks].map((link) => (
                   <MenuItem key={link.name}>
-                    <Link as={RouterLink} to={link.url}>
+                    <Button
+                      variant='link'
+                      justifyContent='start'
+                      as={RouterLink}
+                      w='full'
+                      to={link.url}
+                      isActive={isActive(link)}
+                    >
                       {link.name}
-                    </Link>
+                    </Button>
                   </MenuItem>
                 ))}
               </MenuList>
             </Menu>
           </Box>
-        ) : (
-          <Flex alignItems='center'>
-            {rightLinks.map((link, i) => (
-              <Button as={RouterLink} key={i} to={link.url}>
-                {link.name}
-              </Button>
-            ))}
-          </Flex>
         )}
       </Flex>
     </Box>

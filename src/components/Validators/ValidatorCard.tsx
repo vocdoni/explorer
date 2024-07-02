@@ -1,7 +1,7 @@
 import { Card, CardBody, Flex, HStack, Text } from '@chakra-ui/react'
+import { IChainValidator, ensure0x } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
-import { CopyButton } from '~components/CopyButton'
-import { ensure0x, IChainValidator } from '@vocdoni/sdk'
+import { CopyButton } from '~components/Layout/CopyButton'
 
 export const ValidatorCard = (validator: IChainValidator) => {
   return (
