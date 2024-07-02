@@ -27,7 +27,7 @@ interface HeaderLink {
 }
 
 export const TopBar = () => {
-  const isSmallScreen = useBreakpointValue({ base: true, md: false })
+  const isSmallScreen = useBreakpointValue({ base: true, lg: false })
   const { t } = useTranslation()
   const env = VocdoniEnvironment
 
@@ -91,7 +91,7 @@ export const TopBar = () => {
             <Image src={headerUrl} alt='Vocdoni' marginTop='6px' maxHeight='45px' maxWidth='200px' />
           </Link>
 
-          <Flex display={{ base: 'none', md: 'flex' }} gap={4} marginLeft='20px' wrap={'wrap'}>
+          <Flex display={isSmallScreen ? 'none' : 'flex'} gap={4} marginLeft='20px' wrap={'wrap'}>
             {links.map((link, i) => (
               <Link key={i} as={RouterLink} to={link.url}>
                 {link.name}
