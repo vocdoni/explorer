@@ -6,6 +6,7 @@ import Radio from './radio'
 import ElectionResults from './results'
 import { colors } from '~src/theme/colors'
 import { tagTheme } from '~src/theme/components/Tag'
+import { Link } from '~src/theme/components/Link'
 
 const theme = extendTheme(vtheme, {
   components: {
@@ -15,6 +16,7 @@ const theme = extendTheme(vtheme, {
     Radio,
     ElectionResults,
     Tag: tagTheme,
+    Link,
   },
   colors,
 })

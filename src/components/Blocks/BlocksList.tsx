@@ -1,7 +1,7 @@
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
-import { PaginationItemsPerPage, RoutePath } from '~constants'
+import { PaginationItemsPerPage, RefreshIntervalBlocks, RoutePath } from '~constants'
 import { LoadingCards } from '~components/Layout/Loading'
 import LoadingError from '~components/Layout/LoadingError'
 import { useBlockList } from '~queries/blocks'
@@ -9,13 +9,12 @@ import { useChainInfo } from '~queries/stats'
 import { BlockCard } from '~components/Blocks/BlockCard'
 import { useTranslation } from 'react-i18next'
 import { InputSearch } from '~components/Layout/Inputs'
+import { keepPreviousData } from '@tanstack/react-query'
 
 export const BlocksFilter = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { data: stats, isLoading: isLoadingStats } = useChainInfo({
-    refetchInterval: 1000,
-  })
+  const { data: stats, isLoading: isLoadingStats } = useChainInfo()
 
   const blockCount = stats?.height || 0
 
@@ -43,7 +42,7 @@ export const BlocksFilter = () => {
 export const PaginatedBlocksList = () => {
   const { page }: { page?: number } = useParams()
   const { data: stats, isLoading: isLoadingStats } = useChainInfo({
-    refetchInterval: 1000,
+    refetchInterval: RefreshIntervalBlocks,
   })
 
   const count = stats?.height || 0
@@ -63,6 +62,7 @@ export const PaginatedBlocksList = () => {
     enabled: !!stats?.height,
     from: firstPageIndex < 0 ? 0 : firstPageIndex - PaginationItemsPerPage,
     listSize: PaginationItemsPerPage,
+    placeholderData: keepPreviousData,
   })
 
   const isLoading = isLoadingStats || isLoadingBlocks

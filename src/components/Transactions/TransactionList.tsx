@@ -8,6 +8,7 @@ import { useTransactionList, useTransactionsCount } from '~queries/transactions'
 import { TransactionCard } from '~components/Transactions/TransactionCard'
 import { useTranslation } from 'react-i18next'
 import { InputSearch } from '~components/Layout/Inputs'
+import { keepPreviousData } from '@tanstack/react-query'
 
 export const TransactionFilter = () => {
   const { t } = useTranslation()
@@ -42,7 +43,15 @@ export const PaginatedTransactionList = () => {
   const totalPages = Math.ceil(count / PaginationItemsPerPage)
 
   const currentPage = page && page > 0 ? Number(page - 1) : 0
-  const { data, isLoading: isLoadingTx, isError, error } = useTransactionList({ page: currentPage })
+  const {
+    data,
+    isLoading: isLoadingTx,
+    isError,
+    error,
+  } = useTransactionList({
+    page: currentPage,
+    placeholderData: keepPreviousData,
+  })
 
   const isLoading = isLoadingCount || isLoadingTx
 

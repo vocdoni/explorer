@@ -65,14 +65,6 @@ export const TopBar = () => {
       name: t('links.validators'),
       url: generatePath(RoutePath.Validators),
     },
-    {
-      name: t('links.stats'),
-      url: '',
-    },
-    {
-      name: t('links.tools'),
-      url: '',
-    },
   ]
 
   const rightLinks: HeaderLink[] = [

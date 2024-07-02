@@ -6,6 +6,7 @@ import { VscGraphLine } from 'react-icons/vsc'
 import { ChainInfo } from '~components/Stats/ChainInfo'
 import { LatestBlocks } from '~components/Stats/LatestBlocks'
 import { useChainInfo } from '~queries/stats'
+import { RefreshIntervalBlocks } from '~constants'
 
 interface IStatsCardProps {
   title: string
@@ -50,7 +51,7 @@ const StatisticsCardWrapper = ({ title, icon, children }: StatisticsCardProps & 
 
 const Stats = () => {
   const { data: stats } = useChainInfo({
-    refetchInterval: 10000,
+    refetchInterval: RefreshIntervalBlocks,
   })
   const { t } = useTranslation()
 

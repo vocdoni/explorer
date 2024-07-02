@@ -8,6 +8,7 @@ import { useOrganizationCount, useOrganizationList } from '~queries/organization
 import { InputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
 import LoadingError from '~components/Layout/LoadingError'
+import { keepPreviousData } from '@tanstack/react-query'
 
 export const OrganizationsFilter = () => {
   const { t } = useTranslation()
@@ -38,6 +39,7 @@ export const PaginatedOrganizationsList = () => {
   } = useOrganizationList({
     page: Number(page || 1),
     organizationId: query,
+    placeholderData: keepPreviousData,
   })
 
   const isLoading = isLoadingCount || isLoadingOrgs

@@ -35,3 +35,8 @@ export enum RoutePath {
 
 // Used to test if a string is base64 encoded. Used by b64ToHex
 export const isB64Regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/
+
+// Block creation interval to refetch
+export const RefreshIntervalBlocks = 10000
+// Refetch interval used on paginated lists
+export const RefreshIntervalPagination = 30000

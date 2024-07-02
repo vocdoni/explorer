@@ -38,17 +38,24 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
   if (!pid) return null
 
   return (
-    <Link as={RouterLink} to={generatePath(RoutePath.Organization, { pid })}>
-      <Card direction={'row'} alignItems='center' pl={4} {...rest}>
-        <Box w={'50px'}>
-          <Avatar
-            mx='auto'
-            fallbackSrc={FallbackAccountImg}
-            alt={t('organization.avatar_alt', {
-              name: organization?.account.name.default || organization?.address,
-            }).toString()}
-          />
-        </Box>
+    <Card
+      as={RouterLink}
+      to={generatePath(RoutePath.Organization, { pid })}
+      direction={'row'}
+      alignItems='center'
+      pl={4}
+      {...rest}
+    >
+      <Box w={'50px'}>
+        <Avatar
+          mx='auto'
+          fallbackSrc={FallbackAccountImg}
+          alt={t('organization.avatar_alt', {
+            name: organization?.account.name.default || organization?.address,
+          }).toString()}
+        />
+      </Box>
+      <Link as={RouterLink} to={generatePath(RoutePath.Organization, { pid })}>
         <CardBody>
           {loading ? (
             <Text fontWeight={'bold'} wordBreak='break-all' size='sm'>
@@ -68,7 +75,7 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
             </Text>
           )}
         </CardBody>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   )
 }
