@@ -9,13 +9,12 @@ import { useChainInfo } from '~queries/stats'
 import { BlockCard } from '~components/Blocks/BlockCard'
 import { useTranslation } from 'react-i18next'
 import { InputSearch } from '~components/Layout/Inputs'
+import { keepPreviousData } from '@tanstack/react-query'
 
 export const BlocksFilter = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { data: stats, isLoading: isLoadingStats } = useChainInfo({
-    refetchInterval: 1000,
-  })
+  const { data: stats, isLoading: isLoadingStats } = useChainInfo()
 
   const blockCount = stats?.height || 0
 
@@ -63,6 +62,7 @@ export const PaginatedBlocksList = () => {
     enabled: !!stats?.height,
     from: firstPageIndex < 0 ? 0 : firstPageIndex - PaginationItemsPerPage,
     listSize: PaginationItemsPerPage,
+    placeholderData: keepPreviousData,
   })
 
   const isLoading = isLoadingStats || isLoadingBlocks

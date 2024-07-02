@@ -6,6 +6,7 @@ import { RoutePath } from '~constants'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
 import { LoadingCards } from '~components/Layout/Loading'
+import { keepPreviousData } from '@tanstack/react-query'
 
 export const LatestBlocks = () => {
   const blockListSize = 4
@@ -15,6 +16,7 @@ export const LatestBlocks = () => {
     enabled: !!stats?.height,
     from: (stats?.height || 0) - (blockListSize - 1),
     listSize: blockListSize,
+    placeholderData: keepPreviousData,
   })
 
   const isLoading = isLoadingStats || isLoadingBlocks
