@@ -1,8 +1,8 @@
 import react from '@vitejs/plugin-react'
-import {defineConfig, loadEnv} from 'vite'
+import { execSync } from 'node:child_process'
+import { defineConfig, loadEnv } from 'vite'
+import { createHtmlPlugin } from 'vite-plugin-html'
 import tsconfigPaths from 'vite-tsconfig-paths'
-import {createHtmlPlugin} from 'vite-plugin-html'
-import {execSync} from 'node:child_process'
 
 // https://vitejs.dev/config/
 const viteconfig = ({ mode }) => {
@@ -22,7 +22,7 @@ const viteconfig = ({ mode }) => {
   return defineConfig({
     base,
     define: {
-      'import.meta.env.VOCDONI_ENVIRONMENT': `"${vocdoniEnvironment}"`,
+      'import.meta.env.VOCDONI_ENVIRONMENT': JSON.stringify(vocdoniEnvironment),
     },
     build: {
       // hides warnings `Module level directives cause errors when bundled, "use client"`

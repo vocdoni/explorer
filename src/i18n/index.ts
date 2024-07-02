@@ -2,8 +2,9 @@ import { format, formatDistance, Locale } from 'date-fns'
 import i18next from 'i18next'
 import BrowserLanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
-import { dateLocales, translations } from './locales'
 import { ucfirst } from '~utils/strings'
+import languages from './languages.mjs'
+import { dateLocales, translations } from './locales'
 
 // initialize i18next
 const i18n = i18next.createInstance()
@@ -33,8 +34,7 @@ i18n
   )
 
 // load translations
-// load translations
-for (const lang of ['en', 'ca', 'es']) {
+for (const lang of languages) {
   if (typeof translations[lang] !== 'undefined') {
     i18n.addResourceBundle(lang, 'translation', translations[lang])
   }
