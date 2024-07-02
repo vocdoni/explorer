@@ -11,7 +11,7 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({ json, space = 2 }) => {
       /("(?:\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(?:\s*:)?|\b(?:true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g
     return json.split('\n').map((line, index) => {
       return (
-        <Text key={index} fontFamily='monospace' whiteSpace='preserve'>
+        <Text key={index} fontFamily='monospace' whiteSpace='preserve' wordBreak='break-all'>
           {line.split(regex).map((part, index) => {
             let color = 'black'
             if (/^"/.test(part)) {
@@ -28,7 +28,7 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({ json, space = 2 }) => {
               color = 'red.300'
             }
             return (
-              <Box as='span' color={color} key={index}>
+              <Box as='span' color={color} key={index} overflowWrap='anywhere'>
                 {part}
               </Box>
             )
@@ -42,7 +42,7 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({ json, space = 2 }) => {
 
   return (
     <VStack align='start'>
-      <Box as='pre' p={4} overflow='auto' maxW={'90vw'}>
+      <Box as='pre' p={4} overflow='auto' w='auto'>
         {renderHighlightedJson(prettifiedJson)}
       </Box>
     </VStack>
