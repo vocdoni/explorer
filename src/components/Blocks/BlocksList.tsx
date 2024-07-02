@@ -1,7 +1,7 @@
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
-import { PaginationItemsPerPage, RefetchInterval, RoutePath } from '~constants'
+import { PaginationItemsPerPage, RefreshIntervalBlocks, RoutePath } from '~constants'
 import { LoadingCards } from '~components/Layout/Loading'
 import LoadingError from '~components/Layout/LoadingError'
 import { useBlockList } from '~queries/blocks'
@@ -42,7 +42,7 @@ export const BlocksFilter = () => {
 export const PaginatedBlocksList = () => {
   const { page }: { page?: number } = useParams()
   const { data: stats, isLoading: isLoadingStats } = useChainInfo({
-    refetchInterval: RefetchInterval,
+    refetchInterval: RefreshIntervalBlocks,
   })
 
   const count = stats?.height || 0
