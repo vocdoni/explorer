@@ -1,160 +1,179 @@
 {
   "blocks": {
-    "block_detail": "Block Detail",
-    "blocks_count_one": "",
-    "blocks_count_many": "",
-    "blocks_count_other": "",
-    "blocks_list": "",
+    "block_detail": "Detall del bloc",
+    "blocks_count_one": "Total {{ count }} Bloc",
+    "blocks_count_other": "Total {{ count }} Blocs",
+    "blocks_list": "Blocs",
     "hash": "Hash: {{hash}}",
-    "previous_block_hash": "Previous block hash: ",
-    "proposer": "Proposer:",
-    "proposer_id": "Proposer: {{proposer}}",
-    "transactions_count_one": "Transactions: {{count}}",
-    "transactions_count_many": "Transactions: {{count}}",
-    "transactions_count_other": "Transactions: {{count}}"
+    "previous_block_hash": "Hash del bloc anterior: ",
+    "proposer": "Proponent:",
+    "proposer_id": "Proponent: {{proposer}}",
+    "search_block": "Cercar bloc",
+    "transactions_count_one": "Transaccions: {{count}}",
+    "transactions_count_other": "Transaccions: {{count}}"
   },
   "copy": {
-    "copied_to_clipboard": "Copied!",
-    "copy_to_clipboard": ""
+    "copied_to_clipboard": "Copiat!",
+    "copy_to_clipboard": "Copiar al porta-retalls"
   },
   "election": {
-    "no_votes_yet": "No votes yet!"
+    "no_votes_yet": "Encara no hi ha vots!"
   },
   "envelope": {
-    "block": "Block {{height}}",
-    "details": "Details",
-    "envelope_number": "Envelope nº {{num}}",
-    "tx_number": "Transaction: {{transactionIndex}}"
+    "block": "Bloc {{height}}",
+    "details": "Detalls",
+    "envelope_number": "Sobre nº {{num}}",
+    "tx_number": "Transacció: {{transactionIndex}}"
+  },
+  "envelopes": {
+    "belongs_to_process": "Pertany al procés <a>{{pid}}</a>",
+    "committed_in_block": "Registrat en el bloc <a>#{{block}}</a>",
+    "emitted": "Emès {{emitted}}",
+    "encryption_keys": "Claus de xifrat: {{encKeys}}",
+    "envelope_detail": "Detall del sobre",
+    "envelope_weight": "Pes del sobre: {{weight}}",
+    "not_found": "Sobre no trobat",
+    "overwrite_count": "Nombre de sobrescritures: {{overwriteCount}}",
+    "registered_correctly": "El vot s'ha registrat correctament",
+    "verifier_code": "Codi de verificació",
+    "vote_registered": "Vot registrat"
   },
   "errors": {
-    "content_error": "Looks like the content you were accessing threw an error."
+    "content_error": "Sembla que el contingut al qual intentaves accedir ha generat un error."
   },
   "featured": {
-    "a_cutting_edge_voting_protocol": "A cutting edge voting protocol",
-    "anonymous_image_alt": "",
-    "edge_protocol_image_alt": "",
-    "inexpensive_image_alt": "",
-    "know_more": "Know more",
-    "leveraging": "A fully anonymous voting system ensuring data availability<1></1>Leveraging on decentralized technologies",
-    "open_source_image_alt": "",
-    "scalable_image_alt": "",
-    "verifiable_image_alt": ""
+    "a_cutting_edge_voting_protocol": "Un protocol de votació avançat",
+    "anonymous_image_alt": "Anònim",
+    "edge_protocol_image_alt": "Protocol avançat",
+    "inexpensive_image_alt": "Econòmic",
+    "know_more": "Saber més",
+    "leveraging": "Un sistema de votació totalment anònim que garanteix la disponibilitat de les dades<1></1>Basat en tecnologies descentralitzades",
+    "open_source_image_alt": "Codi obert",
+    "scalable_image_alt": "Escalable",
+    "verifiable_image_alt": "Verificable de principi a fi"
   },
   "home": {
-    "subtitle": "The most flexible and secure voting protocol to organize any kind of voting process: single-choice, multiple-choice, weighted, quadratic voting and much more.",
-    "title": ""
+    "subtitle": "El protocol de votació més flexible i segur per organitzar qualsevol tipus de procés de votació: votació d'elecció única, votació múltiple, votació ponderada, votació quadràtica i molt més.",
+    "title": "Explorador Vocdoni"
   },
   "links": {
-    "about": "",
-    "blocks": "",
-    "blog": "",
-    "docs": "",
-    "help": "",
-    "organizations": "",
-    "processes": "",
-    "stats": "",
-    "support": "",
-    "tools": "",
-    "transactions": "",
-    "validators": "",
-    "verify_vote": ""
+    "about": "Sobre",
+    "blocks": "Blocs",
+    "blog": "Blog",
+    "docs": "Docs",
+    "help": "Ajuda",
+    "organizations": "Organitzacions",
+    "processes": "Processos",
+    "support": "Suport",
+    "transactions": "Transaccions",
+    "validators": "Validators",
+    "verify_vote": "Verificar vot"
   },
-  "loading": "Loading...",
+  "loading": "Carregant...",
+  "menu": {
+    "burger_aria_label": "Menú"
+  },
   "organization": {
-    "avatar_alt": "",
-    "description": "Description",
-    "elections_list": "Elections List:",
-    "no_elections": "No elections yet!",
-    "process_count_one": "<0>Process:</0> {{count}}",
-    "process_count_many": "<0>Process:</0> {{count}}",
-    "process_count_other": "<0>Process:</0> {{count}}",
-    "view_profile": "(View profile)"
+    "avatar_alt": "Avatar",
+    "description": "Descripció",
+    "elections_list": "Llista d'eleccions:",
+    "no_elections": "Encara no hi ha eleccions!",
+    "process_count_one": "<0>Procés:</0> {{count}}",
+    "process_count_other": "<0>Processos:</0> {{count}}",
+    "view_profile": "(Veure perfil)"
   },
   "organizations": {
-    "organizations_count_one": "",
-    "organizations_count_many": "",
-    "organizations_count_other": "",
-    "organizations_list": "",
-    "search_by_org_id": ""
+    "organizations_count_one": "Total {{ count }} organització",
+    "organizations_count_other": "Total {{ count }} organitzacions",
+    "organizations_list": "Organitzacions",
+    "search_by_org_id": "Cercar per identificador d'organització"
   },
   "process": {
     "badge": {
-      "anonymous": "Anonymous",
-      "archive": "From archive"
+      "anonymous": "Anònim",
+      "archive": "D'arxiu"
     },
-    "by_status_all": "",
-    "by_status_all_active": "",
-    "by_status_ended": "",
-    "by_status_paused": "",
-    "detailed_data": "Detailed data",
-    "encryption_keys": "Election encryption keys",
-    "process_count_one": "",
-    "process_count_many": "",
-    "process_count_other": "",
-    "process_details": "Process details",
-    "process_list": "",
-    "search_by": "",
-    "show_with_results": "Show only processes with results",
-    "tab_description": "Description",
-    "tab_envelopes": "Envelopes",
-    "tab_raw": "Raw",
-    "tab_results": "Results"
+    "by_status_all": "Tots",
+    "by_status_all_active": "Actius",
+    "by_status_ended": "Finalitzats",
+    "by_status_paused": "Pausats",
+    "detailed_data": "Dades detallades",
+    "encryption_keys": "Claus de xifrat de l'elecció",
+    "process_count_one": "Total {{count}} procés",
+    "process_count_other": "Total {{count}} processos",
+    "process_details": "Detalls del procés",
+    "process_list": "Processos",
+    "search_by": "Cercar per procés o organització",
+    "show_with_results": "Mostrar només processos amb resultats",
+    "tab_description": "Descripció",
+    "tab_envelopes": "Sobres",
+    "tab_raw": "Brut",
+    "tab_results": "Resultats"
   },
   "processes": {
-    "envelope_recount": "",
+    "envelope_recount": "Recompte de sobres",
     "envelope_type_badge": {
-      "encrypted_votes": "",
-      "not_encrypted_votes": ""
+      "encrypted_votes": "Vots encriptats",
+      "not_encrypted_votes": "Vots no encriptats"
     },
-    "invalid_election": "Invalid Election",
+    "invalid_election": "Elecció no vàlida",
     "process_mode_badge": {
-      "autostart": "",
-      "notAutostart": ""
+      "autostart": "Inici automàtic",
+      "notAutostart": "Sense inici automàtic"
     },
-    "published_keys": "",
-    "revealed": "",
-    "total_questions": ""
+    "published_keys": "Claus publicades",
+    "revealed": "Revelat",
+    "total_questions": "Total de preguntes"
   },
-  "raw_content": "Raw content",
+  "raw_content": "Contingut brut",
   "stats": {
-    "average_block_time": "",
-    "block_height": "",
-    "blockchain_info": "",
-    "electionCount_one": "",
-    "electionCount_many": "",
-    "electionCount_other": "",
-    "genesis_block_date": "",
-    "in_sync": "",
-    "latest_blocks": "",
-    "network_id": "",
-    "nr_of_validators": "",
-    "organizations_one": "",
-    "organizations_many": "",
-    "organizations_other": "",
-    "seconds_one": "",
-    "seconds_many": "",
-    "seconds_other": "",
-    "sync_status": "",
-    "syncing": "",
-    "total_elections": "",
-    "total_organizations": "",
-    "total_votes": "",
-    "view_all_blocks": "View all blocks",
-    "votes_one": "",
-    "votes_many": "",
-    "votes_other": ""
+    "average_block_time": "Temps mitjà per bloc",
+    "block_height": "Alçada del bloc",
+    "blockchain_info": "Informació de la blockchain",
+    "electionCount_one": "{{ count }} elecció",
+    "electionCount_other": "{{ count }} eleccions",
+    "genesis_block_date": "Data del bloc gènesi",
+    "in_sync": "En sincronització",
+    "latest_block": "Últims blocs",
+    "network_id": "Identificador de xarxa",
+    "nr_of_validators": "Nombre de validadores",
+    "organizations_one": "{{ count }} organització",
+    "organizations_other": "{{ count }} organitzacions",
+    "seconds_one": "{{ count }} segon",
+    "seconds_other": "{{ count }} segons",
+    "sync_status": "Estat de sincronització",
+    "syncing": "Sincronitzant",
+    "total_elections": "Total de processos",
+    "total_organizations": "Total d'organitzacions",
+    "total_votes": "Total de vots",
+    "view_all_blocks": "Veure tots els blocs",
+    "votes_one": "{{ count }} vot",
+    "votes_other": "{{ count }} vots"
   },
   "transactions": {
-    "belong_to_organization": "",
-    "belongs_to_process": "Belongs to process: <a>{{process}}</a>",
-    "created_on": "Created {{createdOn}}",
-    "on_block_n": "On Block {{height}}",
-    "transaction_index": "Transaction index: {{txIndex}}",
-    "transactions_list": "",
-    "tx_count_one": "",
-    "tx_count_many": "",
-    "tx_count_other": "",
-    "tx_detail": "Transaction Details",
-    "vote_package": "Vote package:"
+    "belong_to_organization": "Pertany a l'organització: <a>{{organization}}</a>",
+    "belongs_to_process": "Pertany al procés: <a>{{process}}</a>",
+    "created_on": "Creat {{createdOn}}",
+    "on_block_n": "Al Bloc {{height}}",
+    "search_tx": "Cercar transacció",
+    "transaction_index": "Índex de transacció: {{txIndex}}",
+    "transactions_list": "Transaccions",
+    "tx_count_one": "Total {{ count }} transacció",
+    "tx_count_other": "Total {{ count }} transaccions",
+    "tx_detail": "Detalls de la transacció",
+    "vote_package": "Paquet de vot:"
+  },
+  "validators": {
+    "pubkey": "Clau pública:",
+    "validators": "Validators",
+    "validators_count_one": "Total {{ count }} validator",
+    "validators_count_other": "Total {{ count }} validators",
+    "voting_power": "Poder de vot: {{power}}"
+  },
+  "verify": {
+    "add_your_vote_id": "Afegeix el teu identificador de vot",
+    "subtitle": "Introdueix el rebut de vot que vas rebre després de votar per verificar el teu vot",
+    "title": "Verifica el teu vot",
+    "verify": "Verificar"
   }
 }
