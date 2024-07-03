@@ -1,4 +1,5 @@
 import { Box, BoxProps, Grid } from '@chakra-ui/react'
+import { PropsWithChildren } from 'react'
 import { Outlet, ScrollRestoration } from 'react-router-dom'
 import { Footer } from '~components/Layout/Footer'
 import { TopBar } from '~components/Layout/TopBar'
@@ -16,14 +17,12 @@ const DefaultLayout = (props: BoxProps) => (
   />
 )
 
-const Layout = () => (
+const Layout = ({ children }: PropsWithChildren) => (
   <Box minH='100vh' display='flex' flexDirection='column'>
     <ScrollRestoration />
     <Grid p={{ base: 0, md: 3 }}>
       <TopBar />
-      <DefaultLayout>
-        <Outlet />
-      </DefaultLayout>
+      <DefaultLayout>{children ?? <Outlet />}</DefaultLayout>
     </Grid>
     <Footer />
   </Box>

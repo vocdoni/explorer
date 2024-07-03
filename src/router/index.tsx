@@ -1,3 +1,4 @@
+import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
 import { lazy } from 'react'
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom'
@@ -6,7 +7,6 @@ import Layout from '~src/layout/Default'
 import Error404 from '~src/router/Error404'
 import RouteError from '~src/router/RouteError'
 import { SuspenseLoader } from '~src/router/SuspenseLoader'
-import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 
 const Home = lazy(() => import('~pages/Home'))
 const Block = lazy(() => import('~pages/block'))
@@ -27,7 +27,11 @@ export const RoutesProvider = () => {
     {
       path: RoutePath.Base,
       element: <Layout />,
-      errorElement: <RouteError />,
+      errorElement: (
+        <Layout>
+          <RouteError />
+        </Layout>
+      ),
       children: [
         {
           index: true,
