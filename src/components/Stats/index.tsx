@@ -91,7 +91,7 @@ const Stats = () => {
           <StatsCard key={i} title={card.title} description={card.description} />
         ))}
       </Grid>
-      <Flex direction={{ base: 'column', lg: 'row' }} minWidth='max-content' alignItems='start' gap={4}>
+      <Flex direction={{ base: 'column', lg: 'row' }} alignItems='start' gap={4}>
         <StatisticsCardWrapper title={t('stats.latest_blocks')} icon={<VscGraphLine />}>
           <LatestBlocks />
         </StatisticsCardWrapper>

@@ -62,9 +62,15 @@ export const FeaturedContent = () => {
           position='absolute'
           left={0}
           zIndex={-1}
-          h={'360px'}
+          h={{ base: '690px', sm: '660px', md: '360px' }}
         />
-        <Flex gap={6} justify={'center'} align={'center'}>
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          gap={6}
+          justify={'center'}
+          align={'center'}
+          pt={{ base: 8, md: 0 }}
+        >
           <Flex direction={'column'} gap={6}>
             <Text fontSize={'3xl'}>
               <Trans i18nKey={'featured.a_cutting_edge_voting_protocol'}>A cutting edge voting protocol</Trans>

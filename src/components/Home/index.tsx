@@ -16,11 +16,11 @@ const LandingPage = () => {
         left={0}
         zIndex={-1}
       />
-      <Flex direction={'column'} gap={4} pt={'55px'}>
+      <Flex direction={'column'} gap={4} pt={'55px'} overflowWrap='anywhere'>
         <Text fontSize='5xl' color={'rgb(13, 71, 82)'} fontWeight='bold'>
           <Trans i18nKey='home.title'>Vocdoni explorer</Trans>
         </Text>
-        <Text>
+        <Text pr={{ base: 4, sm: 0 }}>
           <Trans i18nKey='home.subtitle'>
             The most flexible and secure voting protocol to organize any kind of voting process: single-choice,
             multiple-choice, weighted, quadratic voting and much more.
