@@ -102,7 +102,7 @@ export const TransactionDetail = (tx: Tx) => {
         </Trans>
       </Text>
 
-      <Card>
+      <Card wordBreak='break-all'>
         <CardBody>
           <Text fontSize={'xl'}>{ensure0x(tx.txInfo.transactionHash)}</Text>
           {process && (
