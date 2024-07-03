@@ -51,7 +51,7 @@ export const PaginatedBlocksList = () => {
   // Calculate the first block index for the current page
   const currentPage = page && page > 0 ? Number(page - 1) : 0
   // Get the first block of the page
-  const firstPageIndex = count - currentPage * PaginationItemsPerPage
+  const firstPageIndex = count - currentPage * PaginationItemsPerPage + 1
 
   const {
     data: blocks,
