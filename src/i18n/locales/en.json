@@ -107,6 +107,7 @@
     "show_with_results": "Show only processes with results",
     "tab_description": "Description",
     "tab_envelopes": "Envelopes",
+    "tab_raw": "Raw",
     "tab_results": "Results"
   },
   "processes": {

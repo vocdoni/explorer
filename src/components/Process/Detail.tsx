@@ -177,7 +177,6 @@ const Detail = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-      {/*</Box>*/}
     </>
   )
 }
