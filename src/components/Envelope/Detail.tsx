@@ -6,6 +6,7 @@ import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { RoutePath } from '~constants'
 import ShowRawButton from '~components/Layout/ShowRawButton'
 import voteImage from '/images/vocdoni-vote.png'
+import { CopyButton } from '~components/Layout/CopyButton'
 
 const EnvelopeDetail = (envelope: IVoteInfoResponse) => {
   const { t } = useTranslation()
@@ -22,11 +23,19 @@ const EnvelopeDetail = (envelope: IVoteInfoResponse) => {
         <Text fontWeight={'bold'} fontSize={'xl'}>
           <Trans i18nKey={'envelopes.registered_correctly'}>Vote has been registered correctly</Trans>
         </Text>
-        <Flex direction={'column'} gap={1} alignItems={'center'}>
+        <Flex direction={'column'} gap={1} alignItems={'center'} textAlign={'center'}>
           <Text fontWeight={'bold'} fontSize={'md'}>
             <Trans i18nKey={'envelopes.verifier_code'}>Verifier code</Trans>
           </Text>
-          <Text>{envelope.voteID}</Text>
+          <CopyButton
+            whiteSpace='normal'
+            wordBreak='break-all'
+            w={'auto'}
+            toCopy={envelope.voteID}
+            color={'textAccent1'}
+          >
+            <Text wordBreak={'break-all'}>{envelope.voteID}</Text>
+          </CopyButton>
         </Flex>
       </Flex>
       <Flex direction={'column'} gap={3}>
