@@ -10,7 +10,7 @@ import { OrganizationImage } from '@vocdoni/chakra-components'
  */
 export const HeroHeaderLayout = ({ header, children }: PropsWithChildren<{ header: ReactNode }>) => {
   return (
-    <Flex direction={'column'} gap={6}>
+    <Flex direction={'column'} gap={6} mb={{ base: 7, md: 2 }}>
       {header}
       <Flex gap={4} direction={'column'} align={'center'} mt={{ base: '-80px', md: '-100px' }}>
         <OrganizationImage
