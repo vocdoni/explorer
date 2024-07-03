@@ -107,7 +107,6 @@
     "show_with_results": "Mostrar solo procesos con resultados",
     "tab_description": "Descripción",
     "tab_envelopes": "Sobres",
-    "tab_raw": "Bruto",
     "tab_results": "Resultados"
   },
   "processes": {
@@ -125,7 +124,7 @@
     "revealed": "Revelados",
     "total_questions": "Total de preguntas"
   },
-  "raw_content": "Contenido bruto",
+  "raw": "Datos",
   "stats": {
     "average_block_time": "Tiempo promedio por bloque",
     "block_height": "Altura del bloque",

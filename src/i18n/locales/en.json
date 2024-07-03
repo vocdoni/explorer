@@ -107,7 +107,6 @@
     "show_with_results": "Show only processes with results",
     "tab_description": "Description",
     "tab_envelopes": "Envelopes",
-    "tab_raw": "Raw",
     "tab_results": "Results"
   },
   "processes": {
@@ -125,7 +124,7 @@
     "revealed": "Revealed",
     "total_questions": "Total questions"
   },
-  "raw_content": "Raw content",
+  "raw": "Raw",
   "stats": {
     "average_block_time": "Average block time",
     "block_height": "Block height",

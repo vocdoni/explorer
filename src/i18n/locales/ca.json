@@ -107,7 +107,6 @@
     "show_with_results": "Mostrar només processos amb resultats",
     "tab_description": "Descripció",
     "tab_envelopes": "Sobres",
-    "tab_raw": "Brut",
     "tab_results": "Resultats"
   },
   "processes": {
@@ -125,7 +124,7 @@
     "revealed": "Revelat",
     "total_questions": "Total de preguntes"
   },
-  "raw_content": "Contingut brut",
+  "raw": "Dades",
   "stats": {
     "average_block_time": "Temps mitjà per bloc",
     "block_height": "Alçada del bloc",
