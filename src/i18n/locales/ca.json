@@ -107,6 +107,7 @@
     "show_with_results": "Mostrar només processos amb resultats",
     "tab_description": "Descripció",
     "tab_envelopes": "Sobres",
+    "tab_raw": "Dades",
     "tab_results": "Resultats"
   },
   "processes": {

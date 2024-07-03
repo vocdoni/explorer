@@ -2,12 +2,12 @@ import { Box, Button, Flex, Image, Link, Text } from '@chakra-ui/react'
 import { Trans, useTranslation } from 'react-i18next'
 
 import anonymous from '/images/featured/anonymous.png'
+import censorship from '/images/featured/censorship_subtitle.png'
+import edge from '/images/featured/edge-protocol.png'
+import inexpensive from '/images/featured/inexpensive.png'
 import open from '/images/featured/open-source.png'
 import scalable from '/images/featured/scalable.png'
-import inexpensive from '/images/featured/inexpensive.png'
-import censorship from '/images/featured/censorship_subtitle.png'
 import verifiable from '/images/featured/verifiable.png'
-import edge from '/images/featured/edge-protocol.png'
 
 export const FeaturedContent = () => {
   const { t } = useTranslation()
@@ -55,16 +55,14 @@ export const FeaturedContent = () => {
       </Flex>
       <Box>
         <Box
-          w={'full'}
-          sx={{
-            background: 'linear-gradient(101.89deg, #F1FFDF 17.32%, #E1FFFF 68.46%);',
-          }}
+          w='full'
+          bg='linear-gradient(102deg, #F1FFDF 17.32%, #E1FFFF 68.46%)'
           position='absolute'
           left={0}
           zIndex={-1}
-          h={'360px'}
+          h={{ base: '690px', sm: '630px', md: '360px' }}
         />
-        <Flex gap={6} justify={'center'} align={'center'}>
+        <Flex direction={{ base: 'column', md: 'row' }} gap={6} justify='center' align='center' pt={{ base: 8, md: 0 }}>
           <Flex direction={'column'} gap={6}>
             <Text fontSize={'3xl'}>
               <Trans i18nKey={'featured.a_cutting_edge_voting_protocol'}>A cutting edge voting protocol</Trans>

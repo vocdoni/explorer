@@ -1,16 +1,16 @@
-import { IChainBlockInfoResponse } from '@vocdoni/sdk'
-import { BlockCard } from '~components/Blocks/BlockCard'
 import { Flex, Heading, Link, Text } from '@chakra-ui/react'
-import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { IChainBlockInfoResponse } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
-import { RoutePath } from '~constants'
+import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { BlockCard } from '~components/Blocks/BlockCard'
 import ShowRawButton from '~components/Layout/ShowRawButton'
+import { RoutePath } from '~constants'
 
 export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
   const proposer = block.header.proposerAddress
 
   return (
-    <Flex direction={'column'} mt={'40px'} gap={6}>
+    <Flex direction={'column'} mt={{ base: '20px', lg: '40px' }} gap={6} wordBreak='break-all'>
       <Heading isTruncated wordBreak='break-word'>
         <Trans i18nKey={'blocks.block_detail'}>Block Detail</Trans>
       </Heading>

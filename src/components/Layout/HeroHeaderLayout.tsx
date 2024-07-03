@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react'
+import { OrganizationImage } from '@vocdoni/chakra-components'
 import { PropsWithChildren, ReactNode } from 'react'
 import { FallbackAccountImg } from '~constants'
-import { OrganizationImage } from '@vocdoni/chakra-components'
 
 /**
  * Layout used to create a Hero banner page with the logo of the organization
@@ -10,7 +10,7 @@ import { OrganizationImage } from '@vocdoni/chakra-components'
  */
 export const HeroHeaderLayout = ({ header, children }: PropsWithChildren<{ header: ReactNode }>) => {
   return (
-    <Flex direction={'column'} mt={'40px'} gap={6}>
+    <Flex direction={'column'} gap={6} mb={{ base: 7, md: 2 }}>
       {header}
       <Flex gap={4} direction={'column'} align={'center'} mt={{ base: '-80px', md: '-100px' }}>
         <OrganizationImage

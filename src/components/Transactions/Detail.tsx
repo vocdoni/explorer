@@ -1,12 +1,12 @@
-import { AdminTx, ensure0x, NewProcessTx, SetProcessTx, TransactionType, Tx, VoteEnvelope } from '@vocdoni/sdk'
 import { Box, Card, CardBody, Code, Flex, Heading, Link, Text } from '@chakra-ui/react'
+import { AdminTx, ensure0x, NewProcessTx, SetProcessTx, TransactionType, Tx, VoteEnvelope } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
-import ShowRawButton from '~components/Layout/ShowRawButton'
-import { useBlockToDate } from '~queries/stats'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
+import ShowRawButton from '~components/Layout/ShowRawButton'
+import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
 import { RoutePath } from '~constants'
 import { useDateFns } from '~i18n/use-date-fns'
-import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
+import { useBlockToDate } from '~queries/stats'
 import { b64ToHex, objectB64StringsToHex } from '~utils/objects'
 
 export const TransactionDetail = (tx: Tx) => {
@@ -102,7 +102,7 @@ export const TransactionDetail = (tx: Tx) => {
         </Trans>
       </Text>
 
-      <Card>
+      <Card wordBreak='break-all'>
         <CardBody>
           <Text fontSize={'xl'}>{ensure0x(tx.txInfo.transactionHash)}</Text>
           {process && (
