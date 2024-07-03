@@ -17,8 +17,10 @@ const vocdoniStatusBadge = definePartsStyle({
   },
 })
 
-export const tagTheme = defineMultiStyleConfig({
+const Tag = defineMultiStyleConfig({
   variants: {
     vocdoni: vocdoniStatusBadge,
   },
 })
+
+export default Tag

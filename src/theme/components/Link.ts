@@ -7,6 +7,8 @@ const baseStyle = defineStyle({
   },
 })
 
-export const Link = defineStyleConfig({
+const Link = defineStyleConfig({
   baseStyle,
 })
+
+export default Link
