@@ -157,7 +157,7 @@ const Detail = () => {
             <Trans i18nKey={'process.tab_envelopes'}>Envelopes</Trans>
           </Tab>
           <Tab>
-            <Trans i18nKey={'process.tab_raw'}>Raw</Trans>
+            <Trans i18nKey={'raw'}>Raw</Trans>
           </Tab>
         </TabList>
 

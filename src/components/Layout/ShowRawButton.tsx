@@ -11,7 +11,7 @@ const ShowRawButton = ({ obj, ...props }: { obj: object } & Omit<ButtonProps, 'o
   return (
     <>
       <Button {...buttonProps} {...props}>
-        <Trans i18nKey={'raw_content'}>Raw content</Trans>
+        <Trans i18nKey={'raw'}>Raw</Trans>
       </Button>
       <Box mt={2} {...disclosureProps}>
         <RawContentBox obj={obj} />
