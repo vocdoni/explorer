@@ -10,7 +10,7 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
   const proposer = block.header.proposerAddress
 
   return (
-    <Flex direction={'column'} mt={'40px'} gap={6}>
+    <Flex direction={'column'} mt={{ base: '20px', lg: '40px' }} gap={6} wordBreak='break-all'>
       <Heading isTruncated wordBreak='break-word'>
         <Trans i18nKey={'blocks.block_detail'}>Block Detail</Trans>
       </Heading>
