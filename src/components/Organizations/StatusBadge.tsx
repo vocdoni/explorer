@@ -1,6 +1,5 @@
-import React from 'react'
-import { ElectionStatus } from '@vocdoni/sdk'
 import { ElectionStatusBadge as ComponentsStatusBadge } from '@vocdoni/chakra-components'
+import { ElectionStatus } from '@vocdoni/sdk'
 
 export const ElectionStatusBadge = ({ status }: { status: ElectionStatus }) => {
   switch (status) {

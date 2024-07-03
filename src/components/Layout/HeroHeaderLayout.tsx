@@ -1,7 +1,7 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
+import { OrganizationImage } from '@vocdoni/chakra-components'
 import { PropsWithChildren, ReactNode } from 'react'
 import { FallbackAccountImg } from '~constants'
-import { OrganizationImage } from '@vocdoni/chakra-components'
 
 /**
  * Layout used to create a Hero banner page with the logo of the organization

@@ -1,5 +1,5 @@
 import { Card, CardBody, Flex, HStack, Text, useBreakpointValue } from '@chakra-ui/react'
-import { IChainValidator, ensure0x } from '@vocdoni/sdk'
+import { ensure0x, IChainValidator } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
 import { CopyButton, ReducedTextAndCopy } from '~components/Layout/CopyButton'
 

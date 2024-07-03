@@ -1,7 +1,7 @@
 import { Input, InputGroup, InputLeftElement, InputProps } from '@chakra-ui/react'
+import { ChangeEvent } from 'react'
 import { BiSearchAlt } from 'react-icons/bi'
 import { debounce } from '~utils/debounce'
-import { ChangeEvent } from 'react'
 
 export const InputSearch = ({
   debounceTime = 0,

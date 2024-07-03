@@ -2,7 +2,7 @@ import { Box, Card, CardBody, CardProps, Link, Text } from '@chakra-ui/react'
 import { OrganizationImage as Avatar, OrganizationName } from '@vocdoni/chakra-components'
 import { OrganizationProvider, useOrganization } from '@vocdoni/react-providers'
 import { Trans, useTranslation } from 'react-i18next'
-import { Link as RouterLink, generatePath } from 'react-router-dom'
+import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { FallbackAccountImg, RoutePath } from '~constants'
 

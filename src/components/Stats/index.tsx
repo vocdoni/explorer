@@ -5,8 +5,8 @@ import { MdSpeed } from 'react-icons/md'
 import { VscGraphLine } from 'react-icons/vsc'
 import { ChainInfo } from '~components/Stats/ChainInfo'
 import { LatestBlocks } from '~components/Stats/LatestBlocks'
-import { useChainInfo } from '~queries/stats'
 import { RefreshIntervalBlocks } from '~constants'
+import { useChainInfo } from '~queries/stats'
 
 interface IStatsCardProps {
   title: string
