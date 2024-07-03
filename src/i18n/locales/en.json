@@ -134,7 +134,7 @@
     "electionCount_other": "{{ count }} elections",
     "genesis_block_date": "Genesis block date",
     "in_sync": "In sync",
-    "latest_block": "Latest blocks",
+    "latest_blocks": "Latest blocks",
     "network_id": "Network id",
     "nr_of_validators": "Nr of validators",
     "organizations_one": "{{ count }} organization",

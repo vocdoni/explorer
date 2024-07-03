@@ -134,7 +134,7 @@
     "electionCount_other": "{{ count }} elecciones",
     "genesis_block_date": "Fecha del bloque génesis",
     "in_sync": "En sincronización",
-    "latest_block": "Últimos bloques",
+    "latest_blocks": "Últimos bloques",
     "network_id": "ID de red",
     "nr_of_validators": "Número de validadores",
     "organizations_one": "{{ count }} organización",

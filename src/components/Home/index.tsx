@@ -1,9 +1,13 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { FeaturedContent } from '~components/Home/FeaturedContent'
 import Stats from '~components/Stats'
 
 const LandingPage = () => {
+  // Don't ask why, but for unknown reasons the <Trans /> component does not work well in this level...
+  // As soon as we add some hook call here it works, so only the title has been changed
+  const { t } = useTranslation()
+
   return (
     <>
       <Box
@@ -18,7 +22,7 @@ const LandingPage = () => {
       />
       <Flex direction={'column'} gap={4} pt={'55px'} overflowWrap='anywhere'>
         <Text fontSize='5xl' color={'rgb(13, 71, 82)'} fontWeight='bold'>
-          <Trans i18nKey='home.title'>Vocdoni explorer</Trans>
+          {t('home.title', { defaultValue: 'Vocdoni explorer' })}
         </Text>
         <Text pr={{ base: 4, sm: 0 }}>
           <Trans i18nKey='home.subtitle'>
