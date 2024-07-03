@@ -6,7 +6,7 @@ import { TopBar } from '~components/Layout/TopBar'
 const DefaultLayout = (props: BoxProps) => (
   <Box
     p={{
-      base: '0 15px',
+      base: '0 1rem',
       md: '0 15px',
     }}
     margin='0 auto'
@@ -19,7 +19,7 @@ const DefaultLayout = (props: BoxProps) => (
 const Layout = () => (
   <Box minH='100vh' display='flex' flexDirection='column'>
     <ScrollRestoration />
-    <Grid p={3}>
+    <Grid p={{ base: 0, md: 3 }}>
       <TopBar />
       <DefaultLayout>
         <Outlet />
