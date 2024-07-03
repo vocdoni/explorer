@@ -27,117 +27,117 @@ export const RoutesProvider = () => {
     {
       path: RoutePath.Base,
       element: <Layout />,
-      errorElement: (
-        <Layout>
-          <RouteError />
-        </Layout>
-      ),
       children: [
         {
-          index: true,
-          element: (
-            <SuspenseLoader>
-              <Home />
-            </SuspenseLoader>
-          ),
-        },
-        {
-          path: RoutePath.Block,
-          element: (
-            <SuspenseLoader>
-              <Block />
-            </SuspenseLoader>
-          ),
-          loader: async ({ params }) => await client.blockByHeight(Number(params.height)),
-        },
-        {
-          path: RoutePath.BlocksList,
-          element: (
-            <SuspenseLoader>
-              <BlocksList />
-            </SuspenseLoader>
-          ),
-        },
-        {
-          path: RoutePath.Organization,
-          element: (
-            <SuspenseLoader>
-              <Organization />
-            </SuspenseLoader>
-          ),
-          loader: async ({ params }) => await client.fetchAccount(params.pid),
-        },
-        {
-          path: RoutePath.Envelope,
-          element: (
-            <SuspenseLoader>
-              <Envelope />
-            </SuspenseLoader>
-          ),
-          loader: async ({ params }) => await client.voteInfo(params.verifier as string),
-        },
-        {
-          path: RoutePath.OrganizationsList,
-          element: (
-            <SuspenseLoader>
-              <OrganizationsList />
-            </SuspenseLoader>
-          ),
-        },
-        {
-          path: RoutePath.ProcessesList,
-          element: (
-            <SuspenseLoader>
-              <ProcessList />
-            </SuspenseLoader>
-          ),
-        },
-        {
-          path: RoutePath.Process,
-          element: (
-            <SuspenseLoader>
-              <Process />
-            </SuspenseLoader>
-          ),
-          loader: async ({ params }) => await client.fetchElection(params.pid),
-        },
-        {
-          path: RoutePath.Transaction,
-          element: (
-            <SuspenseLoader>
-              <Transaction />
-            </SuspenseLoader>
-          ),
-          loader: async ({ params }) => await client.txInfoByBlock(Number(params.block), Number(params.index)),
-        },
-        {
-          path: RoutePath.TransactionsList,
-          element: (
-            <SuspenseLoader>
-              <TransactionsList />
-            </SuspenseLoader>
-          ),
-        },
-        {
-          path: RoutePath.Validators,
-          element: (
-            <SuspenseLoader>
-              <Validators />
-            </SuspenseLoader>
-          ),
-          loader: async ({ params }) => await client.validatorsList(),
-        },
-        {
-          path: RoutePath.Verify,
-          element: (
-            <SuspenseLoader>
-              <Verify />
-            </SuspenseLoader>
-          ),
-        },
-        {
-          path: '*',
-          element: <Error404 />,
+          errorElement: <RouteError />,
+          children: [
+            {
+              index: true,
+              element: (
+                <SuspenseLoader>
+                  <Home />
+                </SuspenseLoader>
+              ),
+            },
+            {
+              path: RoutePath.Block,
+              element: (
+                <SuspenseLoader>
+                  <Block />
+                </SuspenseLoader>
+              ),
+              loader: async ({ params }) => await client.blockByHeight(Number(params.height)),
+            },
+            {
+              path: RoutePath.BlocksList,
+              element: (
+                <SuspenseLoader>
+                  <BlocksList />
+                </SuspenseLoader>
+              ),
+            },
+            {
+              path: RoutePath.Organization,
+              element: (
+                <SuspenseLoader>
+                  <Organization />
+                </SuspenseLoader>
+              ),
+              loader: async ({ params }) => await client.fetchAccount(params.pid),
+            },
+            {
+              path: RoutePath.Envelope,
+              element: (
+                <SuspenseLoader>
+                  <Envelope />
+                </SuspenseLoader>
+              ),
+              loader: async ({ params }) => await client.voteInfo(params.verifier as string),
+            },
+            {
+              path: RoutePath.OrganizationsList,
+              element: (
+                <SuspenseLoader>
+                  <OrganizationsList />
+                </SuspenseLoader>
+              ),
+            },
+            {
+              path: RoutePath.ProcessesList,
+              element: (
+                <SuspenseLoader>
+                  <ProcessList />
+                </SuspenseLoader>
+              ),
+            },
+            {
+              path: RoutePath.Process,
+              element: (
+                <SuspenseLoader>
+                  <Process />
+                </SuspenseLoader>
+              ),
+              loader: async ({ params }) => await client.fetchElection(params.pid),
+            },
+            {
+              path: RoutePath.Transaction,
+              element: (
+                <SuspenseLoader>
+                  <Transaction />
+                </SuspenseLoader>
+              ),
+              loader: async ({ params }) => await client.txInfoByBlock(Number(params.block), Number(params.index)),
+            },
+            {
+              path: RoutePath.TransactionsList,
+              element: (
+                <SuspenseLoader>
+                  <TransactionsList />
+                </SuspenseLoader>
+              ),
+            },
+            {
+              path: RoutePath.Validators,
+              element: (
+                <SuspenseLoader>
+                  <Validators />
+                </SuspenseLoader>
+              ),
+              loader: async ({ params }) => await client.validatorsList(),
+            },
+            {
+              path: RoutePath.Verify,
+              element: (
+                <SuspenseLoader>
+                  <Verify />
+                </SuspenseLoader>
+              ),
+            },
+            {
+              path: '*',
+              element: <Error404 />,
+            },
+          ],
         },
       ],
     },
