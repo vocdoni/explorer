@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import { PropsWithChildren, ReactNode } from 'react'
 import { FallbackAccountImg } from '~constants'
 import { OrganizationImage } from '@vocdoni/chakra-components'
@@ -10,7 +10,7 @@ import { OrganizationImage } from '@vocdoni/chakra-components'
  */
 export const HeroHeaderLayout = ({ header, children }: PropsWithChildren<{ header: ReactNode }>) => {
   return (
-    <Flex direction={'column'} mt={'40px'} gap={6}>
+    <Flex direction={'column'} gap={6}>
       {header}
       <Flex gap={4} direction={'column'} align={'center'} mt={{ base: '-80px', md: '-100px' }}>
         <OrganizationImage

@@ -128,9 +128,9 @@ const Detail = () => {
         <Tag variant={'vocdoni'}>{encryptedVotes}</Tag>
       </Flex>
       {/*Organization card and other cards*/}
-      <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', xl: 'repeat(4, 1fr)' }} gap={4}>
-        <GridItem colSpan={{ base: 1, md: 2 }}>
-          <OrganizationCard />
+      <Grid templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4}>
+        <GridItem colSpan={2}>
+          <OrganizationCard minH={'115px'} />
         </GridItem>
         <GridItem colSpan={1}>
           <InfoCard title={t('processes.envelope_recount')}>{election.voteCount}</InfoCard>
@@ -146,21 +146,22 @@ const Detail = () => {
         <Trans i18nKey={'process.detailed_data'}>Detailed data</Trans>
       </Text>
       <Tabs defaultIndex={defaultTab}>
-        <TabList>
-          <Tab>
-            <Trans i18nKey={'process.tab_description'}>Description</Trans>
-          </Tab>
-          <Tab>
-            <Trans i18nKey={'process.tab_results'}>Results</Trans>
-          </Tab>
-          <Tab>
-            <Trans i18nKey={'process.tab_envelopes'}>Envelopes</Trans>
-          </Tab>
-          <Tab>
-            <Trans i18nKey={'raw'}>Raw</Trans>
-          </Tab>
-        </TabList>
-
+        <Box whiteSpace='nowrap' overflowX='auto'>
+          <TabList display='flex' flexWrap='wrap'>
+            <Tab>
+              <Trans i18nKey={'process.tab_description'}>Description</Trans>
+            </Tab>
+            <Tab>
+              <Trans i18nKey={'process.tab_results'}>Results</Trans>
+            </Tab>
+            <Tab>
+              <Trans i18nKey={'process.tab_envelopes'}>Envelopes</Trans>
+            </Tab>
+            <Tab>
+              <Trans i18nKey={'process.tab_raw'}>Raw</Trans>
+            </Tab>
+          </TabList>
+        </Box>
         <TabPanels>
           <TabPanel>
             <ElectionDescription />
@@ -176,14 +177,15 @@ const Detail = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
+      {/*</Box>*/}
     </>
   )
 }
 
 const InfoCard = ({ title, children, ...rest }: { title: string } & CardProps) => {
   return (
-    <Card {...rest}>
-      <CardHeader>{title}</CardHeader>
+    <Card minH={'115px'} {...rest}>
+      <CardHeader pb={0}>{title}</CardHeader>
       <CardBody>
         <Text fontSize={'xl'} fontWeight={'bold'}>
           {children}
