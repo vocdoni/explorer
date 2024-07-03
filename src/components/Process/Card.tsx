@@ -3,7 +3,7 @@ import { OrganizationImage as Avatar, ElectionSchedule, ElectionTitle } from '@v
 import { ElectionProvider, OrganizationProvider, useElection, useOrganization } from '@vocdoni/react-providers'
 import { InvalidElection as InvalidElectionType, PublishedElection } from '@vocdoni/sdk'
 import { useTranslation } from 'react-i18next'
-import { Link as RouterLink, generatePath } from 'react-router-dom'
+import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
 import InvalidElection from '~components/Process/InvalidElection'
@@ -38,7 +38,7 @@ const ElectionCardSkeleton = (rest: CardProps) => {
 
   return (
     <Card direction={'row'} alignItems='center' pl={4} {...rest}>
-      <Link as={RouterLink} to={generatePath(RoutePath.Process, { pid: election.id })}>
+      <Link as={RouterLink} to={generatePath(RoutePath.Process, { pid: election.id })} w='full'>
         <CardBody>
           <Flex direction={'column'} align={'start'} gap={4}>
             <HStack>
