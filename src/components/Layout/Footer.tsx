@@ -36,13 +36,23 @@ export const Footer = () => {
   ]
 
   return (
-    <Flex h={'90px'} mt={'auto'} bottom={0} w={'full'} align={'center'} justify={'space-between'}>
-      <Box m={{ base: '20px auto', md: '0 40px' }}>
+    <Flex
+      direction={{ base: 'column', sm: 'row' }}
+      h={'90px'}
+      mt={'auto'}
+      bottom={0}
+      w={'full'}
+      align={'center'}
+      justify={'space-between'}
+      gap={5}
+      mb={{ base: '220px', sm: '20px' }}
+    >
+      <Box m={{ base: '20px auto', sm: '0 40px' }}>
         <Link as={RouterLink} to={'/'}>
           <Img maxH={'35px'} src={logo} alt='Vocdoni' />
         </Link>
       </Box>
-      <Flex gap={4} wrap={'wrap'} mr={6}>
+      <Flex direction={{ base: 'column', sm: 'row' }} align={'center'} gap={4} wrap={'wrap'} mr={6}>
         {links.map((link, i) => (
           <Link key={i} href={link.url} isExternal={link.external}>
             {link.name}
