@@ -97,7 +97,12 @@ TBD
 
 ## Preview
 
-TBD
+Two deployments are executed on each PR or push to `main`:
+
+- [Stage environment](https://vocdoni-explorer-stg.netlify.app/)
+- [Dev environment](https://vocdoni-explorer-dev.netlify.app/)
+
+Also, for now, the `main` branch is deploying a custom deploy accessible via https://dev.explorer.vote
 
 ## Contributing
 
@@ -110,7 +115,7 @@ Please review our [development guidelines][].
 This repository is licensed under the [GNU Affero General Public License v3.0.](./LICENSE)
 
 
-    Vocdoni UI Scaffold
+    Vocdoni Explorer
     Copyright (C) 2024 Vocdoni Association
 
     This program is free software: you can redistribute it and/or modify
