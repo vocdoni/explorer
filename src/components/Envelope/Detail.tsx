@@ -13,7 +13,7 @@ const EnvelopeDetail = (envelope: IVoteInfoResponse) => {
   const encKeys = envelope.encryptionKeys?.join(',')
 
   return (
-    <Flex direction={'column'} mt={'40px'} gap={6}>
+    <Flex direction={'column'} mt={'40px'} gap={6} wordBreak='break-all'>
       <Heading isTruncated wordBreak='break-word'>
         <Trans i18nKey={'envelopes.envelope_detail'}>Envelope Detail</Trans>
       </Heading>
