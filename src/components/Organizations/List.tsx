@@ -9,6 +9,7 @@ import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvi
 import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
+import { retryUnlessNotFound } from '~utils/queries'
 
 export const OrganizationsFilter = () => {
   const { t } = useTranslation()
@@ -34,17 +35,19 @@ export const PaginatedOrganizationsList = () => {
   const {
     data: orgs,
     isLoading: isLoadingOrgs,
+    isFetching,
     isError,
     error,
   } = useOrganizationList({
     page: Number(page || 1),
     organizationId: query,
     placeholderData: keepPreviousData,
+    retry: retryUnlessNotFound,
   })
 
   const isLoading = isLoadingCount || isLoadingOrgs
 
-  if (isLoading) {
+  if (isLoading || (query && isFetching)) {
     return <LoadingCards />
   }
 

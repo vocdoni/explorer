@@ -10,6 +10,7 @@ import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { PaginationItemsPerPage, RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
+import { retryUnlessNotFound } from '~utils/queries'
 
 export const BlocksFilter = () => {
   const { t } = useTranslation()
@@ -63,6 +64,7 @@ export const PaginatedBlocksList = () => {
     from: firstPageIndex < 0 ? 0 : firstPageIndex - PaginationItemsPerPage,
     listSize: PaginationItemsPerPage,
     placeholderData: keepPreviousData,
+    retry: retryUnlessNotFound,
   })
 
   const isLoading = isLoadingStats || isLoadingBlocks

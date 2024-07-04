@@ -9,6 +9,7 @@ import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { TransactionCard } from '~components/Transactions/TransactionCard'
 import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useTransactionList, useTransactionsCount } from '~queries/transactions'
+import { retryUnlessNotFound } from '~utils/queries'
 
 export const TransactionFilter = () => {
   const { t } = useTranslation()
@@ -51,6 +52,7 @@ export const PaginatedTransactionList = () => {
   } = useTransactionList({
     page: currentPage,
     placeholderData: keepPreviousData,
+    retry: retryUnlessNotFound,
   })
 
   const isLoading = isLoadingCount || isLoadingTx

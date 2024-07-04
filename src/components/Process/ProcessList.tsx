@@ -1,6 +1,6 @@
 import { Button, Checkbox, Flex } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
-import { ErrElectionNotFound, IElectionListFilter } from '@vocdoni/sdk'
+import { IElectionListFilter } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { InputSearch } from '~components/Layout/Inputs'
@@ -13,6 +13,7 @@ import { useProcessesCount, useProcessList } from '~queries/processes'
 import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
 import { ElectionCard } from './Card'
+import { retryUnlessNotFound } from '~utils/queries'
 
 type FilterQueryParams = {
   [K in keyof Omit<IElectionListFilter, 'organizationId'>]: string
@@ -109,12 +110,7 @@ export const PaginatedProcessList = () => {
     },
     refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
-    retry: (failureCount, error: any) => {
-      if (error instanceof ErrElectionNotFound) {
-        return false // Do not retry if the error is a 404
-      }
-      return failureCount < 3 // Retry up to 3 times for other errors
-    },
+    retry: retryUnlessNotFound,
   })
 
   const isLoading = isLoadingCount || isLoadingProcesses
