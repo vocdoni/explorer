@@ -20,19 +20,29 @@ import { Trans } from 'react-i18next'
 export const PopoverInputSearch = ({ input, button }: { input?: InputSearchProps; button?: ButtonProps }) => {
   return (
     <Popover>
-      <PopoverTrigger>
-        <IconButton aria-label='TODO' icon={<BiSearchAlt />} />
-      </PopoverTrigger>
-      <PopoverContent>
-        <PopoverBody>
-          <HStack>
-            <InputSearch {...input} />
-            <Button {...button}>
-              <Trans i18nKey={'filter.goto'}>Go to</Trans>
-            </Button>
-          </HStack>
-        </PopoverBody>
-      </PopoverContent>
+      {({ isOpen, onClose }) => (
+        <>
+          <PopoverTrigger>
+            <IconButton aria-label='TODO' icon={<BiSearchAlt />} />
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverBody>
+              <HStack>
+                <InputSearch {...input} />
+                <Button
+                  {...button}
+                  onClick={(e) => {
+                    if (button?.onClick) button.onClick(e)
+                    onClose()
+                  }}
+                >
+                  <Trans i18nKey={'filter.goto'}>Go to</Trans>
+                </Button>
+              </HStack>
+            </PopoverBody>
+          </PopoverContent>
+        </>
+      )}
     </Popover>
   )
 }
