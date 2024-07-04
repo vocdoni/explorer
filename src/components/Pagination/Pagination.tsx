@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, ButtonGroupProps, ButtonProps, Input, InputProps } from '@chakra-ui/react'
 import { ReactElement, useMemo, useState } from 'react'
-import { generatePath, Link as RouterLink, useNavigate, useParams } from 'react-router-dom'
+import { generatePath, Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { usePagination, useRoutedPagination } from './PaginationProvider'
 
 export type PaginationProps = ButtonGroupProps & {
@@ -141,10 +141,13 @@ export const Pagination = ({ maxButtons = 10, buttonProps, inputProps, ...rest }
 
 export const RoutedPagination = ({ maxButtons = 10, buttonProps, ...rest }: PaginationProps) => {
   const { path, totalPages } = useRoutedPagination()
+  const { search } = useLocation()
   const { page, ...extraParams }: { page?: number } = useParams()
   const navigate = useNavigate()
 
   const p = Number(page) || 1
+
+  const _generatePath = (page: number) => generatePath(path, { page, ...extraParams }) + search
 
   const pages = usePaginationPages(
     p,
@@ -152,17 +155,11 @@ export const RoutedPagination = ({ maxButtons = 10, buttonProps, ...rest }: Pagi
     maxButtons ? Math.max(5, maxButtons) : false,
     (page) => {
       if (page >= 0 && totalPages && page < totalPages) {
-        navigate(generatePath(path, { page: page, ...extraParams }))
+        navigate(_generatePath(page))
       }
     },
     (i) => (
-      <Button
-        as={RouterLink}
-        key={i}
-        to={generatePath(path, { page: i + 1, ...extraParams })}
-        isActive={p - 1 === i}
-        {...buttonProps}
-      >
+      <Button as={RouterLink} key={i} to={_generatePath(i + 1)} isActive={p - 1 === i} {...buttonProps}>
         {i + 1}
       </Button>
     )
@@ -172,19 +169,10 @@ export const RoutedPagination = ({ maxButtons = 10, buttonProps, ...rest }: Pagi
     <ButtonGroup {...rest}>
       {totalPages === undefined ? (
         <>
-          <Button
-            key='previous'
-            onClick={() => navigate(generatePath(path, { page: p - 1, ...extraParams }))}
-            isDisabled={p === 1}
-            {...buttonProps}
-          >
+          <Button key='previous' onClick={() => navigate(_generatePath(p - 1))} isDisabled={p === 1} {...buttonProps}>
             Previous
           </Button>
-          <Button
-            key='next'
-            onClick={() => navigate(generatePath(path, { page: p + 1, ...extraParams }))}
-            {...buttonProps}
-          >
+          <Button key='next' onClick={() => navigate(_generatePath(p + 1))} {...buttonProps}>
             Next
           </Button>
         </>

@@ -13,6 +13,7 @@ import { useProcessesCount, useProcessList } from '~queries/processes'
 import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
 import { ElectionCard } from './Card'
+import { retryUnlessNotFound } from '~utils/queries'
 
 type FilterQueryParams = {
   [K in keyof Omit<IElectionListFilter, 'organizationId'>]: string
@@ -25,6 +26,7 @@ export const ProcessSearchBox = () => {
   return (
     <Flex direction={{ base: 'column', lg: 'row' }} align={'center'} justify={'end'} gap={4}>
       <Checkbox
+        isChecked={queryParams.withResults === 'true'}
         onChange={(e) => setQueryParams({ ...queryParams, withResults: e.target.checked ? 'true' : undefined })}
       >
         <Trans i18nKey='process.show_with_results'>Show only processes with results</Trans>
@@ -36,6 +38,7 @@ export const ProcessSearchBox = () => {
           onChange={(value: string) => {
             setQueryParams({ ...queryParams, electionId: value })
           }}
+          value={queryParams.electionId}
           debounceTime={500}
         />
       </Flex>
@@ -46,6 +49,8 @@ export const ProcessSearchBox = () => {
 export const ProcessByTypeFilter = () => {
   const { t } = useTranslation()
   const { queryParams, setQueryParams } = useQueryParams<FilterQueryParams>()
+
+  const currentStatus = queryParams.status
 
   const processStatusFilters = [
     {
@@ -73,6 +78,7 @@ export const ProcessByTypeFilter = () => {
           flex={{ base: 'none', md: '1' }}
           key={i}
           onClick={() => setQueryParams({ ...queryParams, status: filter.value })}
+          variant={currentStatus !== filter.value ? 'solid' : 'outline'}
         >
           {filter.label}
         </Button>
@@ -95,7 +101,8 @@ export const PaginatedProcessList = () => {
 
   const {
     data: processes,
-    isLoading: isLoadingOrgs,
+    isLoading: isLoadingProcesses,
+    isFetching,
     isError,
     error,
   } = useProcessList({
@@ -106,12 +113,14 @@ export const PaginatedProcessList = () => {
       status: processFilters.status as IElectionListFilter['status'],
       withResults: processFilters.withResults ? processFilters.withResults === 'true' : undefined,
     },
+    refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
+    retry: retryUnlessNotFound,
   })
 
-  const isLoading = isLoadingCount || isLoadingOrgs
+  const isLoading = isLoadingCount || isLoadingProcesses
 
-  if (isLoading) {
+  if (isLoading || (isFetching && !isEmpty(processFilters))) {
     return <LoadingCards />
   }
 

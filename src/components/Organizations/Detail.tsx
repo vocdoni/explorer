@@ -13,6 +13,7 @@ import { PaginationProvider, usePagination } from '~components/Pagination/Pagina
 import { ElectionCard } from '~components/Process/Card'
 import { AppBaseURL, FallbackHeaderImg, PaginationItemsPerPage } from '~constants'
 import { useOrganizationElections } from '~queries/organizations'
+import { retryUnlessNotFound } from '~utils/queries'
 
 const OrganizationDetail = () => {
   const { organization: org } = useOrganization()
@@ -102,7 +103,10 @@ const OrganizationElectionsList = ({ org }: { org: AccountData }) => {
   const { data: elections, isLoading } = useOrganizationElections({
     address: org.address,
     page,
-    options: { enabled: !!org.address },
+    options: {
+      enabled: !!org.address,
+      retry: retryUnlessNotFound,
+    },
   })
 
   if (isLoading) {

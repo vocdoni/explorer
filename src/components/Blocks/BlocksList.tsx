@@ -2,7 +2,7 @@ import { keepPreviousData } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { BlockCard } from '~components/Blocks/BlockCard'
-import { InputSearch } from '~components/Layout/Inputs'
+import { PopoverInputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
 import LoadingError from '~components/Layout/LoadingError'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
@@ -10,31 +10,40 @@ import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { PaginationItemsPerPage, RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
+import { retryUnlessNotFound } from '~utils/queries'
+import { useCallback, useState } from 'react'
 
 export const BlocksFilter = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const [blockHeight, setBlockHeight] = useState('')
   const { data: stats, isLoading: isLoadingStats } = useChainInfo()
 
   const blockCount = stats?.height || 0
 
+  const goTo = useCallback(() => {
+    if (!blockCount) {
+      return
+    }
+    const num = parseInt(blockHeight)
+    let page = 0 // By default return to first page
+    if (!isNaN(num) && num >= 0 && num <= blockCount) {
+      page = Math.ceil((blockCount - num + 1) / PaginationItemsPerPage)
+    }
+    navigate(generatePath(RoutePath.BlocksList, { page: page.toString() }))
+  }, [blockHeight, blockCount])
+
   return (
-    <InputSearch
-      maxW={'300px'}
-      placeholder={t('blocks.search_block')}
-      onChange={(value: string) => {
-        if (!blockCount) {
-          return
-        }
-        const num = parseInt(value)
-        let page = 0 // By default return to first page
-        if (!isNaN(num) && num >= 0) {
-          page = Math.ceil((blockCount - num + 1) / PaginationItemsPerPage)
-        }
-        navigate(generatePath(RoutePath.BlocksList, { page: page.toString() }))
+    <PopoverInputSearch
+      input={{
+        placeholder: t('blocks.go_to_block', { defaultValue: 'Go to block' }),
+        onChange: (value: string) => {
+          setBlockHeight(value)
+        },
       }}
-      debounceTime={500}
-      type={'number'}
+      button={{
+        onClick: goTo,
+      }}
     />
   )
 }
@@ -63,6 +72,7 @@ export const PaginatedBlocksList = () => {
     from: firstPageIndex < 0 ? 0 : firstPageIndex - PaginationItemsPerPage,
     listSize: PaginationItemsPerPage,
     placeholderData: keepPreviousData,
+    retry: retryUnlessNotFound,
   })
 
   const isLoading = isLoadingStats || isLoadingBlocks

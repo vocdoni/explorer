@@ -1,7 +1,7 @@
 import { keepPreviousData } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
-import { InputSearch } from '~components/Layout/Inputs'
+import { PopoverInputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
 import LoadingError from '~components/Layout/LoadingError'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
@@ -9,29 +9,38 @@ import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { TransactionCard } from '~components/Transactions/TransactionCard'
 import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useTransactionList, useTransactionsCount } from '~queries/transactions'
+import { retryUnlessNotFound } from '~utils/queries'
+import { useCallback, useState } from 'react'
 
 export const TransactionFilter = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { data, isLoading: isLoadingCount } = useTransactionsCount()
+  const [txNumber, setTxNumber] = useState('')
+
+  const goTo = useCallback(() => {
+    if (!data) {
+      return
+    }
+    const num = parseInt(txNumber)
+    let page = 0 // By default return to first page
+    if (!isNaN(num) && num >= 0) {
+      page = Math.ceil((data - num + 1) / PaginationItemsPerPage)
+    }
+    navigate(generatePath(RoutePath.TransactionsList, { page: page.toString() }))
+  }, [txNumber, data])
 
   return (
-    <InputSearch
-      maxW={'300px'}
-      placeholder={t('transactions.search_tx')}
-      onChange={(value: string) => {
-        if (!data) {
-          return
-        }
-        const num = parseInt(value)
-        let page = 0 // By default return to first page
-        if (!isNaN(num) && num >= 0) {
-          page = Math.ceil((data - num + 1) / PaginationItemsPerPage)
-        }
-        navigate(generatePath(RoutePath.TransactionsList, { page: page.toString() }))
+    <PopoverInputSearch
+      input={{
+        placeholder: t('transactions.go_to_tx', { defaultValue: 'Go to transaction' }),
+        onChange: (value: string) => {
+          setTxNumber(value)
+        },
       }}
-      debounceTime={500}
-      type={'number'}
+      button={{
+        onClick: goTo,
+      }}
     />
   )
 }
@@ -51,6 +60,7 @@ export const PaginatedTransactionList = () => {
   } = useTransactionList({
     page: currentPage,
     placeholderData: keepPreviousData,
+    retry: retryUnlessNotFound,
   })
 
   const isLoading = isLoadingCount || isLoadingTx
