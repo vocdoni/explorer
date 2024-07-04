@@ -48,6 +48,8 @@ export const ProcessByTypeFilter = () => {
   const { t } = useTranslation()
   const { queryParams, setQueryParams } = useQueryParams<FilterQueryParams>()
 
+  const currentStatus = queryParams.status
+
   const processStatusFilters = [
     {
       label: t('process.by_status_all'),
@@ -74,6 +76,7 @@ export const ProcessByTypeFilter = () => {
           flex={{ base: 'none', md: '1' }}
           key={i}
           onClick={() => setQueryParams({ ...queryParams, status: filter.value })}
+          variant={currentStatus !== filter.value ? 'solid' : 'outline'}
         >
           {filter.label}
         </Button>
