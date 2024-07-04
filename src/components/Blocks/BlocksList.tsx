@@ -27,7 +27,7 @@ export const BlocksFilter = () => {
     }
     const num = parseInt(blockHeight)
     let page = 0 // By default return to first page
-    if (!isNaN(num) && num >= 0) {
+    if (!isNaN(num) && num >= 0 && num <= blockCount) {
       page = Math.ceil((blockCount - num + 1) / PaginationItemsPerPage)
     }
     navigate(generatePath(RoutePath.BlocksList, { page: page.toString() }))
@@ -36,7 +36,7 @@ export const BlocksFilter = () => {
   return (
     <PopoverInputSearch
       input={{
-        placeholder: t('blocks.search_block'),
+        placeholder: t('blocks.go_to_block', { defaultValue: 'Go to block' }),
         onChange: (value: string) => {
           setBlockHeight(value)
         },
