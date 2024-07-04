@@ -26,6 +26,7 @@ export const ProcessSearchBox = () => {
   return (
     <Flex direction={{ base: 'column', lg: 'row' }} align={'center'} justify={'end'} gap={4}>
       <Checkbox
+        isChecked={queryParams.withResults === 'true'}
         onChange={(e) => setQueryParams({ ...queryParams, withResults: e.target.checked ? 'true' : undefined })}
       >
         <Trans i18nKey='process.show_with_results'>Show only processes with results</Trans>
@@ -37,6 +38,7 @@ export const ProcessSearchBox = () => {
           onChange={(value: string) => {
             setQueryParams({ ...queryParams, electionId: value })
           }}
+          value={queryParams.electionId}
           debounceTime={500}
         />
       </Flex>
