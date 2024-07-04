@@ -1,6 +1,6 @@
 import { Button, Checkbox, Flex } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
-import { IElectionListFilter } from '@vocdoni/sdk'
+import { ErrElectionNotFound, IElectionListFilter } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { InputSearch } from '~components/Layout/Inputs'
@@ -95,7 +95,8 @@ export const PaginatedProcessList = () => {
 
   const {
     data: processes,
-    isLoading: isLoadingOrgs,
+    isLoading: isLoadingProcesses,
+    isFetching,
     isError,
     error,
   } = useProcessList({
@@ -106,12 +107,19 @@ export const PaginatedProcessList = () => {
       status: processFilters.status as IElectionListFilter['status'],
       withResults: processFilters.withResults ? processFilters.withResults === 'true' : undefined,
     },
+    refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
+    retry: (failureCount, error: any) => {
+      if (error instanceof ErrElectionNotFound) {
+        return false // Do not retry if the error is a 404
+      }
+      return failureCount < 3 // Retry up to 3 times for other errors
+    },
   })
 
-  const isLoading = isLoadingCount || isLoadingOrgs
+  const isLoading = isLoadingCount || isLoadingProcesses
 
-  if (isLoading) {
+  if (isLoading || (isFetching && !isEmpty(processFilters))) {
     return <LoadingCards />
   }
 
