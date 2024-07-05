@@ -38,7 +38,7 @@ export const ProcessSearchBox = () => {
           onChange={(value: string) => {
             setQueryParams({ ...queryParams, electionId: value })
           }}
-          value={queryParams.electionId}
+          initialValue={queryParams.electionId}
           debounceTime={500}
         />
       </Flex>

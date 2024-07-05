@@ -12,10 +12,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@chakra-ui/react'
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useState } from 'react'
+import { Trans } from 'react-i18next'
 import { BiSearchAlt } from 'react-icons/bi'
 import { debounce } from '~utils/debounce'
-import { Trans } from 'react-i18next'
 
 export const PopoverInputSearch = ({ input, button }: { input?: InputSearchProps; button?: ButtonProps }) => {
   return (
@@ -48,11 +48,15 @@ export const PopoverInputSearch = ({ input, button }: { input?: InputSearchProps
 }
 
 type InputSearchProps = {
+  initialValue?: string
   debounceTime?: number
   onChange?: (event: string) => void
-} & Omit<InputProps, 'onChange'>
+} & Omit<InputProps, 'onChange' | 'value'>
 
-export const InputSearch = ({ debounceTime = 0, onChange, ...props }: InputSearchProps) => {
+export const InputSearch = ({ initialValue, debounceTime = 0, onChange, ...props }: InputSearchProps) => {
+  // Inner state to enable initial value
+  const [value, setValue] = useState(initialValue ?? '')
+
   const debouncedSearch = debounce((value: string) => {
     if (onChange) onChange(value)
   }, debounceTime)
@@ -64,7 +68,9 @@ export const InputSearch = ({ debounceTime = 0, onChange, ...props }: InputSearc
       </InputLeftElement>
       <Input
         {...props}
+        value={value}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
+          setValue(event.target.value)
           debouncedSearch(event.target.value)
         }}
       />
