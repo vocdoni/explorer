@@ -34,7 +34,8 @@ export const PopoverInputSearch = ({ input, button }: { input?: InputSearchProps
                     onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
                       if (event.key === 'Enter') {
                         if (button?.onClick) {
-                          // Here we are using the button onClick callback which get other kind of event as argument
+                          // Here we are using the button onClick callback which get other kind of event type as argument
+                          // Ignore the argument type of the button onclick callback
                           // @ts-ignore
                           button.onClick()
                         }
