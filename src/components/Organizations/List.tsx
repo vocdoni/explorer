@@ -14,6 +14,7 @@ import { retryUnlessNotFound } from '~utils/queries'
 export const OrganizationsFilter = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { query } = useParams<{ query?: string }>()
 
   return (
     <InputSearch
@@ -23,6 +24,7 @@ export const OrganizationsFilter = () => {
         navigate(generatePath(RoutePath.OrganizationsList, { page: '0', query: value as string }))
       }}
       debounceTime={500}
+      initialValue={query}
     />
   )
 }
