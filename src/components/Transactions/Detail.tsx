@@ -121,7 +121,7 @@ export const TransactionDetail = (tx: Tx) => {
               <Trans
                 i18nKey={'transactions.belong_to_organization'}
                 components={{
-                  a: <Link as={RouterLink} to={generatePath(RoutePath.Organization, { pid: entity })} />,
+                  a: <Link as={RouterLink} to={generatePath(RoutePath.Organization, { pid: entity, page: null })} />,
                 }}
                 values={{ organization: entity }}
               />

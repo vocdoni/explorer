@@ -4,24 +4,25 @@ import { useOrganization } from '@vocdoni/react-providers'
 import { AccountData, ensure0x, PublishedElection } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
 import { FaUserAlt } from 'react-icons/fa'
+import { useParams } from 'react-router-dom'
 import { CopyButton, ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
 import { LoadingCards } from '~components/Layout/Loading'
 import ShowRawButton from '~components/Layout/ShowRawButton'
-import { Pagination } from '~components/Pagination/Pagination'
-import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
+import { RoutedPagination } from '~components/Pagination/Pagination'
+import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
 import { ElectionCard } from '~components/Process/Card'
-import { AppBaseURL, FallbackHeaderImg, PaginationItemsPerPage } from '~constants'
+import { AppBaseURL, FallbackHeaderImg, PaginationItemsPerPage, RoutePath } from '~constants'
 import { useOrganizationElections } from '~queries/organizations'
 import { retryUnlessNotFound } from '~utils/queries'
 
 const OrganizationDetail = () => {
-  const { organization: org } = useOrganization()
+  const { organization } = useOrganization()
 
   // Should be already loaded
-  if (!org) return null
+  if (!organization) return null
 
-  const id = org.address
+  const id = organization.address
   const isSmallScreen = useBreakpointValue({ base: true, sm: false })
 
   return (
@@ -60,7 +61,7 @@ const OrganizationDetail = () => {
       </HeroHeaderLayout>
 
       <Flex align='start' gap={2} direction={'column'}>
-        {org.account.description.default && (
+        {organization.account.description.default && (
           <>
             <Text fontSize='xl' color={'blueText'}>
               <Trans i18nKey={'organization.description'}>Description</Trans>
@@ -72,8 +73,8 @@ const OrganizationDetail = () => {
       <Text fontSize='xl' color={'blueText'}>
         <Trans i18nKey={'organization.elections_list'}>Elections List:</Trans>
       </Text>
-      <OrganizationElections org={org} />
-      <ShowRawButton obj={org} mt={4} />
+      <OrganizationElections org={organization} />
+      <ShowRawButton obj={organization} mt={4} />
     </>
   )
 }
@@ -88,21 +89,24 @@ const OrganizationElections = ({ org }: { org: AccountData }) => {
   }
 
   return (
-    <PaginationProvider totalPages={Math.ceil(org.electionIndex / PaginationItemsPerPage)}>
+    <RoutedPaginationProvider
+      totalPages={Math.ceil(org.electionIndex / PaginationItemsPerPage)}
+      path={RoutePath.Organization}
+    >
       <Flex direction={'column'} gap={4}>
         <OrganizationElectionsList org={org} />
-        <Pagination />
+        <RoutedPagination />
       </Flex>
-    </PaginationProvider>
+    </RoutedPaginationProvider>
   )
 }
 
 const OrganizationElectionsList = ({ org }: { org: AccountData }) => {
-  const { page } = usePagination()
+  const { page } = useParams()
 
   const { data: elections, isLoading } = useOrganizationElections({
     address: org.address,
-    page,
+    page: Number(page) - 1 || 0,
     options: {
       enabled: !!org.address,
       retry: retryUnlessNotFound,

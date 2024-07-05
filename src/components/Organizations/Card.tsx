@@ -40,7 +40,7 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
   return (
     <Card
       as={RouterLink}
-      to={generatePath(RoutePath.Organization, { pid })}
+      to={generatePath(RoutePath.Organization, { pid, page: null })}
       direction={'row'}
       alignItems='center'
       pl={4}
@@ -55,7 +55,7 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
           }).toString()}
         />
       </Box>
-      <Link as={RouterLink} to={generatePath(RoutePath.Organization, { pid })}>
+      <Link as={RouterLink} to={generatePath(RoutePath.Organization, { pid, page: null })}>
         <CardBody>
           {loading ? (
             <Text fontWeight={'bold'} wordBreak='break-all' size='sm'>
