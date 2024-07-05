@@ -30,7 +30,18 @@ export const PopoverInputSearch = ({ input, button }: { input?: InputSearchProps
             <PopoverBody>
               <FocusLock>
                 <HStack>
-                  <InputSearch {...input} />
+                  <InputSearch
+                    onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
+                      if (event.key === 'Enter') {
+                        if (button?.onClick) {
+                          // Here we are using the button onClick callback which get other kind of event as argument
+                          // @ts-ignore
+                          button.onClick()
+                        }
+                      }
+                    }}
+                    {...input}
+                  />
                   <Button
                     {...button}
                     onClick={(e) => {
@@ -72,11 +83,6 @@ export const InputSearch = ({ initialValue, debounceTime = 0, onChange, ...props
       <Input
         {...props}
         value={value}
-        onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
-          if (event.key === 'Enter') {
-            debouncedSearch(event.currentTarget.value)
-          }
-        }}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
           setValue(event.target.value)
           debouncedSearch(event.target.value)
