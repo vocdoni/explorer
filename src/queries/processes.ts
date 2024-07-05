@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
-import { useClient } from '@vocdoni/react-providers'
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
+import { useClient } from '@vocdoni/react-providers'
 import {
   Census,
   IElectionKeysResponse,
@@ -10,6 +10,7 @@ import {
   PublishedElection,
 } from '@vocdoni/sdk'
 import { useChainInfo, useChainInfoOptions } from '~queries/stats'
+import { isValidPartialProcessId } from '~utils/strings'
 
 export const useProcessList = ({
   page,
@@ -20,6 +21,7 @@ export const useProcessList = ({
   filters?: IElectionListFilter
 } & Omit<UseQueryOptions<IElectionListResponse, Error, { elections: PublishedElection[] }>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
+
   return useQuery({
     queryKey: ['process', 'list', page, filters],
     queryFn: () => client.electionList(page, { ...filters }),
@@ -37,6 +39,7 @@ export const useProcessList = ({
       })
       return { elections }
     },
+    enabled: !filters?.electionId || (!!filters?.electionId && isValidPartialProcessId(filters?.electionId)),
     ...options,
   })
 }

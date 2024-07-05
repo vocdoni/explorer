@@ -12,8 +12,8 @@ import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useProcessesCount, useProcessList } from '~queries/processes'
 import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
-import { ElectionCard } from './Card'
 import { retryUnlessNotFound } from '~utils/queries'
+import { ElectionCard } from './Card'
 
 type FilterQueryParams = {
   [K in keyof Omit<IElectionListFilter, 'organizationId'>]: string
@@ -38,7 +38,7 @@ export const ProcessSearchBox = () => {
           onChange={(value: string) => {
             setQueryParams({ ...queryParams, electionId: value })
           }}
-          value={queryParams.electionId}
+          initialValue={queryParams.electionId}
           debounceTime={500}
         />
       </Flex>
@@ -108,8 +108,7 @@ export const PaginatedProcessList = () => {
   } = useProcessList({
     page: Number(page || 0),
     filters: {
-      electionId: processFilters.electionId,
-      // organizationId: processFilters.electionId,
+      electionId: processFilters.electionId, // electionId contains also the organizationId, so this is enough to find by partial orgId or electionId
       status: processFilters.status as IElectionListFilter['status'],
       withResults: processFilters.withResults ? processFilters.withResults === 'true' : undefined,
     },
