@@ -1,6 +1,7 @@
 import {
   Button,
   ButtonProps,
+  FocusLock,
   HStack,
   IconButton,
   Input,
@@ -12,7 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@chakra-ui/react'
-import React, { ChangeEvent, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, useState } from 'react'
 import { Trans } from 'react-i18next'
 import { BiSearchAlt } from 'react-icons/bi'
 import { debounce } from '~utils/debounce'
@@ -20,25 +21,27 @@ import { debounce } from '~utils/debounce'
 export const PopoverInputSearch = ({ input, button }: { input?: InputSearchProps; button?: ButtonProps }) => {
   return (
     <Popover>
-      {({ isOpen, onClose }) => (
+      {({ onClose }) => (
         <>
           <PopoverTrigger>
             <IconButton aria-label='TODO' icon={<BiSearchAlt />} />
           </PopoverTrigger>
           <PopoverContent>
             <PopoverBody>
-              <HStack>
-                <InputSearch {...input} />
-                <Button
-                  {...button}
-                  onClick={(e) => {
-                    if (button?.onClick) button.onClick(e)
-                    onClose()
-                  }}
-                >
-                  <Trans i18nKey={'filter.goto'}>Go to</Trans>
-                </Button>
-              </HStack>
+              <FocusLock>
+                <HStack>
+                  <InputSearch {...input} />
+                  <Button
+                    {...button}
+                    onClick={(e) => {
+                      if (button?.onClick) button.onClick(e)
+                      onClose()
+                    }}
+                  >
+                    <Trans i18nKey={'filter.goto'}>Go to</Trans>
+                  </Button>
+                </HStack>
+              </FocusLock>
             </PopoverBody>
           </PopoverContent>
         </>
@@ -69,6 +72,11 @@ export const InputSearch = ({ initialValue, debounceTime = 0, onChange, ...props
       <Input
         {...props}
         value={value}
+        onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
+          if (event.key === 'Enter') {
+            debouncedSearch(event.currentTarget.value)
+          }
+        }}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
           setValue(event.target.value)
           debouncedSearch(event.target.value)
