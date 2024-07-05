@@ -136,7 +136,7 @@
     "in_sync": "En sincronització",
     "latest_blocks": "Últims blocs",
     "network_id": "Identificador de xarxa",
-    "nr_of_validators": "Nombre de validadores",
+    "nr_of_validators": "Nombre de validadors",
     "organizations_one": "{{ count }} organització",
     "organizations_other": "{{ count }} organitzacions",
     "seconds_one": "{{ count }} segon",
