@@ -1,5 +1,5 @@
-import {QueryOptions} from '@tanstack/react-query'
-import {ErrAccountNotFound, ErrAPI, ErrElectionNotFound, ErrTransactionNotFound} from '@vocdoni/sdk'
+import { QueryOptions } from '@tanstack/react-query'
+import { ErrAccountNotFound, ErrAPI, ErrElectionNotFound, ErrTransactionNotFound } from '@vocdoni/sdk'
 
 // Retry up to 3 times for errors other than 404
 export const retryUnlessNotFound: QueryOptions['retry'] = (failureCount: number, error: any) => {
