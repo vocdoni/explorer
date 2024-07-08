@@ -2,6 +2,7 @@ import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
 import { lazy } from 'react'
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom'
+import { BlockNotFound } from '~components/Blocks/BlockNotFound'
 import { RoutePath } from '~constants'
 import Layout from '~src/layout/Default'
 import Error404 from '~src/router/Error404'
@@ -48,6 +49,7 @@ export const RoutesProvider = () => {
                 </SuspenseLoader>
               ),
               loader: async ({ params }) => await client.blockByHeight(Number(params.height)),
+              errorElement: <BlockNotFound />,
             },
             {
               path: RoutePath.BlocksList,
