@@ -1,16 +1,20 @@
 {
   "blocks": {
-    "block_detail": "Detalle del Bloque",
+    "block_detail": "Bloque #{{ height }}",
     "blocks_count_one": "Total {{ count }} Bloque",
+    "blocks_count_many": "",
     "blocks_count_other": "Total {{ count }} Bloques",
     "blocks_list": "Bloques",
-    "hash": "Hash: {{hash}}",
+    "go_to_block": "Go to block",
+    "hash": "Hash",
+    "height": "Height",
+    "next_block": "Siguiente bloque",
+    "previous_block": "Bloque anterior",
     "previous_block_hash": "Hash del bloque anterior: ",
     "proposer": "Proponente:",
     "proposer_id": "Proponente: {{proposer}}",
-    "search_block": "Buscar bloque",
-    "transactions_count_one": "Transacciones: {{count}}",
-    "transactions_count_other": "Transacciones: {{count}}"
+    "timestamp": "Timestamp",
+    "transactions": "Transacciones"
   },
   "copy": {
     "copied_to_clipboard": "¡Copiado!",
@@ -52,6 +56,9 @@
     "scalable_image_alt": "Escalable",
     "verifiable_image_alt": "Verificable de extremo a extremo"
   },
+  "filter": {
+    "goto": "Go to"
+  },
   "home": {
     "subtitle": "El protocolo de votación más flexible y seguro para organizar cualquier tipo de proceso de votación: de opción única, de opción múltiple, ponderada, votación cuadrática y mucho más.",
     "title": "Explorador de Vocdoni"
@@ -79,11 +86,13 @@
     "elections_list": "Lista de Elecciones:",
     "no_elections": "¡Aún no hay elecciones!",
     "process_count_one": "<0>Proceso:</0> {{count}}",
+    "process_count_many": "<0>Process:</0> {{count}}",
     "process_count_other": "<0>Proceso:</0> {{count}}",
     "view_profile": "(Ver perfil)"
   },
   "organizations": {
     "organizations_count_one": "Total {{ count }} organización",
+    "organizations_count_many": "",
     "organizations_count_other": "Total {{ count }} organizaciones",
     "organizations_list": "Organizaciones",
     "search_by_org_id": "Buscar por id de organización"
@@ -100,6 +109,7 @@
     "detailed_data": "Datos detallados",
     "encryption_keys": "Claves de cifrado de la elección",
     "process_count_one": "Total {{count}} proceso",
+    "process_count_many": "",
     "process_count_other": "Total {{count}} procesos",
     "process_details": "Detalles del proceso",
     "process_list": "Procesos",
@@ -131,6 +141,7 @@
     "block_height": "Altura del bloque",
     "blockchain_info": "Información de la blockchain",
     "electionCount_one": "{{ count }} elección",
+    "electionCount_many": "",
     "electionCount_other": "{{ count }} elecciones",
     "genesis_block_date": "Fecha del bloque génesis",
     "in_sync": "En sincronización",
@@ -138,8 +149,10 @@
     "network_id": "ID de red",
     "nr_of_validators": "Número de validadores",
     "organizations_one": "{{ count }} organización",
+    "organizations_many": "",
     "organizations_other": "{{ count }} organizaciones",
     "seconds_one": "{{ count }} segundo",
+    "seconds_many": "",
     "seconds_other": "{{ count }} segundos",
     "sync_status": "Estado de sincronización",
     "syncing": "Sincronizando",
@@ -148,17 +161,19 @@
     "total_votes": "Total de votos",
     "view_all_blocks": "Ver todos los bloques",
     "votes_one": "{{ count }} voto",
+    "votes_many": "",
     "votes_other": "{{ count }} votos"
   },
   "transactions": {
     "belong_to_organization": "Pertenece a la organización: <a>{{organization}}</a>",
     "belongs_to_process": "Pertenece al proceso: <a>{{process}}</a>",
     "created_on": "Creado el {{createdOn}}",
+    "go_to_tx": "Go to transaction",
     "on_block_n": "En el bloque {{height}}",
-    "search_tx": "Buscar transacción",
     "transaction_index": "Índice de transacción: {{txIndex}}",
     "transactions_list": "Transacciones",
     "tx_count_one": "Total {{ count }} transacción",
+    "tx_count_many": "",
     "tx_count_other": "Total {{ count }} transacciones",
     "tx_detail": "Detalles de la Transacción",
     "vote_package": "Paquete de votos:"
@@ -167,6 +182,7 @@
     "pubkey": "Clave pública:",
     "validators": "Validadores",
     "validators_count_one": "Total {{ count }} validador",
+    "validators_count_many": "",
     "validators_count_other": "Total {{ count }} validadores",
     "voting_power": "Poder de voto: {{power}}"
   },

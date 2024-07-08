@@ -1,16 +1,19 @@
 {
   "blocks": {
-    "block_detail": "Block Detail",
+    "block_detail": "Block #{{ height }}",
     "blocks_count_one": "Total {{ count }} Block",
     "blocks_count_other": "Total {{ count }} Blocks",
     "blocks_list": "Blocks",
-    "hash": "Hash: {{hash}}",
+    "go_to_block": "Go to block",
+    "hash": "Hash",
+    "height": "Height",
+    "next_block": "Next block",
+    "previous_block": "Previous block",
     "previous_block_hash": "Previous block hash: ",
     "proposer": "Proposer:",
     "proposer_id": "Proposer: {{proposer}}",
-    "search_block": "Search block",
-    "transactions_count_one": "Transactions: {{count}}",
-    "transactions_count_other": "Transactions: {{count}}"
+    "timestamp": "Timestamp",
+    "transactions": "Transactions"
   },
   "copy": {
     "copied_to_clipboard": "Copied!",
@@ -51,6 +54,9 @@
     "open_source_image_alt": "Open Source",
     "scalable_image_alt": "Scalable",
     "verifiable_image_alt": "E2E Verifiable"
+  },
+  "filter": {
+    "goto": "Go to"
   },
   "home": {
     "subtitle": "The most flexible and secure voting protocol to organize any kind of voting process: single-choice, multiple-choice, weighted, quadratic voting and much more.",
@@ -154,8 +160,8 @@
     "belong_to_organization": "Belongs to organization: <a>{{organization}}</a>",
     "belongs_to_process": "Belongs to process: <a>{{process}}</a>",
     "created_on": "Created {{createdOn}}",
+    "go_to_tx": "Go to transaction",
     "on_block_n": "On Block {{height}}",
-    "search_tx": "Search transaction",
     "transaction_index": "Transaction index: {{txIndex}}",
     "transactions_list": "Transactions",
     "tx_count_one": "Total {{ count }} transaction",
