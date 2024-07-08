@@ -21,43 +21,42 @@ import { debounce } from '~utils/debounce'
 export const PopoverInputSearch = ({ input, button }: { input?: InputSearchProps; button?: ButtonProps }) => {
   return (
     <Popover>
-      {({ onClose }) => (
-        <>
-          <PopoverTrigger>
-            <IconButton aria-label='TODO' icon={<BiSearchAlt />} />
-          </PopoverTrigger>
-          <PopoverContent>
-            <PopoverBody>
-              <FocusLock>
-                <HStack>
-                  <InputSearch
-                    onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
-                      if (event.key === 'Enter') {
-                        if (button?.onClick) {
-                          // Here we are using the button onClick callback which get other kind of event type as argument
-                          // Ignore the argument type of the button onclick callback
-                          // @ts-ignore
-                          button.onClick()
+      {({ onClose }) => {
+        const onClick = () => {
+          if (button?.onClick) {
+            // Suppressed because by default the ButtonProps.onClick is wants an event argument which is ignored by this CB
+            // @ts-ignore
+            button.onClick()
+          }
+          onClose()
+        }
+        return (
+          <>
+            <PopoverTrigger>
+              <IconButton aria-label='TODO' icon={<BiSearchAlt />} />
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverBody>
+                <FocusLock>
+                  <HStack>
+                    <InputSearch
+                      onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
+                        if (event.key === 'Enter') {
+                          onClick()
                         }
-                      }
-                    }}
-                    {...input}
-                  />
-                  <Button
-                    {...button}
-                    onClick={(e) => {
-                      if (button?.onClick) button.onClick(e)
-                      onClose()
-                    }}
-                  >
-                    <Trans i18nKey={'filter.goto'}>Go to</Trans>
-                  </Button>
-                </HStack>
-              </FocusLock>
-            </PopoverBody>
-          </PopoverContent>
-        </>
-      )}
+                      }}
+                      {...input}
+                    />
+                    <Button {...button} onClick={onClick}>
+                      <Trans i18nKey={'filter.goto'}>Go to</Trans>
+                    </Button>
+                  </HStack>
+                </FocusLock>
+              </PopoverBody>
+            </PopoverContent>
+          </>
+        )
+      }}
     </Popover>
   )
 }
