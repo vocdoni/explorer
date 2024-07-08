@@ -1,6 +1,7 @@
 import {
   Button,
   ButtonProps,
+  FocusLock,
   HStack,
   IconButton,
   Input,
@@ -12,7 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@chakra-ui/react'
-import React, { ChangeEvent, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, useState } from 'react'
 import { Trans } from 'react-i18next'
 import { BiSearchAlt } from 'react-icons/bi'
 import { debounce } from '~utils/debounce'
@@ -20,29 +21,42 @@ import { debounce } from '~utils/debounce'
 export const PopoverInputSearch = ({ input, button }: { input?: InputSearchProps; button?: ButtonProps }) => {
   return (
     <Popover>
-      {({ isOpen, onClose }) => (
-        <>
-          <PopoverTrigger>
-            <IconButton aria-label='TODO' icon={<BiSearchAlt />} />
-          </PopoverTrigger>
-          <PopoverContent>
-            <PopoverBody>
-              <HStack>
-                <InputSearch {...input} />
-                <Button
-                  {...button}
-                  onClick={(e) => {
-                    if (button?.onClick) button.onClick(e)
-                    onClose()
-                  }}
-                >
-                  <Trans i18nKey={'filter.goto'}>Go to</Trans>
-                </Button>
-              </HStack>
-            </PopoverBody>
-          </PopoverContent>
-        </>
-      )}
+      {({ onClose }) => {
+        const onClick = () => {
+          if (button?.onClick) {
+            // Suppressed because by default the ButtonProps.onClick is wants an event argument which is ignored by this CB
+            // @ts-ignore
+            button.onClick()
+          }
+          onClose()
+        }
+        return (
+          <>
+            <PopoverTrigger>
+              <IconButton aria-label='TODO' icon={<BiSearchAlt />} />
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverBody>
+                <FocusLock>
+                  <HStack>
+                    <InputSearch
+                      onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
+                        if (event.key === 'Enter') {
+                          onClick()
+                        }
+                      }}
+                      {...input}
+                    />
+                    <Button {...button} onClick={onClick}>
+                      <Trans i18nKey={'filter.goto'}>Go to</Trans>
+                    </Button>
+                  </HStack>
+                </FocusLock>
+              </PopoverBody>
+            </PopoverContent>
+          </>
+        )
+      }}
     </Popover>
   )
 }
