@@ -15,7 +15,6 @@ import {
   Tabs,
   Tag,
   Text,
-  useBreakpointValue,
   VStack,
 } from '@chakra-ui/react'
 import {
@@ -36,7 +35,6 @@ import {
 import { Trans, useTranslation } from 'react-i18next'
 import { BiEnvelope } from 'react-icons/bi'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
-import { CopyButton, ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
 import { LoadingCards } from '~components/Layout/Loading'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
@@ -48,11 +46,11 @@ import InvalidElection from '~components/Process/InvalidElection'
 import { FallbackHeaderImg, RoutePath } from '~constants'
 import { useElectionKeys, useElectionVotesList } from '~queries/processes'
 import { ucfirst } from '~utils/strings'
+import { ResponsiveTextCopy } from '~components/Layout/CopyButton'
 
 const Detail = () => {
   const { election } = useElection()
   const { t } = useTranslation()
-  const isSmallScreen = useBreakpointValue({ base: true, md: false })
 
   if (!election) return null
   if (election instanceof InvalidElectionType) {
@@ -80,15 +78,9 @@ const Detail = () => {
           <ElectionStatusBadge status={election.status} />
 
           <ElectionTitle />
-          {isSmallScreen ? (
-            <ReducedTextAndCopy color={'textAccent1'} toCopy={id} fontWeight={'normal'} h={0} fontSize={'md'}>
-              {id}
-            </ReducedTextAndCopy>
-          ) : (
-            <CopyButton toCopy={id} color={'textAccent1'} fontWeight={'normal'} h={0} fontSize={'md'}>
-              {id}
-            </CopyButton>
-          )}
+          <ResponsiveTextCopy color={'textAccent1'} toCopy={id} fontWeight={'normal'} h={0} fontSize={'md'}>
+            {id}
+          </ResponsiveTextCopy>
         </VStack>
       </HeroHeaderLayout>
       {/*Basic details */}
