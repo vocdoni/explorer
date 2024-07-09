@@ -17,7 +17,7 @@ import { IChainBlockInfoResponse } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { useDateFns } from '~i18n/use-date-fns'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
 import { ResponsiveTextCopy } from '~components/Layout/CopyButton'
 import { GrNext, GrPrevious } from 'react-icons/gr'
 import { RefreshIntervalBlocks, RoutePath } from '~constants'
@@ -124,10 +124,16 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
   const height = block.header.height
   const date = new Date(block.header.time)
 
-  const { formatDistance } = useDateFns()
-  const { t } = useTranslation()
   const { queryParams, setQueryParams } = useQueryParams<{ tab: string }>()
-  const defaultTab = queryParams.tab ? parseInt(queryParams.tab) : 0
+
+  const [tab, setTab] = useState(queryParams.tab ? parseInt(queryParams.tab) : 0)
+  const { formatDistance } = useDateFns()
+
+  // Ensure the correct tab is selected when browsing back/forward from the history
+  useEffect(() => {
+    const tabIndex = queryParams.tab ? parseInt(queryParams.tab) : 0
+    setTab(tabIndex)
+  }, [queryParams.tab, setQueryParams])
 
   return (
     <Flex direction={'column'} mt={{ base: '20px', lg: '40px' }} gap={6} wordBreak='break-all'>
@@ -141,7 +147,7 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
           {formatDistance(date, new Date())}
         </Text>
       </VStack>
-      <Tabs defaultIndex={defaultTab} onChange={(i) => setQueryParams({ tab: i.toString() })}>
+      <Tabs index={tab} onChange={(i) => setQueryParams({ tab: i.toString() })}>
         <Box whiteSpace='nowrap' overflowX='auto'>
           <TabList display='flex' flexWrap='wrap'>
             <Tab>
