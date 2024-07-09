@@ -1,7 +1,7 @@
-import {TabsProps} from '@chakra-ui/tabs/dist/tabs'
+import { TabsProps } from '@chakra-ui/tabs/dist/tabs'
 import useQueryParams from '~src/router/use-query-params'
-import {useEffect, useState} from 'react'
-import {Tabs} from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
+import { Tabs } from '@chakra-ui/react'
 
 /**
  * Reimplementation ob Tabs component to store the selected tab in the query params
