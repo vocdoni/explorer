@@ -3,13 +3,13 @@ import { ensure0x, IChainBlockInfoResponse } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { useDateFns } from '~i18n/use-date-fns'
-import { ResponsiveTextCopy } from '~components/Layout/CopyButton'
 import { GrNext, GrPrevious } from 'react-icons/gr'
 import { RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useBlocksHeight } from '~queries/blocks'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 
 const HeightNavigator = ({ height }: { height: number }) => {
   const { data, isLoading } = useBlocksHeight({
@@ -70,7 +70,7 @@ const DetailsTab = ({ block }: { block: IChainBlockInfoResponse }) => {
     {
       label: t('blocks.hash', { defaultValue: 'Hash' }),
       children: (
-        <ResponsiveTextCopy
+        <ReducedTextAndCopy
           breakPoint={{ base: true, lg: false }}
           p={0}
           color={'textAccent1'}
@@ -80,13 +80,13 @@ const DetailsTab = ({ block }: { block: IChainBlockInfoResponse }) => {
           fontSize={'md'}
         >
           {hash}
-        </ResponsiveTextCopy>
+        </ReducedTextAndCopy>
       ),
     },
     {
       label: t('blocks.proposer', { defaultValue: 'Proposer' }),
       children: (
-        <ResponsiveTextCopy
+        <ReducedTextAndCopy
           breakPoint={{ base: true, md: false }}
           p={0}
           color={'textAccent1'}
@@ -96,7 +96,7 @@ const DetailsTab = ({ block }: { block: IChainBlockInfoResponse }) => {
           fontSize={'md'}
         >
           {proposer}
-        </ResponsiveTextCopy>
+        </ReducedTextAndCopy>
       ),
     },
   ]

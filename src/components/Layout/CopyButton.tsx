@@ -42,30 +42,34 @@ const withCopyLogic = (Component: typeof IconButton | typeof Button) => {
 export const CopyButton = withCopyLogic(Button)
 export const CopyButtonIcon = withCopyLogic(IconButton)
 
-export const ReducedTextAndCopy = ({ children, ...rest }: ICopyButton) => {
-  let text = children
-  if (typeof children === 'string' && children.length > 13) {
-    text = shortHex(children)
+/**
+ * It shows a text with a copy button. If not breakpoint is defined it uses default one: { base: true, sm: false },
+ * @param reduced If it wants to be shown reduced independently of div size (for max length of 13)
+ * @param breakPoint If it wants to be shown reduced on a specific breakpoint. If null it will show the entire text
+ * @param children The text to be shown
+ */
+export const ReducedTextAndCopy = ({
+  reduced = false,
+  breakPoint = { base: true, sm: false },
+  children = '',
+  ...rest
+}: {
+  reduced?: boolean
+  breakPoint?: Parameters<typeof useBreakpointValue>[0]
+  children?: string
+} & ICopyButton) => {
+  // If it wants to be shown reduced or is small screen via the breakpoint
+  if ((reduced && children.length > 13) || (breakPoint && useBreakpointValue(breakPoint))) {
+    return (
+      <CopyButton fontWeight={'normal'} h={0} fontSize={'xs'} p={0} pt={1} {...rest}>
+        {shortHex(children)}
+      </CopyButton>
+    )
   }
+
   return (
     <CopyButton fontWeight={'normal'} h={0} fontSize={'xs'} p={0} pt={1} {...rest}>
-      {text}
+      {children}
     </CopyButton>
   )
-}
-
-/**
- * Children with copy button that is shows ReducedTextAndCopy on small screens
- */
-export const ResponsiveTextCopy = ({
-  breakPoint = { base: true, sm: false },
-  ...props
-}: {
-  breakPoint?: Parameters<typeof useBreakpointValue>[0]
-} & ICopyButton) => {
-  const isSmallScreen = useBreakpointValue(breakPoint)
-  if (isSmallScreen) {
-    return <ReducedTextAndCopy {...props} />
-  }
-  return <CopyButton {...props} />
 }

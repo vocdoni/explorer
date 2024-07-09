@@ -5,7 +5,7 @@ import { AccountData, ensure0x, PublishedElection } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
 import { FaUserAlt } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
-import { ResponsiveTextCopy } from '~components/Layout/CopyButton'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
 import { LoadingCards } from '~components/Layout/Loading'
 import ShowRawButton from '~components/Layout/ShowRawButton'
@@ -29,9 +29,9 @@ const OrganizationDetail = () => {
       <HeroHeaderLayout header={<OrganizationHeader fallbackSrc={FallbackHeaderImg} />}>
         <VStack>
           <OrganizationName fontSize='4xl' wordBreak='break-word' />
-          <ResponsiveTextCopy color={'textAccent1'} toCopy={id} fontWeight={'normal'} h={0} fontSize={'md'}>
+          <ReducedTextAndCopy color={'textAccent1'} toCopy={id} fontWeight={'normal'} h={0} fontSize={'md'}>
             {id}
-          </ResponsiveTextCopy>
+          </ReducedTextAndCopy>
           <Flex
             as={'a'}
             target='blank'

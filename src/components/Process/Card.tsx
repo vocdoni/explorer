@@ -1,5 +1,5 @@
 import { Box, Card, CardBody, CardProps, Flex, HStack, Link } from '@chakra-ui/react'
-import { OrganizationImage as Avatar, ElectionSchedule, ElectionTitle } from '@vocdoni/chakra-components'
+import { ElectionSchedule, ElectionTitle, OrganizationImage as Avatar } from '@vocdoni/chakra-components'
 import { ElectionProvider, OrganizationProvider, useElection, useOrganization } from '@vocdoni/react-providers'
 import { InvalidElection as InvalidElectionType, PublishedElection } from '@vocdoni/sdk'
 import { useTranslation } from 'react-i18next'
@@ -79,7 +79,7 @@ const SmallOrganizationCard = ({ id }: { id: string }) => {
           }).toString()}
         />
       </Box>
-      <ReducedTextAndCopy color={'textAccent1'} size='sm' toCopy={id}>
+      <ReducedTextAndCopy reduced={true} color={'textAccent1'} size='sm' toCopy={id}>
         {name}
       </ReducedTextAndCopy>
     </Flex>

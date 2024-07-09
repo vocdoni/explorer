@@ -64,7 +64,7 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
           ) : (
             <OrganizationName fontWeight={'bold'} wordBreak='break-all' size='sm' />
           )}
-          <ReducedTextAndCopy color={'textAccent1'} toCopy={pid}>
+          <ReducedTextAndCopy reduced={true} color={'textAccent1'} toCopy={pid}>
             {pid}
           </ReducedTextAndCopy>
           {electionCount && (

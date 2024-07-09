@@ -1,7 +1,7 @@
 import { Card, CardBody, Flex, HStack, Text } from '@chakra-ui/react'
 import { ensure0x, IChainValidator } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
-import { ResponsiveTextCopy } from '~components/Layout/CopyButton'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 
 export const ValidatorCard = (validator: IChainValidator) => {
   return (
@@ -16,7 +16,7 @@ export const ValidatorCard = (validator: IChainValidator) => {
               <Text fontWeight={'bold'}>
                 <Trans i18nKey='validators.pubkey'>PubKey:</Trans>
               </Text>
-              <ResponsiveTextCopy
+              <ReducedTextAndCopy
                 color={'textAccent1'}
                 toCopy={validator.pubKey}
                 fontWeight={'normal'}
@@ -25,7 +25,7 @@ export const ValidatorCard = (validator: IChainValidator) => {
                 p={0}
               >
                 {validator.pubKey}
-              </ResponsiveTextCopy>
+              </ReducedTextAndCopy>
             </HStack>
             <Text fontWeight={'bold'}>
               <Trans i18nKey='validators.voting_power' values={{ power: validator.power }}>

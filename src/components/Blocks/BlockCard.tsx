@@ -23,7 +23,7 @@ export const BlockCard = ({ height, time, proposer }: { height: number; time: st
             <Box fontSize={'sm'}>
               <Flex gap={2} align={'center'}>
                 <Trans i18nKey='blocks.proposer'>Proposer:</Trans>
-                <ReducedTextAndCopy color={'textAccent1'} toCopy={proposer}>
+                <ReducedTextAndCopy reduced={true} color={'textAccent1'} toCopy={proposer}>
                   {proposer}
                 </ReducedTextAndCopy>
               </Flex>
