@@ -1,13 +1,4 @@
-import {
-  Button,
-  ButtonProps,
-  Flex,
-  IconButton,
-  LinkProps,
-  Tooltip,
-  useBreakpointValue,
-  useClipboard,
-} from '@chakra-ui/react'
+import { Button, ButtonProps, Flex, IconButton, Tooltip, useBreakpointValue, useClipboard } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IoCheckmark, IoCopy } from 'react-icons/io5'
@@ -77,8 +68,7 @@ export const ReducedTextAndCopy = ({
     text = shortHex(children)
   }
 
-  const isLink = (props: any): props is LinkProps => 'to' in props
-  if (isLink(rest)) {
+  if (to) {
     return (
       <Flex>
         <Button as={RouterLink} to={to} variant={'text'} aria-label={children} {...rest}>
