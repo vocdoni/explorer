@@ -1,5 +1,5 @@
 import { Flex, Heading, IconButton, Tab, TabList, TabPanel, TabPanels, Text, VStack } from '@chakra-ui/react'
-import { IChainBlockInfoResponse } from '@vocdoni/sdk'
+import { ensure0x, IChainBlockInfoResponse } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { useDateFns } from '~i18n/use-date-fns'
@@ -47,9 +47,9 @@ const HeightNavigator = ({ height }: { height: number }) => {
 }
 
 const DetailsTab = ({ block }: { block: IChainBlockInfoResponse }) => {
-  const proposer = block.header.proposerAddress
+  const proposer = ensure0x(block.header.proposerAddress)
   const height = block.header.height
-  const hash = block.hash
+  const hash = ensure0x(block.hash)
   const date = new Date(block.header.time)
 
   const { t } = useTranslation()
