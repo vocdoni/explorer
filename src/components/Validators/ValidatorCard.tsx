@@ -1,11 +1,9 @@
-import { Card, CardBody, Flex, HStack, Text, useBreakpointValue } from '@chakra-ui/react'
+import { Card, CardBody, Flex, HStack, Text } from '@chakra-ui/react'
 import { ensure0x, IChainValidator } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
-import { CopyButton, ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import { ResponsiveTextCopy } from '~components/Layout/CopyButton'
 
 export const ValidatorCard = (validator: IChainValidator) => {
-  const isSmallScreen = useBreakpointValue({ base: true, md: false })
-
   return (
     <Card>
       <CardBody>
@@ -18,29 +16,16 @@ export const ValidatorCard = (validator: IChainValidator) => {
               <Text fontWeight={'bold'}>
                 <Trans i18nKey='validators.pubkey'>PubKey:</Trans>
               </Text>
-              {isSmallScreen ? (
-                <ReducedTextAndCopy
-                  color={'textAccent1'}
-                  toCopy={validator.pubKey}
-                  fontWeight={'normal'}
-                  h={0}
-                  fontSize={'sm'}
-                  p={0}
-                >
-                  {validator.pubKey}
-                </ReducedTextAndCopy>
-              ) : (
-                <CopyButton
-                  toCopy={validator.pubKey}
-                  color={'textAccent1'}
-                  fontWeight={'normal'}
-                  h={0}
-                  fontSize={'sm'}
-                  p={0}
-                >
-                  {validator.pubKey}
-                </CopyButton>
-              )}
+              <ResponsiveTextCopy
+                color={'textAccent1'}
+                toCopy={validator.pubKey}
+                fontWeight={'normal'}
+                h={0}
+                fontSize={'sm'}
+                p={0}
+              >
+                {validator.pubKey}
+              </ResponsiveTextCopy>
             </HStack>
             <Text fontWeight={'bold'}>
               <Trans i18nKey='validators.voting_power' values={{ power: validator.power }}>

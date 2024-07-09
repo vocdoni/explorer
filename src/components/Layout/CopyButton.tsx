@@ -1,4 +1,4 @@
-import { Button, ButtonProps, IconButton, Tooltip, useClipboard } from '@chakra-ui/react'
+import { Button, ButtonProps, IconButton, Tooltip, useBreakpointValue, useClipboard } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IoCheckmark, IoCopy } from 'react-icons/io5'
@@ -52,4 +52,20 @@ export const ReducedTextAndCopy = ({ children, ...rest }: ICopyButton) => {
       {text}
     </CopyButton>
   )
+}
+
+/**
+ * Children with copy button that is shows ReducedTextAndCopy on small screens
+ */
+export const ResponsiveTextCopy = ({
+  breakPoint = { base: true, sm: false },
+  ...props
+}: {
+  breakPoint?: Parameters<typeof useBreakpointValue>[0]
+} & ICopyButton) => {
+  const isSmallScreen = useBreakpointValue(breakPoint)
+  if (isSmallScreen) {
+    return <ReducedTextAndCopy {...props} />
+  }
+  return <CopyButton {...props} />
 }

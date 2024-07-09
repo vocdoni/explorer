@@ -1,11 +1,11 @@
-import { Box, Flex, Icon, Text, useBreakpointValue, VStack } from '@chakra-ui/react'
+import { Box, Flex, Icon, Text, VStack } from '@chakra-ui/react'
 import { OrganizationDescription, OrganizationHeader, OrganizationName } from '@vocdoni/chakra-components'
 import { useOrganization } from '@vocdoni/react-providers'
 import { AccountData, ensure0x, PublishedElection } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
 import { FaUserAlt } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
-import { CopyButton, ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import { ResponsiveTextCopy } from '~components/Layout/CopyButton'
 import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
 import { LoadingCards } from '~components/Layout/Loading'
 import ShowRawButton from '~components/Layout/ShowRawButton'
@@ -23,22 +23,15 @@ const OrganizationDetail = () => {
   if (!organization) return null
 
   const id = organization.address
-  const isSmallScreen = useBreakpointValue({ base: true, sm: false })
 
   return (
     <>
       <HeroHeaderLayout header={<OrganizationHeader fallbackSrc={FallbackHeaderImg} />}>
         <VStack>
           <OrganizationName fontSize='4xl' wordBreak='break-word' />
-          {isSmallScreen ? (
-            <ReducedTextAndCopy color={'textAccent1'} toCopy={id} fontWeight={'normal'} h={0} fontSize={'md'}>
-              {id}
-            </ReducedTextAndCopy>
-          ) : (
-            <CopyButton toCopy={id} color={'textAccent1'} fontWeight={'normal'} h={0} fontSize={'md'}>
-              {id}
-            </CopyButton>
-          )}
+          <ResponsiveTextCopy color={'textAccent1'} toCopy={id} fontWeight={'normal'} h={0} fontSize={'md'}>
+            {id}
+          </ResponsiveTextCopy>
           <Flex
             as={'a'}
             target='blank'
