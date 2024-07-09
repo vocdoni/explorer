@@ -166,17 +166,19 @@
     "votes_other": "{{ count }} votos"
   },
   "transactions": {
-    "belong_to_organization": "Pertenece a la organización: <a>{{organization}}</a>",
-    "belongs_to_process": "Pertenece al proceso: <a>{{process}}</a>",
+    "belong_to_organization": "Pertenece a la organización",
+    "belongs_to_process": "Pertenece al proceso",
+    "block": "Bloque",
     "created_on": "Creado el {{createdOn}}",
     "go_to_tx": "Go to transaction",
-    "on_block_n": "En el bloque {{height}}",
-    "transaction_index": "Índice de transacción: {{txIndex}}",
     "transactions_list": "Transacciones",
     "tx_count_one": "Total {{ count }} transacción",
     "tx_count_many": "",
     "tx_count_other": "Total {{ count }} transacciones",
     "tx_detail": "Detalles de la Transacción",
+    "tx_hash": "Hash de la Transaccion ",
+    "tx_index": "Indice de la Transaccion ",
+    "tx_type": "Tipo de Transaccion ",
     "vote_package": "Paquete de votos:"
   },
   "validators": {

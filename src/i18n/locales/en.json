@@ -158,16 +158,18 @@
     "votes_other": "{{ count }} votes"
   },
   "transactions": {
-    "belong_to_organization": "Belongs to organization: <a>{{organization}}</a>",
-    "belongs_to_process": "Belongs to process: <a>{{process}}</a>",
+    "belong_to_organization": "Belongs to organization",
+    "belongs_to_process": "Belongs to process",
+    "block": "Block",
     "created_on": "Created {{createdOn}}",
     "go_to_tx": "Go to transaction",
-    "on_block_n": "On Block {{height}}",
-    "transaction_index": "Transaction index: {{txIndex}}",
     "transactions_list": "Transactions",
     "tx_count_one": "Total {{ count }} transaction",
     "tx_count_other": "Total {{ count }} transactions",
     "tx_detail": "Transaction Details",
+    "tx_hash": "Transaction hash",
+    "tx_index": "Transaction index",
+    "tx_type": "Transaction type",
     "vote_package": "Vote package:"
   },
   "validators": {

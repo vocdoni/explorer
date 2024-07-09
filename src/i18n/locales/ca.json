@@ -166,17 +166,19 @@
     "votes_other": "{{ count }} vots"
   },
   "transactions": {
-    "belong_to_organization": "Pertany a l'organització: <a>{{organization}}</a>",
-    "belongs_to_process": "Pertany al procés: <a>{{process}}</a>",
+    "belong_to_organization": "Pertany a l'organització",
+    "belongs_to_process": "Pertany al procés",
+    "block": "Bloc",
     "created_on": "Creat {{createdOn}}",
     "go_to_tx": "Go to transaction",
-    "on_block_n": "Al Bloc {{height}}",
-    "transaction_index": "Índex de transacció: {{txIndex}}",
     "transactions_list": "Transaccions",
     "tx_count_one": "Total {{ count }} transacció",
     "tx_count_many": "",
     "tx_count_other": "Total {{ count }} transaccions",
     "tx_detail": "Detalls de la transacció",
+    "tx_hash": "Hash de la Transacció ",
+    "tx_index": "Index de la Transacció ",
+    "tx_type": "Tipus de Transacció ",
     "vote_package": "Paquet de vot:"
   },
   "validators": {
