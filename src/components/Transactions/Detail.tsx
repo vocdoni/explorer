@@ -18,8 +18,10 @@ export const TransactionDetail = (tx: Tx) => {
   const { t } = useTranslation()
 
   let createdOn = ''
+  let timestamp = ''
   if (data) {
     createdOn = formatDistance(new Date(data.date), new Date())
+    timestamp = new Date(data.date).toString()
   }
 
   const blockHeight = tx.txInfo.blockHeight
@@ -83,6 +85,18 @@ export const TransactionDetail = (tx: Tx) => {
 
   const sharedDetails: GridItemProps[] = [
     {
+      label: t('transactions.tx_type', { defaultValue: 'Transaction type' }),
+      children: <TransactionTypeBadge transactionType={txType} />,
+    },
+    ...(timestamp
+      ? [
+          {
+            label: t('blocks.timestamp', { defaultValue: 'Timestamp' }),
+            children: timestamp,
+          },
+        ]
+      : []),
+    {
       label: t('transactions.tx_hash', { defaultValue: 'Transaction hash' }),
       children: (
         <ReducedTextAndCopy
@@ -97,10 +111,6 @@ export const TransactionDetail = (tx: Tx) => {
           {txHash}
         </ReducedTextAndCopy>
       ),
-    },
-    {
-      label: t('transactions.tx_type', { defaultValue: 'Transaction type' }),
-      children: <TransactionTypeBadge transactionType={txType} />,
     },
     {
       label: t('transactions.block', { defaultValue: 'Block' }),
@@ -174,11 +184,13 @@ export const TransactionDetail = (tx: Tx) => {
         <Heading isTruncated wordBreak='break-word' mb={0}>
           <Trans i18nKey={'transactions.tx_detail'}>Transaction Details</Trans>
         </Heading>
-        <Text mt={0} fontWeight={'bold'} color={'lighterText'}>
-          <Trans i18nKey={'transactions.created_on'} createdOn={createdOn}>
-            Created {{ createdOn }}
-          </Trans>
-        </Text>
+        {createdOn && (
+          <Text mt={0} fontWeight={'bold'} color={'lighterText'}>
+            <Trans i18nKey={'transactions.created_on'} createdOn={createdOn}>
+              Created {{ createdOn }}
+            </Trans>
+          </Text>
+        )}
       </VStack>
       <QueryParamsTabs>
         <TabList display='flex' flexWrap='wrap'>
