@@ -133,7 +133,7 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
   useEffect(() => {
     const tabIndex = queryParams.tab ? parseInt(queryParams.tab) : 0
     setTab(tabIndex)
-  }, [queryParams.tab, setQueryParams])
+  }, [queryParams.tab])
 
   return (
     <Flex direction={'column'} mt={{ base: '20px', lg: '40px' }} gap={6} wordBreak='break-all'>
