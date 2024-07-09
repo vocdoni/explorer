@@ -1,40 +1,16 @@
-import {
-  Box,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  IconButton,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Box, Flex, Heading, IconButton, Tab, TabList, TabPanel, TabPanels, Tabs, Text, VStack } from '@chakra-ui/react'
 import { IChainBlockInfoResponse } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { useDateFns } from '~i18n/use-date-fns'
-import { PropsWithChildren, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ResponsiveTextCopy } from '~components/Layout/CopyButton'
 import { GrNext, GrPrevious } from 'react-icons/gr'
 import { RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useBlocksHeight } from '~queries/blocks'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import useQueryParams from '~src/router/use-query-params'
-
-const DetailRow = ({ label, children }: { label: string } & PropsWithChildren) => {
-  return (
-    <>
-      <GridItem>
-        <Text fontWeight={'bold'}>{label}</Text>
-      </GridItem>
-      <GridItem>{children}</GridItem>
-    </>
-  )
-}
+import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 
 const HeightNavigator = ({ height }: { height: number }) => {
   const { data, isLoading } = useBlocksHeight({
@@ -79,43 +55,56 @@ const DetailsTab = ({ block }: { block: IChainBlockInfoResponse }) => {
 
   const { t } = useTranslation()
 
+  const details: GridItemProps[] = [
+    {
+      label: t('blocks.height', { defaultValue: 'Height' }),
+      children: <HeightNavigator height={height} />,
+    },
+    {
+      label: t('blocks.timestamp', { defaultValue: 'Timestamp' }),
+      children: date.toString(),
+    },
+    {
+      label: t('blocks.transactions', { defaultValue: 'Transactions' }),
+      children: block.data.txs.length,
+    },
+    {
+      label: t('blocks.hash', { defaultValue: 'Hash' }),
+      children: (
+        <ResponsiveTextCopy
+          breakPoint={{ base: true, lg: false }}
+          p={0}
+          color={'textAccent1'}
+          toCopy={hash}
+          fontWeight={'normal'}
+          h={0}
+          fontSize={'md'}
+        >
+          {hash}
+        </ResponsiveTextCopy>
+      ),
+    },
+    {
+      label: t('blocks.proposer', { defaultValue: 'Proposer' }),
+      children: (
+        <ResponsiveTextCopy
+          breakPoint={{ base: true, md: false }}
+          p={0}
+          color={'textAccent1'}
+          toCopy={proposer}
+          fontWeight={'normal'}
+          h={0}
+          fontSize={'md'}
+        >
+          {proposer}
+        </ResponsiveTextCopy>
+      ),
+    },
+  ]
+
   return (
     <VStack align='start'>
-      <Grid templateColumns={{ base: '1fr', sm: '1fr 4fr' }} gap={2} alignItems='start'>
-        <DetailRow label={t('blocks.height', { defaultValue: 'Height' })}>
-          <HeightNavigator height={height} />
-        </DetailRow>
-        <DetailRow label={t('blocks.timestamp', { defaultValue: 'Timestamp' })}>{date.toString()}</DetailRow>
-        <DetailRow label={t('blocks.transactions', { defaultValue: 'Transactions' })}>
-          {block.data.txs.length}
-        </DetailRow>
-        <DetailRow label={t('blocks.hash', { defaultValue: 'Hash' })}>
-          <ResponsiveTextCopy
-            breakPoint={{ base: true, lg: false }}
-            p={0}
-            color={'textAccent1'}
-            toCopy={hash}
-            fontWeight={'normal'}
-            h={0}
-            fontSize={'md'}
-          >
-            {hash}
-          </ResponsiveTextCopy>
-        </DetailRow>
-        <DetailRow label={t('blocks.proposer', { defaultValue: 'Proposer' })}>
-          <ResponsiveTextCopy
-            breakPoint={{ base: true, md: false }}
-            p={0}
-            color={'textAccent1'}
-            toCopy={proposer}
-            fontWeight={'normal'}
-            h={0}
-            fontSize={'md'}
-          >
-            {proposer}
-          </ResponsiveTextCopy>
-        </DetailRow>
-      </Grid>
+      <DetailsGrid details={details} />
     </VStack>
   )
 }
