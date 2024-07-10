@@ -62,7 +62,6 @@ export const TransactionDetail = (tx: Tx) => {
     case 'newProcess': {
       const newProcessTx = txPayload.newProcess as NewProcessTx
       if (newProcessTx.process) {
-        process = ensure0x(b64ToHex(newProcessTx.process.processId as unknown as string))
         entity = ensure0x(b64ToHex(newProcessTx.process.entityId as unknown as string))
       }
       break
