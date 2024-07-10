@@ -137,13 +137,13 @@ export const TransactionDetail = (tx: Tx) => {
       children: (
         <ReducedTextAndCopy
           breakPoint={{ base: true, lg: false }}
-          p={0}
+          pl={0}
           color={'textAccent1'}
           toCopy={process}
           fontWeight={'normal'}
           h={0}
           fontSize={'md'}
-          to={generatePath(RoutePath.Block, { height: blockHeight.toString() })}
+          to={generatePath(RoutePath.Process, { pid: process })}
         >
           {process}
         </ReducedTextAndCopy>
@@ -157,7 +157,7 @@ export const TransactionDetail = (tx: Tx) => {
       children: (
         <ReducedTextAndCopy
           breakPoint={{ base: true, lg: false }}
-          p={0}
+          pl={0}
           color={'textAccent1'}
           toCopy={entity}
           fontWeight={'normal'}

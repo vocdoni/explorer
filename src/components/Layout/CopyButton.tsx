@@ -1,4 +1,4 @@
-import { Button, ButtonProps, Flex, IconButton, Tooltip, useBreakpointValue, useClipboard } from '@chakra-ui/react'
+import { Box, Button, ButtonProps, IconButton, Tooltip, useBreakpointValue, useClipboard } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IoCheckmark, IoCopy } from 'react-icons/io5'
@@ -70,12 +70,12 @@ export const ReducedTextAndCopy = ({
 
   if (to) {
     return (
-      <Flex>
-        <Button as={RouterLink} to={to} variant={'text'} aria-label={children} {...rest}>
+      <Box>
+        <Button as={RouterLink} to={to} variant={'text'} aria-label={children} {...rest} mr={0} pr={0}>
           {text}
         </Button>
-        <CopyButton {...rest} m={0} />
-      </Flex>
+        <CopyButtonIcon {...rest} justifyContent={'start'} ml={2} pl={0} />
+      </Box>
     )
   }
   return (
