@@ -44,14 +44,14 @@ export const CopyButton = withCopyLogic(Button)
 export const CopyButtonIcon = withCopyLogic(IconButton)
 
 /**
- * It shows a text with a copy button. If not breakpoint is defined it uses default one: { base: true, sm: false },
- * @param reduced If it wants to be shown reduced independently of div size (for max length of 13)
+ * It shows a text with a copy button.
+ * if the length of the string is more than 13 it cut the string to something like 6be21a...0000.
+ * If not breakpoint is defined it uses default one: { base: true, sm: false },
  * @param breakPoint If it wants to be shown reduced on a specific breakpoint. If null it will show the entire text
  * @param to if defined, the part of the text will be rendered as a link
  * @param children The text to be shown
  */
 export const ReducedTextAndCopy = ({
-  reduced = false,
   breakPoint = { base: true, sm: false },
   to,
   children = '',
@@ -64,7 +64,7 @@ export const ReducedTextAndCopy = ({
 } & ICopyButton) => {
   let text = children
   // If it wants to be shown reduced or is small screen via the breakpoint
-  if ((reduced && children.length > 13) || (breakPoint && useBreakpointValue(breakPoint))) {
+  if (breakPoint && useBreakpointValue(breakPoint) && children.length > 13) {
     text = shortHex(children)
   }
 

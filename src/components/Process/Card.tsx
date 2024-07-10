@@ -79,7 +79,7 @@ const SmallOrganizationCard = ({ id }: { id: string }) => {
           }).toString()}
         />
       </Box>
-      <ReducedTextAndCopy reduced={true} color={'textAccent1'} size='sm' toCopy={id}>
+      <ReducedTextAndCopy color={'textAccent1'} size='sm' toCopy={id}>
         {name}
       </ReducedTextAndCopy>
     </Flex>

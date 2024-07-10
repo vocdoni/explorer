@@ -40,7 +40,7 @@ export const TransactionCard = ({
             <Box fontSize={'sm'}>
               <Flex gap={2} align={'center'}>
                 <Trans i18nKey='blocks.proposer'>Hash:</Trans>
-                <ReducedTextAndCopy reduced={true} color={'textAccent1'} toCopy={transactionHash}>
+                <ReducedTextAndCopy color={'textAccent1'} toCopy={transactionHash}>
                   {transactionHash}
                 </ReducedTextAndCopy>
               </Flex>
