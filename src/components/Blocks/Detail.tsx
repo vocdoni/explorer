@@ -8,8 +8,8 @@ import { RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useBlocksHeight } from '~queries/blocks'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
-import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
 
 const HeightNavigator = ({ height }: { height: number }) => {
   const { data, isLoading } = useBlocksHeight({
