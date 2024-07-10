@@ -24,14 +24,14 @@ export const ProcessSearchBox = () => {
   const { queryParams, setQueryParams } = useQueryParams<FilterQueryParams>()
 
   return (
-    <Flex direction={{ base: 'column', lg: 'row' }} align={'center'} justify={'end'} gap={4}>
+    <Flex direction={{ base: 'column', lg: 'row' }} flexDirection={{ base: 'column-reverse', lg: 'row' }} gap={4}>
       <Checkbox
         isChecked={queryParams.withResults === 'true'}
         onChange={(e) => setQueryParams({ ...queryParams, withResults: e.target.checked ? 'true' : undefined })}
       >
         <Trans i18nKey='process.show_with_results'>Show only processes with results</Trans>
       </Checkbox>
-      <Flex justify='flex-end'>
+      <Flex>
         <InputSearch
           maxW={'300px'}
           placeholder={t('process.search_by')}
