@@ -2,7 +2,7 @@ import { Box, Button, ButtonProps, IconButton, Tooltip, useBreakpointValue, useC
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IoCheckmark, IoCopy } from 'react-icons/io5'
-import { shortHex } from '~utils/strings'
+import { shortStr } from '~utils/strings'
 import { Link as RouterLink } from 'react-router-dom'
 
 type ICopyButton = ButtonProps & {
@@ -57,15 +57,14 @@ export const ReducedTextAndCopy = ({
   children = '',
   ...rest
 }: {
-  reduced?: boolean
   to?: string
   breakPoint?: Parameters<typeof useBreakpointValue>[0]
   children?: string
 } & ICopyButton) => {
   let text = children
-  // If it wants to be shown reduced or is small screen via the breakpoint
+  // If breakpoint is true and the length of the string is more than 13 it shorts the string
   if (breakPoint && useBreakpointValue(breakPoint) && children.length > 13) {
-    text = shortHex(children)
+    text = shortStr(children)
   }
 
   if (to) {
