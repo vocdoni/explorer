@@ -46,7 +46,7 @@ import InvalidElection from '~components/Process/InvalidElection'
 import { FallbackHeaderImg, RoutePath } from '~constants'
 import { useElectionKeys, useElectionVotesList } from '~queries/processes'
 import { ucfirst } from '~utils/strings'
-import { ResponsiveTextCopy } from '~components/Layout/CopyButton'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 
 const Detail = () => {
   const { election } = useElection()
@@ -78,9 +78,9 @@ const Detail = () => {
           <ElectionStatusBadge status={election.status} />
 
           <ElectionTitle />
-          <ResponsiveTextCopy color={'textAccent1'} toCopy={id} fontWeight={'normal'} h={0} fontSize={'md'}>
+          <ReducedTextAndCopy color={'textAccent1'} toCopy={id} fontWeight={'normal'} h={0} fontSize={'md'}>
             {id}
-          </ResponsiveTextCopy>
+          </ReducedTextAndCopy>
         </VStack>
       </HeroHeaderLayout>
       {/*Basic details */}
@@ -259,7 +259,6 @@ const EnvelopeList = () => {
 }
 
 const EnvelopeCard = ({ envelope, count }: { envelope: IElectionVote; count: number }) => {
-  const { i18n } = useTranslation()
   return (
     <Card maxW='xs'>
       <CardHeader>

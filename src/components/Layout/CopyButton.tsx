@@ -1,8 +1,9 @@
-import { Button, ButtonProps, IconButton, Tooltip, useBreakpointValue, useClipboard } from '@chakra-ui/react'
+import { Box, Button, ButtonProps, IconButton, Tooltip, useBreakpointValue, useClipboard } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IoCheckmark, IoCopy } from 'react-icons/io5'
-import { shortHex } from '~utils/strings'
+import { shortStr } from '~utils/strings'
+import { Link as RouterLink } from 'react-router-dom'
 
 type ICopyButton = ButtonProps & {
   toCopy: string
@@ -42,30 +43,43 @@ const withCopyLogic = (Component: typeof IconButton | typeof Button) => {
 export const CopyButton = withCopyLogic(Button)
 export const CopyButtonIcon = withCopyLogic(IconButton)
 
-export const ReducedTextAndCopy = ({ children, ...rest }: ICopyButton) => {
+/**
+ * It shows a text with a copy button.
+ * if the length of the string is more than 13 it cut the string to something like 6be21a...0000.
+ * If not breakpoint is defined it uses default one: { base: true, sm: false },
+ * @param breakPoint If it wants to be shown reduced on a specific breakpoint. If null it will show the entire text
+ * @param to if defined, the part of the text will be rendered as a link
+ * @param children The text to be shown
+ */
+export const ReducedTextAndCopy = ({
+  breakPoint = { base: true, sm: false },
+  to,
+  children = '',
+  ...rest
+}: {
+  to?: string
+  breakPoint?: Parameters<typeof useBreakpointValue>[0]
+  children?: string
+} & ICopyButton) => {
   let text = children
-  if (typeof children === 'string' && children.length > 13) {
-    text = shortHex(children)
+  // If breakpoint is true and the length of the string is more than 13 it shorts the string
+  if (breakPoint && useBreakpointValue(breakPoint) && children.length > 13) {
+    text = shortStr(children)
+  }
+
+  if (to) {
+    return (
+      <Box>
+        <Button as={RouterLink} to={to} variant={'text'} aria-label={children} {...rest} mr={0} pr={0}>
+          {text}
+        </Button>
+        <CopyButtonIcon {...rest} justifyContent={'start'} ml={2} pl={0} />
+      </Box>
+    )
   }
   return (
     <CopyButton fontWeight={'normal'} h={0} fontSize={'xs'} p={0} pt={1} {...rest}>
       {text}
     </CopyButton>
   )
-}
-
-/**
- * Children with copy button that is shows ReducedTextAndCopy on small screens
- */
-export const ResponsiveTextCopy = ({
-  breakPoint = { base: true, sm: false },
-  ...props
-}: {
-  breakPoint?: Parameters<typeof useBreakpointValue>[0]
-} & ICopyButton) => {
-  const isSmallScreen = useBreakpointValue(breakPoint)
-  if (isSmallScreen) {
-    return <ReducedTextAndCopy {...props} />
-  }
-  return <CopyButton {...props} />
 }

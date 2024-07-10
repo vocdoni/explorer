@@ -1,21 +1,27 @@
-import { Box, Card, CardBody, Code, Flex, Heading, Link, Text } from '@chakra-ui/react'
+import { Code, Flex, Heading, StackDivider, Tab, TabList, TabPanel, TabPanels, Text, VStack } from '@chakra-ui/react'
 import { AdminTx, ensure0x, NewProcessTx, SetProcessTx, TransactionType, Tx, VoteEnvelope } from '@vocdoni/sdk'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
-import ShowRawButton from '~components/Layout/ShowRawButton'
-import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
+import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { RoutePath } from '~constants'
 import { useDateFns } from '~i18n/use-date-fns'
 import { useBlockToDate } from '~queries/stats'
 import { b64ToHex, objectB64StringsToHex } from '~utils/objects'
+import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
+import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
+import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 
 export const TransactionDetail = (tx: Tx) => {
   const { data } = useBlockToDate({ height: tx.txInfo.blockHeight })
   const { formatDistance } = useDateFns()
+  const { t } = useTranslation()
 
   let createdOn = ''
+  let timestamp = ''
   if (data) {
     createdOn = formatDistance(new Date(data.date), new Date())
+    timestamp = new Date(data.date).toString()
   }
 
   const blockHeight = tx.txInfo.blockHeight
@@ -27,6 +33,7 @@ export const TransactionDetail = (tx: Tx) => {
 
   if (!tx.tx) return
 
+  const txHash = ensure0x(tx.txInfo.transactionHash)
   const txPayload = tx.tx as any
   const txType = Object.keys(tx.tx)[0] as TransactionType
 
@@ -55,7 +62,6 @@ export const TransactionDetail = (tx: Tx) => {
     case 'newProcess': {
       const newProcessTx = txPayload.newProcess as NewProcessTx
       if (newProcessTx.process) {
-        process = ensure0x(b64ToHex(newProcessTx.process.processId as unknown as string))
         entity = ensure0x(b64ToHex(newProcessTx.process.entityId as unknown as string))
       }
       break
@@ -76,68 +82,136 @@ export const TransactionDetail = (tx: Tx) => {
     }
   }
 
+  const sharedDetails: GridItemProps[] = [
+    {
+      label: t('transactions.tx_type', { defaultValue: 'Transaction type' }),
+      children: <TransactionTypeBadge transactionType={txType} />,
+    },
+    ...(timestamp
+      ? [
+          {
+            label: t('blocks.timestamp', { defaultValue: 'Timestamp' }),
+            children: timestamp,
+          },
+        ]
+      : []),
+    {
+      label: t('transactions.tx_hash', { defaultValue: 'Transaction hash' }),
+      children: (
+        <ReducedTextAndCopy
+          breakPoint={{ base: true, lg: false }}
+          p={0}
+          color={'textAccent1'}
+          toCopy={txHash}
+          fontWeight={'normal'}
+          h={0}
+          fontSize={'md'}
+        >
+          {txHash}
+        </ReducedTextAndCopy>
+      ),
+    },
+    {
+      label: t('transactions.block', { defaultValue: 'Block' }),
+      children: (
+        <Text
+          as={RouterLink}
+          to={generatePath(RoutePath.Block, { height: blockHeight.toString() })}
+          color={'textAccent1'}
+        >
+          {blockHeight}
+        </Text>
+      ),
+    },
+    {
+      label: t('transactions.tx_index', { defaultValue: 'Transaction index' }),
+      children: txIndex,
+    },
+  ]
+
+  const specificDetails: GridItemProps[] = []
+  if (process) {
+    specificDetails.push({
+      label: t('transactions.belongs_to_process', { defaultValue: 'Belongs to process' }),
+      children: (
+        <ReducedTextAndCopy
+          breakPoint={{ base: true, lg: false }}
+          pl={0}
+          color={'textAccent1'}
+          toCopy={process}
+          fontWeight={'normal'}
+          h={0}
+          fontSize={'md'}
+          to={generatePath(RoutePath.Process, { pid: process })}
+        >
+          {process}
+        </ReducedTextAndCopy>
+      ),
+    })
+  }
+
+  if (entity) {
+    specificDetails.push({
+      label: t('transactions.belong_to_organization', { defaultValue: 'Belongs to organization' }),
+      children: (
+        <ReducedTextAndCopy
+          breakPoint={{ base: true, lg: false }}
+          pl={0}
+          color={'textAccent1'}
+          toCopy={entity}
+          fontWeight={'normal'}
+          h={0}
+          fontSize={'md'}
+          to={generatePath(RoutePath.Organization, { pid: entity, page: null })}
+        >
+          {entity}
+        </ReducedTextAndCopy>
+      ),
+    })
+  }
+
+  if (votePackage) {
+    specificDetails.push({
+      label: t('transactions.vote_package', { defaultValue: 'Vote package' }),
+      children: <Code>{votePackage}</Code>,
+    })
+  }
+
   return (
     <Flex direction={'column'} mt={'40px'} gap={6}>
-      <Heading isTruncated wordBreak='break-word'>
-        <Trans i18nKey={'transactions.tx_detail'}>Transaction Details</Trans>
-      </Heading>
-      <Box>
-        <TransactionTypeBadge transactionType={txType} />
-      </Box>
-      <Link as={RouterLink} to={generatePath(RoutePath.Block, { height: blockHeight.toString() })}>
-        <Text color={'blueText'} fontSize={'2xl'}>
-          <Trans i18nKey={'transactions.on_block_n'} height={blockHeight}>
-            On Block {{ height: blockHeight }}
-          </Trans>
-        </Text>
-      </Link>
-      <Text color={'lightText'}>
-        <Trans i18nKey={'transactions.transaction_index'} txIndex={txIndex}>
-          Transaction index: {{ txIndex }}
-        </Trans>
-      </Text>
-      <Text color={'lightText'}>
-        <Trans i18nKey={'transactions.created_on'} createdOn={createdOn}>
-          Created {{ createdOn }}
-        </Trans>
-      </Text>
-
-      <Card wordBreak='break-all'>
-        <CardBody>
-          <Text fontSize={'xl'}>{ensure0x(tx.txInfo.transactionHash)}</Text>
-          {process && (
-            <Text>
-              <Trans
-                i18nKey={'transactions.belongs_to_process'}
-                components={{
-                  a: <Link as={RouterLink} to={generatePath(RoutePath.Process, { pid: process })} />,
-                }}
-                values={{ process }}
-              />
-            </Text>
-          )}
-          {entity && (
-            <Text>
-              <Trans
-                i18nKey={'transactions.belong_to_organization'}
-                components={{
-                  a: <Link as={RouterLink} to={generatePath(RoutePath.Organization, { pid: entity, page: null })} />,
-                }}
-                values={{ organization: entity }}
-              />
-            </Text>
-          )}
-          {votePackage && (
-            <>
-              <Text>
-                <Trans i18nKey={'transactions.vote_package'}>Vote package:</Trans>
-              </Text>
-              <Code>{votePackage}</Code>
-            </>
-          )}
-        </CardBody>
-      </Card>
-      <ShowRawButton obj={rawTx} />
+      <VStack align='start'>
+        <Heading isTruncated wordBreak='break-word' mb={0}>
+          <Trans i18nKey={'transactions.tx_detail'}>Transaction Details</Trans>
+        </Heading>
+        {createdOn && (
+          <Text mt={0} fontWeight={'bold'} color={'lighterText'}>
+            <Trans i18nKey={'transactions.created_on'} createdOn={createdOn}>
+              Created {{ createdOn }}
+            </Trans>
+          </Text>
+        )}
+      </VStack>
+      <QueryParamsTabs>
+        <TabList display='flex' flexWrap='wrap'>
+          <Tab>
+            <Trans i18nKey={'process.tab_details'}>Details</Trans>
+          </Tab>
+          <Tab>
+            <Trans i18nKey={'raw'}>Raw</Trans>
+          </Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <VStack divider={<StackDivider borderColor='gray.200' />} spacing={4} align='stretch'>
+              <DetailsGrid details={sharedDetails} />
+              {specificDetails && <DetailsGrid details={specificDetails} />}
+            </VStack>
+          </TabPanel>
+          <TabPanel>
+            <RawContentBox obj={rawTx} />
+          </TabPanel>
+        </TabPanels>
+      </QueryParamsTabs>
     </Flex>
   )
 }

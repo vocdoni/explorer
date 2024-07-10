@@ -1,4 +1,10 @@
-export const shortHex = (hex: string) => hex.substring(0, 6) + '...' + hex.substring(hex.length - 4)
+/**
+ * Creates a substring of a string with the first 6 characters and the last 4 characters with three dots elipsis.
+ * It has to be at least 13 characters long.
+ * On a future implementation this have to be calculated dynamically based on the width of the container.
+ */
+export const shortStr = (str: string) =>
+  str.length > 13 ? str.substring(0, 6) + '...' + str.substring(str.length - 4) : str
 
 /**
  * ucfirst makes the first letter of a string uppercase
