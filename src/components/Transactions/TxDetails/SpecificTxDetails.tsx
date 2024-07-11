@@ -1,8 +1,18 @@
-import { Box, Code } from '@chakra-ui/react'
+import { Box, Code, Flex, Icon, Text } from '@chakra-ui/react'
 import { OrganizationProvider } from '@vocdoni/react-providers'
-import { AdminTx, ensure0x, NewProcessTx, SetProcessTx, TransactionType, Tx, VoteEnvelope } from '@vocdoni/sdk'
+import {
+  AdminTx,
+  ensure0x,
+  NewProcessTx,
+  SendTokensTx,
+  SetProcessTx,
+  TransactionType,
+  Tx,
+  VoteEnvelope,
+} from '@vocdoni/sdk'
 import { TFunction } from 'i18next/index'
 import { useTranslation } from 'react-i18next'
+import { BiTransferAlt } from 'react-icons/bi'
 import { generatePath } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
@@ -30,18 +40,20 @@ const processIdGridItem = (processId: string, t: TFunction): GridItemProps => {
   }
 }
 
+const OrganizationCard = ({ orgId }: { orgId: string }) => (
+  <OrganizationProvider id={orgId}>
+    {/*This box is fixing the alignment with the grid label*/}
+    <Box display={'flex'} alignItems={'last baseline'}>
+      <SmallOrganizationCard id={orgId} avatar={{ w: '20px', minW: '20px' }} />
+    </Box>
+  </OrganizationProvider>
+)
+
 const organizationIdGridItem = (orgId: string, t: TFunction): GridItemProps => {
   const _orgId = ensure0x(orgId)
   return {
     label: t('transactions.belong_to_organization', { defaultValue: 'Belongs to organization' }),
-    children: (
-      <OrganizationProvider id={_orgId}>
-        {/*This box is fixing the alignment with the grid label*/}
-        <Box display={'flex'} alignItems={'last baseline'}>
-          <SmallOrganizationCard id={_orgId} avatar={{ w: '20px', minW: '20px' }} />
-        </Box>
-      </OrganizationProvider>
-    ),
+    children: <OrganizationCard orgId={_orgId} />,
   }
 }
 
@@ -94,6 +106,30 @@ const SetProcessTxDetails = ({ processId, results }: SetProcessTx) => {
   return <DetailsGrid details={details} />
 }
 
+const SendTokensTxDetails = ({ from, to, value }: SendTokensTx) => {
+  const { t } = useTranslation()
+  const details: GridItemProps[] = [
+    {
+      label: t('transactions.send_tokens_from', { defaultValue: 'From' }),
+      children: <OrganizationCard orgId={b64ToHex(from as unknown as string)} />,
+    },
+    {
+      label: t('transactions.tokens_transferred', { defaultValue: 'Tokens transferred' }),
+      children: (
+        <Flex fontWeight={'bold'} align={'baseline'} gap={2}>
+          <Icon as={BiTransferAlt} boxSize={6} alignSelf={'center'} />
+          <Text>{value}</Text>
+        </Flex>
+      ),
+    },
+    {
+      label: t('transactions.send_tokens_to', { defaultValue: 'To' }),
+      children: <OrganizationCard orgId={b64ToHex(to as unknown as string)} />,
+    },
+  ]
+  return <DetailsGrid details={details} />
+}
+
 export const SpecificTxDetails = ({ rawTx, tx }: { tx: Tx; rawTx: any }) => {
   if (!tx.tx) return
   const txPayload = tx.tx as any
@@ -108,5 +144,7 @@ export const SpecificTxDetails = ({ rawTx, tx }: { tx: Tx; rawTx: any }) => {
       return <AdminTxDetails {...(txPayload.admin as AdminTx)} />
     case 'setProcess':
       return <SetProcessTxDetails {...(txPayload.setProcess as SetProcessTx)} />
+    case 'sendTokens':
+      return <SendTokensTxDetails {...(txPayload.sendTokens as SendTokensTx)} />
   }
 }
