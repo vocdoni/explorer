@@ -1,9 +1,9 @@
-import { Box, Button, ButtonProps, IconButton, Tooltip, useBreakpointValue, useClipboard } from '@chakra-ui/react'
+import { Button, ButtonProps, IconButton, Tooltip, useBreakpointValue, useClipboard } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IoCheckmark, IoCopy } from 'react-icons/io5'
-import { shortStr } from '~utils/strings'
 import { Link as RouterLink } from 'react-router-dom'
+import { shortStr } from '~utils/strings'
 
 type ICopyButton = ButtonProps & {
   toCopy: string
@@ -69,12 +69,21 @@ export const ReducedTextAndCopy = ({
 
   if (to) {
     return (
-      <Box>
-        <Button as={RouterLink} to={to} variant={'text'} aria-label={children} {...rest} mr={0} pr={0}>
+      <>
+        <Button
+          as={RouterLink}
+          to={to}
+          variant={'text'}
+          aria-label={children}
+          h={6} // Fixes the alignment caused to combine buttons with text
+          {...rest}
+          mr={0}
+          pr={0}
+        >
           {text}
         </Button>
-        <CopyButtonIcon {...rest} justifyContent={'start'} ml={2} pl={0} />
-      </Box>
+        <CopyButtonIcon h={6} {...rest} justifyContent={'start'} ml={2} pl={0} />
+      </>
     )
   }
   return (
