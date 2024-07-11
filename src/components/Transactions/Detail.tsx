@@ -1,16 +1,30 @@
-import { Code, Flex, Heading, StackDivider, Tab, TabList, TabPanel, TabPanels, Text, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  Code,
+  Flex,
+  Heading,
+  StackDivider,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
+import { OrganizationProvider } from '@vocdoni/react-providers'
 import { AdminTx, ensure0x, NewProcessTx, SetProcessTx, TransactionType, Tx, VoteEnvelope } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
+import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
+import { SmallOrganizationCard } from '~components/Organizations/Card'
+import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
 import { RoutePath } from '~constants'
 import { useDateFns } from '~i18n/use-date-fns'
 import { useBlockToDate } from '~queries/stats'
 import { b64ToHex, objectB64StringsToHex } from '~utils/objects'
-import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
-import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
-import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
-import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 
 export const TransactionDetail = (tx: Tx) => {
   const { data } = useBlockToDate({ height: tx.txInfo.blockHeight })
@@ -154,18 +168,12 @@ export const TransactionDetail = (tx: Tx) => {
     specificDetails.push({
       label: t('transactions.belong_to_organization', { defaultValue: 'Belongs to organization' }),
       children: (
-        <ReducedTextAndCopy
-          breakPoint={{ base: true, lg: false }}
-          pl={0}
-          color={'textAccent1'}
-          toCopy={entity}
-          fontWeight={'normal'}
-          h={0}
-          fontSize={'md'}
-          to={generatePath(RoutePath.Organization, { pid: entity, page: null })}
-        >
-          {entity}
-        </ReducedTextAndCopy>
+        <OrganizationProvider id={entity}>
+          {/*This box is fixing the alignment with the grid label*/}
+          <Box display={'flex'} alignItems={'last baseline'}>
+            <SmallOrganizationCard id={entity} avatar={{ w: '20px', minW: '20px' }} />
+          </Box>
+        </OrganizationProvider>
       ),
     })
   }

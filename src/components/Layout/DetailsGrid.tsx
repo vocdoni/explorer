@@ -10,7 +10,7 @@ export type GridItemProps = { label: string } & PropsWithChildren
  */
 export const DetailsGrid = ({ details }: { details: GridItemProps[] }) => {
   return (
-    <Grid templateColumns={{ base: '1fr', sm: '1fr 4fr' }} gap={2} alignItems='start'>
+    <Grid templateColumns={{ base: '1fr', sm: '1fr 4fr' }} gap={4} alignItems={'baseline'}>
       {details.map(({ label, children }, key) => (
         <DetailRow key={label} label={label}>
           {children}
@@ -21,12 +21,13 @@ export const DetailsGrid = ({ details }: { details: GridItemProps[] }) => {
 }
 
 const DetailRow = ({ label, children }: GridItemProps) => {
+  const gridProps = { display: 'flex', alignItems: 'center' }
   return (
     <>
-      <GridItem>
+      <GridItem {...gridProps}>
         <Text fontWeight={'bold'}>{label}</Text>
       </GridItem>
-      <GridItem>{children}</GridItem>
+      <GridItem {...gridProps}>{children}</GridItem>
     </>
   )
 }
