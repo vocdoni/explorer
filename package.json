@@ -18,6 +18,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@tanstack/react-query": "^5.40.0",
+    "@uidotdev/usehooks": "^2.4.1",
     "@vocdoni/chakra-components": "~0.8.1",
     "@vocdoni/extended-sdk": "^0.0.3",
     "@vocdoni/sdk": "~0.8.1",
