@@ -23,8 +23,11 @@ export const BlocksFilter = () => {
 
   const goTo = useCallback(() => {
     const num = parseInt(blockHeight)
-    if (!blockCount || isNaN(num) || num <= 0 || num > blockCount) {
-      return
+    if (!blockCount) {
+      throw new Error(t('blocks.invalid_chain_height', { defaultValue: 'Invalid chain block height' }))
+    }
+    if (isNaN(num) || num <= 0 || num > blockCount) {
+      throw new Error(t('blocks.invalid_block_search', { defaultValue: 'Must to be a valid block height' }))
     }
     navigate(generatePath(RoutePath.Block, { height: num.toString() }))
   }, [blockHeight, blockCount])
