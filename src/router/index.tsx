@@ -9,6 +9,7 @@ import { ElectionError } from '~src/router/errors/ElectionError'
 import Error404 from '~src/router/errors/Error404'
 import RouteError from '~src/router/errors/RouteError'
 import { SuspenseLoader } from '~src/router/SuspenseLoader'
+import { IChainTxReference } from '@vocdoni/sdk'
 
 const Home = lazy(() => import('~pages/Home'))
 const Block = lazy(() => import('~pages/block'))
@@ -119,6 +120,30 @@ export const RoutesProvider = () => {
                   <TransactionsList />
                 </SuspenseLoader>
               ),
+            },
+            {
+              path: RoutePath.TransactionByHashOrHeight,
+              element: (
+                <SuspenseLoader>
+                  <Transaction />
+                </SuspenseLoader>
+              ),
+              loader: async ({ params }) => {
+                let tx: IChainTxReference
+                if (params.hashOrHeight && isNaN(Number(params.hashOrHeight))) {
+                  tx = await client.txInfo(params.hashOrHeight)
+                } else {
+                  // todo(kon): remove this when the extended SDK supports txByIndex
+                  // @ts-ignore
+                  tx = {
+                    blockHeight: 1,
+                    transactionIndex: 0,
+                  }
+                  // tx = await client.txByIndex(params.hashOrHeight)
+                }
+
+                return await client.txInfoByBlock(Number(tx.blockHeight), Number(tx.transactionIndex))
+              },
             },
             {
               path: RoutePath.Validators,
