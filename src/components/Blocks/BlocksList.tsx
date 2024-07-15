@@ -22,15 +22,11 @@ export const BlocksFilter = () => {
   const blockCount = stats?.height || 0
 
   const goTo = useCallback(() => {
-    if (!blockCount) {
+    const num = parseInt(blockHeight)
+    if (!blockCount || isNaN(num) || num <= 0 || num > blockCount) {
       return
     }
-    const num = parseInt(blockHeight)
-    let page = 0 // By default return to first page
-    if (!isNaN(num) && num >= 0 && num <= blockCount) {
-      page = Math.ceil((blockCount - num + 1) / PaginationItemsPerPage)
-    }
-    navigate(generatePath(RoutePath.BlocksList, { page: page.toString() }))
+    navigate(generatePath(RoutePath.Block, { height: num.toString() }))
   }, [blockHeight, blockCount])
 
   return (
