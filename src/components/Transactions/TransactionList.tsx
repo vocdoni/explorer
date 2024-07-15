@@ -1,4 +1,5 @@
 import { keepPreviousData } from '@tanstack/react-query'
+import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
@@ -10,12 +11,11 @@ import { TransactionCard } from '~components/Transactions/TransactionCard'
 import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useTransactionList, useTransactionsCount } from '~queries/transactions'
 import { retryUnlessNotFound } from '~utils/queries'
-import { useCallback, useState } from 'react'
 
 export const TransactionFilter = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { data, isLoading: isLoadingCount } = useTransactionsCount()
+  const { data } = useTransactionsCount()
   const [txNumber, setTxNumber] = useState('')
 
   const goTo = useCallback(() => {
