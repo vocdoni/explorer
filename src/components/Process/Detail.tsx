@@ -199,10 +199,10 @@ const ElectionKeys = ({ electionId }: { electionId: string }) => {
       </Text>
       <Grid templateColumns={{ base: 'repeat(2, 1fr)', xl: 'repeat(4, 1fr)' }} gap={4}>
         <GridItem colSpan={1}>
-          <InfoCard title={t('processes.published_keys')}>{data.publicKeys.length}</InfoCard>
+          <InfoCard title={t('processes.published_keys')}>{data.publicKeys?.length ?? 0}</InfoCard>
         </GridItem>
         <GridItem colSpan={1}>
-          <InfoCard title={t('processes.revealed')}>{data.privateKeys.length}</InfoCard>
+          <InfoCard title={t('processes.revealed')}>{data.privateKeys?.length ?? 0}</InfoCard>
         </GridItem>
       </Grid>
     </Flex>
