@@ -121,14 +121,18 @@ const Detail = () => {
       </Flex>
       {/*Organization card and other cards*/}
       <Grid templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4}>
-        <GridItem colSpan={2}>
-          <OrganizationCard minH={'115px'} />
+        <GridItem colSpan={2} display='flex'>
+          <OrganizationCard flex='1' />
         </GridItem>
-        <GridItem colSpan={1}>
-          <InfoCard title={t('processes.envelope_recount')}>{election.voteCount}</InfoCard>
+        <GridItem colSpan={1} display='flex'>
+          <InfoCard title={t('processes.envelope_recount')} flex='1'>
+            {election.voteCount}
+          </InfoCard>
         </GridItem>
-        <GridItem colSpan={1}>
-          <InfoCard title={t('processes.total_questions')}>{election.questions.length}</InfoCard>
+        <GridItem colSpan={1} display='flex'>
+          <InfoCard title={t('processes.total_questions')} flex='1'>
+            {election.questions.length}
+          </InfoCard>
         </GridItem>
       </Grid>
       {/*Encrypted votes */}
