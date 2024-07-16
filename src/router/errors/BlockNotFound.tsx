@@ -2,7 +2,7 @@ import { Alert, AlertIcon, Code, Stack } from '@chakra-ui/react'
 import { ErrAPI } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
 import { useRouteError } from 'react-router-dom'
-import RouteError from '~src/router/RouteError'
+import RouteError from '~src/router/errors/RouteError'
 
 export const BlockNotFound = () => {
   const error = useRouteError() as Error
