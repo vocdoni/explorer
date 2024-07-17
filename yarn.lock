@@ -1977,10 +1977,10 @@
   dependencies:
     "@vocdoni/react-providers" "~0.4.4"
 
-"@vocdoni/extended-sdk@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@vocdoni/extended-sdk/-/extended-sdk-0.0.3.tgz#d9dd2240493650cbac9c258a138bab91111a9a37"
-  integrity sha512-5izKqahI6b9qYY0nB4MzKwwkL/aIMNsdSoPfP71bHvM7YPuBw83uAe6ffv6KZLI2vUZK7zCKSScYlnklW+WTqg==
+"@vocdoni/extended-sdk@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@vocdoni/extended-sdk/-/extended-sdk-0.0.4.tgz#5c53ae926619b6228c1ca24ba6cc370d48d3d772"
+  integrity sha512-quKdccVBilFuSy8WUPBNt1XYMPcPkxYpjeeDGS6yOKeKcb0FVT6U6H+gqfq5agZHBmtavpPWarfplJ4Ky1c6zA==
 
 "@vocdoni/proto@1.15.8":
   version "1.15.8"

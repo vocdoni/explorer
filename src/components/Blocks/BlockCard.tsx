@@ -11,15 +11,22 @@ import { useDateFns } from '~i18n/use-date-fns'
 
 export const BlockCard = ({ block }: { block: IChainBlockInfoResponse | BlockError }) => {
   if (block instanceof BlockError) return <BlockErrorCard error={block} height={block.height} />
-  return <BlockInfoCard height={block.header.height} time={block.header.time} proposer={block.header.proposerAddress} txn={block.data.txs.length}/>
+  return (
+    <BlockInfoCard
+      height={block.header.height}
+      time={block.header.time}
+      proposer={block.header.proposerAddress}
+      txn={block.data.txs.length}
+    />
+  )
 }
 
 const BlockInfoCard = ({
-                         height,
-                         time,
-                         proposer,
-                         txn,
-                       }: {
+  height,
+  time,
+  proposer,
+  txn,
+}: {
   height: number
   time: string
   proposer: string
