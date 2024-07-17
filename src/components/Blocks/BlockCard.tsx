@@ -1,7 +1,9 @@
-import { Box, Card, CardBody, Flex, Link, Text } from '@chakra-ui/react'
+import { Box, Card, CardBody, Flex, Link, HStack, Icon, Text } from '@chakra-ui/react'
 import { BlockError, BlockNotFoundError } from '@vocdoni/extended-sdk'
 import { IChainBlockInfoResponse } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
+import { BiTransferAlt } from 'react-icons/bi'
+
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { RoutePath } from '~constants'
@@ -9,20 +11,43 @@ import { useDateFns } from '~i18n/use-date-fns'
 
 export const BlockCard = ({ block }: { block: IChainBlockInfoResponse | BlockError }) => {
   if (block instanceof BlockError) return <BlockErrorCard error={block} height={block.height} />
-  return <BlockInfoCard height={block.header.height} time={block.header.time} proposer={block.header.proposerAddress} />
+  return (
+    <BlockInfoCard
+      height={block.header.height}
+      time={block.header.time}
+      proposer={block.header.proposerAddress}
+      txn={block.data.txs.length}
+    />
+  )
 }
 
-const BlockInfoCard = ({ height, time, proposer }: { height: number; time: string; proposer: string }) => {
+const BlockInfoCard = ({
+  height,
+  time,
+  proposer,
+  txn,
+}: {
+  height: number
+  time: string
+  proposer: string
+  txn: number
+}) => {
   const date = new Date(time)
   const { formatDistance } = useDateFns()
 
   return (
     <Card>
-      <Link as={RouterLink} to={generatePath(RoutePath.Block, { height: height.toString() })}>
+      <Link as={RouterLink} to={generatePath(RoutePath.Block, { height: height.toString(), page: null })}>
         <CardBody>
           <Flex gap={1} direction={'column'}>
             <Flex gap={3}>
               <Text fontWeight='bold'># {height}</Text>
+              <HStack spacing={1}>
+                <Icon as={BiTransferAlt} boxSize={5} />
+                <Text fontSize={'sm'} fontWeight={'bold'}>
+                  {txn}
+                </Text>
+              </HStack>
               <Text fontWeight={100} color={'lighterText'}>
                 {formatDistance(date, new Date())}
               </Text>

@@ -1,15 +1,16 @@
 import { Flex, Heading, IconButton, Tab, TabList, TabPanel, TabPanels, Text, VStack } from '@chakra-ui/react'
 import { ensure0x, IChainBlockInfoResponse } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
-import { RawContentBox } from '~components/Layout/ShowRawButton'
-import { useDateFns } from '~i18n/use-date-fns'
 import { GrNext, GrPrevious } from 'react-icons/gr'
-import { RefreshIntervalBlocks, RoutePath } from '~constants'
-import { useBlocksHeight } from '~queries/blocks'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
-import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
+import { RawContentBox } from '~components/Layout/ShowRawButton'
+import { BlockTransactionsList } from '~components/Transactions/TransactionList'
+import { RefreshIntervalBlocks, RoutePath } from '~constants'
+import { useDateFns } from '~i18n/use-date-fns'
+import { useBlocksHeight } from '~queries/blocks'
 
 const HeightNavigator = ({ height }: { height: number }) => {
   const { data, isLoading } = useBlocksHeight({
@@ -27,7 +28,7 @@ const HeightNavigator = ({ height }: { height: number }) => {
       {height >= 1 && (
         <IconButton
           as={RouterLink}
-          to={generatePath(RoutePath.Block, { height: (height - 1).toString() })}
+          to={generatePath(RoutePath.Block, { height: (height - 1).toString(), page: null })}
           aria-label={t('blocks.previous_block')}
           icon={<GrPrevious />}
           size={'xs'}
@@ -36,7 +37,7 @@ const HeightNavigator = ({ height }: { height: number }) => {
       {height < data && (
         <IconButton
           as={RouterLink}
-          to={generatePath(RoutePath.Block, { height: (height + 1).toString() })}
+          to={generatePath(RoutePath.Block, { height: (height + 1).toString(), page: null })}
           aria-label={t('blocks.next_block')}
           icon={<GrNext />}
           size={'xs'}
@@ -132,12 +133,18 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
             <Trans i18nKey={'process.tab_details'}>Details</Trans>
           </Tab>
           <Tab>
+            <Trans i18nKey={'process.tab_txs'}>Transactions</Trans>
+          </Tab>
+          <Tab>
             <Trans i18nKey={'raw'}>Raw</Trans>
           </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
             <DetailsTab block={block} />
+          </TabPanel>
+          <TabPanel>
+            <BlockTransactionsList blockHeight={height} totalTxs={block.data.txs.length} />
           </TabPanel>
           <TabPanel>
             <RawContentBox obj={block} />

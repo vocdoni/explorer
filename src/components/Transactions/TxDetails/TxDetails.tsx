@@ -58,7 +58,7 @@ export const TxDetailsGrid = (tx: Tx) => {
       children: (
         <Text
           as={RouterLink}
-          to={generatePath(RoutePath.Block, { height: blockHeight.toString() })}
+          to={generatePath(RoutePath.Block, { height: blockHeight.toString(), page: null })}
           color={'textAccent1'}
         >
           {blockHeight}

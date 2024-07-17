@@ -35,6 +35,7 @@ import {
 import { Trans, useTranslation } from 'react-i18next'
 import { BiEnvelope } from 'react-icons/bi'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
 import { LoadingCards } from '~components/Layout/Loading'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
@@ -46,7 +47,6 @@ import InvalidElection from '~components/Process/InvalidElection'
 import { FallbackHeaderImg, RoutePath } from '~constants'
 import { useElectionKeys, useElectionVotesList } from '~queries/processes'
 import { ucfirst } from '~utils/strings'
-import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 
 const Detail = () => {
   const { election } = useElection()
@@ -279,7 +279,10 @@ const EnvelopeCard = ({ envelope, count }: { envelope: IElectionVote; count: num
       </CardHeader>
       <CardBody>
         <Flex direction={'column'}>
-          <Text as={RouterLink} to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString() })}>
+          <Text
+            as={RouterLink}
+            to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString(), page: null })}
+          >
             <Trans i18nKey={'envelope.block'} height={envelope.blockHeight}>
               Block {{ height: envelope.blockHeight }}
             </Trans>
