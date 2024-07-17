@@ -174,10 +174,17 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.24.6"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.15.4", "@babel/runtime@^7.18.3", "@babel/runtime@^7.21.0", "@babel/runtime@^7.23.2", "@babel/runtime@^7.23.9":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.21.0", "@babel/runtime@^7.23.2", "@babel/runtime@^7.23.9":
   version "7.24.6"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.6.tgz#5b76eb89ad45e2e4a0a8db54c456251469a3358e"
   integrity sha512-Ja18XcETdEl5mzzACGd+DKgaGJzPTCow7EglgwTmHdwokzDFYh/MHua6lU6DV/hjF2IaOJ4oX2nqnjG7RElKOw==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
+"@babel/runtime@^7.15.4":
+  version "7.24.8"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.8.tgz#5d958c3827b13cc6d05e038c07fb2e5e3420d82e"
+  integrity sha512-5F7SDGs1T72ZczbRwbGO9lQi0NLjQxzl6i4lJxLxfW9U5UluCSyEJeniWvnhl3/euNiqQVbo8zruhsDfid0esA==
   dependencies:
     regenerator-runtime "^0.14.0"
 
@@ -1876,10 +1883,15 @@
   dependencies:
     "@types/lodash" "*"
 
-"@types/lodash@*", "@types/lodash@^4.14.175":
+"@types/lodash@*":
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.17.4.tgz#0303b64958ee070059e3a7184048a55159fe20b7"
   integrity sha512-wYCP26ZLxaT3R39kiN2+HcJ4kTd3U1waI/cY7ivWYqFP6pW3ZNpvi6Wd6PHZx7T/t8z0vlkXMg3QYLa7DZ/IJQ==
+
+"@types/lodash@^4.14.175":
+  version "4.17.7"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.17.7.tgz#2f776bcb53adc9e13b2c0dfd493dfcbd7de43612"
+  integrity sha512-8wTvZawATi/lsmNu10/j2hk1KEP0IvjubqPE3cu1Xz7xfXXt5oCq3SNUz4fMIP4XGF9Ky+Ue2tBA3hcS7LSBlA==
 
 "@types/mdast@^3.0.0":
   version "3.0.15"
@@ -1899,9 +1911,9 @@
   integrity sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==
 
 "@types/node@>=13.7.0":
-  version "20.14.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.2.tgz#a5f4d2bcb4b6a87bffcaa717718c5a0f208f4a18"
-  integrity sha512-xyu6WAMVwv6AKFLB+e/7ySZVr/0zLCzOa7rSpq6jNwpqOrUbcACDWC+53d4n2QHOnDou0fbIsg8wZu/sxrnI4Q==
+  version "20.14.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.10.tgz#a1a218290f1b6428682e3af044785e5874db469a"
+  integrity sha512-MdiXf+nDuMvY0gJKxyfZ7/6UFsETO7mGKF54MVD/ekJS6HdFtpZFBgrh6Pseu64XTb2MLyFPlbW6hj8HYRQNOQ==
   dependencies:
     undici-types "~5.26.4"
 
@@ -1970,10 +1982,10 @@
   resolved "https://registry.yarnpkg.com/@vocdoni/extended-sdk/-/extended-sdk-0.0.3.tgz#d9dd2240493650cbac9c258a138bab91111a9a37"
   integrity sha512-5izKqahI6b9qYY0nB4MzKwwkL/aIMNsdSoPfP71bHvM7YPuBw83uAe6ffv6KZLI2vUZK7zCKSScYlnklW+WTqg==
 
-"@vocdoni/proto@1.15.5":
-  version "1.15.5"
-  resolved "https://registry.yarnpkg.com/@vocdoni/proto/-/proto-1.15.5.tgz#3cba2e42b3e8a756fb3c16955a412c8f24e80800"
-  integrity sha512-6Tm8aluCbz10gsVLnyFnsOM7dfFMFD3w8fmG26RQh9fFZJ6eLOf3FKKXC6nlMm3x6a6pKXHEFvT89ePks0WMNA==
+"@vocdoni/proto@1.15.8":
+  version "1.15.8"
+  resolved "https://registry.yarnpkg.com/@vocdoni/proto/-/proto-1.15.8.tgz#a613b014810b36dd757e25453fd31470e3779736"
+  integrity sha512-SQxE0+tKaGiAxty6RvRMFrKArKGKsOw4S/Ph6NODJDhXn2tlbwkVK8hm9/3fRU528I2psABLT4lwe7skETcrNw==
   dependencies:
     long "^5.2.1"
     protobufjs "^7.1.2"
@@ -1984,9 +1996,9 @@
   integrity sha512-Etju568TrX21fXMjBf9TlEQFEK9ms7PH+KD8nDIz6QkXaHNzoGEd8hmrAEwMTNzp8YO1OaWpUpM+PAh+RfBvFg==
 
 "@vocdoni/sdk@~0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@vocdoni/sdk/-/sdk-0.8.1.tgz#c9d495f73d852fa5f97ca82f9c4b397f29d7cb6e"
-  integrity sha512-3almLJNpBPXP4H05Axh/EOruC0M4WYFwNov1MQ3ir9EDsLtIYB/PP9PVplRxdtxuon1T9ibW+OpCxOTbk4QlFQ==
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/@vocdoni/sdk/-/sdk-0.8.3.tgz#379136c68bd4d098f2aeb9fa0c84eff58eab13ea"
+  integrity sha512-Tu0AzWmYnlpvO8QZaRKKcISAk+kLRTx2rsXZc3S6DICnieu5GHrjx/owveLnCroKYkZ2Y5uNM3BfmMq54kSxIg==
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/address" "^5.7.0"
@@ -1999,7 +2011,7 @@
     "@ethersproject/units" "^5.7.0"
     "@ethersproject/wallet" "^5.7.0"
     "@size-limit/file" "^8.2.4"
-    "@vocdoni/proto" "1.15.5"
+    "@vocdoni/proto" "1.15.8"
     axios "0.28.1"
     blake2b "^2.1.4"
     iso-language-codes "^1.1.0"
@@ -4105,9 +4117,9 @@ property-information@^6.0.0:
   integrity sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==
 
 protobufjs@^7.1.2:
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-7.3.0.tgz#a32ec0422c039798c41a0700306a6e305b9cb32c"
-  integrity sha512-YWD03n3shzV9ImZRX3ccbjqLxj7NokGN0V/ESiBV5xWqrommYHYiihuIyavq03pWSGqlyvYUFmfoMKd+1rPA/g==
+  version "7.3.2"
+  resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-7.3.2.tgz#60f3b7624968868f6f739430cfbc8c9370e26df4"
+  integrity sha512-RXyHaACeqXeqAKGLDl68rQKbmObRsTIn4TYVUUug1KfS47YWCo5MacGITEryugIgZqORCvJWEk4l449POg5Txg==
   dependencies:
     "@protobufjs/aspromise" "^1.1.2"
     "@protobufjs/base64" "^1.1.2"

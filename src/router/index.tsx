@@ -7,6 +7,7 @@ import Layout from '~src/layout/Default'
 import Error404 from '~src/router/Error404'
 import RouteError from '~src/router/RouteError'
 import { SuspenseLoader } from '~src/router/SuspenseLoader'
+import { ElectionError } from '~src/router/ElectionError'
 
 const Home = lazy(() => import('~pages/Home'))
 const Block = lazy(() => import('~pages/block'))
@@ -98,6 +99,7 @@ export const RoutesProvider = () => {
                 </SuspenseLoader>
               ),
               loader: async ({ params }) => await client.fetchElection(params.pid),
+              errorElement: <ElectionError />,
             },
             {
               path: RoutePath.Transaction,
