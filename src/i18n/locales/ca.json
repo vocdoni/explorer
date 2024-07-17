@@ -1,6 +1,7 @@
 {
   "blocks": {
     "block_detail": "Bloc #{{ height }}",
+    "block_not_found": "El bloc al qual estàs intentant accedir ha estat esborrat o no està indexat.",
     "blocks_count_one": "Total {{ count }} Bloc",
     "blocks_count_many": "",
     "blocks_count_other": "Total {{ count }} Blocs",
