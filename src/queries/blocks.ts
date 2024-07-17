@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
+import { BlockError, ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
-import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { IChainBlockInfoResponse } from '@vocdoni/sdk'
 import { useChainInfo, useChainInfoOptions } from '~queries/stats'
 
@@ -11,7 +11,7 @@ export const useBlockList = ({
 }: {
   from: number
   listSize?: number
-} & Omit<UseQueryOptions<IChainBlockInfoResponse[]>, 'queryKey'>) => {
+} & Omit<UseQueryOptions<Array<IChainBlockInfoResponse | BlockError>>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
 
   return useQuery({
