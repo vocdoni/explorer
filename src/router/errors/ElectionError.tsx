@@ -1,7 +1,7 @@
 import { Text } from '@chakra-ui/react'
 import { useRouteError } from 'react-router-dom'
-import RouteError from '~src/router/RouteError'
 import ShowRawButton from '~components/Layout/ShowRawButton'
+import RouteError from '~src/router/errors/RouteError'
 
 export const ElectionError = () => {
   const error = useRouteError() as Error & { raw?: unknown; electionId: string }

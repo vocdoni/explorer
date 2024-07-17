@@ -1,6 +1,7 @@
 {
   "blocks": {
     "block_detail": "Block #{{ height }}",
+    "block_not_found": "The block you are trying to access has been pruned or it is not indexed",
     "blocks_count_one": "Total {{ count }} Block",
     "blocks_count_other": "Total {{ count }} Blocks",
     "blocks_list": "Blocks",

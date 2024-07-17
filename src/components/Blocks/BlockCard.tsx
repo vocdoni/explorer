@@ -1,11 +1,18 @@
 import { Box, Card, CardBody, Flex, Link, Text } from '@chakra-ui/react'
-import { Trans } from 'react-i18next'
+import { BlockError, BlockNotFoundError } from '@vocdoni/extended-sdk'
+import { IChainBlockInfoResponse } from '@vocdoni/sdk'
+import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { RoutePath } from '~constants'
 import { useDateFns } from '~i18n/use-date-fns'
 
-export const BlockCard = ({ height, time, proposer }: { height: number; time: string; proposer: string }) => {
+export const BlockCard = ({ block }: { block: IChainBlockInfoResponse | BlockError }) => {
+  if (block instanceof BlockError) return <BlockErrorCard error={block} height={block.height} />
+  return <BlockInfoCard height={block.header.height} time={block.header.time} proposer={block.header.proposerAddress} />
+}
+
+const BlockInfoCard = ({ height, time, proposer }: { height: number; time: string; proposer: string }) => {
   const date = new Date(time)
   const { formatDistance } = useDateFns()
 
@@ -31,6 +38,24 @@ export const BlockCard = ({ height, time, proposer }: { height: number; time: st
           </Flex>
         </CardBody>
       </Link>
+    </Card>
+  )
+}
+
+const BlockErrorCard = ({ height, error }: { height: number; error: BlockError }) => {
+  const { t } = useTranslation()
+
+  let message = error.message
+  if (error instanceof BlockNotFoundError) {
+    message = t('blocks.block_not_found')
+  }
+
+  return (
+    <Card>
+      <CardBody>
+        <Text fontWeight='bold'># {height}</Text>
+        {message}
+      </CardBody>
     </Card>
   )
 }

@@ -1,4 +1,5 @@
 import { keepPreviousData } from '@tanstack/react-query'
+import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { BlockCard } from '~components/Blocks/BlockCard'
@@ -11,7 +12,6 @@ import { PaginationItemsPerPage, RefreshIntervalBlocks, RoutePath } from '~const
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
 import { retryUnlessNotFound } from '~utils/queries'
-import { useCallback, useState } from 'react'
 
 export const BlocksFilter = () => {
   const { t } = useTranslation()
@@ -88,12 +88,7 @@ export const PaginatedBlocksList = () => {
   return (
     <RoutedPaginationProvider totalPages={totalPages} path={RoutePath.BlocksList}>
       {blocks.map((block, i) => (
-        <BlockCard
-          key={i}
-          height={block.header.height}
-          time={block.header.time}
-          proposer={block.header.proposerAddress}
-        />
+        <BlockCard key={i} block={block} />
       ))}
       <RoutedPagination />
     </RoutedPaginationProvider>

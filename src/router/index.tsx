@@ -4,10 +4,11 @@ import { lazy } from 'react'
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom'
 import { RoutePath } from '~constants'
 import Layout from '~src/layout/Default'
-import Error404 from '~src/router/Error404'
-import RouteError from '~src/router/RouteError'
+import { BlockNotFound } from '~src/router/errors/BlockNotFound'
+import { ElectionError } from '~src/router/errors/ElectionError'
+import Error404 from '~src/router/errors/Error404'
+import RouteError from '~src/router/errors/RouteError'
 import { SuspenseLoader } from '~src/router/SuspenseLoader'
-import { ElectionError } from '~src/router/ElectionError'
 
 const Home = lazy(() => import('~pages/Home'))
 const Block = lazy(() => import('~pages/block'))
@@ -48,6 +49,7 @@ export const RoutesProvider = () => {
                 </SuspenseLoader>
               ),
               loader: async ({ params }) => await client.blockByHeight(Number(params.height)),
+              errorElement: <BlockNotFound />,
             },
             {
               path: RoutePath.BlocksList,
