@@ -18,7 +18,7 @@ const BlockInfoCard = ({ height, time, proposer }: { height: number; time: strin
 
   return (
     <Card>
-      <Link as={RouterLink} to={generatePath(RoutePath.Block, { height: height.toString() })}>
+      <Link as={RouterLink} to={generatePath(RoutePath.Block, { height: height.toString(), page: null })}>
         <CardBody>
           <Flex gap={1} direction={'column'}>
             <Flex gap={3}>

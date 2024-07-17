@@ -1,3 +1,4 @@
+import voteImage from '/images/vocdoni-vote.png'
 import { Flex, Heading, Image, Link, Text } from '@chakra-ui/react'
 import { IVoteInfoResponse } from '@vocdoni/sdk'
 import { formatDistance } from 'date-fns'
@@ -6,7 +7,6 @@ import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { CopyButton } from '~components/Layout/CopyButton'
 import ShowRawButton from '~components/Layout/ShowRawButton'
 import { RoutePath } from '~constants'
-import voteImage from '/images/vocdoni-vote.png'
 
 const EnvelopeDetail = (envelope: IVoteInfoResponse) => {
   const { t } = useTranslation()
@@ -68,7 +68,10 @@ const EnvelopeDetail = (envelope: IVoteInfoResponse) => {
             i18nKey={'envelopes.committed_in_block'}
             components={{
               a: (
-                <Link as={RouterLink} to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString() })} />
+                <Link
+                  as={RouterLink}
+                  to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString(), page: null })}
+                />
               ),
             }}
             values={{ block: envelope.blockHeight }}
