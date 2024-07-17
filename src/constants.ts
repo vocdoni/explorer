@@ -20,10 +20,10 @@ export const PaginationItemsPerPage = 10
 // route paths
 export enum RoutePath {
   Base = '/',
-  Block = '/block/:height/:page?', // Page for tx list page
+  Block = '/block/:height/:page?',
   BlocksList = '/blocks/:page?',
   Envelope = '/envelope/:verifier',
-  Organization = '/organization/:pid/:page?', // Page for process list page
+  Organization = '/organization/:pid/:page?',
   OrganizationsList = '/organizations/:page?/:query?',
   Process = '/process/:pid',
   ProcessesList = '/processes/:page?',
