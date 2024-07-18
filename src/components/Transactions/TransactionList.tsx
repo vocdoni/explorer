@@ -114,7 +114,7 @@ const TransactionsList = ({
 }) => {
   return (
     <>
-      {isLoading && <LoadingCards />}
+      {isLoading && <LoadingCards spacing={4} />}
       {!data || data?.transactions.length === 0 || (isError && <LoadingError error={error} />)}
       {data && data.transactions.length > 0 && (
         <RoutedPaginationProvider totalPages={totalPages} path={RoutePath.TransactionsList}>

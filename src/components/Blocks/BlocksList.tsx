@@ -78,7 +78,7 @@ export const PaginatedBlocksList = () => {
   const isLoading = isLoadingStats || isLoadingBlocks
 
   if (isLoading) {
-    return <LoadingCards />
+    return <LoadingCards noOfLines={2} />
   }
 
   if (!blocks || blocks?.length === 0 || isError) {
