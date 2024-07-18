@@ -1,4 +1,4 @@
-import { Card, CardBody, SkeletonText, Spinner, Square, Stack, Text } from '@chakra-ui/react'
+import { Card, CardBody, SkeletonText, SkeletonTextProps, Spinner, Square, Text } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
 
 export const Loading = () => (
@@ -10,14 +10,14 @@ export const Loading = () => (
   </Square>
 )
 
-export const LoadingCards = ({ length = 4 }: { length?: number }) => (
-  <Stack>
+export const LoadingCards = ({ length = 4, ...rest }: { length?: number } & SkeletonTextProps) => (
+  <>
     {Array.from({ length }).map((_, i) => (
       <Card key={i}>
         <CardBody>
-          <SkeletonText noOfLines={3} spacing='3' skeletonHeight='3' />
+          <SkeletonText noOfLines={3} spacing='3' skeletonHeight='3' {...rest} />
         </CardBody>
       </Card>
     ))}
-  </Stack>
+  </>
 )

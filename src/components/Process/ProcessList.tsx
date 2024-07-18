@@ -120,7 +120,7 @@ export const PaginatedProcessList = () => {
   const isLoading = isLoadingCount || isLoadingProcesses
 
   if (isLoading || (isFetching && !isEmpty(processFilters))) {
-    return <LoadingCards />
+    return <LoadingCards spacing={4} pl={4} skeletonHeight={4} py={2} />
   }
 
   if (!processes || processes?.elections.length === 0 || isError) {
