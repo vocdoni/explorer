@@ -15,16 +15,20 @@ import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
 import { ElectionCard } from '~components/Process/Card'
 import { AppBaseURL, FallbackHeaderImg, PaginationItemsPerPage, RoutePath } from '~constants'
-import { useOrganizationElections } from '~queries/organizations'
+import { useAccountTransfers, useAccountTransfersCount, useOrganizationElections } from '~queries/organizations'
 import { retryUnlessNotFound } from '~utils/queries'
 
 const OrganizationDetail = () => {
   const { organization } = useOrganization()
+  const { data } = useAccountTransfersCount({
+    address: organization?.address || '',
+  })
 
   // Should be already loaded
   if (!organization) return null
 
   const id = organization.address
+  const transfersCount = data?.count
 
   return (
     <>
@@ -42,7 +46,14 @@ const OrganizationDetail = () => {
             <Trans i18nKey={'process.tab_details'}>Details</Trans>
           </Tab>
           <Tab>
-            <Trans i18nKey={'organization.elections_list'}>Elections</Trans>
+            <Trans i18nKey={'organization.elections_count'} count={organization.electionIndex}>
+              Elections {{ count: organization.electionIndex }}
+            </Trans>
+          </Tab>
+          <Tab>
+            <Trans i18nKey={'organization.transfers_count'} count={transfersCount}>
+              Transfers {{ count: transfersCount }}
+            </Trans>
           </Tab>
           <Tab>
             <Trans i18nKey={'raw'}>Raw</Trans>
@@ -54,6 +65,9 @@ const OrganizationDetail = () => {
           </TabPanel>
           <TabPanel>
             <OrganizationElections org={organization} />
+          </TabPanel>
+          <TabPanel>
+            <AccountTransfers org={organization} txCount={transfersCount} />
           </TabPanel>
           <TabPanel>
             <RawContentBox obj={organization} />
@@ -114,6 +128,48 @@ const OrganizationElectionsList = ({ org }: OrgComponentProps) => {
       })}
     </Flex>
   )
+}
+
+const AccountTransfers = ({ txCount, org }: { txCount: number | undefined } & OrgComponentProps) => {
+  const { page } = useParams()
+
+  const { data, isLoading } = useAccountTransfers({
+    address: org.address,
+    page: Number(page) - 1 || 0,
+    options: {
+      enabled: !!txCount && txCount > 0,
+      retry: retryUnlessNotFound,
+    },
+  })
+
+  if (txCount && !(txCount > 0)) {
+    return (
+      <Text>
+        <Trans i18nKey={'organization.no_transfers'}>No transfers yet!</Trans>
+      </Text>
+    )
+  }
+
+  if (!txCount || isLoading) {
+    return <LoadingCards />
+  }
+
+  let mergedTransfers = []
+  if (data) {
+    mergedTransfers = [...data.transfers.received, ...data.transfers.sent]
+    mergedTransfers.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())
+    // Todo: put this out of the when https://github.com/vocdoni/vocdoni-sdk/pull/400 is merged
+    // Now is inside to infer the type properly
+    return (
+      <Flex direction={'column'} gap={4}>
+        {mergedTransfers.map((transfers) => {
+          return transfers.toString()
+        })}
+      </Flex>
+    )
+  }
+  // Todo: put this out of the when https://github.com/vocdoni/vocdoni-sdk/pull/400 is merged
+  return <></>
 }
 
 const OrgDetails = ({ org }: OrgComponentProps) => {
