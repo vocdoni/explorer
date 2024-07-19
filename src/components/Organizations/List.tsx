@@ -50,7 +50,7 @@ export const PaginatedOrganizationsList = () => {
   const isLoading = isLoadingCount || isLoadingOrgs
 
   if (isLoading || (query && isFetching)) {
-    return <LoadingCards />
+    return <LoadingCards skeletonCircle />
   }
 
   if (!orgs || orgs?.organizations.length === 0 || isError) {
