@@ -84,12 +84,12 @@
   "organization": {
     "avatar_alt": "Avatar",
     "description": "Descripción",
-    "elections_list": "Lista de Elecciones:",
+    "elections_list": "Elecciones",
     "no_elections": "¡Aún no hay elecciones!",
     "process_count_one": "<0>Proceso:</0> {{count}}",
     "process_count_many": "<0>Process:</0> {{count}}",
     "process_count_other": "<0>Proceso:</0> {{count}}",
-    "view_profile": "(Ver perfil)"
+    "view_profile": "Ver perfil"
   },
   "organizations": {
     "organizations_count_one": "Total {{ count }} organización",

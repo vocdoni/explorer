@@ -83,11 +83,11 @@
   "organization": {
     "avatar_alt": "Avatar",
     "description": "Description",
-    "elections_list": "Elections List:",
+    "elections_list": "Elections",
     "no_elections": "No elections yet!",
     "process_count_one": "<0>Process:</0> {{count}}",
     "process_count_other": "<0>Process:</0> {{count}}",
-    "view_profile": "(View profile)"
+    "view_profile": "View profile"
   },
   "organizations": {
     "organizations_count_one": "Total {{ count }} organization",
