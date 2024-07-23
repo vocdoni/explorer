@@ -26,6 +26,7 @@ import { BiLogInCircle, BiLogOutCircle } from 'react-icons/bi'
 import { AccountData, IAccountTransfer } from '@vocdoni/sdk'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { Pagination } from '~components/Pagination/Pagination'
+import LoadingError from '~components/Layout/LoadingError'
 
 const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps) => {
   const { t } = useTranslation()
@@ -65,7 +66,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
   const { page } = usePagination()
   const { formatDistance } = useDateFns()
 
-  const { data, isLoading } = useAccountTransfers({
+  const { data, isLoading, isError, error } = useAccountTransfers({
     address: org.address,
     page: Number(page) - 1 || 0,
     options: {
@@ -80,6 +81,10 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
         <Trans i18nKey={'organization.transfers.no_transfers'}>No transfers yet!</Trans>
       </Text>
     )
+  }
+
+  if (isError) {
+    return <LoadingError error={error} />
   }
 
   if (!txCount || isLoading) {
