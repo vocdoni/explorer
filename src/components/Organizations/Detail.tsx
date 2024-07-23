@@ -41,12 +41,12 @@ const OrganizationDetail = () => {
           </Tab>
           <Tab>
             <Trans i18nKey={'organization.elections_count'} count={organization.electionIndex}>
-              Elections {{ count: organization.electionIndex }}
+              Elections ({{ count: organization.electionIndex }})
             </Trans>
           </Tab>
           <Tab>
             <Trans i18nKey={'organization.transfers_count'} count={transfersCount}>
-              Transfers {{ count: transfersCount }}
+              Transfers ({{ count: transfersCount }})
             </Trans>
           </Tab>
           <Tab>
