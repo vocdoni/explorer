@@ -1,9 +1,10 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
-import { ExtendedSDKClient, IAccountTransferResponse } from '@vocdoni/extended-sdk'
+import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
 import {
   ArchivedElection,
   IAccountTransfersCountResponse,
+  IAccountTransfersResponse,
   IChainOrganizationCountResponse,
   IChainOrganizationListResponse,
   InvalidElection,
@@ -61,8 +62,7 @@ export const useAccountTransfers = ({
 }: {
   address: string
   page?: number
-  // Todo: fix the type when https://github.com/vocdoni/vocdoni-sdk/pull/400 is merged
-  options?: Omit<UseQueryOptions<IAccountTransferResponse>, 'queryKey'>
+  options?: Omit<UseQueryOptions<IAccountTransfersResponse>, 'queryKey'>
 }) => {
   const { client } = useClient<ExtendedSDKClient>()
   return useQuery({
