@@ -11,6 +11,7 @@ import { useAccountTransfersCount } from '~queries/organizations'
 import AccountTransfers from '~components/Organizations/Details/Transfers'
 import OrganizationElections from './Details/Elections'
 import OrgDetails from './Details/OrgDetails'
+import AccountFees from '~components/Organizations/Details/Fees'
 
 const OrganizationDetail = () => {
   const { organization } = useOrganization()
@@ -50,6 +51,9 @@ const OrganizationDetail = () => {
             </Trans>
           </Tab>
           <Tab>
+            <Trans i18nKey={'organization.fees'}>Fees</Trans>
+          </Tab>
+          <Tab>
             <Trans i18nKey={'raw'}>Raw</Trans>
           </Tab>
         </TabList>
@@ -62,6 +66,9 @@ const OrganizationDetail = () => {
           </TabPanel>
           <TabPanel>
             <AccountTransfers org={organization} txCount={transfersCount} />
+          </TabPanel>
+          <TabPanel>
+            <AccountFees org={organization} />
           </TabPanel>
           <TabPanel>
             <RawContentBox obj={organization} />

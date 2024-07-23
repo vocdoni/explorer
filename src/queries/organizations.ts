@@ -5,6 +5,7 @@ import {
   ArchivedElection,
   IAccountTransfersCountResponse,
   IAccountTransfersResponse,
+  IChainFeesListResponse,
   IChainOrganizationCountResponse,
   IChainOrganizationListResponse,
   InvalidElection,
@@ -85,6 +86,24 @@ export const useAccountTransfersCount = ({
     enabled: !!address,
     queryKey: ['organization', 'transfers', 'count', address],
     queryFn: async () => client.accountTransfersCount(address),
+    ...options,
+  })
+}
+
+export const useAccountFees = ({
+  address,
+  page = 0,
+  options,
+}: {
+  address: string
+  page?: number
+  options?: Omit<UseQueryOptions<IChainFeesListResponse>, 'queryKey'>
+}) => {
+  const { client } = useClient<ExtendedSDKClient>()
+  return useQuery({
+    enabled: !!address,
+    queryKey: ['organization', 'fees', address, page],
+    queryFn: async () => client.accountFees(address, page),
     ...options,
   })
 }
