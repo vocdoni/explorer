@@ -15,15 +15,17 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { Trans, useTranslation } from 'react-i18next'
-import { generatePath, Link as RouterLink, useParams } from 'react-router-dom'
+import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { LoadingCards } from '~components/Layout/Loading'
-import { RoutePath } from '~constants'
+import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useAccountTransfers } from '~queries/organizations'
 import { retryUnlessNotFound } from '~utils/queries'
 import { useDateFns } from '~i18n/use-date-fns'
 import { BiLogInCircle, BiLogOutCircle } from 'react-icons/bi'
-import { AccountData } from '@vocdoni/sdk'
+import { AccountData, IAccountTransfer } from '@vocdoni/sdk'
+import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
+import { Pagination } from '~components/Pagination/Pagination'
 
 const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps) => {
   const { t } = useTranslation()
@@ -46,8 +48,21 @@ const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps
   )
 }
 
-const AccountTransfers = ({ txCount, org }: { txCount: number | undefined; org: AccountData }) => {
-  const { page } = useParams()
+interface AccountTransfersProps {
+  txCount: number | undefined
+  org: AccountData
+}
+
+const AccountTransfers = (txProps: AccountTransfersProps) => {
+  return (
+    <PaginationProvider totalPages={Math.ceil(txProps.txCount ?? 0 / PaginationItemsPerPage)}>
+      <AccountTransfersTable {...txProps} />
+    </PaginationProvider>
+  )
+}
+
+const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
+  const { page } = usePagination()
   const { formatDistance } = useDateFns()
 
   const { data, isLoading } = useAccountTransfers({
@@ -71,13 +86,14 @@ const AccountTransfers = ({ txCount, org }: { txCount: number | undefined; org: 
     return <LoadingCards />
   }
 
-  let mergedTransfers = []
+  let mergedTransfers: IAccountTransfer[] = []
   if (data) {
     mergedTransfers = [...data.transfers.received, ...data.transfers.sent]
-    mergedTransfers.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())
-    // Todo: put this out of the when https://github.com/vocdoni/vocdoni-sdk/pull/400 is merged
-    // Now is inside the if to infer the type properly
-    return (
+    mergedTransfers.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()).reverse()
+  }
+
+  return (
+    <>
       <Box overflow='auto' w='auto'>
         <TableContainer>
           <Table>
@@ -156,10 +172,11 @@ const AccountTransfers = ({ txCount, org }: { txCount: number | undefined; org: 
           </Table>
         </TableContainer>
       </Box>
-    )
-  }
-  // Todo: put this out of the when https://github.com/vocdoni/vocdoni-sdk/pull/400 is merged
-  return <></>
+      <Box pt={4}>
+        <Pagination />
+      </Box>
+    </>
+  )
 }
 
 export default AccountTransfers
