@@ -1,14 +1,17 @@
 import { Card, CardBody, CardProps, Flex, HStack, Link } from '@chakra-ui/react'
 import { ElectionSchedule, ElectionTitle } from '@vocdoni/chakra-components'
 import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/react-providers'
-import { InvalidElection as InvalidElectionType, PublishedElection } from '@vocdoni/sdk'
+import { ArchivedElection, InvalidElection as InvalidElectionType, PublishedElection } from '@vocdoni/sdk'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
 import InvalidElection from '~components/Process/InvalidElection'
 import { RoutePath } from '~constants'
 import { SmallOrganizationCard } from '~components/Organizations/Card'
 
-export type ElectionCardProps = { id?: string; election?: PublishedElection } & CardProps
+export type ElectionCardProps = {
+  id?: string
+  election?: PublishedElection | ArchivedElection | InvalidElectionType
+} & CardProps
 
 /**
  * Show election card information. If not id or election provided will asume it is already inside an ElectionProvider

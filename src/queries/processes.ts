@@ -2,43 +2,26 @@ import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
 import {
-  Census,
+  ElectionListWithPagination,
+  FetchElectionsParametersWithPagination,
   IElectionKeysResponse,
-  IElectionListFilter,
-  IElectionListResponse,
   IElectionVoteListResponse,
-  PublishedElection,
 } from '@vocdoni/sdk'
 import { useChainInfo, useChainInfoOptions } from '~queries/stats'
 import { isValidPartialProcessId } from '~utils/strings'
+import { PaginationItemsPerPage } from '~constants'
 
 export const useProcessList = ({
-  page,
   filters,
   ...options
 }: {
-  page: number
-  filters?: IElectionListFilter
-} & Omit<UseQueryOptions<IElectionListResponse, Error, { elections: PublishedElection[] }>, 'queryKey'>) => {
-  const { client } = useClient<ExtendedSDKClient>()
+  filters?: Partial<Omit<FetchElectionsParametersWithPagination, 'limit'>>
+} & Omit<UseQueryOptions<ElectionListWithPagination>, 'queryKey'>) => {
+  const { client } = useClient()
 
   return useQuery({
-    queryKey: ['process', 'list', page, filters],
-    queryFn: () => client.electionList(page, { ...filters }),
-    select: (data) => {
-      const elections = data?.elections.map((election) => {
-        // @ts-ignore
-        return PublishedElection.build({
-          ...election,
-          id: election.electionId,
-          title: election.electionId,
-          census: {} as Census,
-          startDate: new Date(election.startDate),
-          endDate: new Date(election.endDate),
-        })
-      })
-      return { elections }
-    },
+    queryKey: ['process', 'list', filters],
+    queryFn: () => client.fetchElections({ limit: PaginationItemsPerPage, ...filters }),
     enabled: !filters?.electionId || (!!filters?.electionId && isValidPartialProcessId(filters?.electionId)),
     ...options,
   })
