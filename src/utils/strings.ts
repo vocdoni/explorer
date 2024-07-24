@@ -18,3 +18,11 @@ export const isValidPartialProcessId = (str: string) => {
   const hexRegex = /^[0-9A-Fa-f]+$/
   return hexRegex.test(str) && str.length % 2 === 0
 }
+
+/**
+ * Checks if a string is a valid hexadecimal with the correct length. Useful to check if processIds or orgsId are valid.
+ */
+export const isValidHash = (hash: string) => {
+  const hashRegex = /^0x[a-fA-F0-9]{64}$/
+  return hashRegex.test(hash)
+}

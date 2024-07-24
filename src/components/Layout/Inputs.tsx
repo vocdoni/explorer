@@ -2,6 +2,8 @@ import {
   Button,
   ButtonProps,
   FocusLock,
+  FormControl,
+  FormErrorMessage,
   HStack,
   IconButton,
   Input,
@@ -19,16 +21,22 @@ import { BiSearchAlt } from 'react-icons/bi'
 import { debounce } from '~utils/debounce'
 
 export const PopoverInputSearch = ({ input, button }: { input?: InputSearchProps; button?: ButtonProps }) => {
+  const [error, setError] = useState<string | null>(null)
+
   return (
     <Popover>
       {({ onClose }) => {
         const onClick = () => {
-          if (button?.onClick) {
-            // Suppressed because by default the ButtonProps.onClick is wants an event argument which is ignored by this CB
-            // @ts-ignore
-            button.onClick()
+          try {
+            if (button?.onClick) {
+              // Suppressed because by default the ButtonProps.onClick is wants an event argument which is ignored by this CB
+              // @ts-ignore
+              button.onClick()
+            }
+            onClose()
+          } catch (e: any) {
+            setError(e?.message || 'An error occurred')
           }
-          onClose()
         }
         return (
           <>
@@ -37,21 +45,24 @@ export const PopoverInputSearch = ({ input, button }: { input?: InputSearchProps
             </PopoverTrigger>
             <PopoverContent>
               <PopoverBody>
-                <FocusLock>
-                  <HStack>
-                    <InputSearch
-                      onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
-                        if (event.key === 'Enter') {
-                          onClick()
-                        }
-                      }}
-                      {...input}
-                    />
-                    <Button {...button} onClick={onClick}>
-                      <Trans i18nKey={'filter.goto'}>Go to</Trans>
-                    </Button>
-                  </HStack>
-                </FocusLock>
+                <FormControl isInvalid={!!error}>
+                  <FocusLock>
+                    <HStack>
+                      <InputSearch
+                        onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
+                          if (event.key === 'Enter') {
+                            onClick()
+                          }
+                        }}
+                        {...input}
+                      />
+                      <Button {...button} onClick={onClick}>
+                        <Trans i18nKey={'filter.goto'}>Go to</Trans>
+                      </Button>
+                    </HStack>
+                  </FocusLock>
+                  {error && <FormErrorMessage>{error}</FormErrorMessage>}
+                </FormControl>
               </PopoverBody>
             </PopoverContent>
           </>

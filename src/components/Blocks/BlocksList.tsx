@@ -22,15 +22,14 @@ export const BlocksFilter = () => {
   const blockCount = stats?.height || 0
 
   const goTo = useCallback(() => {
-    if (!blockCount) {
-      return
-    }
     const num = parseInt(blockHeight)
-    let page = 0 // By default return to first page
-    if (!isNaN(num) && num >= 0 && num <= blockCount) {
-      page = Math.ceil((blockCount - num + 1) / PaginationItemsPerPage)
+    if (!blockCount) {
+      throw new Error(t('blocks.invalid_chain_height', { defaultValue: 'Invalid chain block height' }))
     }
-    navigate(generatePath(RoutePath.BlocksList, { page: page.toString() }))
+    if (isNaN(num) || num <= 0 || num > blockCount) {
+      throw new Error(t('blocks.invalid_block_search', { defaultValue: 'Must to be a valid block height' }))
+    }
+    navigate(generatePath(RoutePath.Block, { height: num.toString(), page: null }))
   }, [blockHeight, blockCount])
 
   return (

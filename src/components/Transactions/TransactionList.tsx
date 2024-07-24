@@ -1,7 +1,6 @@
 import { Text } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { IBlockTransactionsResponse, IChainTxListResponse } from '@vocdoni/sdk'
-import { useCallback, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
@@ -14,31 +13,34 @@ import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useBlockTransactions } from '~queries/blocks'
 import { useTransactionList, useTransactionsCount } from '~queries/transactions'
 import { retryUnlessNotFound } from '~utils/queries'
+import { useCallback, useState } from 'react'
+import { isValidHash } from '~utils/strings'
 
 export const TransactionFilter = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { data } = useTransactionsCount()
-  const [txNumber, setTxNumber] = useState('')
+  const [txNumberOrHash, setTxNumberOrHash] = useState('')
 
   const goTo = useCallback(() => {
     if (!data) {
-      return
+      throw new Error(t('transactions.invalid_tx_count', { defaultValue: 'Invalid chain transactions count' }))
     }
-    const num = parseInt(txNumber)
-    let page = 0 // By default return to first page
-    if (!isNaN(num) && num >= 0) {
-      page = Math.ceil((data - num + 1) / PaginationItemsPerPage)
+    const num = parseInt(txNumberOrHash)
+    // Throw an error if the input is not a valid hash or num is not a number and is not between 0 and data
+    if (!isValidHash(txNumberOrHash) && (isNaN(num) || num <= 0 || num > data)) {
+      throw new Error(t('transactions.invalid_tx_search', { defaultValue: 'Must to be a valid tx hash or index' }))
     }
-    navigate(generatePath(RoutePath.TransactionsList, { page: page.toString() }))
-  }, [txNumber, data])
+    const hashOrHeight = isValidHash(txNumberOrHash) ? txNumberOrHash : num.toString()
+    navigate(generatePath(RoutePath.TransactionByHashOrHeight, { hashOrHeight }))
+  }, [txNumberOrHash, data])
 
   return (
     <PopoverInputSearch
       input={{
         placeholder: t('transactions.go_to_tx', { defaultValue: 'Go to transaction' }),
         onChange: (value: string) => {
-          setTxNumber(value)
+          setTxNumberOrHash(value)
         },
       }}
       button={{
