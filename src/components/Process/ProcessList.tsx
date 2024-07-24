@@ -7,6 +7,7 @@ import {
   PopoverBody,
   PopoverContent,
   PopoverTrigger,
+  Text,
 } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { FetchElectionsParameters } from '@vocdoni/sdk'
@@ -158,6 +159,11 @@ export const PaginatedProcessList = () => {
     <RoutedPaginationProvider totalPages={data.pagination.lastPage} path={RoutePath.ProcessesList}>
       {data?.elections.map((election, i) => <ElectionCard key={i} id={election.id} election={election} />)}
       <RoutedPagination />
+      <Text color={'lighterText'}>
+        <Trans i18nKey={'pagination.total_results'} count={data.pagination.totalItems}>
+          Showing a total of {{ count: data.pagination.totalItems }} results
+        </Trans>
+      </Text>
     </RoutedPaginationProvider>
   )
 }
