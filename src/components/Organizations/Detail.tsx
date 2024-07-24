@@ -1,7 +1,7 @@
 import { Tab, TabList, TabPanel, TabPanels, VStack } from '@chakra-ui/react'
 import { OrganizationHeader, OrganizationName } from '@vocdoni/chakra-components'
 import { useOrganization } from '@vocdoni/react-providers'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
 import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
@@ -12,12 +12,14 @@ import AccountTransfers from '~components/Organizations/Details/Transfers'
 import OrganizationElections from './Details/Elections'
 import OrgDetails from './Details/OrgDetails'
 import AccountFees from '~components/Organizations/Details/Fees'
+import TextAndTag from '~components/Layout/TextAndTag'
 
 const OrganizationDetail = () => {
   const { organization } = useOrganization()
   const { data } = useAccountTransfersCount({
     address: organization?.address || '',
   })
+  const { t } = useTranslation()
 
   // Should be already loaded
   if (!organization) return null
@@ -41,14 +43,16 @@ const OrganizationDetail = () => {
             <Trans i18nKey={'process.tab_details'}>Details</Trans>
           </Tab>
           <Tab>
-            <Trans i18nKey={'organization.elections_count'} count={organization.electionIndex}>
-              Elections ({{ count: organization.electionIndex }})
-            </Trans>
+            <TextAndTag
+              text={t('organization.elections_count', { defaultValue: 'Elections' })}
+              tagLabel={organization.electionIndex.toString()}
+            />
           </Tab>
           <Tab>
-            <Trans i18nKey={'organization.transfers_count'} count={transfersCount}>
-              Transfers ({{ count: transfersCount }})
-            </Trans>
+            <TextAndTag
+              text={t('organization.transfers_count', { defaultValue: 'Transfers' })}
+              tagLabel={transfersCount?.toString() ?? '0'}
+            />
           </Tab>
           <Tab>
             <Trans i18nKey={'organization.fees'}>Fees</Trans>
