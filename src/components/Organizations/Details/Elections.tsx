@@ -54,10 +54,13 @@ const OrganizationElectionsList = ({ org }: OrgComponentProps) => {
 
   return (
     <Flex direction={'column'} gap={4}>
-      {elections?.map((election) => {
-        if (election instanceof PublishedElection) return <ElectionCard key={election.id} election={election} />
-        return null
-      })}
+      {elections
+        ?.filter((election) => {
+          return election instanceof PublishedElection
+        })
+        .map((election) => {
+          return <ElectionCard key={election.id} election={election as PublishedElection} />
+        })}
     </Flex>
   )
 }
