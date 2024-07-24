@@ -22,7 +22,7 @@ import { RoutePath } from '~constants'
 import { useProcessList } from '~queries/processes'
 import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
-import { retryUnlessNotFound } from '~utils/queries'
+import { isNotFoundError, retryUnlessNotFound } from '~utils/queries'
 import { ElectionCard } from './Card'
 import { LuListFilter } from 'react-icons/lu'
 
@@ -130,6 +130,7 @@ export const ProcessByTypeFilter = () => {
 }
 
 export const PaginatedProcessList = () => {
+  const { t } = useTranslation()
   const { page }: { page?: number } = useParams()
   const { queryParams: processFilters } = useQueryParams<FilterQueryParams>()
 
@@ -152,7 +153,11 @@ export const PaginatedProcessList = () => {
   }
 
   if (!data || data?.elections.length === 0 || isError) {
-    return <LoadingError error={error} />
+    let _error: string | Error | null = error
+    if (isNotFoundError(error) && !isEmpty(processFilters)) {
+      _error = t('filters.filters_not_found', { defaultValue: 'No results found for this filters' })
+    }
+    return <LoadingError error={_error} />
   }
 
   return (
@@ -160,7 +165,7 @@ export const PaginatedProcessList = () => {
       {data?.elections.map((election, i) => <ElectionCard key={i} id={election.id} election={election} />)}
       <RoutedPagination />
       <Text color={'lighterText'}>
-        <Trans i18nKey={'pagination.total_results'} count={data.pagination.totalItems}>
+        <Trans i18nKey={'filters.total_results'} count={data.pagination.totalItems}>
           Showing a total of {{ count: data.pagination.totalItems }} results
         </Trans>
       </Text>
