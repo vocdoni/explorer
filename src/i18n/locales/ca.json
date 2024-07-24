@@ -84,12 +84,12 @@
   "organization": {
     "avatar_alt": "Avatar",
     "description": "Descripció",
-    "elections_list": "Llista d'eleccions:",
+    "elections_list": "Eleccions",
     "no_elections": "Encara no hi ha eleccions!",
     "process_count_one": "<0>Procés:</0> {{count}}",
     "process_count_many": "<0>Process:</0> {{count}}",
     "process_count_other": "<0>Processos:</0> {{count}}",
-    "view_profile": "(Veure perfil)"
+    "view_profile": "Veure perfil"
   },
   "organizations": {
     "organizations_count_one": "Total {{ count }} organització",
