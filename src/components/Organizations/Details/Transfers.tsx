@@ -55,8 +55,9 @@ interface AccountTransfersProps {
 }
 
 const AccountTransfers = (txProps: AccountTransfersProps) => {
+  const txCount: number = txProps.txCount ?? 1
   return (
-    <PaginationProvider totalPages={Math.ceil(txProps.txCount ?? 0 / PaginationItemsPerPage)}>
+    <PaginationProvider totalPages={Math.ceil(txCount / PaginationItemsPerPage)}>
       <AccountTransfersTable {...txProps} />
     </PaginationProvider>
   )
@@ -68,7 +69,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
 
   const { data, isLoading, isError, error } = useAccountTransfers({
     address: org.address,
-    page: Number(page) - 1 || 0,
+    page: page,
     options: {
       enabled: !!txCount && txCount > 0,
       retry: retryUnlessNotFound,
