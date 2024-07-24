@@ -1,7 +1,6 @@
 import { Text } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { IBlockTransactionsResponse, IChainTxListResponse } from '@vocdoni/sdk'
-import { useCallback, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
