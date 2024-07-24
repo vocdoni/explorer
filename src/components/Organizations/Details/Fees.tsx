@@ -88,60 +88,6 @@ const AccountFeesTable = ({ org }: { org: AccountData }) => {
                   <Td>{fee.cost}</Td>
                 </Tr>
               ))}
-              {/*{mergedTransfers.map((transfer, i) => {*/}
-              {/*  const isIncoming = transfer.to === org.address*/}
-              {/*  let fromToAddress = isIncoming ? transfer.from : transfer.to*/}
-              {/*  return (*/}
-              {/*    <Tr key={i}>*/}
-              {/*      <Td>*/}
-              {/*        <Flex direction={'column'} align={'start'} gap={3}>*/}
-              {/*          <ReducedTextAndCopy*/}
-              {/*            breakPoint={{ base: true }}*/}
-              {/*            color={'textAccent1'}*/}
-              {/*            toCopy={transfer.txHash}*/}
-              {/*            fontWeight={'normal'}*/}
-              {/*            fontSize={'sm'}*/}
-              {/*            // todo: implement go to tx by its hash*/}
-              {/*          >*/}
-              {/*            {transfer.txHash}*/}
-              {/*          </ReducedTextAndCopy>*/}
-
-              {/*          <Text fontWeight={100} color={'lighterText'} fontSize={'sm'}>*/}
-              {/*            {formatDistance(new Date(transfer.timestamp), new Date())}*/}
-              {/*          </Text>*/}
-              {/*        </Flex>*/}
-              {/*      </Td>*/}
-              {/*      <Td>*/}
-              {/*        <Link*/}
-              {/*          as={RouterLink}*/}
-              {/*          to={generatePath(RoutePath.Block, { height: transfer.height.toString(), page: null })}*/}
-              {/*        >*/}
-              {/*          {transfer.height}*/}
-              {/*        </Link>*/}
-              {/*      </Td>*/}
-              {/*      <Td>*/}
-              {/*        <Flex align={'center'} gap={1}>*/}
-              {/*          <Box>*/}
-              {/*            <FromToIcon isIncoming={isIncoming} boxSize={5} />*/}
-              {/*          </Box>*/}
-              {/*          <ReducedTextAndCopy*/}
-              {/*            breakPoint={{ base: true }}*/}
-              {/*            color={'textAccent1'}*/}
-              {/*            toCopy={fromToAddress}*/}
-              {/*            fontWeight={'normal'}*/}
-              {/*            fontSize={'md'}*/}
-              {/*            p={1}*/}
-              {/*            h={8}*/}
-              {/*            to={generatePath(RoutePath.Organization, { pid: fromToAddress, page: null })}*/}
-              {/*          >*/}
-              {/*            {fromToAddress}*/}
-              {/*          </ReducedTextAndCopy>*/}
-              {/*        </Flex>*/}
-              {/*      </Td>*/}
-              {/*      <Td>{transfer.amount}</Td>*/}
-              {/*    </Tr>*/}
-              {/*  )*/}
-              {/*})}*/}
             </Tbody>
           </Table>
         </TableContainer>
