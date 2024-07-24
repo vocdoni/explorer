@@ -1,6 +1,6 @@
 import { Button, Checkbox, Flex } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
-import { IElectionListFilter } from '@vocdoni/sdk'
+import { FetchElectionsParameters } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { InputSearch } from '~components/Layout/Inputs'
@@ -8,15 +8,15 @@ import { LoadingCards } from '~components/Layout/Loading'
 import LoadingError from '~components/Layout/LoadingError'
 import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
 import { RoutedPagination } from '~components/Pagination/RoutedPagination'
-import { PaginationItemsPerPage, RoutePath } from '~constants'
-import { useProcessesCount, useProcessList } from '~queries/processes'
+import { RoutePath } from '~constants'
+import { useProcessList } from '~queries/processes'
 import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
 import { retryUnlessNotFound } from '~utils/queries'
 import { ElectionCard } from './Card'
 
 type FilterQueryParams = {
-  [K in keyof Omit<IElectionListFilter, 'organizationId'>]: string
+  [K in keyof Omit<FetchElectionsParameters, 'organizationId'>]: string
 }
 
 export const ProcessSearchBox = () => {
@@ -89,47 +89,31 @@ export const ProcessByTypeFilter = () => {
 
 export const PaginatedProcessList = () => {
   const { page }: { page?: number } = useParams()
-  const { data: processCount, isLoading: isLoadingCount } = useProcessesCount()
-  const count = processCount || 0
   const { queryParams: processFilters } = useQueryParams<FilterQueryParams>()
 
-  // If no filters applied we can calculate the total pages using process total count
-  let totalPages: number | undefined = undefined
-  if (isEmpty(processFilters)) {
-    totalPages = Math.ceil(count / PaginationItemsPerPage)
-  }
-
-  const {
-    data: processes,
-    isLoading: isLoadingProcesses,
-    isFetching,
-    isError,
-    error,
-  } = useProcessList({
-    page: Number(page || 0),
+  const { data, isLoading, isFetching, isError, error } = useProcessList({
     filters: {
       electionId: processFilters.electionId, // electionId contains also the organizationId, so this is enough to find by partial orgId or electionId
-      status: processFilters.status as IElectionListFilter['status'],
+      status: processFilters.status as FetchElectionsParameters['status'],
       withResults: processFilters.withResults ? processFilters.withResults === 'true' : undefined,
+      page: Number(page || 0),
     },
     refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
     retry: retryUnlessNotFound,
   })
 
-  const isLoading = isLoadingCount || isLoadingProcesses
-
   if (isLoading || (isFetching && !isEmpty(processFilters))) {
     return <LoadingCards spacing={4} pl={4} skeletonHeight={4} />
   }
 
-  if (!processes || processes?.elections.length === 0 || isError) {
+  if (!data || data?.elections.length === 0 || isError) {
     return <LoadingError error={error} />
   }
 
   return (
-    <RoutedPaginationProvider totalPages={totalPages} path={RoutePath.ProcessesList}>
-      {processes?.elections.map((election, i) => <ElectionCard key={i} id={election.id} election={election} />)}
+    <RoutedPaginationProvider totalPages={data.pagination.lastPage} path={RoutePath.ProcessesList}>
+      {data?.elections.map((election, i) => <ElectionCard key={i} id={election.id} election={election} />)}
       <RoutedPagination />
     </RoutedPaginationProvider>
   )

@@ -1,5 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react'
-import { AccountData, PublishedElection } from '@vocdoni/sdk'
+import { AccountData } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { LoadingCards } from '~components/Layout/Loading'
@@ -9,6 +9,7 @@ import { ElectionCard } from '~components/Process/Card'
 import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useOrganizationElections } from '~queries/organizations'
 import { retryUnlessNotFound } from '~utils/queries'
+import LoadingError from '~components/Layout/LoadingError'
 
 interface OrgComponentProps {
   org: AccountData
@@ -39,7 +40,7 @@ const OrganizationElections = ({ org }: OrgComponentProps) => {
 const OrganizationElectionsList = ({ org }: OrgComponentProps) => {
   const { page } = useParams()
 
-  const { data: elections, isLoading } = useOrganizationElections({
+  const { data, isLoading, isError, error } = useOrganizationElections({
     address: org.address,
     page: Number(page) - 1 || 0,
     options: {
@@ -52,15 +53,17 @@ const OrganizationElectionsList = ({ org }: OrgComponentProps) => {
     return <LoadingCards />
   }
 
+  if (!data || data?.elections.length === 0 || isError) {
+    return <LoadingError error={error} />
+  }
+
+  const elections = data.elections
+
   return (
     <Flex direction={'column'} gap={4}>
-      {elections
-        ?.filter((election) => {
-          return election instanceof PublishedElection
-        })
-        .map((election) => {
-          return <ElectionCard key={election.id} election={election as PublishedElection} />
-        })}
+      {elections?.map((election) => {
+        return <ElectionCard key={election.id} election={election} />
+      })}
     </Flex>
   )
 }

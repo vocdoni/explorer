@@ -2,15 +2,14 @@ import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
 import {
-  ArchivedElection,
+  ElectionListWithPagination,
   IAccountTransfersCountResponse,
   IAccountTransfersResponse,
   IChainFeesListResponse,
   IChainOrganizationCountResponse,
   IChainOrganizationListResponse,
-  InvalidElection,
-  PublishedElection,
 } from '@vocdoni/sdk'
+import { useProcessList } from '~queries/processes'
 
 export const useOrganizationList = ({
   page,
@@ -44,14 +43,10 @@ export const useOrganizationElections = ({
 }: {
   address: string
   page?: number
-  options?: Omit<UseQueryOptions<Array<PublishedElection | InvalidElection | ArchivedElection>>, 'queryKey'>
+  options?: Omit<UseQueryOptions<ElectionListWithPagination>, 'queryKey'>
 }) => {
-  const { client } = useClient()
-
-  return useQuery({
-    enabled: !!address,
-    queryKey: ['organization', 'elections', address, page],
-    queryFn: async () => client.fetchElections(address, page),
+  return useProcessList({
+    filters: { organizationId: address, page: page },
     ...options,
   })
 }
