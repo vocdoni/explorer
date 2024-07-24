@@ -1,4 +1,13 @@
-import { Button, Checkbox, Flex } from '@chakra-ui/react'
+import {
+  Button,
+  Checkbox,
+  Flex,
+  IconButton,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
+} from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { FetchElectionsParameters } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
@@ -14,9 +23,46 @@ import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
 import { retryUnlessNotFound } from '~utils/queries'
 import { ElectionCard } from './Card'
+import { LuListFilter } from 'react-icons/lu'
 
 type FilterQueryParams = {
   [K in keyof Omit<FetchElectionsParameters, 'organizationId'>]: string
+}
+
+const PopoverFilter = () => {
+  const { queryParams, setQueryParams } = useQueryParams<FilterQueryParams>()
+
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <IconButton aria-label='TODO' icon={<LuListFilter />} />
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverBody>
+          <Flex direction={'column'}>
+            <Checkbox
+              isChecked={queryParams.withResults === 'true'}
+              onChange={(e) => setQueryParams({ ...queryParams, withResults: e.target.checked ? 'true' : undefined })}
+            >
+              <Trans i18nKey='process.show_with_results'>Show only processes with results</Trans>
+            </Checkbox>
+            <Checkbox
+              isChecked={queryParams.finalResults === 'true'}
+              onChange={(e) => setQueryParams({ ...queryParams, finalResults: e.target.checked ? 'true' : undefined })}
+            >
+              <Trans i18nKey='process.final_results'>Final results</Trans>
+            </Checkbox>
+            <Checkbox
+              isChecked={queryParams.manuallyEnded === 'true'}
+              onChange={(e) => setQueryParams({ ...queryParams, manuallyEnded: e.target.checked ? 'true' : undefined })}
+            >
+              <Trans i18nKey='process.manually_ended'>Manually ended</Trans>
+            </Checkbox>
+          </Flex>
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
+  )
 }
 
 export const ProcessSearchBox = () => {
@@ -25,12 +71,7 @@ export const ProcessSearchBox = () => {
 
   return (
     <Flex direction={{ base: 'column', lg: 'row' }} flexDirection={{ base: 'column-reverse', lg: 'row' }} gap={4}>
-      <Checkbox
-        isChecked={queryParams.withResults === 'true'}
-        onChange={(e) => setQueryParams({ ...queryParams, withResults: e.target.checked ? 'true' : undefined })}
-      >
-        <Trans i18nKey='process.show_with_results'>Show only processes with results</Trans>
-      </Checkbox>
+      <PopoverFilter />
       <Flex>
         <InputSearch
           maxW={'300px'}
@@ -96,6 +137,8 @@ export const PaginatedProcessList = () => {
       electionId: processFilters.electionId, // electionId contains also the organizationId, so this is enough to find by partial orgId or electionId
       status: processFilters.status as FetchElectionsParameters['status'],
       withResults: processFilters.withResults ? processFilters.withResults === 'true' : undefined,
+      finalResults: processFilters.finalResults ? processFilters.finalResults === 'true' : undefined,
+      manuallyEnded: processFilters.manuallyEnded ? processFilters.manuallyEnded === 'true' : undefined,
       page: Number(page || 0),
     },
     refetchOnWindowFocus: false,
