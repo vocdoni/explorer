@@ -7,16 +7,14 @@ import {
   PopoverBody,
   PopoverContent,
   PopoverTrigger,
-  Text,
 } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { FetchElectionsParameters } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
 import { InputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
 import LoadingError from '~components/Layout/LoadingError'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { RoutePath } from '~constants'
 import { useProcessList } from '~queries/processes'
@@ -130,8 +128,16 @@ export const ProcessByTypeFilter = () => {
 }
 
 export const PaginatedProcessList = () => {
+  return (
+    <RoutedPaginationProvider path={RoutePath.ProcessesList}>
+      <ProcessList />
+    </RoutedPaginationProvider>
+  )
+}
+
+const ProcessList = () => {
   const { t } = useTranslation()
-  const { page }: { page?: number } = useParams()
+  const { page }: { page?: number } = useRoutedPagination()
   const { queryParams: processFilters } = useQueryParams<FilterQueryParams>()
 
   const { data, isLoading, isFetching, isError, error } = useProcessList({
@@ -161,14 +167,9 @@ export const PaginatedProcessList = () => {
   }
 
   return (
-    <RoutedPaginationProvider totalPages={data.pagination.lastPage} path={RoutePath.ProcessesList}>
+    <>
       {data?.elections.map((election, i) => <ElectionCard key={i} id={election.id} election={election} />)}
-      <RoutedPagination />
-      <Text color={'lighterText'}>
-        <Trans i18nKey={'filters.total_results'} count={data.pagination.totalItems}>
-          Showing a total of {{ count: data.pagination.totalItems }} results
-        </Trans>
-      </Text>
-    </RoutedPaginationProvider>
+      <RoutedPagination pagination={data.pagination} />
+    </>
   )
 }
