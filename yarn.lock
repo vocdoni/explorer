@@ -1973,11 +1973,6 @@
   version "0.1.1"
   resolved "./vocdoni-extended-sdk-v0.1.1.tgz#e2aed5244e2c97db0a601c26d3c04e375607c16e"
 
-"@vocdoni/extended-sdk@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@vocdoni/extended-sdk/-/extended-sdk-0.1.1.tgz#bf71e6c2f0a684bd729b9d17312148f208bf71fd"
-  integrity sha512-hwzIv2Gs9OY2zABgSTqOxOwpj5mE3FJuYM9SeOFkC5GJONsYWAUOr8vbO5HlR5lkJjG6csTLaVFauk6HTEdRWw==
-
 "@vocdoni/proto@1.15.8":
   version "1.15.8"
   resolved "https://registry.yarnpkg.com/@vocdoni/proto/-/proto-1.15.8.tgz#a613b014810b36dd757e25453fd31470e3779736"
