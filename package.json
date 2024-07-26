@@ -19,7 +19,7 @@
     "@emotion/styled": "^11.10.6",
     "@tanstack/react-query": "^5.40.0",
     "@vocdoni/chakra-components": "~0.8.1",
-    "@vocdoni/extended-sdk": "^0.1.1",
+    "@vocdoni/extended-sdk": "./vocdoni-extended-sdk-v0.1.1.tgz",
     "@vocdoni/sdk": "https://github.com/vocdoni/vocdoni-sdk.git#f/new_pagination",
     "date-fns": "^2.29.3",
     "ethers": "^5.7.2",
