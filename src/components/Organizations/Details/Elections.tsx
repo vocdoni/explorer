@@ -35,7 +35,7 @@ const OrganizationElectionsList = ({ org }: OrgComponentProps) => {
 
   const { data, isLoading, isError, error } = useOrganizationElections({
     address: org.address,
-    page: Number(page) - 1 || 0,
+    page: page,
     options: {
       enabled: !!org.address,
       retry: retryUnlessNotFound,
