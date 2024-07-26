@@ -4,8 +4,9 @@ import { useClient } from '@vocdoni/react-providers'
 import {
   ElectionListWithPagination,
   FetchElectionsParametersWithPagination,
+  FetchVotesParametersWithPagination,
   IElectionKeysResponse,
-  IElectionVoteListResponse,
+  IVoteListResponse,
 } from '@vocdoni/sdk'
 import { useChainInfo, useChainInfoOptions } from '~queries/stats'
 import { isValidPartialProcessId } from '~utils/strings'
@@ -48,17 +49,15 @@ export const useElectionKeys = ({
 }
 
 export const useElectionVotesList = ({
-  electionId,
-  page,
+  params,
   ...options
 }: {
-  electionId: string
-  page?: number
-} & Omit<UseQueryOptions<IElectionVoteListResponse>, 'queryKey'>) => {
+  params: Omit<FetchVotesParametersWithPagination, 'limit'>
+} & Omit<UseQueryOptions<IVoteListResponse>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
   return useQuery({
-    queryKey: ['process', 'envelopes', electionId, page],
-    queryFn: () => client.electionVotesList(electionId, page),
+    queryKey: ['process', 'envelopes', params],
+    queryFn: () => client.electionVotesList(params),
     ...options,
   })
 }

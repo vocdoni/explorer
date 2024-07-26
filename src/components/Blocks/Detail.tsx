@@ -7,7 +7,7 @@ import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
-import { BlockTransactionsList } from '~components/Transactions/TransactionList'
+import { PaginatedBlockTransactionsList } from '~components/Transactions/TransactionList'
 import { RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useDateFns } from '~i18n/use-date-fns'
 import { useBlocksHeight } from '~queries/blocks'
@@ -145,7 +145,7 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
             <DetailsTab block={block} />
           </TabPanel>
           <TabPanel>
-            <BlockTransactionsList blockHeight={height} totalTxs={block.data.txs.length} />
+            <PaginatedBlockTransactionsList blockHeight={height} totalTxs={block.data.txs.length} />
           </TabPanel>
           <TabPanel>
             <RawContentBox obj={block} />

@@ -1,12 +1,11 @@
 import { Flex, Text } from '@chakra-ui/react'
 import { AccountData } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
-import { useParams } from 'react-router-dom'
 import { LoadingCards } from '~components/Layout/Loading'
 import { RoutedPagination } from '~components/Pagination/Pagination'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { ElectionCard } from '~components/Process/Card'
-import { PaginationItemsPerPage, RoutePath } from '~constants'
+import { RoutePath } from '~constants'
 import { useOrganizationElections } from '~queries/organizations'
 import { retryUnlessNotFound } from '~utils/queries'
 import LoadingError from '~components/Layout/LoadingError'
@@ -25,20 +24,14 @@ const OrganizationElections = ({ org }: OrgComponentProps) => {
   }
 
   return (
-    <RoutedPaginationProvider
-      totalPages={Math.ceil(org.electionIndex / PaginationItemsPerPage)}
-      path={RoutePath.Organization}
-    >
-      <Flex direction={'column'} gap={4}>
-        <OrganizationElectionsList org={org} />
-        <RoutedPagination />
-      </Flex>
+    <RoutedPaginationProvider path={RoutePath.Organization}>
+      <OrganizationElectionsList org={org} />
     </RoutedPaginationProvider>
   )
 }
 
 const OrganizationElectionsList = ({ org }: OrgComponentProps) => {
-  const { page } = useParams()
+  const { page }: { page?: number } = useRoutedPagination()
 
   const { data, isLoading, isError, error } = useOrganizationElections({
     address: org.address,
@@ -57,13 +50,12 @@ const OrganizationElectionsList = ({ org }: OrgComponentProps) => {
     return <LoadingError error={error} />
   }
 
-  const elections = data.elections
-
   return (
     <Flex direction={'column'} gap={4}>
-      {elections?.map((election) => {
+      {data.elections?.map((election) => {
         return <ElectionCard key={election.id} election={election} />
       })}
+      <RoutedPagination pagination={data.pagination} />
     </Flex>
   )
 }

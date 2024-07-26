@@ -30,9 +30,9 @@ import { useElection } from '@vocdoni/react-providers'
 import {
   ElectionStatus,
   IElectionInfoResponse,
-  IElectionVote,
   InvalidElection as InvalidElectionType,
   PublishedElection,
+  VoteSummary,
 } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { BiEnvelope } from 'react-icons/bi'
@@ -231,11 +231,8 @@ const EnvelopeExplorer = () => {
   }
 
   return (
-    <PaginationProvider totalPages={Math.ceil(election.voteCount / 10)}>
-      <Flex direction={'column'} gap={4}>
-        <EnvelopeList />
-        <Pagination />
-      </Flex>
+    <PaginationProvider>
+      <EnvelopeList />
     </PaginationProvider>
   )
 }
@@ -246,8 +243,10 @@ const EnvelopeList = () => {
   const election = e as PublishedElection
 
   const { data: envelopes, isLoading } = useElectionVotesList({
-    electionId: election?.id ?? '',
-    page: page,
+    params: {
+      electionId: election?.id,
+      page: page,
+    },
     enabled: !!election?.id,
   })
 
@@ -255,19 +254,27 @@ const EnvelopeList = () => {
     return <LoadingCards />
   }
 
+  if (!envelopes) {
+    // todo(kon): add error handling
+    return null
+  }
+
   return (
-    <Grid
-      templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(5, 1fr)' }}
-      gap={4}
-    >
-      {envelopes?.votes.map((envelope, i) => {
-        return <EnvelopeCard key={i} envelope={envelope} count={page * 10 + i + 1} />
-      })}
-    </Grid>
+    <Flex direction={'column'} gap={4}>
+      <Grid
+        templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(5, 1fr)' }}
+        gap={4}
+      >
+        {envelopes?.votes.map((envelope, i) => {
+          return <EnvelopeCard key={i} envelope={envelope} count={page * 10 + i + 1} />
+        })}
+      </Grid>
+      <Pagination pagination={envelopes.pagination} />
+    </Flex>
   )
 }
 
-const EnvelopeCard = ({ envelope, count }: { envelope: IElectionVote; count: number }) => {
+const EnvelopeCard = ({ envelope, count }: { envelope: VoteSummary; count: number }) => {
   return (
     <Card maxW='xs'>
       <CardHeader>

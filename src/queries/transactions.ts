@@ -1,20 +1,20 @@
 import { useChainInfo, useChainInfoOptions } from '~queries/stats'
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
-import { IChainTxListResponse } from '@vocdoni/sdk'
+import { FetchTransactionsParametersWithPagination, IChainTxListResponse } from '@vocdoni/sdk'
 import { useClient } from '@vocdoni/react-providers'
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 
 export const useTransactionList = ({
-  page,
+  params,
   ...options
 }: {
-  page: number
+  params: Partial<Omit<FetchTransactionsParametersWithPagination, 'height'>>
 } & Omit<UseQueryOptions<IChainTxListResponse>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
 
   return useQuery({
-    queryKey: ['transactions', 'list', page],
-    queryFn: () => client.txList(page),
+    queryKey: ['transactions', 'list', params],
+    queryFn: () => client.txList(params),
     ...options,
   })
 }

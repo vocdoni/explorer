@@ -3,37 +3,33 @@ import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
 import {
   ElectionListWithPagination,
-  IAccountTransfersCountResponse,
+  FetchFeesParametersWithPagination,
+  FetchOrganizationParametersWithPagination,
   IAccountTransfersResponse,
   IChainFeesListResponse,
-  IChainOrganizationCountResponse,
   IChainOrganizationListResponse,
 } from '@vocdoni/sdk'
 import { useProcessList } from '~queries/processes'
+import { useChainInfo, useChainInfoOptions } from '~queries/stats'
 
 export const useOrganizationList = ({
-  page,
-  organizationId,
+  params,
   ...options
 }: {
-  page: number
-  organizationId?: string
+  params: Partial<FetchOrganizationParametersWithPagination>
 } & Omit<UseQueryOptions<IChainOrganizationListResponse>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
   return useQuery({
-    queryKey: ['organizations', 'list', page, organizationId],
-    queryFn: () => client.organizationList(page - 1, organizationId),
+    queryKey: ['organizations', 'list', params],
+    queryFn: () => client.organizationList(params),
     ...options,
   })
 }
 
-export const useOrganizationCount = (options?: Omit<UseQueryOptions<IChainOrganizationCountResponse>, 'queryKey'>) => {
-  const { client } = useClient<ExtendedSDKClient>()
-  return useQuery({
-    queryKey: ['organizations', 'count'],
-    queryFn: client.organizationCount,
-    ...options,
-  })
+export const useOrganizationCount = (options?: useChainInfoOptions) => {
+  const { data, ...rest } = useChainInfo({ ...options })
+  const count = data?.organizationCount
+  return { data: count, ...rest }
 }
 
 export const useOrganizationElections = ({
@@ -74,31 +70,24 @@ export const useAccountTransfersCount = ({
   options,
 }: {
   address: string
-  options?: Omit<UseQueryOptions<IAccountTransfersCountResponse>, 'queryKey'>
+  options?: Omit<UseQueryOptions<IAccountTransfersResponse>, 'queryKey'>
 }) => {
-  const { client } = useClient<ExtendedSDKClient>()
-  return useQuery({
-    enabled: !!address,
-    queryKey: ['organization', 'transfers', 'count', address],
-    queryFn: async () => client.accountTransfersCount(address),
-    ...options,
-  })
+  // todo(kon): implement this counter from account details when done
+  return { data: { count: 1 } }
 }
 
 export const useAccountFees = ({
-  address,
-  page = 0,
+  params,
   options,
 }: {
-  address: string
-  page?: number
+  params: Omit<FetchFeesParametersWithPagination, 'limit' | 'type' | 'reference'>
   options?: Omit<UseQueryOptions<IChainFeesListResponse>, 'queryKey'>
 }) => {
   const { client } = useClient<ExtendedSDKClient>()
   return useQuery({
-    enabled: !!address,
-    queryKey: ['organization', 'fees', address, page],
-    queryFn: async () => client.accountFees(address, page),
+    enabled: !!params.accountId,
+    queryKey: ['organization', 'fees', params],
+    queryFn: async () => client.feesList(params),
     ...options,
   })
 }

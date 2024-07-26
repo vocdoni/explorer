@@ -1,6 +1,6 @@
 import voteImage from '/images/vocdoni-vote.png'
 import { Flex, Heading, Image, Link, Text } from '@chakra-ui/react'
-import { IVoteInfoResponse } from '@vocdoni/sdk'
+import { VoteInfoResponse } from '@vocdoni/sdk'
 import { formatDistance } from 'date-fns'
 import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
@@ -8,7 +8,7 @@ import { CopyButton } from '~components/Layout/CopyButton'
 import ShowRawButton from '~components/Layout/ShowRawButton'
 import { RoutePath } from '~constants'
 
-const EnvelopeDetail = (envelope: IVoteInfoResponse) => {
+const EnvelopeDetail = (envelope: VoteInfoResponse) => {
   const { t } = useTranslation()
   const emitted = formatDistance(new Date(envelope.date), new Date(), { addSuffix: true })
   const encKeys = envelope.encryptionKeys?.join(',')

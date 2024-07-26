@@ -25,8 +25,10 @@ const AccountFeesTable = ({ org }: { org: AccountData }) => {
   const { formatDistance } = useDateFns()
 
   const { data, isLoading, isError, error } = useAccountFees({
-    address: org.address,
-    page: Number(page) - 1 || 0,
+    params: {
+      accountId: org.address,
+      page,
+    },
     options: {
       retry: retryUnlessNotFound,
     },
@@ -93,7 +95,7 @@ const AccountFeesTable = ({ org }: { org: AccountData }) => {
         </TableContainer>
       </Box>
       <Box pt={4}>
-        <Pagination />
+        <Pagination pagination={data.pagination} />
       </Box>
     </>
   )

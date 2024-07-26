@@ -53,5 +53,8 @@
     "pnpm": "please use yarn",
     "yarn": "^1.19.x",
     "node": "20.x"
+  },
+  "resolutions": {
+    "@vocdoni/sdk": "https://github.com/vocdoni/vocdoni-sdk.git#f/new_pagination"
   }
 }

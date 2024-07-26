@@ -1,12 +1,12 @@
 import { Text } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
-import { IBlockTransactionsResponse, IChainTxListResponse } from '@vocdoni/sdk'
+import { IChainTxListResponse } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
-import { generatePath, useNavigate, useParams } from 'react-router-dom'
+import { generatePath, useNavigate } from 'react-router-dom'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
 import LoadingError from '~components/Layout/LoadingError'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { TransactionCard } from '~components/Transactions/TransactionCard'
 import { PaginationItemsPerPage, RoutePath } from '~constants'
@@ -51,35 +51,51 @@ export const TransactionFilter = () => {
 }
 
 export const PaginatedTransactionList = () => {
-  const { page }: { page?: number } = useParams()
+  return (
+    <RoutedPaginationProvider path={RoutePath.TransactionsList}>
+      <TransactionsList />
+    </RoutedPaginationProvider>
+  )
+}
+const TransactionsList = () => {
+  const { page }: { page?: number } = useRoutedPagination()
   const { data: count, isLoading: isLoadingCount } = useTransactionsCount()
 
   const totalPages = Math.ceil(count / PaginationItemsPerPage)
 
-  const currentPage = page && page > 0 ? Number(page - 1) : 0
   const {
     data,
     isLoading: isLoadingTx,
     isError,
     error,
   } = useTransactionList({
-    page: currentPage,
+    params: {
+      page,
+    },
     placeholderData: keepPreviousData,
     retry: retryUnlessNotFound,
   })
 
   const isLoading = isLoadingCount || isLoadingTx
 
-  return <TransactionsList isLoading={isLoading} data={data} isError={isError} error={error} totalPages={totalPages} />
+  return <TransactionsListCards isLoading={isLoading} data={data} isError={isError} error={error} />
 }
 
-/**
- * Get transaction list by block height
- * @constructor
- */
-export const BlockTransactionsList = ({ blockHeight, totalTxs }: { blockHeight: number; totalTxs: number }) => {
-  const totalPages = Math.ceil(totalTxs / PaginationItemsPerPage)
-  const { page }: { page?: number } = useParams()
+interface ITxListByBlock {
+  blockHeight: number
+  totalTxs: number
+}
+
+export const PaginatedBlockTransactionsList = (params: ITxListByBlock) => {
+  return (
+    <RoutedPaginationProvider path={RoutePath.TransactionsList}>
+      <TransactionsListByBlock {...params} />
+    </RoutedPaginationProvider>
+  )
+}
+
+const TransactionsListByBlock = ({ blockHeight, totalTxs }: ITxListByBlock) => {
+  const { page }: { page?: number } = useRoutedPagination()
   const currentPage = page && page > 0 ? Number(page - 1) : 0
 
   const { data, isLoading, isError, error } = useBlockTransactions({
@@ -90,7 +106,25 @@ export const BlockTransactionsList = ({ blockHeight, totalTxs }: { blockHeight: 
     enabled: totalTxs > 0,
   })
 
-  if (totalTxs <= 0) {
+  return (
+    <TransactionsListCards isLoading={isLoading} data={data} isError={isError} error={error} height={blockHeight} />
+  )
+}
+
+const TransactionsListCards = ({
+  isLoading,
+  data,
+  isError,
+  error,
+  height,
+}: {
+  isLoading: boolean
+  data: IChainTxListResponse | undefined
+  isError: boolean
+  error: Error | null
+  height?: number
+}) => {
+  if (!data || (data && data.transactions.length <= 0)) {
     return (
       <Text>
         <Trans i18nKey={'blocks.no_txs_on_block'}>There are no transactions.</Trans>
@@ -98,37 +132,21 @@ export const BlockTransactionsList = ({ blockHeight, totalTxs }: { blockHeight: 
     )
   }
 
-  return <TransactionsList isLoading={isLoading} data={data} isError={isError} error={error} totalPages={totalPages} />
-}
-
-const TransactionsList = ({
-  isLoading,
-  data,
-  isError,
-  error,
-  totalPages,
-}: {
-  isLoading: boolean
-  data: IChainTxListResponse | IBlockTransactionsResponse | undefined
-  isError: boolean
-  error: Error | null
-  totalPages: number
-}) => {
   return (
     <>
       {isLoading && <LoadingCards spacing={4} />}
       {!data || data?.transactions.length === 0 || (isError && <LoadingError error={error} />)}
       {data && data.transactions.length > 0 && (
-        <RoutedPaginationProvider totalPages={totalPages} path={RoutePath.TransactionsList}>
+        <>
           {data.transactions.map((tx, i) => (
             <TransactionCard
               key={i}
               {...tx}
-              blockHeight={(data as IBlockTransactionsResponse)?.blockNumber ?? tx.blockHeight} // If is IBlockTransactionsResponse the block height is not on tx info
+              blockHeight={height ?? tx.blockHeight} // If is IBlockTransactionsResponse the block height is not on tx info
             />
           ))}
-          <RoutedPagination />
-        </RoutedPaginationProvider>
+          <RoutedPagination pagination={data.pagination} />
+        </>
       )}
     </>
   )

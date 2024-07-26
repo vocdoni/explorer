@@ -18,14 +18,13 @@ import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { LoadingCards } from '~components/Layout/Loading'
-import { PaginationItemsPerPage, RoutePath } from '~constants'
+import { RoutePath } from '~constants'
 import { useAccountTransfers } from '~queries/organizations'
 import { retryUnlessNotFound } from '~utils/queries'
 import { useDateFns } from '~i18n/use-date-fns'
 import { BiLogInCircle, BiLogOutCircle } from 'react-icons/bi'
 import { AccountData, IAccountTransfer } from '@vocdoni/sdk'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
-import { Pagination } from '~components/Pagination/Pagination'
 import LoadingError from '~components/Layout/LoadingError'
 
 const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps) => {
@@ -55,9 +54,8 @@ interface AccountTransfersProps {
 }
 
 const AccountTransfers = (txProps: AccountTransfersProps) => {
-  const txCount: number = txProps.txCount ?? 1
   return (
-    <PaginationProvider totalPages={Math.ceil(txCount / PaginationItemsPerPage)}>
+    <PaginationProvider>
       <AccountTransfersTable {...txProps} />
     </PaginationProvider>
   )
@@ -148,7 +146,6 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
                         as={RouterLink}
                         to={generatePath(RoutePath.Block, {
                           height: transfer.height.toString(),
-                          tab: null,
                           page: null,
                         })}
                       >
@@ -168,7 +165,10 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
                           fontSize={'md'}
                           p={1}
                           h={8}
-                          to={generatePath(RoutePath.Organization, { pid: fromToAddress, tab: null, page: null })}
+                          to={generatePath(RoutePath.Organization, {
+                            pid: fromToAddress,
+                            page: null,
+                          })}
                         >
                           {fromToAddress}
                         </ReducedTextAndCopy>
@@ -182,9 +182,10 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
           </Table>
         </TableContainer>
       </Box>
-      <Box pt={4}>
-        <Pagination />
-      </Box>
+      {/*todo(kon): fix transfers pagination when implemented */}
+      {/*<Box pt={4}>*/}
+      {/*  <Pagination pagination={data.pagination} />*/}
+      {/*</Box>*/}
     </>
   )
 }
