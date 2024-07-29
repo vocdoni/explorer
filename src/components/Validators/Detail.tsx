@@ -1,13 +1,11 @@
-import { Button, Flex, Heading, HStack, Tab, TabList, TabPanel, TabPanels, Text, VStack } from '@chakra-ui/react'
+import { Flex, Heading, HStack, Tab, TabList, TabPanel, TabPanels, Text, VStack } from '@chakra-ui/react'
 import { ensure0x, IChainValidator } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
-import { HiOutlineCube } from 'react-icons/hi2'
-import { RoutePath } from '~constants'
-import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { BlockIconLink } from '~components/Layout/IconLink'
 
 export type ValidatorFixedType = IChainValidator & {
   // todo(kon): delete this type extension when https://github.com/vocdoni/vocdoni-sdk/pull/402 is merged
@@ -85,19 +83,11 @@ export const ValidatorDetail = ({ validator }: { validator: ValidatorFixedType }
           </ReducedTextAndCopy>
           {!!name && <Text color={'lighterText'}>({name})</Text>}
         </Flex>
-        <HStack color={'lighterText'}>
-          <Text fontWeight={'bold'}>
+        <HStack color={'lighterText'} fontWeight={'bold'}>
+          <Text>
             <Trans i18nKey={'validators.validator_details'}>Joint on block</Trans>
           </Text>
-          <Button
-            p={0}
-            variant={'text'}
-            leftIcon={<HiOutlineCube />}
-            as={RouterLink}
-            to={generatePath(RoutePath.Block, { height: validator.joinHeight.toString(), page: null })}
-          >
-            {validator.joinHeight}
-          </Button>
+          <BlockIconLink height={validator.joinHeight} />
         </HStack>
       </VStack>
       <QueryParamsTabs>
