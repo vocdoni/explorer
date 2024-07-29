@@ -21,6 +21,7 @@ const ProcessList = lazy(() => import('~pages/processes'))
 const Process = lazy(() => import('~pages/process'))
 const Transaction = lazy(() => import('~pages/transaction'))
 const TransactionsList = lazy(() => import('~pages/transactions'))
+const Validator = lazy(() => import('~pages/validator'))
 const Validators = lazy(() => import('~pages/validators'))
 const Verify = lazy(() => import('~pages/verify'))
 
@@ -144,6 +145,15 @@ export const RoutesProvider = () => {
 
                 return await client.txInfoByBlock(Number(tx.blockHeight), Number(tx.transactionIndex))
               },
+            },
+            {
+              path: RoutePath.Validator,
+              element: (
+                <SuspenseLoader>
+                  <Validator />
+                </SuspenseLoader>
+              ),
+              loader: async ({ params }) => await client.validatorsList(),
             },
             {
               path: RoutePath.Validators,

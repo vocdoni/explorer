@@ -30,6 +30,7 @@ export enum RoutePath {
   Transaction = '/transactions/:block/:index',
   TransactionsList = '/transactions/:page?',
   TransactionByHashOrHeight = '/transactions/:hashOrHeight',
+  Validator = '/validator/:address',
   Validators = '/validators',
   Verify = '/verify/:verifier?',
 }
