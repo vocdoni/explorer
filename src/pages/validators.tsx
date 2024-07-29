@@ -14,6 +14,8 @@ const Validators = () => {
   return (
     <ListPageLayout title={t('validators.validators')} subtitle={subtitle}>
       {validators.map((validator, i) => (
+        // todo(kon): remove this ignore when https://github.com/vocdoni/vocdoni-sdk/pull/402 is merged
+        // @ts-ignore
         <ValidatorCard key={i} {...validator} />
       ))}
     </ListPageLayout>
