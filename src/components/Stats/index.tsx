@@ -3,6 +3,7 @@ import {
   Card,
   CardBody,
   CardHeader,
+  CardProps,
   CircularProgress,
   CircularProgressLabel,
   Flex,
@@ -85,8 +86,13 @@ interface StatisticsCardProps {
   icon: IconType
 }
 
-const StatisticsCardWrapper = ({ title, icon, children }: StatisticsCardProps & PropsWithChildren) => (
-  <Card flex='1' w={'full'} minH={'530px'}>
+export const StatisticsCardWrapper = ({
+  title,
+  icon,
+  children,
+  ...rest
+}: StatisticsCardProps & PropsWithChildren & CardProps) => (
+  <Card flex='1' w={'full'} {...rest}>
     <CardHeader pb={0} display='flex' gap={3} alignItems='center' flexDir='row'>
       <Icon color='textAccent1' fontSize='2xl' as={icon} />
       <Text>{title}</Text>
@@ -172,7 +178,7 @@ const Stats = () => {
         ))}
       </Flex>
       <Flex direction={{ base: 'column-reverse', lg: 'row' }} alignItems='start' gap={4}>
-        <StatisticsCardWrapper title={t('stats.latest_blocks')} icon={VscGraphLine}>
+        <StatisticsCardWrapper minH={'530px'} title={t('stats.latest_blocks')} icon={VscGraphLine}>
           <LatestBlocks />
         </StatisticsCardWrapper>
         <ChainInfo />
