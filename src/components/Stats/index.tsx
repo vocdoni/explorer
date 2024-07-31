@@ -1,30 +1,85 @@
-import { Card, CardBody, CardHeader, Flex, Grid, Icon, Text } from '@chakra-ui/react'
-import { PropsWithChildren } from 'react'
+import {
+  Box,
+  Card,
+  CardBody,
+  CardHeader,
+  CircularProgress,
+  CircularProgressLabel,
+  Flex,
+  Grid,
+  Icon,
+  Stack,
+  Text,
+} from '@chakra-ui/react'
+import { PropsWithChildren, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IconType } from 'react-icons'
 import { MdSpeed } from 'react-icons/md'
-import { VscGraphLine } from 'react-icons/vsc'
 import { generatePath, Link } from 'react-router-dom'
 import { ChainInfo } from '~components/Stats/ChainInfo'
-import { LatestBlocks } from '~components/Stats/LatestBlocks'
 import { RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useChainInfo } from '~queries/stats'
+import { Icons } from '~src/theme/components/Icons'
+import { VscGraphLine } from 'react-icons/vsc'
+import { LatestBlocks } from '~components/Stats/LatestBlocks'
 
 interface IStatsCardProps {
   title: string
   description: string
+  link?: string
+  icon: IconType
 }
 
-const StatsCard = ({ title, description }: IStatsCardProps) => (
-  <Card>
-    <CardHeader pb={0} fontSize='md' fontWeight={600}>
-      {title}
-    </CardHeader>
-    <CardBody fontSize='sm' pt={1}>
-      {description}
-    </CardBody>
-  </Card>
+const StatsCard = ({ title, description, link, icon }: IStatsCardProps) => (
+  <Link to={generatePath(link || '')}>
+    <Card direction={'row'} align={'center'}>
+      <Box px={3}>
+        <Icon as={icon} boxSize={7} />
+      </Box>
+      <Stack spacing={0} py={3}>
+        <CardBody p={0}>
+          <Text fontSize='sm'>{title}</Text>
+          <Text fontWeight={'bold'} fontSize='md'>
+            {description}
+          </Text>
+        </CardBody>
+      </Stack>
+    </Card>
+  </Link>
 )
+
+interface CircularStatProps {
+  value: number
+  label: string
+}
+
+const CircularStat = ({ value, label }: CircularStatProps) => {
+  const [progressValue, setProgressValue] = useState(0)
+
+  useEffect(() => {
+    let startValue = 0
+    const interval = setInterval(() => {
+      startValue += 1
+      setProgressValue(startValue)
+      if (startValue >= 100) {
+        clearInterval(interval)
+      }
+    }, 15)
+
+    return () => clearInterval(interval)
+  }, [value])
+
+  return (
+    <Flex direction={'column'} align={'center'}>
+      <Box>
+        <CircularProgress color='accent1' value={progressValue} size='130px'>
+          <CircularProgressLabel>{Math.ceil((value / progressValue) * 100)}</CircularProgressLabel>
+        </CircularProgress>
+      </Box>
+      <Text fontSize={'2xl'}>{label}</Text>
+    </Flex>
+  )
+}
 
 interface StatisticsCardProps {
   title: string
@@ -47,36 +102,60 @@ const Stats = () => {
   })
   const { t } = useTranslation()
 
+  if (!stats) return null
+
   const averageBlockTime = Number((stats?.blockTime[0] || 0) / 1000).toFixed(1)
 
-  const statsCards = [
+  const statsCards: IStatsCardProps[] = [
     {
       title: t('stats.average_block_time'),
       description: t('stats.seconds', {
         count: parseFloat(averageBlockTime),
       }),
       link: RoutePath.BlocksList,
+      icon: Icons.ClockIcon,
     },
     {
-      title: t('stats.total_elections'),
-      description: t('stats.electionCount', {
-        count: stats?.electionCount,
+      title: t('stats.block_height'),
+      description: t('stats.blocks', {
+        count: stats.height,
+        defaultValue: '{{count}} blocks',
       }),
-      link: RoutePath.ProcessesList,
+      link: RoutePath.BlocksList,
+      icon: Icons.BlockIcon,
     },
     {
-      title: t('stats.total_organizations'),
-      description: t('stats.organizations', {
-        count: stats?.organizationCount,
-      }),
-      link: RoutePath.OrganizationsList,
-    },
-    {
-      title: t('stats.total_votes'),
-      description: t('stats.votes', {
-        count: stats?.voteCount,
+      title: t('stats.transactions_count', { defaultValue: 'Transactions count' }),
+      description: t('stats.transactions', {
+        count: stats.transactionCount,
+        defaultValue: '{{count}} transactions',
       }),
       link: RoutePath.TransactionsList,
+      icon: Icons.TxIcon,
+    },
+    {
+      title: t('stats.validators_count', { defaultValue: 'Validators count' }),
+      description: t('stats.validators', {
+        count: stats.validatorCount,
+        defaultValue: '{{count}} validators',
+      }),
+      link: RoutePath.Validators,
+      icon: Icons.ValidatorIcon,
+    },
+  ]
+
+  const circularStats: CircularStatProps[] = [
+    {
+      label: t('stats.organizations', { defaultValue: 'Organizations' }),
+      value: stats.organizationCount,
+    },
+    {
+      label: t('stats.elections', { defaultValue: 'Elections' }),
+      value: stats.electionCount,
+    },
+    {
+      label: t('stats.votes', { defaultValue: 'Votes' }),
+      value: stats.voteCount,
     },
   ]
 
@@ -84,11 +163,15 @@ const Stats = () => {
     <Flex direction={'column'} gap={4}>
       <Grid templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4} mb={8}>
         {statsCards.map((card, i) => (
-          <Link to={generatePath(card.link)}>
-            <StatsCard key={i} title={card.title} description={card.description} />
-          </Link>
+          <StatsCard key={i} {...card} />
         ))}
       </Grid>
+
+      <Flex w={'full'} justify={'space-around'} wrap={'wrap'}>
+        {circularStats.map((card, i) => (
+          <CircularStat key={i} {...card} />
+        ))}
+      </Flex>
       <Flex direction={{ base: 'column', lg: 'row' }} alignItems='start' gap={4}>
         <StatisticsCardWrapper title={t('stats.latest_blocks')} icon={VscGraphLine}>
           <LatestBlocks />

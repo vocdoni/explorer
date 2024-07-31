@@ -17,19 +17,9 @@ export const ChainInfo = () => {
       data: stats?.chainId,
     },
     {
-      name: t('stats.block_height'),
-      data: stats?.height,
-    },
-
-    {
-      name: t('stats.nr_of_validators'),
-      data: stats?.validatorCount,
-    },
-    {
       name: t('stats.sync_status'),
       data: syncing,
     },
-
     {
       name: t('stats.genesis_block_date'),
       data: genesisBlockDate,
