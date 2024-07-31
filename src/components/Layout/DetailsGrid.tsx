@@ -1,4 +1,4 @@
-import { Grid, GridItem, Text } from '@chakra-ui/react'
+import { Grid, GridItem, GridProps, Text } from '@chakra-ui/react'
 import { PropsWithChildren } from 'react'
 
 export type GridItemProps = { label: string } & PropsWithChildren
@@ -8,9 +8,9 @@ export type GridItemProps = { label: string } & PropsWithChildren
  * @param details String label, and the component that should render on the grid
  * @constructor
  */
-export const DetailsGrid = ({ details }: { details: GridItemProps[] }) => {
+export const DetailsGrid = ({ details, ...rest }: { details: GridItemProps[] } & GridProps) => {
   return (
-    <Grid templateColumns={{ base: '1fr', sm: '1fr 4fr' }} gap={4} alignItems={'baseline'}>
+    <Grid templateColumns={{ base: '1fr', sm: '1fr 4fr' }} gap={4} alignItems={'baseline'} {...rest}>
       {details.map(({ label, children }, key) => (
         <DetailRow key={label} label={label}>
           {children}
