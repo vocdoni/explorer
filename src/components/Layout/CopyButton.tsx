@@ -43,6 +43,12 @@ const withCopyLogic = (Component: typeof IconButton | typeof Button) => {
 export const CopyButton = withCopyLogic(Button)
 export const CopyButtonIcon = withCopyLogic(IconButton)
 
+export type ReducedTextAndCopyProps = {
+  breakPoint?: Parameters<typeof useBreakpointValue>[0]
+  to?: string
+  children?: string
+} & ICopyButton
+
 /**
  * It shows a text with a copy button.
  * if the length of the string is more than 13 it cut the string to something like 6be21a...0000.
@@ -56,11 +62,7 @@ export const ReducedTextAndCopy = ({
   to,
   children = '',
   ...rest
-}: {
-  to?: string
-  breakPoint?: Parameters<typeof useBreakpointValue>[0]
-  children?: string
-} & ICopyButton) => {
+}: ReducedTextAndCopyProps) => {
   let text = children
   // If breakpoint is true and the length of the string is more than 13 it shorts the string
   if (breakPoint && useBreakpointValue(breakPoint) && children.length > 13) {

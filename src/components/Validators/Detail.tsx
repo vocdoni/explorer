@@ -6,6 +6,7 @@ import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { BlockIconLink } from '~components/Layout/IconLink'
+import { ValidatorName } from '~components/Validators/ValidatorCard'
 
 export type ValidatorFixedType = IChainValidator & {
   // todo(kon): delete this type extension when https://github.com/vocdoni/vocdoni-sdk/pull/402 is merged
@@ -70,19 +71,7 @@ export const ValidatorDetail = ({ validator }: { validator: ValidatorFixedType }
         <Heading isTruncated wordBreak='break-word' mb={0}>
           <Trans i18nKey={'validators.validator_details'}>Validator Details</Trans>
         </Heading>
-        <Flex wrap={'wrap'} align={'baseline'} gap={2}>
-          <ReducedTextAndCopy
-            toCopy={validatorAddress}
-            color={'textAccent1'}
-            fontWeight={'normal'}
-            h={0}
-            fontSize={'xl'}
-            p={0}
-          >
-            {validatorAddress}
-          </ReducedTextAndCopy>
-          {!!name && <Text color={'lighterText'}>({name})</Text>}
-        </Flex>
+        <ValidatorName name={validator.name} address={validator.validatorAddress} />
         <HStack color={'lighterText'} fontWeight={'bold'}>
           <Text>
             <Trans i18nKey={'validators.validator_details'}>Joint on block</Trans>
