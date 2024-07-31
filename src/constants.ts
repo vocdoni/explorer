@@ -34,6 +34,17 @@ export enum RoutePath {
   Verify = '/verify/:verifier?',
 }
 
+// old explorer route paths (used by RouteRedirector)
+export enum OldRoutePath {
+  BlockDetails = '/blocks/show/#/',
+  EnvelopeDetails = '/envelopes/show/#/',
+  OrganizationDetails = '/organizations/show/#/',
+  ProcessDetails = '/processes/show/#/',
+  TransactionDetails = '/transactions/show/#/',
+  Verify = '/verify',
+  Stats = '/stats',
+}
+
 // Used to test if a string is base64 encoded. Used by b64ToHex
 export const isB64Regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/
 
