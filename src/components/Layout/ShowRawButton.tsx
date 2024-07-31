@@ -1,4 +1,18 @@
-import { Box, BoxProps, Button, ButtonProps, useDisclosure } from '@chakra-ui/react'
+import {
+  Box,
+  BoxProps,
+  Button,
+  ButtonProps,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  TextProps,
+  useDisclosure,
+} from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
 import { CopyButtonIcon } from '~components/Layout/CopyButton'
 import { JsonViewer } from '~components/Layout/JsonViewer'
@@ -26,5 +40,29 @@ export const RawContentBox = ({ obj, ...rest }: { obj: object } & BoxProps) => (
     <JsonViewer json={obj} />
   </Box>
 )
+
+export const RawModal = ({ obj, ...rest }: { obj: object } & TextProps) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  return (
+    <>
+      <Text onClick={onOpen} {...rest}>
+        <Trans i18nKey={'raw'} />
+      </Text>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            <Trans i18nKey={'raw'}></Trans>
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <RawContentBox obj={obj} />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
+  )
+}
 
 export default ShowRawButton

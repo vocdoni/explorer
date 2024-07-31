@@ -7,6 +7,7 @@ import {
   Flex,
   Grid,
   Heading,
+  HStack,
   Icon,
   Stack,
   Text,
@@ -22,6 +23,7 @@ import { useChainInfo } from '~queries/stats'
 import { Icons } from '~src/theme/components/Icons'
 import { VscGraphLine } from 'react-icons/vsc'
 import { LatestBlocks } from '~components/Stats/LatestBlocks'
+import { RawModal } from '~components/Layout/ShowRawButton'
 
 interface IStatsCardProps {
   title: string
@@ -93,18 +95,23 @@ const IncrementalStat = ({ value, label }: IncrementalStatProps) => {
 interface StatisticsCardProps {
   title: string
   icon: IconType
+  raw?: object
 }
 
 export const StatisticsCardWrapper = ({
   title,
   icon,
+  raw,
   children,
   ...rest
 }: StatisticsCardProps & PropsWithChildren & CardProps) => (
   <Card flex='1' w={'full'} {...rest}>
-    <CardHeader pb={0} display='flex' gap={3} alignItems='center' flexDir='row'>
-      <Icon color='textAccent1' fontSize='2xl' as={icon} />
-      <Text>{title}</Text>
+    <CardHeader pb={0} display='flex' gap={3} alignItems='center' justifyContent={'space-between'} flexDir='row'>
+      <HStack spacing={3}>
+        <Icon color='textAccent1' fontSize='2xl' as={icon} />
+        <Text>{title}</Text>
+      </HStack>
+      {!!raw && <RawModal color={'lightText'} fontSize={'xs'} obj={raw} />}
     </CardHeader>
     <CardBody>{children}</CardBody>
   </Card>

@@ -38,7 +38,7 @@ export const ChainInfo = () => {
   ]
 
   return (
-    <StatisticsCardWrapper flex='2' w={'full'} icon={MdSpeed} title={t('stats.blockchain_info')}>
+    <StatisticsCardWrapper flex='2' w={'full'} icon={MdSpeed} title={t('stats.blockchain_info')} raw={stats}>
       <Flex direction={'column'} align={'start'} gap={4}>
         <HStack>
           <Text fontSize='lg' fontWeight={'bold'}>
