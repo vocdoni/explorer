@@ -11,12 +11,13 @@ import {
   Icon,
   Stack,
   Text,
+  VStack,
 } from '@chakra-ui/react'
 import { PropsWithChildren, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IconType } from 'react-icons'
 import { generatePath, Link } from 'react-router-dom'
-import { ChainInfo } from '~components/Stats/ChainInfo'
+import { ChainCosts, ChainInfo } from '~components/Stats/ChainInfo'
 import { RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useChainInfo } from '~queries/stats'
 import { Icons } from '~src/theme/components/Icons'
@@ -181,7 +182,10 @@ const Stats = () => {
         <StatisticsCardWrapper minH={'530px'} title={t('stats.latest_blocks')} icon={VscGraphLine}>
           <LatestBlocks />
         </StatisticsCardWrapper>
-        <ChainInfo />
+        <VStack>
+          <ChainInfo />
+          <ChainCosts />
+        </VStack>
       </Flex>
     </Flex>
   )
