@@ -31,7 +31,7 @@ export const LatestBlocks = () => {
   return (
     <Stack>
       {blocks.blocks.map((block, i) => (
-        <BlockCard key={i} block={block} />
+        <BlockCard key={i} block={block} compact/>
       ))}
       <Button as={RouterLink} to={generatePath(RoutePath.BlocksList)} bgColor='accent1' color={'white'}>
         <Trans i18nKey='stats.view_all_blocks'>View all blocks</Trans>

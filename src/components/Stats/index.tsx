@@ -14,7 +14,6 @@ import {
 import { PropsWithChildren, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IconType } from 'react-icons'
-import { MdSpeed } from 'react-icons/md'
 import { generatePath, Link } from 'react-router-dom'
 import { ChainInfo } from '~components/Stats/ChainInfo'
 import { RefreshIntervalBlocks, RoutePath } from '~constants'
@@ -172,13 +171,11 @@ const Stats = () => {
           <CircularStat key={i} {...card} />
         ))}
       </Flex>
-      <Flex direction={{ base: 'column', lg: 'row' }} alignItems='start' gap={4}>
+      <Flex direction={{ base: 'column-reverse', lg: 'row' }} alignItems='start' gap={4}>
         <StatisticsCardWrapper title={t('stats.latest_blocks')} icon={VscGraphLine}>
           <LatestBlocks />
         </StatisticsCardWrapper>
-        <StatisticsCardWrapper title={t('stats.blockchain_info')} icon={MdSpeed}>
-          <ChainInfo />
-        </StatisticsCardWrapper>
+        <ChainInfo />
       </Flex>
     </Flex>
   )
