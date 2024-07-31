@@ -74,7 +74,7 @@ export const ValidatorDetail = ({ validator }: { validator: ValidatorFixedType }
         <ValidatorName name={validator.name} address={validator.validatorAddress} />
         <HStack color={'lighterText'} fontWeight={'bold'}>
           <Text>
-            <Trans i18nKey={'validators.validator_details'}>Joint on block</Trans>
+            <Trans i18nKey={'validators.validator_details'}>Joined on block</Trans>
           </Text>
           <BlockIconLink height={validator.joinHeight} />
         </HStack>
