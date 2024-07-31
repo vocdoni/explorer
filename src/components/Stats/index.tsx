@@ -4,10 +4,9 @@ import {
   CardBody,
   CardHeader,
   CardProps,
-  CircularProgress,
-  CircularProgressLabel,
   Flex,
   Grid,
+  Heading,
   Icon,
   Stack,
   Text,
@@ -49,33 +48,42 @@ const StatsCard = ({ title, description, link, icon }: IStatsCardProps) => (
   </Link>
 )
 
-interface CircularStatProps {
+interface IncrementalStatProps {
   value: number
   label: string
 }
 
-const CircularStat = ({ value, label }: CircularStatProps) => {
-  const [progressValue, setProgressValue] = useState(0)
+const IncrementalStat = ({ value, label }: IncrementalStatProps) => {
+  const [displayNumber, setDisplayNumber] = useState(0)
+  const duration = 2000
 
   useEffect(() => {
-    let startValue = 0
-    const interval = setInterval(() => {
-      startValue += 1
-      setProgressValue(startValue)
-      if (startValue >= 100) {
-        clearInterval(interval)
-      }
-    }, 15)
+    let intervalId: NodeJS.Timeout
+    let start = Date.now()
+    const stepTime = duration / value
 
-    return () => clearInterval(interval)
-  }, [value])
+    intervalId = setInterval(() => {
+      const elapsed = Date.now() - start
+      const remainingTime = duration - elapsed
+      const randomOffset = Math.floor(Math.random() * 10) // Random offset between 0 and 9
+      const nextNumber = Math.min(value, Math.floor(elapsed / stepTime) + randomOffset)
+
+      // Ensure the final number is the target number
+      if (remainingTime <= stepTime) {
+        setDisplayNumber(value)
+        clearInterval(intervalId)
+      } else {
+        setDisplayNumber(nextNumber)
+      }
+    }, stepTime)
+
+    return () => clearInterval(intervalId)
+  }, [value, duration])
 
   return (
     <Flex direction={'column'} align={'center'}>
       <Box>
-        <CircularProgress color='accent1' value={progressValue} size='130px'>
-          <CircularProgressLabel>{Math.ceil((value / progressValue) * 100)}</CircularProgressLabel>
-        </CircularProgress>
+        <Heading>{displayNumber}</Heading>
       </Box>
       <Text fontSize={'2xl'}>{label}</Text>
     </Flex>
@@ -150,7 +158,7 @@ const Stats = () => {
     },
   ]
 
-  const circularStats: CircularStatProps[] = [
+  const circularStats: IncrementalStatProps[] = [
     {
       label: t('stats.organizations', { defaultValue: 'Organizations' }),
       value: stats.organizationCount,
@@ -175,7 +183,7 @@ const Stats = () => {
 
       <Flex w={'full'} justify={'space-around'} wrap={'wrap'}>
         {circularStats.map((card, i) => (
-          <CircularStat key={i} {...card} />
+          <IncrementalStat key={i} {...card} />
         ))}
       </Flex>
       <Flex direction={{ base: 'column-reverse', lg: 'row' }} alignItems='start' gap={4}>
