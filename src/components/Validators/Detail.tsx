@@ -7,6 +7,8 @@ import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { BlockIconLink } from '~components/Layout/IconLink'
 import { ValidatorName } from '~components/Validators/ValidatorCard'
+import { generatePath } from 'react-router-dom'
+import { RoutePath } from '~constants'
 
 export type ValidatorFixedType = IChainValidator & {
   // todo(kon): delete this type extension when https://github.com/vocdoni/vocdoni-sdk/pull/402 is merged
@@ -41,6 +43,23 @@ const DetailsTab = ({ validator }: { validator: ValidatorFixedType }) => {
       ),
     },
     {
+      label: t('validators.secondary_address', { defaultValue: 'Address' }),
+      children: (
+        <ReducedTextAndCopy
+          breakPoint={{ base: true, lg: false }}
+          p={0}
+          color={'textAccent1'}
+          toCopy={address}
+          fontWeight={'normal'}
+          h={0}
+          fontSize={'md'}
+          to={generatePath(RoutePath.Organization, { pid: address, page: null })}
+        >
+          {address}
+        </ReducedTextAndCopy>
+      ),
+    },
+    {
       label: t('validators.voting_power_cell', { defaultValue: 'Voting power' }),
       children: validator.power,
     },
@@ -62,9 +81,6 @@ const DetailsTab = ({ validator }: { validator: ValidatorFixedType }) => {
 }
 
 export const ValidatorDetail = ({ validator }: { validator: ValidatorFixedType }) => {
-  const validatorAddress = ensure0x(validator.validatorAddress)
-  const name = validator.name
-
   return (
     <Flex direction={'column'} mt={{ base: '20px', lg: '40px' }} gap={6} wordBreak='break-all'>
       <VStack align='start' spacing={4}>
