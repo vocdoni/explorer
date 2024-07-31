@@ -1,5 +1,6 @@
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
+import { IChainTxReference } from '@vocdoni/sdk'
 import { lazy } from 'react'
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom'
 import { RoutePath } from '~constants'
@@ -9,7 +10,7 @@ import { ElectionError } from '~src/router/errors/ElectionError'
 import Error404 from '~src/router/errors/Error404'
 import RouteError from '~src/router/errors/RouteError'
 import { SuspenseLoader } from '~src/router/SuspenseLoader'
-import { IChainTxReference } from '@vocdoni/sdk'
+import RouteRedirector from './RouteRedirector'
 
 const Home = lazy(() => import('~pages/Home'))
 const Block = lazy(() => import('~pages/block'))
@@ -32,6 +33,7 @@ export const RoutesProvider = () => {
       element: <Layout />,
       children: [
         {
+          element: <RouteRedirector />,
           errorElement: <RouteError />,
           children: [
             {
