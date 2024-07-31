@@ -1,7 +1,8 @@
-import { Grid, GridItem, GridProps, Text } from '@chakra-ui/react'
+import { Box, Flex, Grid, GridItem, GridProps, Icon, Text, Tooltip } from '@chakra-ui/react'
 import { PropsWithChildren } from 'react'
+import { GrStatusInfo } from 'react-icons/gr'
 
-export type GridItemProps = { label: string } & PropsWithChildren
+export type GridItemProps = { label: string; info?: string } & PropsWithChildren
 
 /**
  * Util component used to render a grid of details with its label
@@ -11,8 +12,8 @@ export type GridItemProps = { label: string } & PropsWithChildren
 export const DetailsGrid = ({ details, ...rest }: { details: GridItemProps[] } & GridProps) => {
   return (
     <Grid templateColumns={{ base: '1fr', sm: '1fr 4fr' }} gap={4} alignItems={'baseline'} {...rest}>
-      {details.map(({ label, children }, key) => (
-        <DetailRow key={label} label={label}>
+      {details.map(({ children, ...rest }, key) => (
+        <DetailRow key={key} {...rest}>
           {children}
         </DetailRow>
       ))}
@@ -20,12 +21,21 @@ export const DetailsGrid = ({ details, ...rest }: { details: GridItemProps[] } &
   )
 }
 
-const DetailRow = ({ label, children }: GridItemProps) => {
+const DetailRow = ({ label, info, children }: GridItemProps) => {
   const gridProps = { display: 'flex', alignItems: 'center' }
   return (
     <>
       <GridItem {...gridProps}>
-        <Text fontWeight={'bold'}>{label}</Text>
+        <Flex alignItems='center'>
+          {!!info && (
+            <Tooltip label={info}>
+              <Box pt={1} pr={1}>
+                <Icon as={GrStatusInfo} />
+              </Box>
+            </Tooltip>
+          )}
+          <Text fontWeight={'bold'}>{label}</Text>
+        </Flex>
       </GridItem>
       <GridItem {...gridProps}>{children}</GridItem>
     </>
