@@ -29,7 +29,7 @@ export const LatestBlocks = () => {
   }
 
   return (
-    <Stack>
+    <Stack spacing={4}>
       {blocks.blocks.map((block, i) => (
         <BlockCard key={i} block={block} compact/>
       ))}

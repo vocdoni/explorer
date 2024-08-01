@@ -14,6 +14,7 @@ export const TxCosts = () => {
       return {
         label: key,
         children: value,
+        isNumber: true,
       }
     })
   }

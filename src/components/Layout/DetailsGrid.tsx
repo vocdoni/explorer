@@ -2,7 +2,7 @@ import { Flex, Grid, GridItem, GridProps, Text } from '@chakra-ui/react'
 import { PropsWithChildren } from 'react'
 import Hint from '~components/Layout/Hint'
 
-export type GridItemProps = { label: string; info?: string } & PropsWithChildren
+export type GridItemProps = { label: string; info?: string; isNumber?: boolean } & PropsWithChildren
 
 /**
  * Util component used to render a grid of details with its label
@@ -21,7 +21,7 @@ export const DetailsGrid = ({ details, ...rest }: { details: GridItemProps[] } &
   )
 }
 
-const DetailRow = ({ label, info, children }: GridItemProps) => {
+const DetailRow = ({ label, info, isNumber, children }: GridItemProps) => {
   return (
     <>
       <GridItem py={1} lineHeight={{ base: 5, lg: 6 }} _notFirst={{ mt: { base: 3, lg: 0 } }}>
@@ -41,6 +41,7 @@ const DetailRow = ({ label, info, children }: GridItemProps) => {
         py={1}
         lineHeight={{ base: 5, lg: 6 }}
         whiteSpace='nowrap'
+        justifyContent={isNumber ? 'end' : 'start'}
       >
         {children}
       </GridItem>

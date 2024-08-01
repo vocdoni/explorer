@@ -21,6 +21,7 @@ export const ChainCosts = () => {
         <DetailsGrid
           rowGap={0}
           columnGap={6}
+          templateColumns={{ base: '1fr', sm: '1fr 1fr' }}
           details={[
             {
               label: t('stats.price_factors.base', { defaultValue: 'Base' }),
@@ -29,6 +30,7 @@ export const ChainCosts = () => {
                 defaultValue:
                   'Fixed cost that serves as a starting point for the price calculation. It represents the minimal price for creating an election regardless of its size or duration.',
               }),
+              isNumber: true,
             },
             {
               label: t('stats.price_factors.capacity', { defaultValue: 'Capacity' }),
@@ -36,11 +38,13 @@ export const ChainCosts = () => {
               info: t('stats.price_factors.capacity_info', {
                 defaultValue: 'Capacity of the blockchain',
               }),
+              isNumber: true,
             },
           ]}
         />
         <Text fontWeight={'bold'}>{t('stats.price_factors.factors', { defaultValue: 'Factors' })}</Text>
         <DetailsGrid
+          templateColumns={{ base: '1fr', sm: '1fr 1fr' }}
           rowGap={0}
           columnGap={6}
           details={[
@@ -51,6 +55,7 @@ export const ChainCosts = () => {
                 defaultValue:
                   'The size price component is directly proportional to the maximum number of votes allowed in the election',
               }),
+              isNumber: true,
             },
             {
               label: t('stats.price_factors.durationPriceFactor', { defaultValue: 'Duration' }),
@@ -59,6 +64,7 @@ export const ChainCosts = () => {
                 defaultValue:
                   'If the election lasts longer, the price increases, and if there are more votes in a shorter time, the price also increases to reflect the higher demand for resources.',
               }),
+              isNumber: true,
             },
             {
               label: t('stats.price_factors.encryptedPriceFactor', { defaultValue: 'Encryption' }),
@@ -67,6 +73,7 @@ export const ChainCosts = () => {
                 defaultValue:
                   'If an election requires encryption for maintaining secrecy until the end (encryptedVotes)',
               }),
+              isNumber: true,
             },
             {
               label: t('stats.price_factors.anonymousPriceFactor', { defaultValue: 'Anonymous' }),
@@ -74,6 +81,7 @@ export const ChainCosts = () => {
               info: t('stats.price_factors.anonymousPriceFactor_info', {
                 defaultValue: 'If it requires additional measures to ensure voter privacy (anonymousVotes)',
               }),
+              isNumber: true,
             },
             {
               label: t('stats.price_factors.overwritePriceFactor', { defaultValue: 'Overwrite' }),
@@ -82,6 +90,7 @@ export const ChainCosts = () => {
                 defaultValue:
                   "Is proportional to the maximum number of vote overwrites and the maximum number of votes allowed in the election. It also takes into account the blockchain's capacity to ensure the price reflects the current resource constraints.",
               }),
+              isNumber: true,
             },
             {
               label: t('stats.price_factors.sizeScaling', { defaultValue: 'Growth factor' }),
@@ -90,6 +99,7 @@ export const ChainCosts = () => {
                 defaultValue:
                   'Rate of price growth for elections with a maximum number of votes (maxCensusSize) exceeding the k7 threshold.',
               }),
+              isNumber: true,
             },
             {
               label: t('stats.price_factors.censusSizeScaling', { defaultValue: 'Size trigger' }),
@@ -98,6 +108,7 @@ export const ChainCosts = () => {
                 defaultValue:
                   'Represents a threshold value for the maximum number of votes (maxCensusSize) in an election. When the election size exceeds k7, the price growth becomes non-linear, increasing more rapidly beyond this point. ',
               }),
+              isNumber: true,
             },
           ]}
         />

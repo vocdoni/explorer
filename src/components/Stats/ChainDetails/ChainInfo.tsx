@@ -49,7 +49,7 @@ export const ChainInfo = () => {
             {t('stats.genesis', { date: genesisBlockDate, defaultValue: 'Genesis {{date}}' })}
           </Text>
         </HStack>
-        <DetailsGrid details={statsData} rowGap={1} />
+        <DetailsGrid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} details={statsData} rowGap={0} />
       </Flex>
     </StatisticsCardWrapper>
   )

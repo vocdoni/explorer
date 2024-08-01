@@ -67,17 +67,18 @@ export const StatisticsCardWrapper = ({
 
 const Stats = () => {
   const { t } = useTranslation()
+  const cardSpacing = 4
 
   return (
-    <Flex direction={'column'} gap={4}>
+    <Flex direction={'column'} gap={8}>
       <StatsCards />
-      <Flex direction={{ base: 'column-reverse', lg: 'row' }} alignItems='start' gap={4}>
-        <StatisticsCardWrapper flex='1' minH={'530px'} title={t('stats.latest_blocks')} icon={VscGraphLine}>
+      <Flex direction={{ base: 'column-reverse', lg: 'row' }} alignItems='start' gap={cardSpacing}>
+        <StatisticsCardWrapper flex='2' minH={'530px'} title={t('stats.latest_blocks')} icon={VscGraphLine}>
           <LatestBlocks />
         </StatisticsCardWrapper>
-        <VStack w={'full'} flex='2'>
+        <VStack w={'full'} flex='3' spacing={cardSpacing}>
           <ChainInfo />
-          <Flex w={'full'}>
+          <Flex direction={{ base: 'column', md: 'row' }} w={'full'} gap={cardSpacing}>
             <ChainCosts />
             <TxCosts />
           </Flex>
