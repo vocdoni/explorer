@@ -1,29 +1,19 @@
-import { Card, CardBody, Flex, HStack, Link, Text, TextProps } from '@chakra-ui/react'
+import { Card, CardBody, Flex, HStack, Link, Text } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
-import { ReducedTextAndCopy, ReducedTextAndCopyProps } from '~components/Layout/CopyButton'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { RoutePath } from '~constants'
 import { ValidatorFixedType } from '~components/Validators/Detail'
 
-export const ValidatorName = ({
-  name,
-  address,
-  nameProps,
-  addressProps,
-}: {
-  name?: string
-  address: string
-  nameProps?: TextProps
-  addressProps?: Omit<ReducedTextAndCopyProps, 'toCopy'>
-}) => {
+export const ValidatorName = ({ name, useCopy, address }: { name?: string; useCopy?: boolean; address: string }) => {
   const showName = !!name
-  return (
-    <Flex wrap={'wrap'} align={'baseline'} gap={2} wordBreak='break-all'>
-      {showName && (
-        <Text fontWeight={'bold'} fontSize={'xl'} {...nameProps}>
-          {name}
-        </Text>
-      )}
+  let addrsComponent = (
+    <Text fontWeight={'normal'} fontSize={showName ? 'sm' : 'xl'}>
+      {address}
+    </Text>
+  )
+  if (useCopy) {
+    addrsComponent = (
       <ReducedTextAndCopy
         color={'textAccent1'}
         fontWeight={'normal'}
@@ -32,10 +22,19 @@ export const ValidatorName = ({
         my={3}
         toCopy={address}
         fontSize={showName ? 'sm' : 'xl'}
-        {...addressProps}
       >
         {address}
       </ReducedTextAndCopy>
+    )
+  }
+  return (
+    <Flex wrap={'wrap'} align={'baseline'} gap={2} wordBreak='break-all'>
+      {showName && (
+        <Text fontWeight={'bold'} fontSize={'xl'}>
+          {name}
+        </Text>
+      )}
+      {addrsComponent}
     </Flex>
   )
 }

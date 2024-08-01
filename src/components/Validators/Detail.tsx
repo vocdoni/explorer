@@ -43,7 +43,7 @@ const DetailsTab = ({ validator }: { validator: ValidatorFixedType }) => {
       ),
     },
     {
-      label: t('validators.secondary_address', { defaultValue: 'Address' }),
+      label: t('validators.account', { defaultValue: 'Account' }),
       children: (
         <ReducedTextAndCopy
           breakPoint={{ base: true, lg: false }}
@@ -87,7 +87,7 @@ export const ValidatorDetail = ({ validator }: { validator: ValidatorFixedType }
         <Heading isTruncated wordBreak='break-word' mb={0}>
           <Trans i18nKey={'validators.validator_details'}>Validator Details</Trans>
         </Heading>
-        <ValidatorName name={validator.name} address={validator.validatorAddress} />
+        <ValidatorName name={validator.name} address={validator.validatorAddress} useCopy />
         <HStack color={'lighterText'} fontWeight={'bold'}>
           <Text>
             <Trans i18nKey={'validators.validator_details'}>Joined on block</Trans>
