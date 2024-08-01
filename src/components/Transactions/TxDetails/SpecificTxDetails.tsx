@@ -63,7 +63,14 @@ const VoteTxDetails = ({ rawTx, votePackage, processId }: { rawTx: any } & VoteE
     // Decode the vote package from base64
     votePackage = atob(votePackage)
     // And copy it alsow to rawTx
-    rawTx['tx']['vote']['votePackage'] = JSON.parse(votePackage)
+    try {
+      rawTx['tx']['vote']['votePackage'] = JSON.parse(votePackage)
+    } catch (e) {
+      // If vote package cannot be parsed as JSON, it may be encrypted
+      const msg = t('transactions.error_parsing_vote_package', { defaultValue: 'Vote package may be encrypted' })
+      rawTx['tx']['vote']['votePackage'] = votePackage
+      votePackage = msg
+    }
   }
   const process = ensure0x(b64ToHex(processId))
 
