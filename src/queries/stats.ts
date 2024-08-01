@@ -37,3 +37,54 @@ export const useChainCosts = ({ ...options }: Omit<UseQueryOptions<IChainGetCost
     ...options,
   })
 }
+
+// todo(kon): This need to be implemented on the SDK https://github.com/vocdoni/vocdoni-sdk/issues/403
+
+type TxCostsType = {
+  costs: {
+    AddDelegateForAccount: number
+    CollectFaucet: number
+    CreateAccount: number
+    DelAccountSIK: number
+    DelDelegateForAccount: number
+    NewProcess: number
+    RegisterKey: number
+    SendTokens: number
+    SetAccountInfoURI: number
+    SetAccountSIK: number
+    SetAccountValidator: number
+    SetProcessCensus: number
+    SetProcessDuration: number
+    SetProcessQuestionIndex: number
+    SetProcessStatus: number
+  }
+}
+
+const TxCostsMock: TxCostsType = {
+  costs: {
+    AddDelegateForAccount: 1,
+    CollectFaucet: 1,
+    CreateAccount: 1,
+    DelAccountSIK: 1,
+    DelDelegateForAccount: 1,
+    NewProcess: 5,
+    RegisterKey: 1,
+    SendTokens: 1,
+    SetAccountInfoURI: 1,
+    SetAccountSIK: 1,
+    SetAccountValidator: 10000,
+    SetProcessCensus: 2,
+    SetProcessDuration: 2,
+    SetProcessQuestionIndex: 1,
+    SetProcessStatus: 2,
+  },
+}
+
+export const useTxsCosts = ({ ...options }: Omit<UseQueryOptions<TxCostsType>, 'queryKey'>) => {
+  const { client } = useClient<ExtendedSDKClient>()
+  return useQuery({
+    queryKey: ['chainStats', 'txCost'],
+    queryFn: () => TxCostsMock,
+    ...options,
+  })
+}
