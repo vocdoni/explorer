@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardBody,
   CardHeader,
@@ -12,7 +13,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { PropsWithChildren } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { IconType } from 'react-icons'
 import { VscGraphLine } from 'react-icons/vsc'
 import { LatestBlocks } from '~components/Stats/LatestBlocks'
@@ -21,6 +22,7 @@ import { ChainCosts } from '~components/Stats/ChainDetails/ChainCosts'
 import { ChainInfo } from '~components/Stats/ChainDetails/ChainInfo'
 import { StatsCards } from '~components/Stats/ChainDetails/StatsCards'
 import { TxCosts } from '~components/Stats/ChainDetails/TxCosts'
+import { Icons } from '~src/theme/components/Icons'
 
 interface StatisticsCardProps {
   title: string
@@ -45,20 +47,20 @@ export const StatisticsCardWrapper = ({
         <Icon color='textAccent1' fontSize='2xl' as={icon} />
         <Text>{title}</Text>
       </HStack>
-      {!!raw && <RawModal color={'lightText'} fontSize={'xs'} obj={raw} />}
+      <Box>
+        {!!raw && <RawModal color={'lightText'} fontSize={'xs'} obj={raw} />}
+        {readMore && (
+          <Box as={Link} href={readMore} isExternal>
+            <Icon boxSize={4} as={Icons.ExternalIcon} />
+          </Box>
+        )}
+      </Box>
     </CardHeader>
     <CardBody>
       {isLoading && <SkeletonText noOfLines={3} spacing={3} skeletonHeight={3} py={2} />}
       {!isLoading && (
         <Flex h={'full'} direction={'column'} justify={'space-between'}>
           {children}
-          {readMore && (
-            <Flex direction={'column'} align={'end'}>
-              <Text as={Link} fontSize={'sm'} href={readMore}>
-                <Trans i18nKey={'read_more'}>Read more</Trans>
-              </Text>
-            </Flex>
-          )}
         </Flex>
       )}
     </CardBody>
