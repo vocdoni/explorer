@@ -1,6 +1,6 @@
-import { Box, Flex, Grid, GridItem, GridProps, Icon, Text, Tooltip } from '@chakra-ui/react'
+import { Flex, Grid, GridItem, GridProps, Text } from '@chakra-ui/react'
 import { PropsWithChildren } from 'react'
-import { GrStatusInfo } from 'react-icons/gr'
+import Hint from '~components/Layout/Hint'
 
 export type GridItemProps = { label: string; info?: string } & PropsWithChildren
 
@@ -11,7 +11,7 @@ export type GridItemProps = { label: string; info?: string } & PropsWithChildren
  */
 export const DetailsGrid = ({ details, ...rest }: { details: GridItemProps[] } & GridProps) => {
   return (
-    <Grid templateColumns={{ base: '1fr', sm: '1fr 4fr' }} gap={4} alignItems={'baseline'} {...rest}>
+    <Grid templateColumns={{ base: '1fr', sm: '1fr 4fr' }} columnGap={3} rowGap={2} {...rest}>
       {details.map(({ children, ...rest }, key) => (
         <DetailRow key={key} {...rest}>
           {children}
@@ -22,22 +22,28 @@ export const DetailsGrid = ({ details, ...rest }: { details: GridItemProps[] } &
 }
 
 const DetailRow = ({ label, info, children }: GridItemProps) => {
-  const gridProps = { display: 'flex', alignItems: 'center' }
   return (
     <>
-      <GridItem {...gridProps}>
-        <Flex alignItems='center'>
-          {!!info && (
-            <Tooltip label={info}>
-              <Box pt={1} pr={1}>
-                <Icon as={GrStatusInfo} />
-              </Box>
-            </Tooltip>
-          )}
-          <Text fontWeight={'bold'}>{label}</Text>
+      <GridItem py={1} lineHeight={{ base: 5, lg: 6 }} _notFirst={{ mt: { base: 3, lg: 0 } }}>
+        <Flex columnGap={2} alignItems='flex-start'>
+          {info && <Hint label={info} isLoading={false} my={{ lg: '2px' }} />}
+          <Text my={{ lg: '2px' }} lineHeight={{ base: 5, lg: 6 }} align={'left'}>
+            {label}
+          </Text>
         </Flex>
       </GridItem>
-      <GridItem {...gridProps}>{children}</GridItem>
+      <GridItem
+        display='flex'
+        alignItems='center'
+        flexWrap='wrap'
+        rowGap={3}
+        pl={{ base: 7, lg: 0 }}
+        py={1}
+        lineHeight={{ base: 5, lg: 6 }}
+        whiteSpace='nowrap'
+      >
+        {children}
+      </GridItem>
     </>
   )
 }
