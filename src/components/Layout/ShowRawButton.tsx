@@ -9,8 +9,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Text,
-  TextProps,
   useDisclosure,
 } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
@@ -41,13 +39,13 @@ export const RawContentBox = ({ obj, ...rest }: { obj: object } & BoxProps) => (
   </Box>
 )
 
-export const RawModal = ({ obj, ...rest }: { obj: object } & TextProps) => {
+export const RawModal = ({ obj, ...rest }: { obj: object } & Omit<ButtonProps, 'onClick'>) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
-      <Text onClick={onOpen} {...rest}>
+      <Button variant={'text'} h={4} onClick={onOpen} {...rest}>
         <Trans i18nKey={'raw'} />
-      </Text>
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
