@@ -1,10 +1,10 @@
 import { Badge, Flex, HStack, Text } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
-import { useChainCosts, useChainInfo } from '~queries/stats'
+import { useChainInfo } from '~queries/stats'
 import { useDateFns } from '~i18n/use-date-fns'
 import { MdSpeed } from 'react-icons/md'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
-import { StatisticsCardWrapper } from '~components/Stats/index'
+import { StatisticsCardWrapper } from '~components/Stats'
 
 const SyncBadge = ({ syncing }: { syncing: boolean }) => {
   const { t } = useTranslation()
@@ -49,40 +49,7 @@ export const ChainInfo = () => {
             {t('stats.genesis', { date: genesisBlockDate, defaultValue: 'Genesis {{date}}' })}
           </Text>
         </HStack>
-        <DetailsGrid details={statsData} gap={3} />
-      </Flex>
-    </StatisticsCardWrapper>
-  )
-}
-
-export const ChainCosts = () => {
-  const { data } = useChainCosts({})
-  const { t } = useTranslation()
-  return (
-    <StatisticsCardWrapper flex='1' w={'full'} icon={MdSpeed} title={t('stats.costs')}>
-      <Flex direction={'column'} align={'start'} gap={4}>
-        <HStack>
-          <Text fontSize='lg' fontWeight={'bold'}>
-            {t('stats.costs')}
-          </Text>
-        </HStack>
-        {/*<DetailsGrid*/}
-        {/*  details={[*/}
-        {/*    {*/}
-        {/*      label: t('stats.costs.tx', { defaultValue: 'Transaction' }),*/}
-        {/*      children: data?.tx,*/}
-        {/*    },*/}
-        {/*    {*/}
-        {/*      label: t('stats.costs.vote', { defaultValue: 'Vote' }),*/}
-        {/*      children: data?.vote,*/}
-        {/*    },*/}
-        {/*    {*/}
-        {/*      label: t('stats.costs.election', { defaultValue: 'Election' }),*/}
-        {/*      children: data?.election,*/}
-        {/*    },*/}
-        {/*  ]}*/}
-        {/*  gap={3}*/}
-        {/*/>*/}
+        <DetailsGrid details={statsData} rowGap={1} />
       </Flex>
     </StatisticsCardWrapper>
   )

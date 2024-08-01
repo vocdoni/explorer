@@ -17,13 +17,14 @@ import { PropsWithChildren, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IconType } from 'react-icons'
 import { generatePath, Link } from 'react-router-dom'
-import { ChainCosts, ChainInfo } from '~components/Stats/ChainInfo'
 import { RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useChainInfo } from '~queries/stats'
 import { Icons } from '~src/theme/components/Icons'
 import { VscGraphLine } from 'react-icons/vsc'
 import { LatestBlocks } from '~components/Stats/LatestBlocks'
 import { RawModal } from '~components/Layout/ShowRawButton'
+import { ChainCosts } from '~components/Stats/ChainDetails/ChainCosts'
+import { ChainInfo } from '~components/Stats/ChainDetails/ChainInfo'
 
 interface IStatsCardProps {
   title: string
