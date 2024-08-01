@@ -65,7 +65,7 @@ const IncrementalStat = ({ value, label }: IncrementalStatProps) => {
   }, [value, duration])
 
   return (
-    <Flex direction={'column'} align={'center'}>
+    <Flex flex={1} direction={'column'} align={'center'}>
       <Box>
         <Heading>{displayNumber}</Heading>
       </Box>
@@ -122,7 +122,7 @@ export const StatsCards = () => {
     },
   ]
 
-  const circularStats: IncrementalStatProps[] = [
+  const incrementalStats: IncrementalStatProps[] = [
     {
       label: t('stats.organizations', { defaultValue: 'Organizations' }),
       value: stats.organizationCount,
@@ -146,7 +146,7 @@ export const StatsCards = () => {
       </Grid>
 
       <Flex w={'full'} justify={'space-around'} wrap={'wrap'}>
-        {circularStats.map((card, i) => (
+        {incrementalStats.map((card, i) => (
           <IncrementalStat key={i} {...card} />
         ))}
       </Flex>
