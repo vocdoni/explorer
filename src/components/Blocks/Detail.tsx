@@ -95,6 +95,7 @@ const DetailsTab = ({ block }: { block: IChainBlockInfoResponse }) => {
           fontWeight={'normal'}
           h={0}
           fontSize={'md'}
+          to={generatePath(RoutePath.Validator, { address: proposer })}
         >
           {proposer}
         </ReducedTextAndCopy>
