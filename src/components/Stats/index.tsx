@@ -7,7 +7,6 @@ import {
   Flex,
   HStack,
   Icon,
-  Link,
   SkeletonText,
   Text,
   VStack,
@@ -18,17 +17,16 @@ import { IconType } from 'react-icons'
 import { VscGraphLine } from 'react-icons/vsc'
 import { LatestBlocks } from '~components/Stats/LatestBlocks'
 import { RawModal } from '~components/Layout/ShowRawButton'
-import { ChainCosts } from '~components/Stats/ChainDetails/ChainCosts'
+import { PriceFactors } from '~components/Stats/ChainDetails/PriceFactors'
 import { ChainInfo } from '~components/Stats/ChainDetails/ChainInfo'
 import { StatsCards } from '~components/Stats/ChainDetails/StatsCards'
 import { TxCosts } from '~components/Stats/ChainDetails/TxCosts'
-import { Icons } from '~src/theme/components/Icons'
 
 interface StatisticsCardProps {
   title: string
   icon: IconType
   raw?: object
-  readMore?: string
+  rightComp?: any
   isLoading?: boolean
 }
 
@@ -37,7 +35,7 @@ export const StatisticsCardWrapper = ({
   icon,
   raw,
   children,
-  readMore,
+  rightComp,
   isLoading,
   ...rest
 }: StatisticsCardProps & PropsWithChildren & CardProps) => (
@@ -49,11 +47,7 @@ export const StatisticsCardWrapper = ({
       </HStack>
       <Box>
         {!!raw && <RawModal color={'lightText'} fontSize={'xs'} obj={raw} />}
-        {readMore && (
-          <Box as={Link} href={readMore} isExternal>
-            <Icon boxSize={4} as={Icons.ExternalIcon} />
-          </Box>
-        )}
+        {rightComp}
       </Box>
     </CardHeader>
     <CardBody>
@@ -81,7 +75,7 @@ const Stats = () => {
         <VStack w={'full'} flex='3' spacing={cardSpacing}>
           <ChainInfo />
           <Flex direction={{ base: 'column', md: 'row' }} w={'full'} gap={cardSpacing}>
-            <ChainCosts />
+            <PriceFactors />
             <TxCosts />
           </Flex>
         </VStack>
