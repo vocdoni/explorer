@@ -43,6 +43,11 @@ export const ChainInfo = () => {
       children: stats.initialHeight,
       isNumber: true,
     },
+    {
+      label: t('stats.blockTimestamp', { defaultValue: 'Block timestamp' }),
+      children: formatDistance(new Date(stats?.blockTimestamp * 1000), new Date()),
+      isNumber: true,
+    },
   ]
 
   return (
