@@ -5,6 +5,7 @@ import { useDateFns } from '~i18n/use-date-fns'
 import { MdSpeed } from 'react-icons/md'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { StatisticsCardWrapper } from '~components/Stats'
+import Hint from '~components/Layout/Hint'
 
 const SyncBadge = ({ syncing }: { syncing: boolean }) => {
   const { t } = useTranslation()
@@ -18,10 +19,13 @@ const SyncBadge = ({ syncing }: { syncing: boolean }) => {
 export const ChainInfo = () => {
   const { t } = useTranslation()
   const { data: stats } = useChainInfo()
-  const { formatDistance } = useDateFns()
-  const genesisBlockDate = stats?.genesisTime ? formatDistance(new Date(stats?.genesisTime), new Date()) : ''
+  const { formatDistance, format } = useDateFns()
 
   if (!stats) return null
+
+  const genesisBlockDate = formatDistance(new Date(stats.genesisTime), new Date())
+  const blockTimestamp = new Date(stats?.blockTimestamp * 1000)
+  const timestampInfo = format(blockTimestamp, "dd LLLL yyyy 'at' hh:mm:ss")
 
   const statsData: GridItemProps[] = [
     {
@@ -45,7 +49,12 @@ export const ChainInfo = () => {
     },
     {
       label: t('stats.blockTimestamp', { defaultValue: 'Block timestamp' }),
-      children: formatDistance(new Date(stats?.blockTimestamp * 1000), new Date()),
+      children: (
+        <>
+          {formatDistance(blockTimestamp, new Date())}
+          <Hint label={timestampInfo} isLoading={false} ml={2} />
+        </>
+      ),
       isNumber: true,
     },
   ]
