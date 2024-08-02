@@ -1,7 +1,7 @@
-import {useChainCosts} from '~queries/stats'
-import {useTranslation} from 'react-i18next'
-import {StatisticsCardWrapper} from '~components/Stats'
-import {IoIosPricetag} from 'react-icons/io'
+import { useChainCosts } from '~queries/stats'
+import { useTranslation } from 'react-i18next'
+import { StatisticsCardWrapper } from '~components/Stats'
+import { IoIosPricetag } from 'react-icons/io'
 import {
   Box,
   Button,
@@ -20,8 +20,8 @@ import {
   useDisclosure,
   VStack,
 } from '@chakra-ui/react'
-import {DetailsGrid} from '~components/Layout/DetailsGrid'
-import {Icons} from '~src/theme/components/Icons'
+import { DetailsGrid } from '~components/Layout/DetailsGrid'
+import { Icons } from '~src/theme/components/Icons'
 
 // todo(kon): this is unused, delete before merge
 export const PriceFactors = () => {
