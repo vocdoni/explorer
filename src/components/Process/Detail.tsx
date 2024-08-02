@@ -8,6 +8,7 @@ import {
   Grid,
   GridItem,
   Icon,
+  Link,
   Tab,
   TabList,
   TabPanel,
@@ -76,7 +77,6 @@ const Detail = () => {
       <HeroHeaderLayout header={<ElectionHeader fallbackSrc={FallbackHeaderImg} />}>
         <VStack gap={2}>
           <ElectionStatusBadge status={election.status} />
-
           <ElectionTitle />
           <ReducedTextAndCopy color={'textAccent1'} toCopy={id} fontWeight={'normal'} h={0} fontSize={'md'}>
             {id}
@@ -279,15 +279,15 @@ const EnvelopeCard = ({ envelope, count }: { envelope: IElectionVote; count: num
       </CardHeader>
       <CardBody>
         <Flex direction={'column'}>
-          <Text
+          <Link
             as={RouterLink}
             to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString(), page: null })}
           >
             <Trans i18nKey={'envelope.block'} height={envelope.blockHeight}>
               Block {{ height: envelope.blockHeight }}
             </Trans>
-          </Text>
-          <Text
+          </Link>
+          <Link
             as={RouterLink}
             to={generatePath(RoutePath.Transaction, {
               block: envelope.blockHeight.toString(),
@@ -297,10 +297,10 @@ const EnvelopeCard = ({ envelope, count }: { envelope: IElectionVote; count: num
             <Trans i18nKey={'envelope.tx_number'} transactionIndex={envelope.transactionIndex}>
               Transaction: {{ transactionIndex: envelope.transactionIndex }}
             </Trans>
-          </Text>
-          <Text as={RouterLink} to={generatePath(RoutePath.Envelope, { verifier: envelope.voteID })}>
+          </Link>
+          <Link as={RouterLink} to={generatePath(RoutePath.Envelope, { verifier: envelope.voteID })}>
             <Trans i18nKey={'envelope.details'}>Details</Trans>
-          </Text>
+          </Link>
         </Flex>
       </CardBody>
     </Card>

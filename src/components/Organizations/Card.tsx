@@ -99,10 +99,9 @@ export const SmallOrganizationCard = ({ id, flex, avatar }: { id: string; flex?:
       </Box>
       <Wrap spacingX={2} spacingY={0} align={'baseline'}>
         {orgName && (
-          <Text
+          <Link
             as={RouterLink}
             to={generatePath(RoutePath.Organization, { pid: id, page: null })}
-            color={'textAccent1'}
             size='xs'
             fontWeight={'normal'}
             variant={'text'}
@@ -110,7 +109,7 @@ export const SmallOrganizationCard = ({ id, flex, avatar }: { id: string; flex?:
             wordBreak='break-all'
           >
             {orgName}
-          </Text>
+          </Link>
         )}
         <ReducedTextAndCopy
           breakPoint={{ base: true }}

@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react'
+import { Link } from '@chakra-ui/react'
 import { ensure0x, TransactionType, Tx } from '@vocdoni/sdk'
 import { useTranslation } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
@@ -56,13 +56,9 @@ export const TxDetailsGrid = (tx: Tx) => {
     {
       label: t('transactions.block', { defaultValue: 'Block' }),
       children: (
-        <Text
-          as={RouterLink}
-          to={generatePath(RoutePath.Block, { height: blockHeight.toString(), page: null })}
-          color={'textAccent1'}
-        >
+        <Link as={RouterLink} to={generatePath(RoutePath.Block, { height: blockHeight.toString(), page: null })}>
           {blockHeight}
-        </Text>
+        </Link>
       ),
     },
     {
