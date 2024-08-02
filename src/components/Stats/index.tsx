@@ -70,7 +70,7 @@ const Stats = () => {
       <Flex direction={{ base: 'column', lg: 'row' }} alignItems='start' gap={cardSpacing}>
         <VStack w={'full'} flex='3' spacing={cardSpacing}>
           <ChainInfo />
-          <StatisticsCardWrapper flex='2' minH={'530px'} title={t('stats.latest_blocks')} icon={VscGraphLine}>
+          <StatisticsCardWrapper flex='2' title={t('stats.latest_blocks')} icon={VscGraphLine}>
             <LatestBlocks />
           </StatisticsCardWrapper>
         </VStack>
