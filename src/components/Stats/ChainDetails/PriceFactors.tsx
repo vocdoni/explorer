@@ -113,7 +113,7 @@ const PriceFactorsInfoSkeleton = () => {
             isNumber: true,
           },
           {
-            label: t('stats.networkCapacity', { defaultValue: 'Votes per Block' }),
+            label: t('stats.networkCapacity', { defaultValue: 'Capacity (votes/block)' }),
             children: data?.capacity,
             info: t('stats.price_factors.capacity_info', {
               defaultValue: 'Capacity of the blockchain',

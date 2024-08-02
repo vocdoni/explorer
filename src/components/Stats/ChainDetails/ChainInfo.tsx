@@ -5,7 +5,6 @@ import { useDateFns } from '~i18n/use-date-fns'
 import { MdSpeed } from 'react-icons/md'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { StatisticsCardWrapper } from '~components/Stats'
-import Hint from '~components/Layout/Hint'
 
 const SyncBadge = ({ syncing }: { syncing: boolean }) => {
   const { t } = useTranslation()
@@ -23,9 +22,8 @@ export const ChainInfo = () => {
 
   if (!stats) return null
 
-  const genesisBlockDate = formatDistance(new Date(stats.genesisTime), new Date())
-  const blockTimestamp = new Date(stats?.blockTimestamp * 1000)
-  const timestampInfo = format(blockTimestamp, "dd LLLL yyyy 'at' hh:mm:ss")
+  const genesisBlockDate = format(new Date(stats.genesisTime), 'PPPpp')
+  const timestampInfo = format(new Date(stats?.blockTimestamp * 1000), 'hh:mm:ss')
 
   const statsData: GridItemProps[] = [
     {
@@ -34,14 +32,14 @@ export const ChainInfo = () => {
       isNumber: true,
     },
     {
-      label: t('stats.networkCapacity', { defaultValue: 'Votes per Block' }),
+      label: t('stats.networkCapacity', { defaultValue: 'Capacity (votes/block)' }),
       // Not typed on the SDK
       // @ts-ignore
       children: stats.networkCapacity,
       isNumber: true,
     },
     {
-      label: t('stats.initial_height', { defaultValue: 'Initial Height' }),
+      label: t('stats.initial_height', { defaultValue: 'Epoch initial Height' }),
       // Not typed on the SDK
       // @ts-ignore
       children: stats.initialHeight,
@@ -49,12 +47,7 @@ export const ChainInfo = () => {
     },
     {
       label: t('stats.blockTimestamp', { defaultValue: 'Block timestamp' }),
-      children: (
-        <>
-          {formatDistance(blockTimestamp, new Date())}
-          <Hint label={timestampInfo} isLoading={false} ml={2} />
-        </>
-      ),
+      children: timestampInfo,
       isNumber: true,
     },
   ]
@@ -71,7 +64,7 @@ export const ChainInfo = () => {
         <Text color={'lightText'} fontSize='md'>
           {t('stats.genesis', {
             date: genesisBlockDate,
-            defaultValue: 'Chain Genesis Epoch last update from {{date}}',
+            defaultValue: 'Chain Genesis Epoch from {{date}}',
           })}
         </Text>
       </VStack>
