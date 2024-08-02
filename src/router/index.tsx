@@ -136,9 +136,7 @@ export const RoutesProvider = () => {
                 if (params.hashOrHeight && isNaN(Number(params.hashOrHeight))) {
                   tx = await client.txInfo(params.hashOrHeight)
                 } else {
-                  // todo: Extended sdk takes to arguments wrongly. Fix it on the extended sdk and remove this lines
-                  // @ts-ignore
-                  tx = await client.txByIndex(params.hashOrHeight)
+                  tx = await client.txByIndex(Number(params.hashOrHeight))
                 }
 
                 return await client.txInfoByBlock(Number(tx.blockHeight), Number(tx.transactionIndex))
