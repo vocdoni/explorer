@@ -67,15 +67,15 @@ const Stats = () => {
   return (
     <Flex direction={'column'} gap={8}>
       <StatsCards />
-      <Flex direction={{ base: 'column-reverse', lg: 'row' }} alignItems='start' gap={cardSpacing}>
-        <StatisticsCardWrapper flex='2' minH={'530px'} title={t('stats.latest_blocks')} icon={VscGraphLine}>
-          <LatestBlocks />
-        </StatisticsCardWrapper>
+      <Flex direction={{ base: 'column', lg: 'row' }} alignItems='start' gap={cardSpacing}>
         <VStack w={'full'} flex='3' spacing={cardSpacing}>
           <ChainInfo />
-          <Flex direction={{ base: 'column', md: 'row' }} w={'full'} gap={cardSpacing}>
-            <TxCosts />
-          </Flex>
+          <StatisticsCardWrapper flex='2' minH={'530px'} title={t('stats.latest_blocks')} icon={VscGraphLine}>
+            <LatestBlocks />
+          </StatisticsCardWrapper>
+        </VStack>
+        <VStack w={'full'} flex='3' spacing={cardSpacing}>
+          <TxCosts />
         </VStack>
       </Flex>
     </Flex>

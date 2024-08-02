@@ -9,7 +9,7 @@ import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
 
 export const LatestBlocks = () => {
-  const blockListSize = 5
+  const blockListSize = 4
 
   const { data: stats, isLoading: isLoadingStats } = useChainInfo()
   const { data: blocks, isLoading: isLoadingBlocks } = useBlockList({
