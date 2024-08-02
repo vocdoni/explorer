@@ -7,6 +7,7 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay,
   useDisclosure,
@@ -57,6 +58,9 @@ export const RawModal = ({ obj, ...rest }: { obj: object } & Omit<ButtonProps, '
           <ModalBody>
             <RawContentBox obj={obj} />
           </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
