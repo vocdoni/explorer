@@ -17,7 +17,6 @@ import { IconType } from 'react-icons'
 import { VscGraphLine } from 'react-icons/vsc'
 import { LatestBlocks } from '~components/Stats/LatestBlocks'
 import { RawModal } from '~components/Layout/ShowRawButton'
-import { PriceFactors } from '~components/Stats/ChainDetails/PriceFactors'
 import { ChainInfo } from '~components/Stats/ChainDetails/ChainInfo'
 import { StatsCards } from '~components/Stats/ChainDetails/StatsCards'
 import { TxCosts } from '~components/Stats/ChainDetails/TxCosts'
@@ -75,7 +74,6 @@ const Stats = () => {
         <VStack w={'full'} flex='3' spacing={cardSpacing}>
           <ChainInfo />
           <Flex direction={{ base: 'column', md: 'row' }} w={'full'} gap={cardSpacing}>
-            <PriceFactors />
             <TxCosts />
           </Flex>
         </VStack>

@@ -30,7 +30,7 @@ export const ChainInfo = () => {
     },
 
     {
-      label: t('stats.networkCapacity', { defaultValue: 'Network Capacity' }),
+      label: t('stats.networkCapacity', { defaultValue: 'Votes per Block' }),
       // Not typed on the SDK
       // @ts-ignore
       children: stats.networkCapacity,
