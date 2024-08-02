@@ -1,4 +1,4 @@
-import { Badge, Flex, HStack, Text } from '@chakra-ui/react'
+import { Badge, HStack, Text, VStack } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { useChainInfo } from '~queries/stats'
 import { useDateFns } from '~i18n/use-date-fns'
@@ -27,30 +27,41 @@ export const ChainInfo = () => {
     {
       label: t('stats.maxCensusSize', { defaultValue: 'Max Census Size' }),
       children: stats.maxCensusSize,
+      isNumber: true,
     },
-
     {
       label: t('stats.networkCapacity', { defaultValue: 'Votes per Block' }),
       // Not typed on the SDK
       // @ts-ignore
       children: stats.networkCapacity,
+      isNumber: true,
+    },
+    {
+      label: t('stats.initial_height', { defaultValue: 'Initial Height' }),
+      // Not typed on the SDK
+      // @ts-ignore
+      children: stats.initialHeight,
+      isNumber: true,
     },
   ]
 
   return (
     <StatisticsCardWrapper flex='2' w={'full'} icon={MdSpeed} title={t('stats.blockchain_info')} raw={stats}>
-      <Flex direction={'column'} align={'start'} gap={4}>
+      <VStack pb={4} align={'start'} spacing={1}>
         <HStack>
           <Text fontSize='lg' fontWeight={'bold'}>
             {stats.chainId}
           </Text>
           <SyncBadge syncing={stats.syncing} />
-          <Text color={'lightText'} fontSize='md'>
-            {t('stats.genesis', { date: genesisBlockDate, defaultValue: 'Genesis {{date}}' })}
-          </Text>
         </HStack>
-        <DetailsGrid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} details={statsData} rowGap={0} />
-      </Flex>
+        <Text color={'lightText'} fontSize='md'>
+          {t('stats.genesis', {
+            date: genesisBlockDate,
+            defaultValue: 'Chain Genesis Epoch last update from {{date}}',
+          })}
+        </Text>
+      </VStack>
+      <DetailsGrid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} details={statsData} rowGap={0} />
     </StatisticsCardWrapper>
   )
 }
