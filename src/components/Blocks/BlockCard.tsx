@@ -3,12 +3,11 @@ import { BlockError, BlockNotFoundError } from '@vocdoni/extended-sdk'
 import { IChainBlockInfoResponse } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { BiTransferAlt } from 'react-icons/bi'
-
 import { generatePath } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import LinkCard from '~components/Layout/LinkCard'
 import { RoutePath } from '~constants'
 import { useDateFns } from '~i18n/use-date-fns'
-import LinkCard from '~components/Layout/LinkCard'
 
 export const BlockCard = ({ block }: { block: IChainBlockInfoResponse | BlockError }) => {
   if (block instanceof BlockError) return <BlockErrorCard error={block} height={block.height} />
