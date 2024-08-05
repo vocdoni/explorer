@@ -1,10 +1,11 @@
-import { Box, BoxProps, Card, CardBody, CardProps, Flex, FlexProps, Link, Text, Wrap } from '@chakra-ui/react'
+import { Box, BoxProps, CardBody, CardProps, Flex, FlexProps, LinkBox, LinkOverlay, Text } from '@chakra-ui/react'
 import { OrganizationImage as Avatar, OrganizationName } from '@vocdoni/chakra-components'
 import { OrganizationProvider, useOrganization } from '@vocdoni/react-providers'
 import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { FallbackAccountImg, RoutePath } from '~constants'
+import LinkCard from '~components/Layout/LinkCard'
 
 type IOrganizationCardProps = {
   id?: string
@@ -38,8 +39,7 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
   if (!pid) return null
 
   return (
-    <Card
-      as={RouterLink}
+    <LinkCard
       to={generatePath(RoutePath.Organization, { pid, page: null })}
       direction={'row'}
       alignItems='center'
@@ -55,28 +55,26 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
           }).toString()}
         />
       </Box>
-      <Link as={RouterLink} to={generatePath(RoutePath.Organization, { pid, page: null })}>
-        <CardBody>
-          {loading ? (
-            <Text fontWeight={'bold'} wordBreak='break-all' size='sm'>
-              {pid}
-            </Text>
-          ) : (
-            <OrganizationName fontWeight={'bold'} wordBreak='break-all' size='sm' />
-          )}
-          <ReducedTextAndCopy color={'textAccent1'} toCopy={pid}>
+      <CardBody>
+        {loading ? (
+          <Text fontWeight={'bold'} wordBreak='break-all' size='sm'>
             {pid}
-          </ReducedTextAndCopy>
-          {electionCount && (
-            <Text fontSize={'sm'}>
-              <Trans i18nKey={'organization.process_count'} count={electionCount}>
-                <strong>Process:</strong> {{ count: electionCount }}
-              </Trans>
-            </Text>
-          )}
-        </CardBody>
-      </Link>
-    </Card>
+          </Text>
+        ) : (
+          <OrganizationName fontWeight={'bold'} wordBreak='break-all' size='sm' />
+        )}
+        <ReducedTextAndCopy color={'textAccent1'} toCopy={pid}>
+          {pid}
+        </ReducedTextAndCopy>
+        {electionCount && (
+          <Text fontSize={'sm'}>
+            <Trans i18nKey={'organization.process_count'} count={electionCount}>
+              <strong>Process:</strong> {{ count: electionCount }}
+            </Trans>
+          </Text>
+        )}
+      </CardBody>
+    </LinkCard>
   )
 }
 
@@ -85,6 +83,7 @@ export const SmallOrganizationCard = ({ id, flex, avatar }: { id: string; flex?:
   const { t } = useTranslation()
 
   const orgName = organization?.account.name.default
+  const orgLink = generatePath(RoutePath.Organization, { pid: id, page: null })
 
   return (
     <Flex direction={'row'} alignItems={'center'} gap={2} {...flex}>
@@ -97,33 +96,22 @@ export const SmallOrganizationCard = ({ id, flex, avatar }: { id: string; flex?:
           }).toString()}
         />
       </Box>
-      <Wrap spacingX={2} spacingY={0} align={'baseline'}>
-        {orgName && (
-          <Text
-            as={RouterLink}
-            to={generatePath(RoutePath.Organization, { pid: id, page: null })}
-            color={'textAccent1'}
-            size='xs'
-            fontWeight={'normal'}
-            variant={'text'}
-            pl={0}
-            wordBreak='break-all'
-          >
-            {orgName}
-          </Text>
-        )}
+      <LinkBox color={'link'} _hover={{ a: { color: 'accent1' } }}>
+        <LinkOverlay pr={orgName ? 4 : 0} as={RouterLink} to={orgLink}>
+          {orgName}
+        </LinkOverlay>
         <ReducedTextAndCopy
           breakPoint={{ base: true }}
           color={'textAccent1'}
           size='sm'
           toCopy={id}
-          to={generatePath(RoutePath.Organization, { pid: id, page: null })}
+          to={orgLink}
           pl={0}
           fontWeight={'normal'}
         >
           {id}
         </ReducedTextAndCopy>
-      </Wrap>
+      </LinkBox>
     </Flex>
   )
 }

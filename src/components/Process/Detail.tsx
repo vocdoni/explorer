@@ -8,6 +8,7 @@ import {
   Grid,
   GridItem,
   Icon,
+  Link,
   Tab,
   TabList,
   TabPanel,
@@ -76,7 +77,6 @@ const Detail = () => {
       <HeroHeaderLayout header={<ElectionHeader fallbackSrc={FallbackHeaderImg} />}>
         <VStack gap={2}>
           <ElectionStatusBadge status={election.status} />
-
           <ElectionTitle />
           <ReducedTextAndCopy color={'textAccent1'} toCopy={id} fontWeight={'normal'} h={0} fontSize={'md'}>
             {id}
@@ -121,18 +121,14 @@ const Detail = () => {
       </Flex>
       {/*Organization card and other cards*/}
       <Grid templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4}>
-        <GridItem colSpan={2} display='flex'>
-          <OrganizationCard flex='1' />
+        <GridItem colSpan={2}>
+          <OrganizationCard h={'full'} />
         </GridItem>
-        <GridItem colSpan={1} display='flex'>
-          <InfoCard title={t('processes.envelope_recount')} flex='1'>
-            {election.voteCount}
-          </InfoCard>
+        <GridItem colSpan={1}>
+          <InfoCard title={t('processes.envelope_recount')}>{election.voteCount}</InfoCard>
         </GridItem>
-        <GridItem colSpan={1} display='flex'>
-          <InfoCard title={t('processes.total_questions')} flex='1'>
-            {election.questions.length}
-          </InfoCard>
+        <GridItem colSpan={1}>
+          <InfoCard title={t('processes.total_questions')}>{election.questions.length}</InfoCard>
         </GridItem>
       </Grid>
       {/*Encrypted votes */}
@@ -279,15 +275,15 @@ const EnvelopeCard = ({ envelope, count }: { envelope: IElectionVote; count: num
       </CardHeader>
       <CardBody>
         <Flex direction={'column'}>
-          <Text
+          <Link
             as={RouterLink}
             to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString(), page: null })}
           >
             <Trans i18nKey={'envelope.block'} height={envelope.blockHeight}>
               Block {{ height: envelope.blockHeight }}
             </Trans>
-          </Text>
-          <Text
+          </Link>
+          <Link
             as={RouterLink}
             to={generatePath(RoutePath.Transaction, {
               block: envelope.blockHeight.toString(),
@@ -297,10 +293,10 @@ const EnvelopeCard = ({ envelope, count }: { envelope: IElectionVote; count: num
             <Trans i18nKey={'envelope.tx_number'} transactionIndex={envelope.transactionIndex}>
               Transaction: {{ transactionIndex: envelope.transactionIndex }}
             </Trans>
-          </Text>
-          <Text as={RouterLink} to={generatePath(RoutePath.Envelope, { verifier: envelope.voteID })}>
+          </Link>
+          <Link as={RouterLink} to={generatePath(RoutePath.Envelope, { verifier: envelope.voteID })}>
             <Trans i18nKey={'envelope.details'}>Details</Trans>
-          </Text>
+          </Link>
         </Flex>
       </CardBody>
     </Card>

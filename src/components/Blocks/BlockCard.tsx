@@ -1,11 +1,11 @@
-import { Box, Card, CardBody, Flex, Link, HStack, Icon, Text } from '@chakra-ui/react'
+import { Box, Card, CardBody, Flex, HStack, Icon, Text } from '@chakra-ui/react'
 import { BlockError, BlockNotFoundError } from '@vocdoni/extended-sdk'
 import { IChainBlockInfoResponse } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { BiTransferAlt } from 'react-icons/bi'
-
-import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { generatePath } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import LinkCard from '~components/Layout/LinkCard'
 import { RoutePath } from '~constants'
 import { useDateFns } from '~i18n/use-date-fns'
 
@@ -36,34 +36,32 @@ const BlockInfoCard = ({
   const { formatDistance } = useDateFns()
 
   return (
-    <Card>
-      <Link as={RouterLink} to={generatePath(RoutePath.Block, { height: height.toString(), page: null })}>
-        <CardBody>
-          <Flex gap={1} direction={'column'}>
-            <Flex gap={3}>
-              <Text fontWeight='bold'># {height}</Text>
-              <HStack spacing={1}>
-                <Icon as={BiTransferAlt} boxSize={5} />
-                <Text fontSize={'sm'} fontWeight={'bold'}>
-                  {txn}
-                </Text>
-              </HStack>
-              <Text fontWeight={100} color={'lighterText'}>
-                {formatDistance(date, new Date())}
+    <LinkCard to={generatePath(RoutePath.Block, { height: height.toString(), page: null })}>
+      <CardBody>
+        <Flex gap={1} direction={'column'}>
+          <Flex gap={3}>
+            <Text fontWeight='bold'># {height}</Text>
+            <HStack spacing={1}>
+              <Icon as={BiTransferAlt} boxSize={5} />
+              <Text fontSize={'sm'} fontWeight={'bold'}>
+                {txn}
               </Text>
-            </Flex>
-            <Box fontSize={'sm'}>
-              <Flex gap={2} align={'center'}>
-                <Trans i18nKey='blocks.proposer'>Proposer:</Trans>
-                <ReducedTextAndCopy color={'textAccent1'} toCopy={proposer}>
-                  {proposer}
-                </ReducedTextAndCopy>
-              </Flex>
-            </Box>
+            </HStack>
+            <Text fontWeight={100} color={'lighterText'}>
+              {formatDistance(date, new Date())}
+            </Text>
           </Flex>
-        </CardBody>
-      </Link>
-    </Card>
+          <Box fontSize={'sm'}>
+            <Flex gap={2} align={'center'}>
+              <Trans i18nKey='blocks.proposer'>Proposer:</Trans>
+              <ReducedTextAndCopy color={'textAccent1'} toCopy={proposer}>
+                {proposer}
+              </ReducedTextAndCopy>
+            </Flex>
+          </Box>
+        </Flex>
+      </CardBody>
+    </LinkCard>
   )
 }
 

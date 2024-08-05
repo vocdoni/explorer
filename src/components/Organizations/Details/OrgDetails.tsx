@@ -1,4 +1,4 @@
-import { Box, Flex, Icon, Text } from '@chakra-ui/react'
+import { Flex, Icon, Link } from '@chakra-ui/react'
 import { OrganizationDescription } from '@vocdoni/chakra-components'
 import { AccountData, ensure0x } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
@@ -25,23 +25,10 @@ const OrgDetails = ({ org }: { org: AccountData }) => {
     {
       label: t('organization.profile', { defaultValue: 'Profile' }),
       children: (
-        <Flex
-          as={'a'}
-          target='blank'
-          href={`${AppBaseURL}/organization/${ensure0x(org.address)}`}
-          align={'end'}
-          gap={3}
-          color={'blueText'}
-        >
-          <Box>
-            <Icon as={FaUserAlt} boxSize={3} />
-          </Box>
-          <Box>
-            <Text verticalAlign='bottom'>
-              <Trans i18nKey={'organization.view_profile'}></Trans>
-            </Text>
-          </Box>
-        </Flex>
+        <Link target='blank' href={`${AppBaseURL}/organization/${ensure0x(org.address)}`}>
+          <Icon as={FaUserAlt} boxSize={3} mr={2} />
+          <Trans i18nKey={'organization.view_profile'}></Trans>
+        </Link>
       ),
     },
     ...(org.account.description.default

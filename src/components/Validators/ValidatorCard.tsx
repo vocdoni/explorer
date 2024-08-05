@@ -1,9 +1,10 @@
-import { Card, CardBody, Flex, HStack, Link, Text } from '@chakra-ui/react'
+import { CardBody, Flex, HStack, Text } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
-import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { generatePath } from 'react-router-dom'
 import { RoutePath } from '~constants'
 import { ValidatorFixedType } from '~components/Validators/Detail'
+import LinkCard from '~components/Layout/LinkCard'
 
 export const ValidatorName = ({ name, useCopy, address }: { name?: string; useCopy?: boolean; address: string }) => {
   const showName = !!name
@@ -41,36 +42,34 @@ export const ValidatorName = ({ name, useCopy, address }: { name?: string; useCo
 
 export const ValidatorCard = (validator: ValidatorFixedType) => {
   return (
-    <Card>
-      <Link as={RouterLink} to={generatePath(RoutePath.Validator, { address: validator.validatorAddress })}>
-        <CardBody>
-          <Flex gap={2} direction={'column'}>
-            <ValidatorName name={validator.name} address={validator.validatorAddress} />
-            <Flex fontSize={'sm'} direction={'column'} gap={2}>
-              <HStack gap={1}>
-                <Text fontWeight={'bold'}>
-                  <Trans i18nKey='validators.pubkey'>PubKey:</Trans>
-                </Text>
-                <ReducedTextAndCopy
-                  color={'textAccent1'}
-                  toCopy={validator.pubKey}
-                  fontWeight={'normal'}
-                  h={0}
-                  fontSize={'sm'}
-                  p={0}
-                >
-                  {validator.pubKey}
-                </ReducedTextAndCopy>
-              </HStack>
+    <LinkCard to={generatePath(RoutePath.Validator, { address: validator.validatorAddress })}>
+      <CardBody>
+        <Flex gap={2} direction={'column'}>
+          <ValidatorName name={validator.name} address={validator.validatorAddress} />
+          <Flex fontSize={'sm'} direction={'column'} gap={2}>
+            <HStack gap={1}>
               <Text fontWeight={'bold'}>
-                <Trans i18nKey='validators.voting_power' values={{ power: validator.power }}>
-                  Voting power: {{ power: validator.power }}
-                </Trans>
+                <Trans i18nKey='validators.pubkey'>PubKey:</Trans>
               </Text>
-            </Flex>
+              <ReducedTextAndCopy
+                color={'textAccent1'}
+                toCopy={validator.pubKey}
+                fontWeight={'normal'}
+                h={0}
+                fontSize={'sm'}
+                p={0}
+              >
+                {validator.pubKey}
+              </ReducedTextAndCopy>
+            </HStack>
+            <Text fontWeight={'bold'}>
+              <Trans i18nKey='validators.voting_power' values={{ power: validator.power }}>
+                Voting power: {{ power: validator.power }}
+              </Trans>
+            </Text>
           </Flex>
-        </CardBody>
-      </Link>
-    </Card>
+        </Flex>
+      </CardBody>
+    </LinkCard>
   )
 }
