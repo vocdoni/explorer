@@ -26,19 +26,21 @@ const link = definePartsStyle((props) => {
     ...theme.components.Card.variants?.elevated,
     container: {
       _hover: {
-        boxShadow: 'var(--box-shadow-darker)',
-        transition: 'box-shadow .2s  ',
         ..._hover,
+        boxShadow: 'var(--box-shadow-darker)',
+        transition: 'box-shadow .2s',
       },
       ...baseStyle.container,
       ...theme.components.Card.variants?.elevated.container,
     },
     header: {
       ...baseStyle.header,
+      transition: 'color .2s',
       _hover,
     },
     body: {
       ...baseStyle.body,
+      transition: 'color .2s',
       _hover,
     },
     footer: {
