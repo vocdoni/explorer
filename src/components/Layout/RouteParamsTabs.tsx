@@ -39,6 +39,11 @@ export const RouteParamsTabs = ({
   // Chang etab param depending on if is route or query params
   const setTabParam = (tab: string) => {
     if (path) {
+      let _extraParams = extraParams
+      // If route contains pagination params, we need to set them to 0
+      if (path.includes(':page')) {
+        _extraParams = { ...extraParams, page: '0' }
+      }
       // Ts warns that not all the routes contain a tab param
       // @ts-ignore
       navigate(generatePath(path, { tab, ...extraParams }) + search)
