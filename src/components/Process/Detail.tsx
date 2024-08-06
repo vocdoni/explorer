@@ -13,7 +13,6 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-  Tabs,
   Tag,
   Text,
   VStack,
@@ -48,6 +47,7 @@ import InvalidElection from '~components/Process/InvalidElection'
 import { FallbackHeaderImg, RoutePath } from '~constants'
 import { useElectionKeys, useElectionVotesList } from '~queries/processes'
 import { ucfirst } from '~utils/strings'
+import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
 
 const Detail = () => {
   const { election } = useElection()
@@ -137,7 +137,7 @@ const Detail = () => {
       <Text fontSize='2xl' color={'blueText'}>
         <Trans i18nKey={'process.detailed_data'}>Detailed data</Trans>
       </Text>
-      <Tabs defaultIndex={defaultTab}>
+      <QueryParamsTabs defaultIndex={defaultTab} isLazy>
         <Box whiteSpace='nowrap' overflowX='auto'>
           <TabList display='flex' flexWrap='wrap'>
             <Tab>
@@ -168,7 +168,7 @@ const Detail = () => {
             <RawContentBox obj={raw} />
           </TabPanel>
         </TabPanels>
-      </Tabs>
+      </QueryParamsTabs>
     </>
   )
 }

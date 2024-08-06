@@ -51,7 +51,7 @@ export const TransactionDetail = (tx: Tx) => {
             <Trans i18nKey={'raw'}>Raw</Trans>
           </Tab>
         </TabList>
-        <TabPanels>
+        <TabPanels isLazy>
           <TabPanel>
             <VStack divider={<StackDivider borderColor='gray.200' />} spacing={4} align='stretch'>
               <TxDetailsGrid {...tx} />

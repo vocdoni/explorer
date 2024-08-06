@@ -128,7 +128,7 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
           {formatDistance(date, new Date())}
         </Text>
       </VStack>
-      <QueryParamsTabs>
+      <QueryParamsTabs isLazy>
         <TabList display='flex' flexWrap='wrap'>
           <Tab>
             <Trans i18nKey={'process.tab_details'}>Details</Trans>
