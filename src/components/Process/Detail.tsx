@@ -47,7 +47,7 @@ import InvalidElection from '~components/Process/InvalidElection'
 import { FallbackHeaderImg, RoutePath } from '~constants'
 import { useElectionKeys, useElectionVotesList } from '~queries/processes'
 import { ucfirst } from '~utils/strings'
-import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
+import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 
 const Detail = () => {
   const { election } = useElection()
@@ -137,7 +137,7 @@ const Detail = () => {
       <Text fontSize='2xl' color={'blueText'}>
         <Trans i18nKey={'process.detailed_data'}>Detailed data</Trans>
       </Text>
-      <QueryParamsTabs defaultIndex={defaultTab} isLazy>
+      <RouteParamsTabs defaultIndex={defaultTab} path={RoutePath.Process} isLazy>
         <Box whiteSpace='nowrap' overflowX='auto'>
           <TabList display='flex' flexWrap='wrap'>
             <Tab>
@@ -168,7 +168,7 @@ const Detail = () => {
             <RawContentBox obj={raw} />
           </TabPanel>
         </TabPanels>
-      </QueryParamsTabs>
+      </RouteParamsTabs>
     </>
   )
 }
@@ -277,7 +277,7 @@ const EnvelopeCard = ({ envelope, count }: { envelope: IElectionVote; count: num
         <Flex direction={'column'}>
           <Link
             as={RouterLink}
-            to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString(), page: null })}
+            to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString(), tab: null, page: null })}
           >
             <Trans i18nKey={'envelope.block'} height={envelope.blockHeight}>
               Block {{ height: envelope.blockHeight }}
@@ -288,6 +288,7 @@ const EnvelopeCard = ({ envelope, count }: { envelope: IElectionVote; count: num
             to={generatePath(RoutePath.Transaction, {
               block: envelope.blockHeight.toString(),
               index: envelope.transactionIndex.toString(),
+              tab: null,
             })}
           >
             <Trans i18nKey={'envelope.tx_number'} transactionIndex={envelope.transactionIndex}>

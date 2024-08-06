@@ -32,7 +32,7 @@ const processIdGridItem = (processId: string, t: TFunction): GridItemProps => {
         fontWeight={'normal'}
         h={0}
         fontSize={'md'}
-        to={generatePath(RoutePath.Process, { pid: processId })}
+        to={generatePath(RoutePath.Process, { pid: processId, tab: null })}
       >
         {processId}
       </ReducedTextAndCopy>

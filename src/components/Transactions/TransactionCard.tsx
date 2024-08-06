@@ -26,6 +26,7 @@ export const TransactionCard = ({
       to={generatePath(RoutePath.Transaction, {
         block: blockHeight.toString(),
         index: transactionIndex.toString(),
+        tab: null,
       })}
     >
       <CardBody>

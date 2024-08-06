@@ -29,7 +29,7 @@ export const BlocksFilter = () => {
     if (isNaN(num) || num <= 0 || num > blockCount) {
       throw new Error(t('blocks.invalid_block_search', { defaultValue: 'Must to be a valid block height' }))
     }
-    navigate(generatePath(RoutePath.Block, { height: num.toString(), page: null }))
+    navigate(generatePath(RoutePath.Block, { height: num.toString(), tab: null, page: null }))
   }, [blockHeight, blockCount])
 
   return (

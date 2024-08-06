@@ -70,7 +70,7 @@ const EnvelopeDetail = (envelope: IVoteInfoResponse) => {
               a: (
                 <Link
                   as={RouterLink}
-                  to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString(), page: null })}
+                  to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString(), tab: null, page: null })}
                 />
               ),
             }}
@@ -81,7 +81,7 @@ const EnvelopeDetail = (envelope: IVoteInfoResponse) => {
           <Trans
             i18nKey={'envelopes.belongs_to_process'}
             components={{
-              a: <Link as={RouterLink} to={generatePath(RoutePath.Process, { pid: envelope.electionID })} />,
+              a: <Link as={RouterLink} to={generatePath(RoutePath.Process, { pid: envelope.electionID, tab: null })} />,
             }}
             values={{ pid: envelope.electionID }}
           />

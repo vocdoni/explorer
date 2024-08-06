@@ -56,7 +56,10 @@ export const TxDetailsGrid = (tx: Tx) => {
     {
       label: t('transactions.block', { defaultValue: 'Block' }),
       children: (
-        <Link as={RouterLink} to={generatePath(RoutePath.Block, { height: blockHeight.toString(), page: null })}>
+        <Link
+          as={RouterLink}
+          to={generatePath(RoutePath.Block, { height: blockHeight.toString(), tab: null, page: null })}
+        >
           {blockHeight}
         </Link>
       ),

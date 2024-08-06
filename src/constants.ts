@@ -20,17 +20,17 @@ export const PaginationItemsPerPage = 10
 // route paths
 export enum RoutePath {
   Base = '/',
-  Block = '/block/:height/:page?',
+  Block = '/block/:height/:tab?/:page?',
   BlocksList = '/blocks/:page?',
   Envelope = '/envelope/:verifier',
-  Organization = '/organization/:pid/:page?',
+  Organization = '/organization/:pid/:tab?/:page?',
   OrganizationsList = '/organizations/:page?/:query?',
-  Process = '/process/:pid',
+  Process = '/process/:pid/:tab?',
   ProcessesList = '/processes/:page?',
-  Transaction = '/transactions/:block/:index',
+  Transaction = '/transactions/:block/:index/:tab?',
   TransactionsList = '/transactions/:page?',
   TransactionByHashOrHeight = '/transactions/:hashOrHeight',
-  Validator = '/validator/:address',
+  Validator = '/validator/:address/:tab?',
   Validators = '/validators',
   Verify = '/verify/:verifier?',
 }
