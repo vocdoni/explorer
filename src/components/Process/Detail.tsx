@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Box,
   Card,
   CardBody,
@@ -156,7 +158,14 @@ const Detail = () => {
         </Box>
         <TabPanels>
           <TabPanel>
-            <ElectionDescription />
+            {election.description?.default ? (
+              <ElectionDescription />
+            ) : (
+              <Alert status='warning'>
+                <AlertIcon />
+                <Trans i18nKey={'process.no_description'}>No description set!</Trans>
+              </Alert>
+            )}
           </TabPanel>
           <TabPanel>
             <ElectionResults />
