@@ -146,7 +146,11 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
                     <Td>
                       <Link
                         as={RouterLink}
-                        to={generatePath(RoutePath.Block, { height: transfer.height.toString(), page: null })}
+                        to={generatePath(RoutePath.Block, {
+                          height: transfer.height.toString(),
+                          tab: null,
+                          page: null,
+                        })}
                       >
                         {transfer.height}
                       </Link>
@@ -164,7 +168,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
                           fontSize={'md'}
                           p={1}
                           h={8}
-                          to={generatePath(RoutePath.Organization, { pid: fromToAddress, page: null })}
+                          to={generatePath(RoutePath.Organization, { pid: fromToAddress, tab: null, page: null })}
                         >
                           {fromToAddress}
                         </ReducedTextAndCopy>

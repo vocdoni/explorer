@@ -11,6 +11,7 @@ export const BlockIconLink = ({ height }: { height: number }) => (
     to={generatePath(RoutePath.Block, {
       height: height.toString(),
       page: null,
+      tab: null,
     })}
   >
     {height}

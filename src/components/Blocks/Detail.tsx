@@ -5,7 +5,7 @@ import { GrNext, GrPrevious } from 'react-icons/gr'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
-import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
+import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { BlockTransactionsList } from '~components/Transactions/TransactionList'
 import { RefreshIntervalBlocks, RoutePath } from '~constants'
@@ -28,7 +28,7 @@ const HeightNavigator = ({ height }: { height: number }) => {
       {height >= 1 && (
         <IconButton
           as={RouterLink}
-          to={generatePath(RoutePath.Block, { height: (height - 1).toString(), page: null })}
+          to={generatePath(RoutePath.Block, { height: (height - 1).toString(), tab: null, page: null })}
           aria-label={t('blocks.previous_block')}
           icon={<GrPrevious />}
           size={'xs'}
@@ -37,7 +37,7 @@ const HeightNavigator = ({ height }: { height: number }) => {
       {height < data && (
         <IconButton
           as={RouterLink}
-          to={generatePath(RoutePath.Block, { height: (height + 1).toString(), page: null })}
+          to={generatePath(RoutePath.Block, { height: (height + 1).toString(), tab: null, page: null })}
           aria-label={t('blocks.next_block')}
           icon={<GrNext />}
           size={'xs'}
@@ -95,7 +95,7 @@ const DetailsTab = ({ block }: { block: IChainBlockInfoResponse }) => {
           fontWeight={'normal'}
           h={0}
           fontSize={'md'}
-          to={generatePath(RoutePath.Validator, { address: proposer })}
+          to={generatePath(RoutePath.Validator, { address: proposer, tab: null })}
         >
           {proposer}
         </ReducedTextAndCopy>
@@ -128,7 +128,7 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
           {formatDistance(date, new Date())}
         </Text>
       </VStack>
-      <QueryParamsTabs>
+      <RouteParamsTabs path={RoutePath.Block} isLazy>
         <TabList display='flex' flexWrap='wrap'>
           <Tab>
             <Trans i18nKey={'process.tab_details'}>Details</Trans>
@@ -151,7 +151,7 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
             <RawContentBox obj={block} />
           </TabPanel>
         </TabPanels>
-      </QueryParamsTabs>
+      </RouteParamsTabs>
     </Flex>
   )
 }

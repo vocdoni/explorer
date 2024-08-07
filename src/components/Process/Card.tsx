@@ -41,7 +41,7 @@ const ElectionCardSkeleton = (rest: CardProps) => {
       direction={'row'}
       alignItems='center'
       pl={4}
-      to={generatePath(RoutePath.Process, { pid: election.id })}
+      to={generatePath(RoutePath.Process, { pid: election.id, tab: null })}
       {...rest}
     >
       <CardBody>

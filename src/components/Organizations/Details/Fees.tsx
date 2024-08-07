@@ -80,7 +80,7 @@ const AccountFeesTable = ({ org }: { org: AccountData }) => {
                   <Td>
                     <Link
                       as={RouterLink}
-                      to={generatePath(RoutePath.Block, { height: fee.height.toString(), page: null })}
+                      to={generatePath(RoutePath.Block, { height: fee.height.toString(), tab: null, page: null })}
                     >
                       {fee.height}
                     </Link>

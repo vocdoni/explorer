@@ -36,7 +36,7 @@ const BlockInfoCard = ({
   const { formatDistance } = useDateFns()
 
   return (
-    <LinkCard to={generatePath(RoutePath.Block, { height: height.toString(), page: null })}>
+    <LinkCard to={generatePath(RoutePath.Block, { height: height.toString(), tab: null, page: null })}>
       <CardBody>
         <Flex gap={1} direction={'column'}>
           <Flex gap={3}>

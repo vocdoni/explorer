@@ -40,7 +40,7 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
 
   return (
     <LinkCard
-      to={generatePath(RoutePath.Organization, { pid, page: null })}
+      to={generatePath(RoutePath.Organization, { pid, tab: null, page: null })}
       direction={'row'}
       alignItems='center'
       pl={4}
@@ -83,7 +83,7 @@ export const SmallOrganizationCard = ({ id, flex, avatar }: { id: string; flex?:
   const { t } = useTranslation()
 
   const orgName = organization?.account.name.default
-  const orgLink = generatePath(RoutePath.Organization, { pid: id, page: null })
+  const orgLink = generatePath(RoutePath.Organization, { pid: id, tab: null, page: null })
 
   return (
     <Flex direction={'row'} alignItems={'center'} gap={2} {...flex}>

@@ -42,7 +42,7 @@ export const ValidatorName = ({ name, useCopy, address }: { name?: string; useCo
 
 export const ValidatorCard = (validator: ValidatorFixedType) => {
   return (
-    <LinkCard to={generatePath(RoutePath.Validator, { address: validator.validatorAddress })}>
+    <LinkCard to={generatePath(RoutePath.Validator, { address: validator.validatorAddress, tab: null })}>
       <CardBody>
         <Flex gap={2} direction={'column'}>
           <ValidatorName name={validator.name} address={validator.validatorAddress} />

@@ -1,13 +1,14 @@
 import { Flex, Heading, StackDivider, Tab, TabList, TabPanel, TabPanels, Text, VStack } from '@chakra-ui/react'
 import { Tx } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
-import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
+import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { SpecificTxDetails } from '~components/Transactions/TxDetails/SpecificTxDetails'
 import { TxDetailsGrid } from '~components/Transactions/TxDetails/TxDetails'
 import { useDateFns } from '~i18n/use-date-fns'
 import { useBlockToDate } from '~queries/stats'
 import { objectB64StringsToHex } from '~utils/objects'
+import { RoutePath } from '~constants'
 
 export const TransactionDetail = (tx: Tx) => {
   const { data } = useBlockToDate({ height: tx.txInfo.blockHeight })
@@ -42,7 +43,7 @@ export const TransactionDetail = (tx: Tx) => {
           </Text>
         )}
       </VStack>
-      <QueryParamsTabs>
+      <RouteParamsTabs path={RoutePath.Transaction} isLazy>
         <TabList display='flex' flexWrap='wrap'>
           <Tab>
             <Trans i18nKey={'process.tab_details'}>Details</Trans>
@@ -62,7 +63,7 @@ export const TransactionDetail = (tx: Tx) => {
             <RawContentBox obj={rawTx} />
           </TabPanel>
         </TabPanels>
-      </QueryParamsTabs>
+      </RouteParamsTabs>
     </Flex>
   )
 }

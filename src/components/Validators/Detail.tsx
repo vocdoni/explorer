@@ -2,7 +2,7 @@ import { Flex, Heading, HStack, Tab, TabList, TabPanel, TabPanels, Text, VStack 
 import { ensure0x, IChainValidator } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
-import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
+import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { BlockIconLink } from '~components/Layout/IconLink'
@@ -53,7 +53,7 @@ const DetailsTab = ({ validator }: { validator: ValidatorFixedType }) => {
           fontWeight={'normal'}
           h={0}
           fontSize={'md'}
-          to={generatePath(RoutePath.Organization, { pid: address, page: null })}
+          to={generatePath(RoutePath.Organization, { pid: address, tab: null, page: null })}
         >
           {address}
         </ReducedTextAndCopy>
@@ -95,7 +95,7 @@ export const ValidatorDetail = ({ validator }: { validator: ValidatorFixedType }
           <BlockIconLink height={validator.joinHeight} />
         </HStack>
       </VStack>
-      <QueryParamsTabs>
+      <RouteParamsTabs path={RoutePath.Validator}>
         <TabList display='flex' flexWrap='wrap'>
           <Tab>
             <Trans i18nKey={'process.tab_details'}>Details</Trans>
@@ -112,7 +112,7 @@ export const ValidatorDetail = ({ validator }: { validator: ValidatorFixedType }
             <RawContentBox obj={validator} />
           </TabPanel>
         </TabPanels>
-      </QueryParamsTabs>
+      </RouteParamsTabs>
     </Flex>
   )
 }

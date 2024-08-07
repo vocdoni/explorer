@@ -4,9 +4,9 @@ import { useOrganization } from '@vocdoni/react-providers'
 import { Trans, useTranslation } from 'react-i18next'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
-import { QueryParamsTabs } from '~components/Layout/QueryParamsTabs'
+import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
-import { FallbackHeaderImg } from '~constants'
+import { FallbackHeaderImg, RoutePath } from '~constants'
 import { useAccountTransfersCount } from '~queries/organizations'
 import AccountTransfers from '~components/Organizations/Details/Transfers'
 import OrganizationElections from './Details/Elections'
@@ -37,7 +37,7 @@ const OrganizationDetail = () => {
           </ReducedTextAndCopy>
         </VStack>
       </HeroHeaderLayout>
-      <QueryParamsTabs isLazy>
+      <RouteParamsTabs path={RoutePath.Organization} isLazy>
         <TabList display='flex' flexWrap='wrap'>
           <Tab>
             <Trans i18nKey={'process.tab_details'}>Details</Trans>
@@ -78,7 +78,7 @@ const OrganizationDetail = () => {
             <RawContentBox obj={organization} />
           </TabPanel>
         </TabPanels>
-      </QueryParamsTabs>
+      </RouteParamsTabs>
     </>
   )
 }
