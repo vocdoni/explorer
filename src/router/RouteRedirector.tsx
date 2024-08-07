@@ -20,7 +20,7 @@ const mapOldRouteToNewRoute = (route: string): string => {
       if (!newPath) return '' // fallback to undefined route
 
       const params = route.replace(oldPath, '').split('/').filter(Boolean)
-      let paramIndex = 0
+      let paramIndex = params[0] === '#' ? 1 : 0
 
       const finalRoute = newPath.replace(/:(\w+)\??/g, (match) => {
         const value = params[paramIndex]
