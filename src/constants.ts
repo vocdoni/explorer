@@ -22,7 +22,7 @@ export enum RoutePath {
   Base = '/',
   Block = '/block/:height/:tab?/:page?',
   BlocksList = '/blocks/:page?',
-  Envelope = '/envelope/:verifier',
+  Envelope = '/envelope/:verifier/:tab?',
   Organization = '/organization/:pid/:tab?/:page?',
   OrganizationsList = '/organizations/:page?/:query?',
   Process = '/process/:pid/:tab?',
@@ -32,7 +32,7 @@ export enum RoutePath {
   TransactionByHashOrHeight = '/transactions/id/:hashOrHeight',
   Validator = '/validator/:address/:tab?',
   Validators = '/validators',
-  Verify = '/verify/:verifier?',
+  Verify = '/verify/:verifier?/:tab?',
 }
 
 // old explorer route paths (used by RouteRedirector)

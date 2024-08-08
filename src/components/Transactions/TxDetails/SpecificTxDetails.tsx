@@ -20,7 +20,7 @@ import { SmallOrganizationCard } from '~components/Organizations/Card'
 import { RoutePath } from '~constants'
 import { b64ToHex } from '~utils/objects'
 
-const processIdGridItem = (processId: string, t: TFunction): GridItemProps => {
+export const processIdGridItem = (processId: string, t: TFunction): GridItemProps => {
   return {
     label: t('transactions.belongs_to_process', { defaultValue: 'Belongs to process' }),
     children: (
