@@ -33,6 +33,7 @@
     "encryption_keys": "Claus de xifrat",
     "envelope_number": "Envelope nº {{num}}",
     "envelope_weight": "Pes del sobre",
+    "from_election_title": "From election: <a>{{ title }}</a>",
     "not_found": "Sobre no trobat",
     "on_transaction": "On Transaction",
     "overwrite_count": "Nombre de sobrescritures",

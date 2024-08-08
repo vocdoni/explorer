@@ -32,6 +32,7 @@
     "encryption_keys": "Encryption keys",
     "envelope_number": "Envelope nº {{num}}",
     "envelope_weight": "Envelope weight",
+    "from_election_title": "From election: <a>{{title}}</a>",
     "not_found": "Envelope not found",
     "on_transaction": "On Transaction",
     "overwrite_count": "Overwrite count",
