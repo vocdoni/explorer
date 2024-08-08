@@ -23,22 +23,20 @@
   "election": {
     "no_votes_yet": "No votes yet!"
   },
-  "envelope": {
-    "block": "Block {{height}}",
-    "details": "Details",
-    "envelope_number": "Envelope nº {{num}}",
-    "tx_number": "Transaction: {{transactionIndex}}"
-  },
   "envelopes": {
-    "belongs_to_process": "Belongs to process <a>{{pid}}</a>",
-    "committed_in_block": "Commited in block <a>#{{block}}</a>",
+    "block": "Block",
+    "committed_in_block": "Commited in block",
+    "content": "Envelope Content",
+    "details": "Details",
     "emitted": "Emitted {{emitted}}",
-    "encryption_keys": "Encryption keys: {{encKeys}}",
-    "envelope_detail": "Envelope Detail",
-    "envelope_weight": "Envelope weight: {{weight}}",
+    "encryption_keys": "Encryption keys",
+    "envelope_number": "Envelope nº {{num}}",
+    "envelope_weight": "Envelope weight",
     "not_found": "Envelope not found",
-    "overwrite_count": "Overwrite count: {{overwriteCount}}",
+    "on_transaction": "On Transaction",
+    "overwrite_count": "Overwrite count",
     "registered_correctly": "Vote has been registered correctly",
+    "tx_number": "Transaction: {{transactionIndex}}",
     "verifier_code": "Verifier code",
     "vote_registered": "Vote registered"
   },

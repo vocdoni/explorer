@@ -50,7 +50,7 @@ const EnvelopeDetail = ({
       <RouteParamsTabs path={route} isLazy>
         <TabList display='flex' flexWrap='wrap'>
           <Tab>
-            <Trans i18nKey={'envelope.content'}>Envelope Content</Trans>
+            <Trans i18nKey={'envelopes.content'}>Envelope Content</Trans>
           </Tab>
           <Tab>
             <Trans i18nKey={'process.tab_details'}>Details</Trans>

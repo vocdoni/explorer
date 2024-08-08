@@ -24,22 +24,20 @@
   "election": {
     "no_votes_yet": "Encara no hi ha vots!"
   },
-  "envelope": {
-    "block": "Bloc {{height}}",
-    "details": "Detalls",
-    "envelope_number": "Sobre nº {{num}}",
-    "tx_number": "Transacció: {{transactionIndex}}"
-  },
   "envelopes": {
-    "belongs_to_process": "Pertany al procés <a>{{pid}}</a>",
-    "committed_in_block": "Registrat en el bloc <a>#{{block}}</a>",
-    "emitted": "Emès {{emitted}}",
-    "encryption_keys": "Claus de xifrat: {{encKeys}}",
-    "envelope_detail": "Detall del sobre",
-    "envelope_weight": "Pes del sobre: {{weight}}",
+    "block": "Block",
+    "committed_in_block": "Registrat en el bloc",
+    "content": "Envelope Content",
+    "details": "Details",
+    "emitted": "Emès",
+    "encryption_keys": "Claus de xifrat",
+    "envelope_number": "Envelope nº {{num}}",
+    "envelope_weight": "Pes del sobre",
     "not_found": "Sobre no trobat",
-    "overwrite_count": "Nombre de sobrescritures: {{overwriteCount}}",
+    "on_transaction": "On Transaction",
+    "overwrite_count": "Nombre de sobrescritures",
     "registered_correctly": "El vot s'ha registrat correctament",
+    "tx_number": "Transaction: {{transactionIndex}}",
     "verifier_code": "Codi de verificació",
     "vote_registered": "Vot registrat"
   },
