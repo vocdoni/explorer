@@ -5,6 +5,7 @@ import { Loading } from '~components/Layout/Loading'
 import { Flex, Heading } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
 import EnvelopeDetail from '~components/Envelope/Detail'
+import { RoutePath } from '~constants'
 
 const Verify = () => {
   const { verifier }: { verifier?: string } = useParams()
@@ -31,7 +32,7 @@ const Verify = () => {
           <Trans i18nKey={'envelopes.not_found'}>Envelope not found</Trans>{' '}
         </Heading>
       )}
-      {data && <EnvelopeDetail {...data} />}
+      {data && <EnvelopeDetail route={RoutePath.Verify} {...data} />}
     </Flex>
   )
 }

@@ -1,5 +1,5 @@
 import { Box, Code, Flex, Icon, Text } from '@chakra-ui/react'
-import { OrganizationProvider } from '@vocdoni/react-providers'
+import { ElectionProvider, OrganizationProvider } from '@vocdoni/react-providers'
 import {
   AdminTx,
   ensure0x,
@@ -19,8 +19,9 @@ import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { SmallOrganizationCard } from '~components/Organizations/Card'
 import { RoutePath } from '~constants'
 import { b64ToHex } from '~utils/objects'
+import { VotePackage } from '~components/Envelope/Detail'
 
-const processIdGridItem = (processId: string, t: TFunction): GridItemProps => {
+export const processIdGridItem = (processId: string, t: TFunction): GridItemProps => {
   return {
     label: t('transactions.belongs_to_process', { defaultValue: 'Belongs to process' }),
     children: (
@@ -81,6 +82,18 @@ const VoteTxDetails = ({ rawTx, votePackage, processId }: { rawTx: any } & VoteE
           {
             label: t('transactions.vote_package', { defaultValue: 'Vote package' }),
             children: <Code>{votePackage}</Code>,
+          },
+        ]
+      : []),
+    ...(votePackage
+      ? [
+          {
+            label: t('transactions.vote_sense', { defaultValue: 'Vote sense' }),
+            children: (
+              <ElectionProvider id={process}>
+                <VotePackage votePackage={JSON.parse(votePackage)} />
+              </ElectionProvider>
+            ),
           },
         ]
       : []),

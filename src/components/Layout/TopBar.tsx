@@ -72,7 +72,7 @@ export const TopBar = () => {
   const rightLinks: HeaderLink[] = [
     {
       name: t('links.verify_vote', { defaultValue: 'Verify vote' }),
-      url: generatePath(RoutePath.Verify, { verifier: null }),
+      url: generatePath(RoutePath.Verify, { verifier: null, tab: null }),
     },
   ]
 

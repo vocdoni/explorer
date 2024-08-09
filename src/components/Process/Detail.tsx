@@ -280,7 +280,7 @@ const EnvelopeCard = ({ envelope, count }: { envelope: VoteSummary; count: numbe
       <CardHeader>
         <Flex justify={'space-between'}>
           <Text fontWeight={'bold'}>
-            <Trans i18nKey={'envelope.envelope_number'} num={count}>
+            <Trans i18nKey={'envelopes.envelope_number'} num={count}>
               Envelope nº {{ num: count }}
             </Trans>
           </Text>
@@ -295,7 +295,7 @@ const EnvelopeCard = ({ envelope, count }: { envelope: VoteSummary; count: numbe
             as={RouterLink}
             to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString(), tab: null, page: null })}
           >
-            <Trans i18nKey={'envelope.block'} height={envelope.blockHeight}>
+            <Trans i18nKey={'envelopes.block'} height={envelope.blockHeight}>
               Block {{ height: envelope.blockHeight }}
             </Trans>
           </Link>
@@ -307,12 +307,12 @@ const EnvelopeCard = ({ envelope, count }: { envelope: VoteSummary; count: numbe
               tab: null,
             })}
           >
-            <Trans i18nKey={'envelope.tx_number'} transactionIndex={envelope.transactionIndex}>
+            <Trans i18nKey={'envelopes.tx_number'} transactionIndex={envelope.transactionIndex}>
               Transaction: {{ transactionIndex: envelope.transactionIndex }}
             </Trans>
           </Link>
-          <Link as={RouterLink} to={generatePath(RoutePath.Envelope, { verifier: envelope.voteID })}>
-            <Trans i18nKey={'envelope.details'}>Details</Trans>
+          <Link as={RouterLink} to={generatePath(RoutePath.Envelope, { verifier: envelope.voteID, tab: null })}>
+            <Trans i18nKey={'envelopes.details'}>Details</Trans>
           </Link>
         </Flex>
       </CardBody>

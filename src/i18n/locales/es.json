@@ -24,22 +24,21 @@
   "election": {
     "no_votes_yet": "¡Aún no hay votos!"
   },
-  "envelope": {
-    "block": "Bloque {{height}}",
-    "details": "Detalles",
-    "envelope_number": "Sobre nº {{num}}",
-    "tx_number": "Transacción: {{transactionIndex}}"
-  },
   "envelopes": {
-    "belongs_to_process": "Pertenece al proceso <a>{{pid}}</a>",
-    "committed_in_block": "Registrado en el bloque <a>#{{block}}</a>",
-    "emitted": "Emitido {{emitted}}",
-    "encryption_keys": "Claves de cifrado: {{encKeys}}",
-    "envelope_detail": "Detalle del Sobre",
-    "envelope_weight": "Peso del sobre: {{weight}}",
+    "block": "Block",
+    "committed_in_block": "Registrado en el bloque",
+    "content": "Envelope Content",
+    "details": "Details",
+    "emitted": "Emitido",
+    "encryption_keys": "Claves de cifrado",
+    "envelope_number": "Envelope nº {{num}}",
+    "envelope_weight": "Peso del sobre",
+    "from_election_title": "From election: <a>{{ title }}</a>",
     "not_found": "Sobre no encontrado",
-    "overwrite_count": "Conteo de sobrescritura: {{overwriteCount}}",
+    "on_transaction": "On Transaction",
+    "overwrite_count": "Conteo de sobrescritura",
     "registered_correctly": "El voto ha sido registrado correctamente",
+    "tx_number": "Transaction: {{transactionIndex}}",
     "verifier_code": "Código verificador",
     "vote_registered": "Voto registrado"
   },
