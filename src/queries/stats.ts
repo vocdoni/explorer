@@ -1,7 +1,7 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
+import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
 import { ChainAPI, IChainGetCostsResponse, IChainGetInfoResponse } from '@vocdoni/sdk'
-import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 
 export type useChainInfoOptions = Omit<UseQueryOptions<IChainGetInfoResponse>, 'queryKey'>
 
@@ -60,31 +60,11 @@ type TxCostsType = {
   }
 }
 
-const TxCostsMock: TxCostsType = {
-  costs: {
-    AddDelegateForAccount: 1,
-    CollectFaucet: 1,
-    CreateAccount: 1,
-    DelAccountSIK: 1,
-    DelDelegateForAccount: 1,
-    NewProcess: 5,
-    RegisterKey: 1,
-    SendTokens: 1,
-    SetAccountInfoURI: 1,
-    SetAccountSIK: 1,
-    SetAccountValidator: 10000,
-    SetProcessCensus: 2,
-    SetProcessDuration: 2,
-    SetProcessQuestionIndex: 1,
-    SetProcessStatus: 2,
-  },
-}
-
 export const useTxsCosts = ({ ...options }: Omit<UseQueryOptions<TxCostsType>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
   return useQuery({
     queryKey: ['chainStats', 'txCost'],
-    queryFn: () => TxCostsMock,
+    queryFn: () => client.txCosts(),
     ...options,
   })
 }

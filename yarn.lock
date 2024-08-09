@@ -1970,9 +1970,9 @@
     "@vocdoni/react-providers" "~0.4.4"
 
 "@vocdoni/extended-sdk@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@vocdoni/extended-sdk/-/extended-sdk-0.1.3.tgz#390a77d9e434e33e0c6dd79fcb48e73db3bb3155"
-  integrity sha512-iMtlWybFdwqu0t458SdMS28q6A826Y7IBOK4UOKX+xmiemKu0Enl/o4YDBa6UVBMjNZ7LHuO60U1Jv3Rpt1gaA==
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@vocdoni/extended-sdk/-/extended-sdk-0.1.4.tgz#e411ea85d08477a3abe71a9bccf9f52428753d8a"
+  integrity sha512-Mu9YA8uywq+GTx8TFnnhp84R/5gfVdE/o6xLy+Om0iIgdCgOk/sAchFx9RUOH3BkDJsr7DkTLHm/AFPAVVL/xg==
 
 "@vocdoni/proto@1.15.8":
   version "1.15.8"
