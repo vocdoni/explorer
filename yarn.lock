@@ -1969,9 +1969,9 @@
   dependencies:
     "@vocdoni/react-providers" "~0.4.4"
 
-"@vocdoni/extended-sdk@./vocdoni-extended-sdk-v0.1.1.tgz":
-  version "0.1.1"
-  resolved "./vocdoni-extended-sdk-v0.1.1.tgz#e2aed5244e2c97db0a601c26d3c04e375607c16e"
+"@vocdoni/extended-sdk@./vocdoni-extended-sdk-v0.1.2.tgz":
+  version "0.1.2"
+  resolved "./vocdoni-extended-sdk-v0.1.2.tgz#54949cca3a49d3fd4a0cb3c4884514b6dc953728"
 
 "@vocdoni/proto@1.15.8":
   version "1.15.8"
@@ -1988,7 +1988,7 @@
 
 "@vocdoni/sdk@https://github.com/vocdoni/vocdoni-sdk.git#f/new_pagination":
   version "0.8.3"
-  resolved "https://github.com/vocdoni/vocdoni-sdk.git#1e53d6356cf6897f15a1a7c5561d5d00e1b3b32d"
+  resolved "https://github.com/vocdoni/vocdoni-sdk.git#6e4762a3b861276f1bc84ba4c6e689e5ffde87ef"
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/address" "^5.7.0"
