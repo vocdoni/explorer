@@ -7,8 +7,7 @@ import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagin
 import { ElectionCard } from '~components/Process/Card'
 import { RoutePath } from '~constants'
 import { useOrganizationElections } from '~queries/organizations'
-import { retryUnlessNotFound } from '~utils/queries'
-import LoadingError from '~components/Layout/LoadingError'
+import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 
 interface OrgComponentProps {
   org: AccountData
@@ -38,7 +37,6 @@ const OrganizationElectionsList = ({ org }: OrgComponentProps) => {
     page: page,
     options: {
       enabled: !!org.address,
-      retry: retryUnlessNotFound,
     },
   })
 
@@ -46,8 +44,12 @@ const OrganizationElectionsList = ({ org }: OrgComponentProps) => {
     return <LoadingCards />
   }
 
-  if (!data || data?.elections.length === 0 || isError) {
-    return <LoadingError error={error} />
+  if (data?.pagination.totalItems === 0) {
+    return <NoResultsError />
+  }
+
+  if (isError || !data) {
+    return <ContentError error={error} />
   }
 
   return (

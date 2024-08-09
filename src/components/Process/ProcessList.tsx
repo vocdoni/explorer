@@ -13,14 +13,13 @@ import { FetchElectionsParameters } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { InputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
-import LoadingError from '~components/Layout/LoadingError'
+import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { RoutePath } from '~constants'
 import { useProcessList } from '~queries/processes'
 import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
-import { isNotFoundError, retryUnlessNotFound } from '~utils/queries'
 import { ElectionCard } from './Card'
 import { LuListFilter } from 'react-icons/lu'
 
@@ -151,19 +150,18 @@ const ProcessList = () => {
     },
     refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
-    retry: retryUnlessNotFound,
   })
 
   if (isLoading || (isFetching && !isEmpty(processFilters))) {
     return <LoadingCards spacing={4} pl={4} skeletonHeight={4} />
   }
 
-  if (!data || data?.elections.length === 0 || isError) {
-    let _error: string | Error | null = error
-    if (isNotFoundError(error) && !isEmpty(processFilters)) {
-      _error = t('filters.filters_not_found', { defaultValue: 'No results found for this filters' })
-    }
-    return <LoadingError error={_error} />
+  if (data?.pagination.totalItems === 0) {
+    return <NoResultsError />
+  }
+
+  if (!data || isError) {
+    return <ContentError error={error} />
   }
 
   return (

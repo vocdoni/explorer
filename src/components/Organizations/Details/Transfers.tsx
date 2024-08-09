@@ -20,12 +20,11 @@ import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { LoadingCards } from '~components/Layout/Loading'
 import { RoutePath } from '~constants'
 import { useAccountTransfers } from '~queries/organizations'
-import { retryUnlessNotFound } from '~utils/queries'
 import { useDateFns } from '~i18n/use-date-fns'
 import { BiLogInCircle, BiLogOutCircle } from 'react-icons/bi'
 import { AccountData } from '@vocdoni/sdk'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
-import LoadingError from '~components/Layout/LoadingError'
+import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 import { Pagination } from '~components/Pagination/Pagination'
 
 const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps) => {
@@ -71,7 +70,6 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
     page: page,
     options: {
       enabled: !!txCount && txCount > 0,
-      retry: retryUnlessNotFound,
     },
   })
 
@@ -87,8 +85,12 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
     return <LoadingCards />
   }
 
+  if (data?.pagination.totalItems === 0) {
+    return <NoResultsError />
+  }
+
   if (isError || !data) {
-    return <LoadingError error={error} />
+    return <ContentError error={error} />
   }
 
   return (

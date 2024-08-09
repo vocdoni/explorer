@@ -3,13 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { InputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
-import LoadingError from '~components/Layout/LoadingError'
 import { OrganizationCard } from '~components/Organizations/Card'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { RoutePath } from '~constants'
 import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
-import { retryUnlessNotFound } from '~utils/queries'
+import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 
 export const OrganizationsFilter = () => {
   const { t } = useTranslation()
@@ -54,7 +53,6 @@ export const OrganizationsList = () => {
       organizationId: query,
     },
     placeholderData: keepPreviousData,
-    retry: retryUnlessNotFound,
   })
 
   const isLoading = isLoadingCount || isLoadingOrgs
@@ -63,8 +61,12 @@ export const OrganizationsList = () => {
     return <LoadingCards skeletonCircle />
   }
 
-  if (!orgs || orgs?.organizations.length === 0 || isError) {
-    return <LoadingError error={error} />
+  if (orgs?.pagination.totalItems === 0) {
+    return <NoResultsError />
+  }
+
+  if (!orgs || isError) {
+    return <ContentError error={error} />
   }
 
   return (

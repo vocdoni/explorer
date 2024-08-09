@@ -5,16 +5,15 @@ import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
-import LoadingError from '~components/Layout/LoadingError'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { TransactionCard } from '~components/Transactions/TransactionCard'
 import { PaginationItemsPerPage, RoutePath } from '~constants'
 import { useBlockTransactions } from '~queries/blocks'
 import { useTransactionList, useTransactionsCount } from '~queries/transactions'
-import { retryUnlessNotFound } from '~utils/queries'
 import { useCallback, useState } from 'react'
 import { isValidHash } from '~utils/strings'
+import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 
 export const TransactionFilter = () => {
   const { t } = useTranslation()
@@ -73,7 +72,6 @@ const TransactionsList = () => {
       page,
     },
     placeholderData: keepPreviousData,
-    retry: retryUnlessNotFound,
   })
 
   const isLoading = isLoadingCount || isLoadingTx
@@ -102,7 +100,6 @@ const TransactionsListByBlock = ({ blockHeight, totalTxs }: ITxListByBlock) => {
     blockHeight,
     page: currentPage,
     placeholderData: keepPreviousData,
-    retry: retryUnlessNotFound,
     enabled: totalTxs > 0,
   })
 
@@ -132,22 +129,28 @@ const TransactionsListCards = ({
     )
   }
 
+  if (isLoading) {
+    return <LoadingCards spacing={4} />
+  }
+
+  if (data?.pagination.totalItems === 0) {
+    return <NoResultsError />
+  }
+
+  if (isError || !data) {
+    return <ContentError error={error} />
+  }
+
   return (
     <>
-      {isLoading && <LoadingCards spacing={4} />}
-      {!data || data?.transactions.length === 0 || (isError && <LoadingError error={error} />)}
-      {data && data.transactions.length > 0 && (
-        <>
-          {data.transactions.map((tx, i) => (
-            <TransactionCard
-              key={i}
-              {...tx}
-              blockHeight={height ?? tx.blockHeight} // If is IBlockTransactionsResponse the block height is not on tx info
-            />
-          ))}
-          <RoutedPagination pagination={data.pagination} />
-        </>
-      )}
+      {data.transactions.map((tx, i) => (
+        <TransactionCard
+          key={i}
+          {...tx}
+          blockHeight={height ?? tx.blockHeight} // If is IBlockTransactionsResponse the block height is not on tx info
+        />
+      ))}
+      <RoutedPagination pagination={data.pagination} />
     </>
   )
 }

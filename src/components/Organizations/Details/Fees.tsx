@@ -6,11 +6,10 @@ import { AccountData, TransactionType } from '@vocdoni/sdk'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { Pagination } from '~components/Pagination/Pagination'
 import { useAccountFees } from '~queries/organizations'
-import { retryUnlessNotFound } from '~utils/queries'
-import LoadingError from '~components/Layout/LoadingError'
 import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { RoutePath } from '~constants'
+import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 
 const AccountFees = (org: { org: AccountData }) => {
   return (
@@ -29,17 +28,18 @@ const AccountFeesTable = ({ org }: { org: AccountData }) => {
       accountId: org.address,
       page,
     },
-    options: {
-      retry: retryUnlessNotFound,
-    },
   })
 
   if (isLoading) {
     return <LoadingCards />
   }
 
+  if (data?.pagination.totalItems === 0) {
+    return <NoResultsError />
+  }
+
   if (isError || !data) {
-    return <LoadingError error={error} />
+    return <ContentError error={error} />
   }
 
   if (!data.fees.length) {

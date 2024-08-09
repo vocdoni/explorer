@@ -5,13 +5,12 @@ import { generatePath, useNavigate } from 'react-router-dom'
 import { BlockCard } from '~components/Blocks/BlockCard'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
-import LoadingError from '~components/Layout/LoadingError'
+import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { PaginationItemsPerPage, RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
-import { retryUnlessNotFound } from '~utils/queries'
 
 export const BlocksFilter = () => {
   const { t } = useTranslation()
@@ -76,7 +75,6 @@ export const BlocksList = () => {
     },
     enabled: !!stats?.height,
     placeholderData: keepPreviousData,
-    retry: retryUnlessNotFound,
   })
 
   const isLoading = isLoadingStats || isLoadingBlocks
@@ -87,8 +85,12 @@ export const BlocksList = () => {
 
   const blocks = blocksResponse?.blocks
 
-  if (!blocks || blocks?.length === 0 || isError) {
-    return <LoadingError error={error} />
+  if (blocksResponse?.pagination.totalItems === 0) {
+    return <NoResultsError />
+  }
+
+  if (isError || !blocks) {
+    return <ContentError error={error} />
   }
 
   return (
