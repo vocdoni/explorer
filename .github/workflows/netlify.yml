@@ -6,6 +6,8 @@ on:
 jobs:
   build-dev-explorer:
     runs-on: ubuntu-22.04
+    environment:
+      name: development
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -52,6 +54,8 @@ jobs:
 
   build-stg-explorer:
     runs-on: ubuntu-22.04
+    environment:
+      name: development
     steps:
       - name: Checkout
         uses: actions/checkout@v4
