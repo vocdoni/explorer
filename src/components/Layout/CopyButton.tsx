@@ -71,7 +71,7 @@ export const ReducedTextAndCopy = ({
 
   if (to) {
     return (
-      <>
+      <span>
         <Link
           as={RouterLink}
           to={to}
@@ -84,7 +84,7 @@ export const ReducedTextAndCopy = ({
           {text}
         </Link>
         <CopyButtonIcon h={6} {...rest} justifyContent={'start'} ml={2} pl={0} />
-      </>
+      </span>
     )
   }
   return (

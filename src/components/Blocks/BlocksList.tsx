@@ -1,17 +1,16 @@
 import { keepPreviousData } from '@tanstack/react-query'
 import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { generatePath, useNavigate, useParams } from 'react-router-dom'
+import { generatePath, useNavigate } from 'react-router-dom'
 import { BlockCard } from '~components/Blocks/BlockCard'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
-import LoadingError from '~components/Layout/LoadingError'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { ContentError, NoResultsError } from '~components/Layout/ContentError'
+import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { PaginationItemsPerPage, RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
-import { retryUnlessNotFound } from '~utils/queries'
 
 export const BlocksFilter = () => {
   const { t } = useTranslation()
@@ -48,30 +47,34 @@ export const BlocksFilter = () => {
 }
 
 export const PaginatedBlocksList = () => {
-  const { page }: { page?: number } = useParams()
+  return (
+    <RoutedPaginationProvider path={RoutePath.BlocksList}>
+      <BlocksList />
+    </RoutedPaginationProvider>
+  )
+}
+
+export const BlocksList = () => {
+  const { page }: { page?: number } = useRoutedPagination()
   const { data: stats, isLoading: isLoadingStats } = useChainInfo({
     refetchInterval: RefreshIntervalBlocks,
   })
 
-  const count = stats?.height || 0
-  const totalPages = Math.ceil(count / PaginationItemsPerPage)
-
-  // Calculate the first block index for the current page
-  const currentPage = page && page > 0 ? Number(page - 1) : 0
-  // Get the first block of the page
-  const firstPageIndex = count - currentPage * PaginationItemsPerPage + 1
+  const blockCount = stats?.height || 0
 
   const {
-    data: blocks,
+    data: blocksResponse,
     isLoading: isLoadingBlocks,
     isError,
     error,
   } = useBlockList({
+    params: {
+      totalItems: blockCount,
+      page: page,
+      limit: PaginationItemsPerPage,
+    },
     enabled: !!stats?.height,
-    from: firstPageIndex < 0 ? 0 : firstPageIndex - PaginationItemsPerPage,
-    listSize: PaginationItemsPerPage,
     placeholderData: keepPreviousData,
-    retry: retryUnlessNotFound,
   })
 
   const isLoading = isLoadingStats || isLoadingBlocks
@@ -80,16 +83,22 @@ export const PaginatedBlocksList = () => {
     return <LoadingCards noOfLines={2} />
   }
 
-  if (!blocks || blocks?.length === 0 || isError) {
-    return <LoadingError error={error} />
+  const blocks = blocksResponse?.blocks
+
+  if (blocksResponse?.pagination.totalItems === 0) {
+    return <NoResultsError />
+  }
+
+  if (isError || !blocks) {
+    return <ContentError error={error} />
   }
 
   return (
-    <RoutedPaginationProvider totalPages={totalPages} path={RoutePath.BlocksList}>
+    <>
       {blocks.map((block, i) => (
         <BlockCard key={i} block={block} />
       ))}
-      <RoutedPagination />
-    </RoutedPaginationProvider>
+      <RoutedPagination pagination={blocksResponse.pagination} />
+    </>
   )
 }

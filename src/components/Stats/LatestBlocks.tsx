@@ -13,9 +13,12 @@ export const LatestBlocks = () => {
 
   const { data: stats, isLoading: isLoadingStats } = useChainInfo()
   const { data: blocks, isLoading: isLoadingBlocks } = useBlockList({
+    params: {
+      page: 0,
+      limit: blockListSize,
+      totalItems: stats?.height ?? 0,
+    },
     enabled: !!stats?.height,
-    from: (stats?.height || 0) - (blockListSize - 1),
-    listSize: blockListSize,
     placeholderData: keepPreviousData,
   })
 
@@ -27,7 +30,7 @@ export const LatestBlocks = () => {
 
   return (
     <Stack>
-      {blocks.map((block, i) => (
+      {blocks.blocks.map((block, i) => (
         <BlockCard key={i} block={block} />
       ))}
       <Button as={RouterLink} to={generatePath(RoutePath.BlocksList)} bgColor='accent1' color={'white'}>

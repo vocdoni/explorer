@@ -1,9 +1,9 @@
+import { VoteInfoResponse } from '@vocdoni/sdk'
 import { useLoaderData } from 'react-router-dom'
-import { IVoteInfoResponse } from '@vocdoni/sdk'
 import EnvelopeDetail from '~components/Envelope/Detail'
 
 const Envelope = () => {
-  const envelope = useLoaderData() as IVoteInfoResponse
+  const envelope = useLoaderData() as VoteInfoResponse
   return <EnvelopeDetail {...envelope} />
 }
 

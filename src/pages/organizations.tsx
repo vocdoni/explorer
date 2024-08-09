@@ -10,7 +10,7 @@ const OrganizationList = () => {
     refetchInterval: RefreshIntervalPagination,
   })
 
-  const subtitle = !isLoading ? t('organizations.organizations_count', { count: orgsCount?.count || 0 }) : ''
+  const subtitle = !isLoading ? t('organizations.organizations_count', { count: orgsCount || 0 }) : ''
 
   return (
     <ListPageLayout

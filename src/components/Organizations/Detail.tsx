@@ -7,7 +7,6 @@ import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
 import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { FallbackHeaderImg, RoutePath } from '~constants'
-import { useAccountTransfersCount } from '~queries/organizations'
 import AccountTransfers from '~components/Organizations/Details/Transfers'
 import OrganizationElections from './Details/Elections'
 import OrgDetails from './Details/OrgDetails'
@@ -16,16 +15,15 @@ import TextAndTag from '~components/Layout/TextAndTag'
 
 const OrganizationDetail = () => {
   const { organization } = useOrganization()
-  const { data } = useAccountTransfersCount({
-    address: organization?.address || '',
-  })
+
   const { t } = useTranslation()
 
   // Should be already loaded
   if (!organization) return null
 
   const id = organization.address
-  const transfersCount = data?.count
+  const transfersCount = organization.transfersCount
+  const feesCount = organization.feesCount
 
   return (
     <>
@@ -55,7 +53,10 @@ const OrganizationDetail = () => {
             />
           </Tab>
           <Tab>
-            <Trans i18nKey={'organization.fees'}>Fees</Trans>
+            <TextAndTag
+              text={t('organization.fees', { defaultValue: 'Fees' })}
+              tagLabel={feesCount?.toString() ?? '0'}
+            />
           </Tab>
           <Tab>
             <Trans i18nKey={'raw'}>Raw</Trans>

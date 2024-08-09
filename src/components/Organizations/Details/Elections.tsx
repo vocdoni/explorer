@@ -1,14 +1,13 @@
 import { Flex, Text } from '@chakra-ui/react'
-import { AccountData, PublishedElection } from '@vocdoni/sdk'
+import { AccountData } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
-import { useParams } from 'react-router-dom'
 import { LoadingCards } from '~components/Layout/Loading'
 import { RoutedPagination } from '~components/Pagination/Pagination'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { ElectionCard } from '~components/Process/Card'
-import { PaginationItemsPerPage, RoutePath } from '~constants'
+import { RoutePath } from '~constants'
 import { useOrganizationElections } from '~queries/organizations'
-import { retryUnlessNotFound } from '~utils/queries'
+import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 
 interface OrgComponentProps {
   org: AccountData
@@ -24,27 +23,20 @@ const OrganizationElections = ({ org }: OrgComponentProps) => {
   }
 
   return (
-    <RoutedPaginationProvider
-      totalPages={Math.ceil(org.electionIndex / PaginationItemsPerPage)}
-      path={RoutePath.Organization}
-    >
-      <Flex direction={'column'} gap={4}>
-        <OrganizationElectionsList org={org} />
-        <RoutedPagination />
-      </Flex>
+    <RoutedPaginationProvider path={RoutePath.Organization}>
+      <OrganizationElectionsList org={org} />
     </RoutedPaginationProvider>
   )
 }
 
 const OrganizationElectionsList = ({ org }: OrgComponentProps) => {
-  const { page } = useParams()
+  const { page }: { page?: number } = useRoutedPagination()
 
-  const { data: elections, isLoading } = useOrganizationElections({
+  const { data, isLoading, isError, error } = useOrganizationElections({
     address: org.address,
-    page: Number(page) - 1 || 0,
+    page: page,
     options: {
       enabled: !!org.address,
-      retry: retryUnlessNotFound,
     },
   })
 
@@ -52,15 +44,20 @@ const OrganizationElectionsList = ({ org }: OrgComponentProps) => {
     return <LoadingCards />
   }
 
+  if (data?.pagination.totalItems === 0) {
+    return <NoResultsError />
+  }
+
+  if (isError || !data) {
+    return <ContentError error={error} />
+  }
+
   return (
     <Flex direction={'column'} gap={4}>
-      {elections
-        ?.filter((election) => {
-          return election instanceof PublishedElection
-        })
-        .map((election) => {
-          return <ElectionCard key={election.id} election={election as PublishedElection} />
-        })}
+      {data.elections?.map((election) => {
+        return <ElectionCard key={election.id} election={election} />
+      })}
+      <RoutedPagination pagination={data.pagination} />
     </Flex>
   )
 }

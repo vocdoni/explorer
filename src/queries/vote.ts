@@ -1,5 +1,5 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
-import { IVoteInfoResponse } from '@vocdoni/sdk'
+import { VoteInfoResponse } from '@vocdoni/sdk'
 import { useClient } from '@vocdoni/react-providers'
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 
@@ -8,7 +8,7 @@ export const useVoteInfo = ({
   ...options
 }: {
   verifier: string
-} & Omit<UseQueryOptions<IVoteInfoResponse>, 'queryKey'>) => {
+} & Omit<UseQueryOptions<VoteInfoResponse>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
 
   return useQuery({

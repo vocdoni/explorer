@@ -1903,9 +1903,9 @@
   integrity sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==
 
 "@types/node@>=13.7.0":
-  version "20.14.11"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.11.tgz#09b300423343460455043ddd4d0ded6ac579b74b"
-  integrity sha512-kprQpL8MMeszbz6ojB5/tU8PLN4kesnN8Gjzw349rDlNgsSzg90lAVj3llK99Dh7JON+t9AuscPPFW6mPbTnSA==
+  version "20.14.12"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.12.tgz#129d7c3a822cb49fc7ff661235f19cfefd422b49"
+  integrity sha512-r7wNXakLeSsGT0H1AU863vS2wa5wBOK4bWMjZz2wj+8nBx+m5PeIn0k8AloSLpRuiwdRQZwarZqHE4FNArPuJQ==
   dependencies:
     undici-types "~5.26.4"
 
@@ -1969,10 +1969,10 @@
   dependencies:
     "@vocdoni/react-providers" "~0.4.4"
 
-"@vocdoni/extended-sdk@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@vocdoni/extended-sdk/-/extended-sdk-0.1.2.tgz#83cd26e8ded170fddece595a4ec5e019d9e62ba8"
-  integrity sha512-RTNOeGBk+tjve8eG+u9Cc0xBGfhcOLD6DOoKL/XWBJXWmsHcHaaW8ivOQuFtaDjTlMEftHujRNcXvywQFymo8g==
+"@vocdoni/extended-sdk@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@vocdoni/extended-sdk/-/extended-sdk-0.1.3.tgz#390a77d9e434e33e0c6dd79fcb48e73db3bb3155"
+  integrity sha512-iMtlWybFdwqu0t458SdMS28q6A826Y7IBOK4UOKX+xmiemKu0Enl/o4YDBa6UVBMjNZ7LHuO60U1Jv3Rpt1gaA==
 
 "@vocdoni/proto@1.15.8":
   version "1.15.8"
@@ -1987,9 +1987,37 @@
   resolved "https://registry.yarnpkg.com/@vocdoni/react-providers/-/react-providers-0.4.7.tgz#f4ebfc2d237cf864d3c050d186fe919761a23d5f"
   integrity sha512-jTbfyM6KGmhjXMlUQzz+sn2m1cNZJdpADvPA456BA5YPb6CfeLgLzlnxeeeTAVPEnVMuovIQmejuMxvVEfLe4g==
 
+"@vocdoni/sdk@https://github.com/vocdoni/vocdoni-sdk.git#f/new_pagination":
+  version "0.8.3"
+  resolved "https://github.com/vocdoni/vocdoni-sdk.git#7208bf999699d1cdf6fff188af03c2fab622182f"
+  dependencies:
+    "@ethersproject/abstract-signer" "^5.7.0"
+    "@ethersproject/address" "^5.7.0"
+    "@ethersproject/bignumber" "^5.7.0"
+    "@ethersproject/bytes" "^5.7.0"
+    "@ethersproject/keccak256" "^5.7.0"
+    "@ethersproject/providers" "^5.7.1"
+    "@ethersproject/signing-key" "^5.7.0"
+    "@ethersproject/strings" "^5.7.0"
+    "@ethersproject/units" "^5.7.0"
+    "@ethersproject/wallet" "^5.7.0"
+    "@size-limit/file" "^8.2.4"
+    "@vocdoni/proto" "1.15.8"
+    axios "0.28.1"
+    blake2b "^2.1.4"
+    iso-language-codes "^1.1.0"
+    js-sha256 "^0.10.1"
+    readable-stream "^4.4.2"
+    tiny-invariant "^1.3.1"
+    tweetnacl "^1.0.3"
+    wasmbuilder "^0.0.16"
+    wasmcurves "0.2.1"
+    web-worker "^1.2.0"
+    yup "^0.32.11"
+
 "@vocdoni/sdk@https://github.com/vocdoni/vocdoni-sdk.git#main":
   version "0.8.3"
-  resolved "https://github.com/vocdoni/vocdoni-sdk.git#b2c34b43f95d08f38effd6e51d238b42b9dc7b7d"
+  resolved "https://github.com/vocdoni/vocdoni-sdk.git#ef8eebceabb8466129f955c031c0cc00a8dcbb9b"
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/address" "^5.7.0"

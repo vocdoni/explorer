@@ -1,22 +1,24 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
-import { BlockError, ExtendedSDKClient } from '@vocdoni/extended-sdk'
+import {
+  BlockListParametersWithPagination,
+  BlockListResponseWithPagination,
+  ExtendedSDKClient,
+} from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
-import { IBlockTransactionsResponse, IChainBlockInfoResponse } from '@vocdoni/sdk'
+import { IChainTxListResponse } from '@vocdoni/sdk'
 import { useChainInfo, useChainInfoOptions } from '~queries/stats'
 
 export const useBlockList = ({
-  from,
-  listSize,
+  params,
   ...options
 }: {
-  from: number
-  listSize?: number
-} & Omit<UseQueryOptions<Array<IChainBlockInfoResponse | BlockError>>, 'queryKey'>) => {
+  params: BlockListParametersWithPagination
+} & Omit<UseQueryOptions<BlockListResponseWithPagination>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
 
   return useQuery({
-    queryKey: ['blocks', 'list', from, listSize],
-    queryFn: () => client.blockList(from, listSize),
+    queryKey: ['blocks', 'list', params],
+    queryFn: () => client.blockList(params),
     ...options,
   })
 }
@@ -34,12 +36,12 @@ export const useBlockTransactions = ({
 }: {
   blockHeight: number
   page: number
-} & Omit<UseQueryOptions<IBlockTransactionsResponse>, 'queryKey'>) => {
+} & Omit<UseQueryOptions<IChainTxListResponse>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
 
   return useQuery({
     queryKey: ['blocks', 'list', 'transactions', blockHeight, page],
-    queryFn: () => client.blockTransactions(blockHeight, page),
+    queryFn: () => client.txList({ height: blockHeight, page }),
     ...options,
   })
 }

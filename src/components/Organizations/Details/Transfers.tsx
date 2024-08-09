@@ -18,15 +18,14 @@ import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { LoadingCards } from '~components/Layout/Loading'
-import { PaginationItemsPerPage, RoutePath } from '~constants'
+import { RoutePath } from '~constants'
 import { useAccountTransfers } from '~queries/organizations'
-import { retryUnlessNotFound } from '~utils/queries'
 import { useDateFns } from '~i18n/use-date-fns'
 import { BiLogInCircle, BiLogOutCircle } from 'react-icons/bi'
-import { AccountData, IAccountTransfer } from '@vocdoni/sdk'
+import { AccountData } from '@vocdoni/sdk'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
+import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 import { Pagination } from '~components/Pagination/Pagination'
-import LoadingError from '~components/Layout/LoadingError'
 
 const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps) => {
   const { t } = useTranslation()
@@ -55,9 +54,8 @@ interface AccountTransfersProps {
 }
 
 const AccountTransfers = (txProps: AccountTransfersProps) => {
-  const txCount: number = txProps.txCount ?? 1
   return (
-    <PaginationProvider totalPages={Math.ceil(txCount / PaginationItemsPerPage)}>
+    <PaginationProvider>
       <AccountTransfersTable {...txProps} />
     </PaginationProvider>
   )
@@ -72,7 +70,6 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
     page: page,
     options: {
       enabled: !!txCount && txCount > 0,
-      retry: retryUnlessNotFound,
     },
   })
 
@@ -84,18 +81,16 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
     )
   }
 
-  if (isError) {
-    return <LoadingError error={error} />
-  }
-
   if (!txCount || isLoading) {
     return <LoadingCards />
   }
 
-  let mergedTransfers: IAccountTransfer[] = []
-  if (data) {
-    mergedTransfers = [...data.transfers.received, ...data.transfers.sent]
-    mergedTransfers.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()).reverse()
+  if (data?.pagination.totalItems === 0) {
+    return <NoResultsError />
+  }
+
+  if (isError || !data) {
+    return <ContentError error={error} />
   }
 
   return (
@@ -120,7 +115,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
               </Tr>
             </Thead>
             <Tbody>
-              {mergedTransfers.map((transfer, i) => {
+              {data.transfers.map((transfer, i) => {
                 const isIncoming = transfer.to === org.address
                 let fromToAddress = isIncoming ? transfer.from : transfer.to
                 return (
@@ -133,7 +128,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
                           toCopy={transfer.txHash}
                           fontWeight={'normal'}
                           fontSize={'sm'}
-                          // todo: implement go to tx by its hash
+                          to={generatePath(RoutePath.TransactionByHashOrHeight, { hashOrHeight: transfer.txHash })}
                         >
                           {transfer.txHash}
                         </ReducedTextAndCopy>
@@ -168,7 +163,11 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
                           fontSize={'md'}
                           p={1}
                           h={8}
-                          to={generatePath(RoutePath.Organization, { pid: fromToAddress, tab: null, page: null })}
+                          to={generatePath(RoutePath.Organization, {
+                            pid: fromToAddress,
+                            tab: null,
+                            page: null,
+                          })}
                         >
                           {fromToAddress}
                         </ReducedTextAndCopy>
@@ -183,7 +182,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
         </TableContainer>
       </Box>
       <Box pt={4}>
-        <Pagination />
+        <Pagination pagination={data.pagination} />
       </Box>
     </>
   )
