@@ -311,7 +311,7 @@ const EnvelopeCard = ({ envelope, count }: { envelope: VoteSummary; count: numbe
               Transaction: {{ transactionIndex: envelope.transactionIndex }}
             </Trans>
           </Link>
-          <Link as={RouterLink} to={generatePath(RoutePath.Envelope, { verifier: envelope.voteID })}>
+          <Link as={RouterLink} to={generatePath(RoutePath.Envelope, { verifier: envelope.voteID, tab: null })}>
             <Trans i18nKey={'envelopes.details'}>Details</Trans>
           </Link>
         </Flex>

@@ -26,7 +26,7 @@ const SearchVote = ({ compact }: { compact?: boolean }) => {
       <Box>
         <Button
           onClick={() => {
-            navigate(generatePath(RoutePath.Verify, { verifier }))
+            navigate(generatePath(RoutePath.Verify, { verifier, tab: null }))
           }}
         >
           <Trans i18nKey={'verify.verify'}>Verify</Trans>
