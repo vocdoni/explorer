@@ -1,17 +1,17 @@
 import voteImage from '/images/vocdoni-vote.png'
-import { Flex, Image, Link, Tab, TabList, TabPanel, TabPanels, Text } from '@chakra-ui/react'
-import { PublishedElection, VoteInfoResponse } from '@vocdoni/sdk'
-import { formatDistance } from 'date-fns'
-import { Trans, useTranslation } from 'react-i18next'
-import { generatePath, Link as RouterLink } from 'react-router-dom'
-import { CopyButton, ReducedTextAndCopy } from '~components/Layout/CopyButton'
-import { RawContentBox } from '~components/Layout/ShowRawButton'
-import { RoutePath } from '~constants'
-import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
-import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
-import { processIdGridItem } from '~components/Transactions/TxDetails/SpecificTxDetails'
-import { Envelope, VotePackageType } from '@vocdoni/chakra-components'
-import { ElectionProvider, useElection } from '@vocdoni/react-providers'
+import {Flex, Image, Link, Tab, TabList, TabPanel, TabPanels, Text} from '@chakra-ui/react'
+import {PublishedElection, VoteInfoResponse} from '@vocdoni/sdk'
+import {formatDistance} from 'date-fns'
+import {Trans, useTranslation} from 'react-i18next'
+import {generatePath, Link as RouterLink} from 'react-router-dom'
+import {CopyButton, ReducedTextAndCopy} from '~components/Layout/CopyButton'
+import {RawContentBox} from '~components/Layout/ShowRawButton'
+import {RoutePath} from '~constants'
+import {RouteParamsTabs} from '~components/Layout/RouteParamsTabs'
+import {DetailsGrid, GridItemProps} from '~components/Layout/DetailsGrid'
+import {processIdGridItem} from '~components/Transactions/TxDetails/SpecificTxDetails'
+import {Envelope, VotePackageType} from '@vocdoni/chakra-components'
+import {ElectionProvider, useElection} from '@vocdoni/react-providers'
 
 /**
  * Show envelope content
@@ -77,13 +77,13 @@ const EnvelopeDetail = ({
   )
 }
 
-const VotePackage = ({ votePackage }: { votePackage: VotePackageType }) => {
+export const VotePackage = ({ votePackage }: { votePackage: VotePackageType }) => {
   const { t } = useTranslation()
   const { election } = useElection()
   if (!election || !(election instanceof PublishedElection)) return null
 
   return (
-    <>
+    <Flex direction={'column'}>
       <Envelope votePackage={votePackage} />
       <Text fontSize={'sm'} as='i'>
         <Trans
@@ -94,7 +94,7 @@ const VotePackage = ({ votePackage }: { votePackage: VotePackageType }) => {
           values={{ title: election.title.default }}
         />
       </Text>
-    </>
+    </Flex>
   )
 }
 
