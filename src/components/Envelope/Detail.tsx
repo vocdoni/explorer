@@ -1,6 +1,6 @@
 import voteImage from '/images/vocdoni-vote.png'
 import {Flex, Image, Link, Tab, TabList, TabPanel, TabPanels, Text} from '@chakra-ui/react'
-import {PublishedElection, VoteInfoResponse} from '@vocdoni/sdk'
+import {IVoteInfoResponse, PublishedElection} from '@vocdoni/sdk'
 import {formatDistance} from 'date-fns'
 import {Trans, useTranslation} from 'react-i18next'
 import {generatePath, Link as RouterLink} from 'react-router-dom'
@@ -22,7 +22,7 @@ import {ElectionProvider, useElection} from '@vocdoni/react-providers'
 const EnvelopeDetail = ({
   route,
   ...envelope
-}: { route: RoutePath.Envelope | RoutePath.Verify } & VoteInfoResponse) => {
+}: { route: RoutePath.Envelope | RoutePath.Verify } & IVoteInfoResponse) => {
   const { t } = useTranslation()
 
   return (
@@ -98,7 +98,7 @@ export const VotePackage = ({ votePackage }: { votePackage: VotePackageType }) =
   )
 }
 
-const EnvelopeDetailsGrid = (envelope: VoteInfoResponse) => {
+const EnvelopeDetailsGrid = (envelope: IVoteInfoResponse) => {
   const { t } = useTranslation()
 
   const emitted = formatDistance(new Date(envelope.date), new Date(), { addSuffix: true })
