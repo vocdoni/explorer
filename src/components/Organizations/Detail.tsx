@@ -22,11 +22,7 @@ const OrganizationDetail = () => {
   if (!organization) return null
 
   const id = organization.address
-  // Not typed by the sdk yet
-  // @ts-ignore
   const transfersCount = organization.transfersCount
-  // Not typed by the sdk yet
-  // @ts-ignore
   const feesCount = organization.feesCount
 
   return (

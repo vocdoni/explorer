@@ -1988,7 +1988,7 @@
 
 "@vocdoni/sdk@https://github.com/vocdoni/vocdoni-sdk.git#f/new_pagination":
   version "0.8.3"
-  resolved "https://github.com/vocdoni/vocdoni-sdk.git#6e4762a3b861276f1bc84ba4c6e689e5ffde87ef"
+  resolved "https://github.com/vocdoni/vocdoni-sdk.git#7208bf999699d1cdf6fff188af03c2fab622182f"
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/address" "^5.7.0"
