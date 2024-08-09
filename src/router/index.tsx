@@ -44,6 +44,7 @@ export const RoutesProvider = () => {
                   <Home />
                 </SuspenseLoader>
               ),
+              loader: async ({ params }) => await client.chainInfo(),
             },
             {
               path: RoutePath.Block,

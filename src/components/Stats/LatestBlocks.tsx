@@ -9,7 +9,7 @@ import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
 
 export const LatestBlocks = () => {
-  const blockListSize = 4
+  const blockListSize = 3
 
   const { data: stats, isLoading: isLoadingStats } = useChainInfo()
   const { data: blocks, isLoading: isLoadingBlocks } = useBlockList({
@@ -29,9 +29,9 @@ export const LatestBlocks = () => {
   }
 
   return (
-    <Stack>
+    <Stack spacing={4}>
       {blocks.blocks.map((block, i) => (
-        <BlockCard key={i} block={block} />
+        <BlockCard key={i} block={block} compact />
       ))}
       <Button as={RouterLink} to={generatePath(RoutePath.BlocksList)} bgColor='accent1' color={'white'}>
         <Trans i18nKey='stats.view_all_blocks'>View all blocks</Trans>

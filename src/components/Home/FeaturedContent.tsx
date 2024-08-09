@@ -14,7 +14,7 @@ export const FeaturedContent = () => {
 
   const icons = [
     {
-      width: '96px',
+      width: '72px',
       src: anonymous,
       alt: t('featured.anonymous_image_alt'),
     },
@@ -50,7 +50,7 @@ export const FeaturedContent = () => {
     <Flex direction={'column'} gap={12}>
       <Flex justify={'space-between'} wrap={'wrap'}>
         {icons.map((icon, i) => (
-          <Image key={i} maxW={icon.width} src={icon.src} alt={icon.alt} />
+          <Image key={i} maxW={icon.width} height={'88px'} src={icon.src} alt={icon.alt} />
         ))}
       </Flex>
       <Box>
