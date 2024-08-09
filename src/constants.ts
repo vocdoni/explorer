@@ -29,7 +29,7 @@ export enum RoutePath {
   ProcessesList = '/processes/:page?',
   Transaction = '/transactions/:block/:index/:tab?',
   TransactionsList = '/transactions/:page?',
-  TransactionByHashOrHeight = '/transactions/:hashOrHeight',
+  TransactionByHashOrHeight = '/transactions/id/:hashOrHeight',
   Validator = '/validator/:address/:tab?',
   Validators = '/validators',
   Verify = '/verify/:verifier?',

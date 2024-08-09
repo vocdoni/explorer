@@ -2,7 +2,7 @@ import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
 import { IChainTxReference } from '@vocdoni/sdk'
 import { lazy } from 'react'
-import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, generatePath, redirect, RouteObject, RouterProvider } from 'react-router-dom'
 import { RoutePath } from '~constants'
 import Layout from '~src/layout/Default'
 import { BlockNotFound } from './errors/BlockNotFound'
@@ -131,15 +131,21 @@ export const RoutesProvider = () => {
                   <Transaction />
                 </SuspenseLoader>
               ),
-              loader: async ({ params }) => {
+              loader: async ({ params: { hashOrHeight } }) => {
                 let tx: IChainTxReference
-                if (params.hashOrHeight && isNaN(Number(params.hashOrHeight))) {
-                  tx = await client.txInfo(params.hashOrHeight)
+                if (hashOrHeight && (hashOrHeight.startsWith('0x') || isNaN(Number(hashOrHeight)))) {
+                  tx = await client.txInfo(hashOrHeight)
                 } else {
-                  tx = await client.txByIndex(Number(params.hashOrHeight))
+                  tx = await client.txByIndex(Number(hashOrHeight))
                 }
 
-                return await client.txInfoByBlock(Number(tx.blockHeight), Number(tx.transactionIndex))
+                return redirect(
+                  generatePath(RoutePath.Transaction, {
+                    block: tx.blockHeight.toString(),
+                    index: tx.transactionIndex.toString(),
+                    tab: null,
+                  })
+                )
               },
             },
             {
@@ -149,7 +155,7 @@ export const RoutesProvider = () => {
                   <Validator />
                 </SuspenseLoader>
               ),
-              loader: async ({ params }) => await client.validatorsList(),
+              loader: async () => await client.validatorsList(),
             },
             {
               path: RoutePath.Validators,
@@ -158,7 +164,7 @@ export const RoutesProvider = () => {
                   <Validators />
                 </SuspenseLoader>
               ),
-              loader: async ({ params }) => await client.validatorsList(),
+              loader: async () => await client.validatorsList(),
             },
             {
               path: RoutePath.Verify,

@@ -1,8 +1,15 @@
 import { Alert, AlertIcon, Code, Stack } from '@chakra-ui/react'
+import { useEffect } from 'react'
 import { useRouteError } from 'react-router-dom'
 
 const RouteError = () => {
   const error = useRouteError() as Error
+
+  useEffect(() => {
+    if (import.meta.env.DEV) {
+      console.trace('error received on route:', error)
+    }
+  }, [])
 
   return (
     <Stack spacing={4}>
