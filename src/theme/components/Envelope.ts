@@ -11,10 +11,8 @@ const Envelope = defineMultiStyleConfig({
       fontSize: 'lg',
     },
     choiceTitle: {
-      _before: {
-        content: '"-"',
-        pr: 1,
-      },
+      listStyle: 'disc',
+      ml: 4,
     },
   }),
 })
