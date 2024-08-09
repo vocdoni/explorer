@@ -23,9 +23,10 @@ import { useAccountTransfers } from '~queries/organizations'
 import { retryUnlessNotFound } from '~utils/queries'
 import { useDateFns } from '~i18n/use-date-fns'
 import { BiLogInCircle, BiLogOutCircle } from 'react-icons/bi'
-import { AccountData, IAccountTransfer } from '@vocdoni/sdk'
+import { AccountData } from '@vocdoni/sdk'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import LoadingError from '~components/Layout/LoadingError'
+import { Pagination } from '~components/Pagination/Pagination'
 
 const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps) => {
   const { t } = useTranslation()
@@ -82,18 +83,12 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
     )
   }
 
-  if (isError) {
-    return <LoadingError error={error} />
-  }
-
   if (!txCount || isLoading) {
     return <LoadingCards />
   }
 
-  let mergedTransfers: IAccountTransfer[] = []
-  if (data) {
-    mergedTransfers = [...data.transfers.received, ...data.transfers.sent]
-    mergedTransfers.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()).reverse()
+  if (isError || !data) {
+    return <LoadingError error={error} />
   }
 
   return (
@@ -118,7 +113,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
               </Tr>
             </Thead>
             <Tbody>
-              {mergedTransfers.map((transfer, i) => {
+              {data.transfers.map((transfer, i) => {
                 const isIncoming = transfer.to === org.address
                 let fromToAddress = isIncoming ? transfer.from : transfer.to
                 return (
@@ -182,10 +177,9 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
           </Table>
         </TableContainer>
       </Box>
-      {/*todo(kon): fix transfers pagination when implemented */}
-      {/*<Box pt={4}>*/}
-      {/*  <Pagination pagination={data.pagination} />*/}
-      {/*</Box>*/}
+      <Box pt={4}>
+        <Pagination pagination={data.pagination} />
+      </Box>
     </>
   )
 }

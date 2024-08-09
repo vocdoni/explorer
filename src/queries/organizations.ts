@@ -5,9 +5,9 @@ import {
   ElectionListWithPagination,
   FetchFeesParametersWithPagination,
   FetchOrganizationParametersWithPagination,
-  IAccountTransfersResponse,
   IChainFeesListResponse,
   IChainOrganizationListResponse,
+  IChainTransfersListResponse,
 } from '@vocdoni/sdk'
 import { useProcessList } from '~queries/processes'
 import { useChainInfo, useChainInfoOptions } from '~queries/stats'
@@ -54,26 +54,15 @@ export const useAccountTransfers = ({
 }: {
   address: string
   page?: number
-  options?: Omit<UseQueryOptions<IAccountTransfersResponse>, 'queryKey'>
+  options?: Omit<UseQueryOptions<IChainTransfersListResponse>, 'queryKey'>
 }) => {
   const { client } = useClient<ExtendedSDKClient>()
   return useQuery({
     enabled: !!address,
     queryKey: ['organization', 'transfers', address, page],
-    queryFn: async () => client.accountTransfers(address, page),
+    queryFn: async () => client.transfers({ accountId: address, page }),
     ...options,
   })
-}
-
-export const useAccountTransfersCount = ({
-  address,
-  options,
-}: {
-  address: string
-  options?: Omit<UseQueryOptions<IAccountTransfersResponse>, 'queryKey'>
-}) => {
-  // todo(kon): implement this counter from account details when done
-  return { data: { count: 1 } }
 }
 
 export const useAccountFees = ({
