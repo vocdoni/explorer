@@ -141,6 +141,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
                         as={RouterLink}
                         to={generatePath(RoutePath.Block, {
                           height: transfer.height.toString(),
+                          tab: null,
                           page: null,
                         })}
                       >
@@ -162,6 +163,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
                           h={8}
                           to={generatePath(RoutePath.Organization, {
                             pid: fromToAddress,
+                            tab: null,
                             page: null,
                           })}
                         >
