@@ -128,7 +128,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
                           toCopy={transfer.txHash}
                           fontWeight={'normal'}
                           fontSize={'sm'}
-                          // todo: implement go to tx by its hash
+                          to={generatePath(RoutePath.TransactionByHashOrHeight, { hashOrHeight: transfer.txHash })}
                         >
                           {transfer.txHash}
                         </ReducedTextAndCopy>
