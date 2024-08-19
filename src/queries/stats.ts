@@ -1,7 +1,7 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
-import { ChainAPI, IChainGetCostsResponse, IChainGetInfoResponse } from '@vocdoni/sdk'
+import { ChainAPI, IChainGetCostsResponse, IChainGetInfoResponse, IChainTxCosts } from '@vocdoni/sdk'
 
 export type useChainInfoOptions = Omit<UseQueryOptions<IChainGetInfoResponse>, 'queryKey'>
 
@@ -38,29 +38,7 @@ export const useChainCosts = ({ ...options }: Omit<UseQueryOptions<IChainGetCost
   })
 }
 
-// todo(kon): This need to be implemented on the SDK https://github.com/vocdoni/vocdoni-sdk/issues/403
-
-type TxCostsType = {
-  costs: {
-    AddDelegateForAccount: number
-    CollectFaucet: number
-    CreateAccount: number
-    DelAccountSIK: number
-    DelDelegateForAccount: number
-    NewProcess: number
-    RegisterKey: number
-    SendTokens: number
-    SetAccountInfoURI: number
-    SetAccountSIK: number
-    SetAccountValidator: number
-    SetProcessCensus: number
-    SetProcessDuration: number
-    SetProcessQuestionIndex: number
-    SetProcessStatus: number
-  }
-}
-
-export const useTxsCosts = ({ ...options }: Omit<UseQueryOptions<TxCostsType>, 'queryKey'>) => {
+export const useTxsCosts = ({ ...options }: Omit<UseQueryOptions<IChainTxCosts>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
   return useQuery({
     queryKey: ['chainStats', 'txCost'],
