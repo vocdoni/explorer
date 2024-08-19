@@ -3,6 +3,7 @@ import {
   BoxProps,
   Button,
   ButtonProps,
+  IconButton,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -15,6 +16,8 @@ import {
 import { Trans } from 'react-i18next'
 import { CopyButtonIcon } from '~components/Layout/CopyButton'
 import { JsonViewer } from '~components/Layout/JsonViewer'
+import { useTranslation } from 'react-i18next'
+import { FaCode } from 'react-icons/fa'
 
 const ShowRawButton = ({ obj, ...props }: { obj: object } & Omit<ButtonProps, 'onClick'>) => {
   const { getDisclosureProps, getButtonProps } = useDisclosure()
@@ -42,12 +45,19 @@ export const RawContentBox = ({ obj, ...rest }: { obj: object } & BoxProps) => (
 
 export const RawModal = ({ obj, ...rest }: { obj: object } & Omit<ButtonProps, 'onClick'>) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { t } = useTranslation()
   return (
     <>
-      <Button variant={'text'} h={4} onClick={onOpen} {...rest}>
-        <Trans i18nKey={'raw'} />
-      </Button>
-
+      <IconButton
+        onClick={onOpen}
+        icon={<FaCode />}
+        h={0}
+        p={0}
+        justifyContent={'end'}
+        aria-label={t('raw')}
+        size={'lg'}
+        variant={'text'}
+      />
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
