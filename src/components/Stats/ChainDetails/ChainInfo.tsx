@@ -10,7 +10,7 @@ const SyncBadge = ({ syncing }: { syncing: boolean }) => {
   const { t } = useTranslation()
 
   const label = syncing ? t('stats.syncing') : t('stats.in_sync')
-  const color = syncing ? 'green' : 'orange'
+  const color = syncing ? 'orange' : 'green'
 
   return <Badge colorScheme={color}>{label}</Badge>
 }
