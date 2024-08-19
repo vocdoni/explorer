@@ -22,29 +22,6 @@ import {
 import { DetailsGrid } from '~components/Layout/DetailsGrid'
 import { Icons } from '~src/theme/components/Icons'
 import { ContentError } from '~components/Layout/ContentError'
-import { StatsCardWrapper } from '~components/Stats/StatsCardWrapper'
-
-// todo(kon): this is unused, delete before merge
-export const PriceFactors = () => {
-  const { t } = useTranslation()
-  const { data, isLoading } = useChainCosts({})
-
-  return (
-    <StatsCardWrapper
-      icon={IoIosPricetag}
-      title={t('stats.price_factors', { defaultValue: 'Price factors' })}
-      raw={data}
-      isLoading={isLoading}
-      rightComp={
-        <Box as={Link} href={'https://developer.vocdoni.io/vocdoni-api/price-factors-information'} isExternal>
-          <Icon boxSize={4} as={Icons.ExternalIcon} />
-        </Box>
-      }
-    >
-      <PriceFactorsInfoSkeleton />
-    </StatsCardWrapper>
-  )
-}
 
 export const PriceFactorsModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
