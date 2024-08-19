@@ -3,8 +3,8 @@ import { Trans } from 'react-i18next'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { generatePath } from 'react-router-dom'
 import { RoutePath } from '~constants'
-import { ValidatorFixedType } from '~components/Validators/Detail'
 import LinkCard from '~components/Layout/LinkCard'
+import { IChainValidator } from '@vocdoni/sdk'
 
 export const ValidatorName = ({ name, useCopy, address }: { name?: string; useCopy?: boolean; address: string }) => {
   const showName = !!name
@@ -40,7 +40,7 @@ export const ValidatorName = ({ name, useCopy, address }: { name?: string; useCo
   )
 }
 
-export const ValidatorCard = (validator: ValidatorFixedType) => {
+export const ValidatorCard = (validator: IChainValidator) => {
   return (
     <LinkCard to={generatePath(RoutePath.Validator, { address: validator.validatorAddress, tab: null })}>
       <CardBody>
