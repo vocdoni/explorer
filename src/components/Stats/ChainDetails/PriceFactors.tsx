@@ -22,44 +22,26 @@ import {
 import { DetailsGrid } from '~components/Layout/DetailsGrid'
 import { Icons } from '~src/theme/components/Icons'
 import { ContentError } from '~components/Layout/ContentError'
+import { RawModal } from '~components/Layout/ShowRawButton'
+import { StatsModalWrapper } from '~components/Stats/StatsCardWrapper'
 
 export const PriceFactorsModal = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
   const { t } = useTranslation()
+  const { data, isError, error, isLoading } = useChainCosts({})
 
   return (
     <>
-      <IconButton
-        variant={'text'}
-        onClick={onOpen}
-        icon={<Icon as={Icons.InfoIcon} boxSize={5} />}
-        aria-label={'info'}
-        height={1}
-        minW={2}
-        w={1}
-      />
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>
-            <HStack spacing={3}>
-              <Icon color='textAccent1' fontSize='2xl' as={IoIosPricetag} />
-              <Text>{t('stats.price_factors', { defaultValue: 'Price factors' })}</Text>
-              <Box as={Link} href={'https://developer.vocdoni.io/vocdoni-api/price-factors-information'} isExternal>
-                <Icon boxSize={4} as={Icons.ExternalIcon} />
-              </Box>
-            </HStack>
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <PriceFactorsInfoSkeleton />
-          </ModalBody>
-          <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <StatsModalWrapper
+        title={t('stats.price_factors', { defaultValue: 'Price factors' })}
+        icon={IoIosPricetag}
+        link={'https://developer.vocdoni.io/vocdoni-api/price-factors-information'}
+        isError={isError}
+        error={error}
+        isLoading={isLoading}
+        raw={data}
+      >
+        <PriceFactorsInfoSkeleton />
+      </StatsModalWrapper>
     </>
   )
 }

@@ -1,10 +1,12 @@
 import { Badge, HStack, Text, VStack } from '@chakra-ui/react'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { useChainInfo } from '~queries/stats'
 import { useDateFns } from '~i18n/use-date-fns'
 import { MdSpeed } from 'react-icons/md'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { StatsCardWrapper } from '~components/Stats/StatsCardWrapper'
+import { TxCostsModal } from '~components/Stats/ChainDetails/TxCosts'
+import { PriceFactorsModal } from '~components/Stats/ChainDetails/PriceFactors'
 
 const SyncBadge = ({ syncing }: { syncing: boolean }) => {
   const { t } = useTranslation()
@@ -50,6 +52,24 @@ export const ChainInfo = () => {
       children: timestampInfo,
       isNumber: true,
     },
+    {
+      label: t('stats.blockTimestamp', { defaultValue: 'Block timestamp' }),
+      children: timestampInfo,
+      isNumber: true,
+    },
+  ]
+
+  const tokensData: GridItemProps[] = [
+    {
+      label: t('stats.voc_tokens', { defaultValue: 'VOC Tokens' }),
+      children: <TxCostsModal />,
+      isNumber: true,
+    },
+    {
+      label: t('stats.price_factors', { defaultValue: 'Price factors' }),
+      children: <PriceFactorsModal />,
+      isNumber: true,
+    },
   ]
 
   return (
@@ -77,6 +97,10 @@ export const ChainInfo = () => {
         </Text>
       </VStack>
       <DetailsGrid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} details={statsData} rowGap={0} />
+      <Text fontSize='lg' fontWeight={'bold'} pt={2}>
+        <Trans i18nKey={'stats.tokens'}>Tokens</Trans>
+      </Text>
+      <DetailsGrid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} details={tokensData} rowGap={0} />
     </StatsCardWrapper>
   )
 }

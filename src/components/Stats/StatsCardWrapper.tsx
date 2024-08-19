@@ -1,14 +1,40 @@
-import { Box, Card, CardBody, CardHeader, CardProps, Flex, HStack, Icon, SkeletonText, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  CardProps,
+  Flex,
+  HStack,
+  Icon,
+  IconButton,
+  Link,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  SkeletonText,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react'
 import { PropsWithChildren } from 'react'
 import { IconType } from 'react-icons'
 import { RawModal } from '~components/Layout/ShowRawButton'
 import { ContentError, ContentErrorType } from '~components/Layout/ContentError'
+import { useTranslation } from 'react-i18next/index'
+import { useChainCosts } from '~queries/stats'
+import { Icons } from '~src/theme/components/Icons'
+import { IoIosPricetag } from 'react-icons/io'
 
 interface StatisticsCardProps {
   title: string
   icon: IconType
   raw?: object
-  rightComp?: any
+  link?: string
   isLoading?: boolean
   isError?: boolean
   error?: ContentErrorType
@@ -19,7 +45,6 @@ export const StatsCardWrapper = ({
   icon,
   raw,
   children,
-  rightComp,
   isLoading,
   isError,
   error,
@@ -32,10 +57,7 @@ export const StatsCardWrapper = ({
           <Icon color='textAccent1' fontSize='2xl' as={icon} />
           <Text>{title}</Text>
         </HStack>
-        <Box>
-          {!!raw && <RawModal color={'lightText'} fontSize={'xs'} obj={raw} />}
-          {rightComp}
-        </Box>
+        {!!raw && <RawModal color={'lightText'} fontSize={'xs'} obj={raw} />}
       </CardHeader>
       <CardBody>
         <CardBodyWrapper error={error} isError={isError} isLoading={isLoading}>
@@ -43,6 +65,64 @@ export const StatsCardWrapper = ({
         </CardBodyWrapper>
       </CardBody>
     </Card>
+  )
+}
+
+export const StatsModalWrapper = ({
+  title,
+  icon,
+  link,
+  children,
+  raw,
+  error,
+  isError,
+  isLoading,
+}: StatisticsCardProps & PropsWithChildren) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  return (
+    <>
+      <IconButton
+        variant={'text'}
+        onClick={onOpen}
+        icon={<Icon as={Icons.InfoIcon} boxSize={5} />}
+        aria-label={'info'}
+        height={1}
+        minW={2}
+        w={1}
+      />
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            <HStack spacing={3}>
+              <Icon color='textAccent1' fontSize='2xl' as={icon} />
+              <Text>{title}</Text>
+              {link && (
+                <Box as={Link} href={link} isExternal>
+                  <Icon boxSize={4} as={Icons.ExternalIcon} />
+                </Box>
+              )}
+            </HStack>
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <CardBodyWrapper error={error} isError={isError} isLoading={isLoading}>
+              {children}
+            </CardBodyWrapper>
+          </ModalBody>
+          <ModalFooter>
+            {raw && (
+              <Box pr={4}>
+                <RawModal obj={raw} />
+              </Box>
+            )}
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   )
 }
 
