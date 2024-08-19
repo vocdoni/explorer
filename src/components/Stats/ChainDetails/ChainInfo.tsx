@@ -4,7 +4,7 @@ import { useChainInfo } from '~queries/stats'
 import { useDateFns } from '~i18n/use-date-fns'
 import { MdSpeed } from 'react-icons/md'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
-import { StatisticsCardWrapper } from '~components/Stats'
+import { StatsCardWrapper } from '~components/Stats/StatsCardWrapper'
 
 const SyncBadge = ({ syncing }: { syncing: boolean }) => {
   const { t } = useTranslation()
@@ -17,8 +17,8 @@ const SyncBadge = ({ syncing }: { syncing: boolean }) => {
 
 export const ChainInfo = () => {
   const { t } = useTranslation()
-  const { data: stats } = useChainInfo()
-  const { formatDistance, format } = useDateFns()
+  const { data: stats, isError, error } = useChainInfo()
+  const { format } = useDateFns()
 
   if (!stats) return null
 
@@ -53,7 +53,15 @@ export const ChainInfo = () => {
   ]
 
   return (
-    <StatisticsCardWrapper flex='2' w={'full'} icon={MdSpeed} title={t('stats.blockchain_info')} raw={stats}>
+    <StatsCardWrapper
+      flex='2'
+      w={'full'}
+      icon={MdSpeed}
+      title={t('stats.blockchain_info')}
+      raw={stats}
+      isError={isError}
+      error={error}
+    >
       <VStack pb={4} align={'start'} spacing={1}>
         <HStack>
           <Text fontSize='lg' fontWeight={'bold'}>
@@ -69,6 +77,6 @@ export const ChainInfo = () => {
         </Text>
       </VStack>
       <DetailsGrid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} details={statsData} rowGap={0} />
-    </StatisticsCardWrapper>
+    </StatsCardWrapper>
   )
 }

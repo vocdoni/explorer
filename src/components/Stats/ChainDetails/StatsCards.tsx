@@ -6,6 +6,7 @@ import { useChainInfo } from '~queries/stats'
 import { RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useTranslation } from 'react-i18next'
 import { Icons } from '~src/theme/components/Icons'
+import { ContentError } from '~components/Layout/ContentError'
 
 interface IStatsCardProps {
   title: string
@@ -75,12 +76,20 @@ const IncrementalStat = ({ value, label }: IncrementalStatProps) => {
 }
 
 export const StatsCards = () => {
-  const { data: stats } = useChainInfo({
+  const {
+    data: stats,
+    isError,
+    error,
+  } = useChainInfo({
     refetchInterval: RefreshIntervalBlocks,
   })
   const { t } = useTranslation()
 
   if (!stats) return null
+
+  if (isError) {
+    return <ContentError error={error} />
+  }
 
   const averageBlockTime = Number((stats?.blockTime[0] || 0) / 1000).toFixed(1)
 

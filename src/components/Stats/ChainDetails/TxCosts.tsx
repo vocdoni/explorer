@@ -1,12 +1,12 @@
 import { useChainCosts, useTxsCosts } from '~queries/stats'
 import { useTranslation } from 'react-i18next'
-import { StatisticsCardWrapper } from '~components/Stats'
 import { Icons } from '~src/theme/components/Icons'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { PriceFactorsModal } from '~components/Stats/ChainDetails/PriceFactors'
+import { StatsCardWrapper } from '~components/Stats/StatsCardWrapper'
 
 export const TxCosts = () => {
-  const { data: txCosts, isLoading: isLoadingTxCosts } = useTxsCosts({})
+  const { data: txCosts, isLoading: isLoadingTxCosts, isError, error } = useTxsCosts({})
   const { data: chainCosts, isLoading: isLodingChainCosts } = useChainCosts({})
 
   const { t } = useTranslation()
@@ -31,14 +31,16 @@ export const TxCosts = () => {
   }
 
   return (
-    <StatisticsCardWrapper
+    <StatsCardWrapper
       icon={Icons.TxIcon}
       title={t('stats.voc_tokens', { defaultValue: 'VOC Tokens' })}
       raw={txCosts}
       isLoading={isLoading}
       rightComp={<PriceFactorsModal />}
+      isError={isError}
+      error={error}
     >
       <DetailsGrid rowGap={0} columnGap={6} details={prices} />
-    </StatisticsCardWrapper>
+    </StatsCardWrapper>
   )
 }

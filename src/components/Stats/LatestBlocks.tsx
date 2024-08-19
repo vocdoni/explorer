@@ -7,12 +7,18 @@ import { LoadingCards } from '~components/Layout/Loading'
 import { RoutePath } from '~constants'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
+import { ContentError } from '~components/Layout/ContentError'
 
 export const LatestBlocks = () => {
   const blockListSize = 3
 
   const { data: stats, isLoading: isLoadingStats } = useChainInfo()
-  const { data: blocks, isLoading: isLoadingBlocks } = useBlockList({
+  const {
+    data: blocks,
+    isLoading: isLoadingBlocks,
+    error,
+    isError,
+  } = useBlockList({
     params: {
       page: 0,
       limit: blockListSize,
@@ -26,6 +32,10 @@ export const LatestBlocks = () => {
 
   if (isLoading || !stats || !stats?.height || !blocks) {
     return <LoadingCards length={blockListSize} />
+  }
+
+  if (isError) {
+    return <ContentError error={error} />
   }
 
   return (

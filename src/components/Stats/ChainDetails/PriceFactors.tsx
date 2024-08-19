@@ -1,6 +1,5 @@
 import { useChainCosts } from '~queries/stats'
 import { useTranslation } from 'react-i18next'
-import { StatisticsCardWrapper } from '~components/Stats'
 import { IoIosPricetag } from 'react-icons/io'
 import {
   Box,
@@ -22,6 +21,8 @@ import {
 } from '@chakra-ui/react'
 import { DetailsGrid } from '~components/Layout/DetailsGrid'
 import { Icons } from '~src/theme/components/Icons'
+import { ContentError } from '~components/Layout/ContentError'
+import { StatsCardWrapper } from '~components/Stats/StatsCardWrapper'
 
 // todo(kon): this is unused, delete before merge
 export const PriceFactors = () => {
@@ -29,7 +30,7 @@ export const PriceFactors = () => {
   const { data, isLoading } = useChainCosts({})
 
   return (
-    <StatisticsCardWrapper
+    <StatsCardWrapper
       icon={IoIosPricetag}
       title={t('stats.price_factors', { defaultValue: 'Price factors' })}
       raw={data}
@@ -41,7 +42,7 @@ export const PriceFactors = () => {
       }
     >
       <PriceFactorsInfoSkeleton />
-    </StatisticsCardWrapper>
+    </StatsCardWrapper>
   )
 }
 
@@ -77,7 +78,6 @@ export const PriceFactorsModal = () => {
           <ModalBody>
             <PriceFactorsInfoSkeleton />
           </ModalBody>
-
           <ModalFooter>
             <Button onClick={onClose}>Close</Button>
           </ModalFooter>
@@ -88,8 +88,13 @@ export const PriceFactorsModal = () => {
 }
 
 const PriceFactorsInfoSkeleton = () => {
-  const { data, isLoading } = useChainCosts({})
+  const { data, isError, error } = useChainCosts({})
   const { t } = useTranslation()
+
+  if (isError) {
+    return <ContentError error={error} />
+  }
+
   return (
     <VStack align='stretch'>
       <Text>
