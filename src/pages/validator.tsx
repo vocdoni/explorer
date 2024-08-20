@@ -1,9 +1,9 @@
 import { useLoaderData, useParams } from 'react-router-dom'
-import { ensure0x, IChainValidatorsListResponse } from '@vocdoni/sdk'
-import { ValidatorDetail, ValidatorFixedType } from '~components/Validators/Detail'
+import { ensure0x, IChainValidator, IChainValidatorsListResponse } from '@vocdoni/sdk'
+import { ValidatorDetail } from '~components/Validators/Detail'
 
 const Validator = () => {
-  const validators = (useLoaderData() as IChainValidatorsListResponse).validators as Array<ValidatorFixedType>
+  const validators = (useLoaderData() as IChainValidatorsListResponse).validators as Array<IChainValidator>
 
   const { address }: { address?: string } = useParams()
 

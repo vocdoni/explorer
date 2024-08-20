@@ -6,7 +6,9 @@ export const NoResultsError = ({ msg }: { msg?: string }) => {
   return <Text>{msg ?? t('errors.no_results', { defaultValue: 'Looks like there are no results to show.' })}</Text>
 }
 
-export const ContentError = ({ error }: { error: Error | undefined | null | string }) => {
+export type ContentErrorType = Error | undefined | null | string
+
+export const ContentError = ({ error }: { error: ContentErrorType }) => {
   return (
     <Stack spacing={4}>
       <Alert status='warning'>

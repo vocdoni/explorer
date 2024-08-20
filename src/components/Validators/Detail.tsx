@@ -10,16 +10,7 @@ import { ValidatorName } from '~components/Validators/ValidatorCard'
 import { generatePath } from 'react-router-dom'
 import { RoutePath } from '~constants'
 
-export type ValidatorFixedType = IChainValidator & {
-  // todo(kon): delete this type extension when https://github.com/vocdoni/vocdoni-sdk/pull/402 is merged
-  joinHeight: number
-  proposals: number
-  score: number
-  validatorAddress: string
-  votes: number
-}
-
-const DetailsTab = ({ validator }: { validator: ValidatorFixedType }) => {
+const DetailsTab = ({ validator }: { validator: IChainValidator }) => {
   const address = ensure0x(validator.address)
   const pubKey = ensure0x(validator.pubKey)
 
@@ -80,7 +71,7 @@ const DetailsTab = ({ validator }: { validator: ValidatorFixedType }) => {
   )
 }
 
-export const ValidatorDetail = ({ validator }: { validator: ValidatorFixedType }) => {
+export const ValidatorDetail = ({ validator }: { validator: IChainValidator }) => {
   return (
     <Flex direction={'column'} mt={{ base: '20px', lg: '40px' }} gap={6} wordBreak='break-all'>
       <VStack align='start' spacing={4}>
