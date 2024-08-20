@@ -73,7 +73,7 @@ const BlockErrorCard = ({ height, error }: { height: number; error: BlockError }
     <Card>
       <CardBody>
         <Text fontWeight='bold'># {height}</Text>
-        {message}
+        <Text wordBreak='break-word'>{message}</Text>
       </CardBody>
     </Card>
   )
