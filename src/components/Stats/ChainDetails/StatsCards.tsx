@@ -42,6 +42,7 @@ const IncrementalStat = ({ value, label }: IncrementalStatProps) => {
   const [displayNumber, setDisplayNumber] = useState(0)
   const duration = 2000
 
+  // Incremental animation to create a counter effect
   useEffect(() => {
     let intervalId: NodeJS.Timeout
     let start = Date.now()

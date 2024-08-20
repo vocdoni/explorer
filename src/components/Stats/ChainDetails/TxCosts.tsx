@@ -41,17 +41,5 @@ const TxCosts = () => {
     })
   }
 
-  return (
-    // <StatsCardWrapper
-    //   icon={Icons.TxIcon}
-    //   title={t('stats.voc_tokens', { defaultValue: 'VOC Tokens' })}
-    //   raw={txCosts}
-    //   isLoading={isLoading}
-    //   rightComp={<PriceFactorsModal />}
-    //   isError={isError}
-    //   error={error}
-    // >
-    <DetailsGrid rowGap={0} columnGap={6} details={prices} />
-    // </StatsCardWrapper>
-  )
+  return <DetailsGrid rowGap={0} columnGap={6} details={prices} />
 }
