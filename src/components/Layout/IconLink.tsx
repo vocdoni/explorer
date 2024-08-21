@@ -28,7 +28,7 @@ export const IconLink = ({ to, icon, children, ...iconProps }: IconLinkProps & P
     <Link as={RouterLink} to={to}>
       <Flex align='center' gap={2}>
         <Icon as={icon} {...iconProps} />
-        <Box pt={1}>{children}</Box>
+        <Box>{children}</Box>
       </Flex>
     </Link>
   )
