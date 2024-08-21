@@ -1,13 +1,13 @@
-import { Flex, Icon, IconProps, Link } from '@chakra-ui/react'
+import { Box, Flex, Icon, IconProps, Link, Text } from '@chakra-ui/react'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { PropsWithChildren } from 'react'
 import { RoutePath } from '~constants'
-import { HiOutlineCube } from 'react-icons/hi2'
 import { IconType } from 'react-icons'
+import { Icons } from '~src/theme/components/Icons'
 
 export const BlockIconLink = ({ height }: { height: number }) => (
   <IconLink
-    icon={HiOutlineCube}
+    icon={Icons.BlockIcon}
     to={generatePath(RoutePath.Block, {
       height: height.toString(),
       page: null,
@@ -28,7 +28,7 @@ export const IconLink = ({ to, icon, children, ...iconProps }: IconLinkProps & P
     <Link as={RouterLink} to={to}>
       <Flex align='center' gap={2}>
         <Icon as={icon} {...iconProps} />
-        <span>{children}</span>
+        <Box>{children}</Box>
       </Flex>
     </Link>
   )

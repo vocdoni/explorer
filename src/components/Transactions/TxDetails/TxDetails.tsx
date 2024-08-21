@@ -7,13 +7,15 @@ import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
 import { RoutePath } from '~constants'
 import { useBlockToDate } from '~queries/stats'
+import { useDateFns } from '~i18n/use-date-fns'
 
 export const TxDetailsGrid = (tx: Tx) => {
   const { data } = useBlockToDate({ height: tx.txInfo.blockHeight })
   const { t } = useTranslation()
+  const { format } = useDateFns()
   let timestamp = ''
   if (data) {
-    timestamp = new Date(data.date).toString()
+    timestamp = format(new Date(data.date), 'PPPpp')
   }
   const blockHeight = tx.txInfo.blockHeight
   const txIndex = tx.txInfo.transactionIndex
