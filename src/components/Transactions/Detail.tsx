@@ -33,7 +33,9 @@ export const TransactionDetail = (tx: Tx) => {
     <Flex direction={'column'} mt={'40px'} gap={6}>
       <VStack align='start'>
         <Heading isTruncated wordBreak='break-word' mb={0}>
-          <Trans i18nKey={'transactions.tx_detail'}>Transaction Details</Trans>
+          <Trans i18nKey={'transactions.tx_title'} number={tx.txInfo.transactionNumber}>
+            Transaction #{{ number: tx.txInfo.transactionNumber }}
+          </Trans>
         </Heading>
         {createdOn && (
           <Text mt={0} fontWeight={'bold'} color={'lighterText'}>
