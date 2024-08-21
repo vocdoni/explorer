@@ -23,9 +23,9 @@ import { useAccountTransfers } from '~queries/organizations'
 import { useDateFns } from '~i18n/use-date-fns'
 import { BiLogInCircle, BiLogOutCircle } from 'react-icons/bi'
 import { AccountData } from '@vocdoni/sdk'
-import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
+import { Pagination } from '@vocdoni/chakra-components'
+import { PaginationProvider, usePagination } from '@vocdoni/react-providers'
 import { ContentError, NoResultsError } from '~components/Layout/ContentError'
-import { Pagination } from '~components/Pagination/Pagination'
 
 const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps) => {
   const { t } = useTranslation()

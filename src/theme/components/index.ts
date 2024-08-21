@@ -2,6 +2,7 @@ import Card from './Card'
 import { ElectionHeader, ElectionTitle } from './Election'
 import ElectionResults from './ElectionResults'
 import Link from './Link'
+import Pagination from './Paginator'
 import Questions from './Questions'
 import Radio from './Radio'
 import Tag from './Tag'
@@ -12,6 +13,7 @@ const components = {
   ElectionTitle,
   ElectionHeader,
   Envelope,
+  Pagination,
   Questions,
   Radio,
   ElectionResults,
