@@ -24,7 +24,7 @@ export const DetailsGrid = ({ details, ...rest }: { details: GridItemProps[] } &
 const DetailRow = ({ label, info, isNumber, children }: GridItemProps) => {
   return (
     <>
-      <GridItem py={1} lineHeight={{ base: 5, lg: 6 }} _notFirst={{ mt: { base: 3, lg: 0 } }}>
+      <GridItem py={1} lineHeight={{ base: 5, lg: 6 }}>
         <Flex columnGap={2} alignItems='flex-start'>
           {info && <Hint label={info} isLoading={false} my={{ lg: '2px' }} />}
           <Text my={{ lg: '2px' }} lineHeight={{ base: 5, lg: 6 }} align={'left'}>
