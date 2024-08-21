@@ -51,7 +51,8 @@ const DetailsTab = ({ block }: { block: IChainBlockInfoResponse }) => {
   const proposer = ensure0x(block.header.proposerAddress)
   const height = block.header.height
   const hash = ensure0x(block.hash)
-  const date = new Date(block.header.time)
+  const { format } = useDateFns()
+  const date = format(new Date(block.header.time), 'PPPpp')
 
   const { t } = useTranslation()
 
@@ -62,7 +63,7 @@ const DetailsTab = ({ block }: { block: IChainBlockInfoResponse }) => {
     },
     {
       label: t('blocks.timestamp', { defaultValue: 'Timestamp' }),
-      children: date.toString(),
+      children: date,
     },
     {
       label: t('blocks.transactions', { defaultValue: 'Transactions' }),
