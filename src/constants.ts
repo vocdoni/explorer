@@ -23,8 +23,8 @@ export enum RoutePath {
   Block = '/block/:height/:tab?/:page?',
   BlocksList = '/blocks/:page?',
   Envelope = '/envelope/:verifier/:tab?',
-  Organization = '/organization/:pid/:tab?/:page?',
-  OrganizationsList = '/organizations/:page?/:query?',
+  Account = '/account/:pid/:tab?/:page?',
+  AccountsList = '/accounts/:page?/:query?',
   Process = '/process/:pid/:tab?',
   ProcessesList = '/processes/:page?',
   Transaction = '/transactions/:block/:index/:tab?',
@@ -44,6 +44,8 @@ export enum OldRoutePath {
   TransactionDetails = '/transactions/show/#/',
   Verify = '/verify',
   Stats = '/stats',
+  OrganizationsList = '/organizations',
+  Organization = '/organization',
 }
 
 // Used to test if a string is base64 encoded. Used by b64ToHex

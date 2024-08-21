@@ -7,13 +7,13 @@ import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
 import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { FallbackHeaderImg, RoutePath } from '~constants'
-import AccountTransfers from '~components/Organizations/Details/Transfers'
-import OrganizationElections from './Details/Elections'
-import OrgDetails from './Details/OrgDetails'
-import AccountFees from '~components/Organizations/Details/Fees'
+import AccountTransfers from '~components/Accounts/Details/Transfers'
+import AccountElections from './Details/Elections'
+import AccountDetails from './Details/AccountDetails'
+import AccountFees from '~components/Accounts/Details/Fees'
 import TextAndTag from '~components/Layout/TextAndTag'
 
-const OrganizationDetail = () => {
+const AccountDetail = () => {
   const { organization } = useOrganization()
 
   const { t } = useTranslation()
@@ -35,28 +35,25 @@ const OrganizationDetail = () => {
           </ReducedTextAndCopy>
         </VStack>
       </HeroHeaderLayout>
-      <RouteParamsTabs path={RoutePath.Organization} isLazy>
+      <RouteParamsTabs path={RoutePath.Account} isLazy>
         <TabList display='flex' flexWrap='wrap'>
           <Tab>
             <Trans i18nKey={'process.tab_details'}>Details</Trans>
           </Tab>
           <Tab>
             <TextAndTag
-              text={t('organization.elections_count', { defaultValue: 'Elections' })}
+              text={t('account.elections_count', { defaultValue: 'Elections' })}
               tagLabel={organization.electionIndex.toString()}
             />
           </Tab>
           <Tab>
             <TextAndTag
-              text={t('organization.transfers_count', { defaultValue: 'Transfers' })}
+              text={t('account.transfers_count', { defaultValue: 'Transfers' })}
               tagLabel={transfersCount?.toString() ?? '0'}
             />
           </Tab>
           <Tab>
-            <TextAndTag
-              text={t('organization.fees', { defaultValue: 'Fees' })}
-              tagLabel={feesCount?.toString() ?? '0'}
-            />
+            <TextAndTag text={t('account.fees', { defaultValue: 'Fees' })} tagLabel={feesCount?.toString() ?? '0'} />
           </Tab>
           <Tab>
             <Trans i18nKey={'raw'}>Raw</Trans>
@@ -64,10 +61,10 @@ const OrganizationDetail = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <OrgDetails org={organization} />
+            <AccountDetails org={organization} />
           </TabPanel>
           <TabPanel>
-            <OrganizationElections org={organization} />
+            <AccountElections org={organization} />
           </TabPanel>
           <TabPanel>
             <AccountTransfers org={organization} txCount={transfersCount} />
@@ -84,4 +81,4 @@ const OrganizationDetail = () => {
   )
 }
 
-export default OrganizationDetail
+export default AccountDetail

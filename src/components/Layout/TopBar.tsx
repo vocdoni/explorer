@@ -48,8 +48,8 @@ export const TopBar = () => {
 
   const links: HeaderLink[] = [
     {
-      name: t('links.organizations', { defaultValue: 'Organizations' }),
-      url: generatePath(RoutePath.OrganizationsList, { page: null, query: null }),
+      name: t('links.accounts', { defaultValue: 'Accounts' }),
+      url: generatePath(RoutePath.AccountsList, { page: null, query: null }),
     },
     {
       name: t('links.processes', { defaultValue: 'Processes' }),

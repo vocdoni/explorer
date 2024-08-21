@@ -69,7 +69,7 @@
     "blog": "Blog",
     "docs": "Documentación",
     "help": "Ayuda",
-    "organizations": "Organizaciones",
+    "accounts": "Cuentas",
     "processes": "Procesos",
     "support": "Soporte",
     "transactions": "Transacciones",
@@ -80,7 +80,7 @@
   "menu": {
     "burger_aria_label": "Menú"
   },
-  "organization": {
+  "account": {
     "avatar_alt": "Avatar",
     "description": "Descripción",
     "elections_list": "Elecciones",
@@ -90,12 +90,12 @@
     "process_count_other": "<0>Proceso:</0> {{count}}",
     "view_profile": "Ver perfil"
   },
-  "organizations": {
-    "organizations_count_one": "Total {{ count }} organización",
-    "organizations_count_many": "",
-    "organizations_count_other": "Total {{ count }} organizaciones",
-    "organizations_list": "Organizaciones",
-    "search_by_org_id": "Buscar por id de organización"
+  "accounts": {
+    "accounts_count_one": "Total {{ count }} cuenta",
+    "accounts_count_many": "",
+    "accounts_count_other": "Total {{ count }} Cuentas",
+    "accounts_list": "Cuentas",
+    "search_by_org_id": "Buscar por id de cuenta"
   },
   "process": {
     "badge": {
@@ -113,7 +113,7 @@
     "process_count_other": "Total {{count}} procesos",
     "process_details": "Detalles del proceso",
     "process_list": "Procesos",
-    "search_by": "Buscar por proceso u organización",
+    "search_by": "Buscar por proceso u cuenta",
     "show_with_results": "Mostrar solo procesos con resultados",
     "tab_description": "Descripción",
     "tab_details": "Detalles",
@@ -149,16 +149,16 @@
     "latest_blocks": "Últimos bloques",
     "network_id": "ID de red",
     "nr_of_validators": "Número de validadores",
-    "organizations_one": "{{ count }} organización",
-    "organizations_many": "",
-    "organizations_other": "{{ count }} organizaciones",
+    "accounts_one": "{{ count }} cuenta",
+    "accounts_many": "",
+    "accounts_other": "{{ count }} Cuentas",
     "seconds_one": "{{ count }} segundo",
     "seconds_many": "",
     "seconds_other": "{{ count }} segundos",
     "sync_status": "Estado de sincronización",
     "syncing": "Sincronizando",
     "total_elections": "Total de procesos",
-    "total_organizations": "Total de organizaciones",
+    "total_accounts": "Total de Cuentas",
     "total_votes": "Total de votos",
     "view_all_blocks": "Ver todos los bloques",
     "votes_one": "{{ count }} voto",
@@ -166,7 +166,7 @@
     "votes_other": "{{ count }} votos"
   },
   "transactions": {
-    "belong_to_organization": "Pertenece a la organización",
+    "belong_to_accounts": "Pertenece a la cuenta",
     "belongs_to_process": "Pertenece al proceso",
     "block": "Bloque",
     "created_on": "Creado el {{createdOn}}",

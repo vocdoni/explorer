@@ -5,7 +5,7 @@ import { useDateFns } from '~i18n/use-date-fns'
 import { AccountData, TransactionType } from '@vocdoni/sdk'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { Pagination } from '~components/Pagination/Pagination'
-import { useAccountFees } from '~queries/organizations'
+import { useAccountFees } from '~queries/accounts'
 import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { RoutePath } from '~constants'
@@ -45,7 +45,7 @@ const AccountFeesTable = ({ org }: { org: AccountData }) => {
   if (!data.fees.length) {
     return (
       <Text>
-        <Trans i18nKey={'organization.fees.no_fees'}>No fees yet!</Trans>
+        <Trans i18nKey={'account.fees.no_fees'}>No fees yet!</Trans>
       </Text>
     )
   }
@@ -58,13 +58,13 @@ const AccountFeesTable = ({ org }: { org: AccountData }) => {
             <Thead>
               <Tr>
                 <Th>
-                  <Trans i18nKey={'organization.fees.tx_type'}>Tx Type</Trans>
+                  <Trans i18nKey={'account.fees.tx_type'}>Tx Type</Trans>
                 </Th>
                 <Th>
-                  <Trans i18nKey={'organization.transfers.block'}>Block</Trans>
+                  <Trans i18nKey={'account.transfers.block'}>Block</Trans>
                 </Th>
                 <Th>
-                  <Trans i18nKey={'organization.fees.cost'}>Cost</Trans>
+                  <Trans i18nKey={'account.fees.cost'}>Cost</Trans>
                 </Th>
               </Tr>
             </Thead>

@@ -44,7 +44,7 @@ const DetailsTab = ({ validator }: { validator: IChainValidator }) => {
           fontWeight={'normal'}
           h={0}
           fontSize={'md'}
-          to={generatePath(RoutePath.Organization, { pid: address, tab: null, page: null })}
+          to={generatePath(RoutePath.Account, { pid: address, tab: null, page: null })}
         >
           {address}
         </ReducedTextAndCopy>

@@ -134,7 +134,7 @@ export const StatsCards = () => {
 
   const incrementalStats: IncrementalStatProps[] = [
     {
-      label: t('stats.organizations', { defaultValue: 'Organizations' }),
+      label: t('stats.accounts_name', { defaultValue: 'Accounts' }),
       value: stats.organizationCount,
     },
     {

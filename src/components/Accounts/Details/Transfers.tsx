@@ -19,7 +19,7 @@ import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { LoadingCards } from '~components/Layout/Loading'
 import { RoutePath } from '~constants'
-import { useAccountTransfers } from '~queries/organizations'
+import { useAccountTransfers } from '~queries/accounts'
 import { useDateFns } from '~i18n/use-date-fns'
 import { BiLogInCircle, BiLogOutCircle } from 'react-icons/bi'
 import { AccountData } from '@vocdoni/sdk'
@@ -32,11 +32,11 @@ const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps
 
   let icon = BiLogOutCircle
   let color = 'textAccent2B'
-  let tooltip = t('organization.transfers.outgoing_tx', { defaultValue: 'Outgoing tx' })
+  let tooltip = t('account.transfers.outgoing_tx', { defaultValue: 'Outgoing tx' })
   if (isIncoming) {
     icon = BiLogInCircle
     color = 'accent1C'
-    tooltip = t('organization.transfers.incoming_tx', { defaultValue: 'Incoming tx' })
+    tooltip = t('account.transfers.incoming_tx', { defaultValue: 'Incoming tx' })
   }
 
   return (
@@ -76,7 +76,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
   if (txCount && !(txCount > 0)) {
     return (
       <Text>
-        <Trans i18nKey={'organization.transfers.no_transfers'}>No transfers yet!</Trans>
+        <Trans i18nKey={'account.transfers.no_transfers'}>No transfers yet!</Trans>
       </Text>
     )
   }
@@ -101,16 +101,16 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
             <Thead>
               <Tr>
                 <Th>
-                  <Trans i18nKey={'organization.transfers.tx_hash'}>Tx Hash</Trans>
+                  <Trans i18nKey={'account.transfers.tx_hash'}>Tx Hash</Trans>
                 </Th>
                 <Th>
-                  <Trans i18nKey={'organization.transfers.block'}>Block</Trans>
+                  <Trans i18nKey={'account.transfers.block'}>Block</Trans>
                 </Th>
                 <Th>
-                  <Trans i18nKey={'organization.transfers.from_to'}>From/To</Trans>
+                  <Trans i18nKey={'account.transfers.from_to'}>From/To</Trans>
                 </Th>
                 <Th>
-                  <Trans i18nKey={'organization.transfers.amount'}>Amount</Trans>
+                  <Trans i18nKey={'account.transfers.amount'}>Amount</Trans>
                 </Th>
               </Tr>
             </Thead>
@@ -163,7 +163,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
                           fontSize={'md'}
                           p={1}
                           h={8}
-                          to={generatePath(RoutePath.Organization, {
+                          to={generatePath(RoutePath.Account, {
                             pid: fromToAddress,
                             tab: null,
                             page: null,

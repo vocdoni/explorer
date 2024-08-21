@@ -41,8 +41,8 @@ import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
 import { LoadingCards } from '~components/Layout/Loading'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
-import { OrganizationCard } from '~components/Organizations/Card'
-import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
+import { AccountCard } from '~components/Accounts/Card'
+import { ElectionStatusBadge } from '~components/Accounts/StatusBadge'
 import { Pagination } from '~components/Pagination/Pagination'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import InvalidElection from '~components/Process/InvalidElection'
@@ -124,7 +124,7 @@ const Detail = () => {
       {/*Organization card and other cards*/}
       <Grid templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4}>
         <GridItem colSpan={2}>
-          <OrganizationCard h={'full'} />
+          <AccountCard h={'full'} />
         </GridItem>
         <GridItem colSpan={1}>
           <InfoCard title={t('processes.envelope_recount')}>{election.voteCount}</InfoCard>

@@ -6,7 +6,9 @@ const mapOldRouteToNewRoute = (route: string): string => {
   const routeMappings: { [key: string]: string } = {
     [OldRoutePath.BlockDetails]: RoutePath.Block,
     [OldRoutePath.EnvelopeDetails]: RoutePath.Envelope,
-    [OldRoutePath.OrganizationDetails]: RoutePath.Organization,
+    [OldRoutePath.OrganizationDetails]: RoutePath.Account,
+    [OldRoutePath.OrganizationsList]: RoutePath.AccountsList,
+    [OldRoutePath.Organization]: RoutePath.Account,
     [OldRoutePath.ProcessDetails]: RoutePath.Process,
     [OldRoutePath.TransactionDetails]: RoutePath.Transaction,
     [OldRoutePath.Verify]: RoutePath.Verify,
