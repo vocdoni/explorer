@@ -5,6 +5,7 @@ import { generatePath } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { RoutePath } from '~constants'
 import LinkCard from '~components/Layout/LinkCard'
+import { BlockIconLink } from '~components/Layout/IconLink'
 
 export const TransactionTypeBadge = ({ transactionType }: { transactionType: TransactionType }) => {
   return (
@@ -30,21 +31,17 @@ export const TransactionCard = ({
       })}
     >
       <CardBody>
-        <Flex gap={1} direction={'column'}>
-          <Flex gap={3} direction={'column'}>
-            <Box>
-              <TransactionTypeBadge transactionType={transactionType} />
-            </Box>
-            <Text fontWeight='bold'># {transactionNumber}</Text>
+        <Flex gap={3} direction={'column'}>
+          <Flex gap={2}>
+            <TransactionTypeBadge transactionType={transactionType} />
+            <BlockIconLink height={blockHeight} />
           </Flex>
-          <Box fontSize={'sm'}>
-            <Flex gap={2} align={'center'}>
-              <Trans i18nKey='blocks.proposer'>Hash:</Trans>
-              <ReducedTextAndCopy color={'textAccent1'} toCopy={transactionHash}>
-                {transactionHash}
-              </ReducedTextAndCopy>
-            </Flex>
-          </Box>
+          <Text fontWeight='bold'># {transactionNumber}</Text>
+          <Flex gap={2} align={'center'}>
+            <ReducedTextAndCopy fontSize={'sm'} color={'textAccent1'} toCopy={transactionHash}>
+              {transactionHash}
+            </ReducedTextAndCopy>
+          </Flex>
         </Flex>
       </CardBody>
     </LinkCard>
