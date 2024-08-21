@@ -23,7 +23,9 @@ export const BlockCard = ({ block, compact = false }: IBlockCardProps) => {
   const height = block.header.height
   const time = block.header.time
   const proposer = block.header.proposerAddress
-  const txn = block.data.txs.length
+  // Not on the SDK yet
+  // @ts-ignore
+  const txn = block.txCount
 
   const date = new Date(time)
 

@@ -66,7 +66,9 @@ const DetailsTab = ({ block }: { block: IChainBlockInfoResponse }) => {
     },
     {
       label: t('blocks.transactions', { defaultValue: 'Transactions' }),
-      children: block.data.txs.length,
+      // Not on the SDK yet
+      // @ts-ignore
+      children: block.txCount,
     },
     {
       label: t('blocks.hash', { defaultValue: 'Hash' }),
@@ -113,6 +115,9 @@ const DetailsTab = ({ block }: { block: IChainBlockInfoResponse }) => {
 export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
   const height = block.header.height
   const date = new Date(block.header.time)
+  // Not on the SDK yet
+  // @ts-ignore
+  const txCount = block.txCount
 
   const { formatDistance } = useDateFns()
 
@@ -145,7 +150,7 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
             <DetailsTab block={block} />
           </TabPanel>
           <TabPanel>
-            <PaginatedBlockTransactionsList blockHeight={height} totalTxs={block.data.txs.length} />
+            <PaginatedBlockTransactionsList blockHeight={height} totalTxs={txCount} />
           </TabPanel>
           <TabPanel>
             <RawContentBox obj={block} />
