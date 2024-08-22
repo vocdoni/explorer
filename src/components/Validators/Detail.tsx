@@ -81,7 +81,7 @@ export const ValidatorDetail = ({ validator }: { validator: IChainValidator }) =
         <ValidatorName name={validator.name} address={validator.validatorAddress} useCopy />
         <HStack color={'lighterText'} fontWeight={'bold'}>
           <Text>
-            <Trans i18nKey={'validators.validator_details'}>Joined on block</Trans>
+            <Trans i18nKey={'validators.joined_on_block'}>Joined on block</Trans>
           </Text>
           <BlockIconLink height={validator.joinHeight} />
         </HStack>

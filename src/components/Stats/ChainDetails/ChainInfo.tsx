@@ -66,7 +66,7 @@ export const ChainInfo = () => {
       isNumber: true,
     },
     {
-      label: t('stats.price_factors', { defaultValue: 'Price factors' }),
+      label: t('stats.price_factors_title', { defaultValue: 'Price factors' }),
       children: <PriceFactorsModal />,
       isNumber: true,
     },

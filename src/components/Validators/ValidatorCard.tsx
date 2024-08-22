@@ -49,7 +49,7 @@ export const ValidatorCard = (validator: IChainValidator) => {
           <Flex fontSize={'sm'} direction={'column'} gap={2}>
             <HStack gap={1}>
               <Text fontWeight={'bold'}>
-                <Trans i18nKey='validators.pubkey'>PubKey:</Trans>
+                <Trans i18nKey='validators.pubKey'>PubKey</Trans>
               </Text>
               <ReducedTextAndCopy
                 color={'textAccent1'}

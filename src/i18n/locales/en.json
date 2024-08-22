@@ -1,4 +1,38 @@
 {
+  "account": {
+    "avatar_alt": "Avatar",
+    "balance": "Balance",
+    "description": "Description",
+    "elections_count": "Elections",
+    "fees": {
+      "cost": "Cost",
+      "fees": "Fees",
+      "no_fees": "No fees yet!",
+      "tx_type": "Tx Type"
+    },
+    "no_elections": "No elections yet!",
+    "nonce": "Nonce",
+    "process_count_one": "<0>Process:</0> {{count}}",
+    "process_count_other": "<0>Process:</0> {{count}}",
+    "profile": "Profile",
+    "transfers": {
+      "amount": "Amount",
+      "block": "Block",
+      "from_to": "From/To",
+      "incoming_tx": "Incoming tx",
+      "no_transfers": "No transfers yet!",
+      "outgoing_tx": "Outgoing tx",
+      "tx_hash": "Tx Hash"
+    },
+    "transfers_count": "Transfers",
+    "view_profile": "View profile"
+  },
+  "accounts": {
+    "accounts_count_one": "Total {{ count }} account",
+    "accounts_count_other": "Total {{ count }} accounts",
+    "accounts_list": "Accounts",
+    "search_by_org_id": "Search by account id"
+  },
   "blocks": {
     "block_detail": "Block #{{ height }}",
     "block_not_found": "The block you are trying to access has been pruned or it is not indexed",
@@ -8,7 +42,10 @@
     "go_to_block": "Go to block",
     "hash": "Hash",
     "height": "Height",
+    "invalid_block_search": "Must to be a valid block height",
+    "invalid_chain_height": "Invalid chain block height",
     "next_block": "Next block",
+    "no_txs_on_block": "There are no transactions.",
     "previous_block": "Previous block",
     "previous_block_hash": "Previous block hash: ",
     "proposer": "Proposer:",
@@ -28,7 +65,7 @@
     "committed_in_block": "Commited in block",
     "content": "Envelope Content",
     "details": "Details",
-    "emitted": "Emitted {{emitted}}",
+    "emitted": "Emitted",
     "encryption_keys": "Encryption keys",
     "envelope_number": "Envelope nº {{num}}",
     "envelope_weight": "Envelope weight",
@@ -42,7 +79,8 @@
     "vote_registered": "Vote registered"
   },
   "errors": {
-    "content_error": "Looks like the content you were accessing threw an error."
+    "content_error": "Looks like the content you were accessing threw an error.",
+    "no_results": "Looks like there are no results to show."
   },
   "featured": {
     "a_cutting_edge_voting_protocol": "A cutting edge voting protocol",
@@ -58,17 +96,21 @@
   "filter": {
     "goto": "Go to"
   },
+  "filters": {
+    "total_results_one": "Showing a total of {{count}} results",
+    "total_results_other": "Showing a total of {{count}} results"
+  },
   "home": {
     "subtitle": "The most flexible and secure voting protocol to organize any kind of voting process: single-choice, multiple-choice, weighted, quadratic voting and much more.",
     "title": "Vocdoni explorer"
   },
   "links": {
     "about": "About",
+    "accounts": "Accounts",
     "blocks": "Blocks",
     "blog": "Blog",
     "docs": "Docs",
     "help": "Help",
-    "accounts": "Accounts",
     "processes": "Processes",
     "support": "Support",
     "transactions": "Transactions",
@@ -78,21 +120,6 @@
   "loading": "Loading...",
   "menu": {
     "burger_aria_label": "Menu"
-  },
-  "account": {
-    "avatar_alt": "Avatar",
-    "description": "Description",
-    "elections_list": "Elections",
-    "no_elections": "No elections yet!",
-    "process_count_one": "<0>Process:</0> {{count}}",
-    "process_count_other": "<0>Process:</0> {{count}}",
-    "view_profile": "View profile"
-  },
-  "accounts": {
-    "accounts_count_one": "Total {{ count }} account",
-    "accounts_count_other": "Total {{ count }} accounts",
-    "accounts_list": "Accounts",
-    "search_by_org_id": "Search by account id"
   },
   "process": {
     "badge": {
@@ -105,6 +132,9 @@
     "by_status_paused": "Paused",
     "detailed_data": "Detailed data",
     "encryption_keys": "Election encryption keys",
+    "final_results": "Final results",
+    "manually_ended": "Manually ended",
+    "no_description": "No description set!",
     "process_count_one": "Total {{count}} proces",
     "process_count_other": "Total {{count}} processes",
     "process_details": "Process details",
@@ -115,7 +145,8 @@
     "tab_details": "Details",
     "tab_envelopes": "Envelopes",
     "tab_raw": "Raw",
-    "tab_results": "Results"
+    "tab_results": "Results",
+    "tab_txs": "Transactions"
   },
   "processes": {
     "envelope_recount": "Envelope recount",
@@ -134,50 +165,90 @@
   },
   "raw": "Raw",
   "stats": {
+    "accounts_name": "Accounts",
     "average_block_time": "Average block time",
     "block_height": "Block height",
     "blockchain_info": "Blockchain info",
-    "electionCount_one": "{{ count }} election",
-    "electionCount_other": "{{ count }} elections",
-    "genesis_block_date": "Genesis block date",
+    "blocks_one": "{{count}} blocks",
+    "blocks_other": "{{count}} blocks",
+    "blockTimestamp": "Block timestamp",
+    "elections": "Elections",
+    "genesis": "Chain Genesis Epoch from {{date}}",
     "in_sync": "In sync",
+    "initial_height": "Epoch initial Height",
     "latest_blocks": "Latest blocks",
-    "network_id": "Network id",
-    "nr_of_validators": "Nr of validators",
-    "accounts_one": "{{ count }} account",
-    "accounts_other": "{{ count }} accounts",
+    "maxCensusSize": "Max Census Size",
+    "networkCapacity": "Capacity (votes/block)",
+    "price_factors": {
+      "anonymousPriceFactor": "Anonymous",
+      "anonymousPriceFactor_info": "If it requires additional measures to ensure voter privacy (anonymousVotes)",
+      "base": "Base",
+      "base_info": "Fixed cost that serves as a starting point for the price calculation. It represents the minimal price for creating an election regardless of its size or duration.",
+      "capacity_info": "Capacity of the blockchain",
+      "censusSizeScaling": "Size trigger",
+      "censusSizeScaling_info": "Represents a threshold value for the maximum number of votes (maxCensusSize) in an election. When the election size exceeds k7, the price growth becomes non-linear, increasing more rapidly beyond this point. ",
+      "durationPriceFactor": "Duration",
+      "durationPriceFactor_info": "If the election lasts longer, the price increases, and if there are more votes in a shorter time, the price also increases to reflect the higher demand for resources.",
+      "encryptedPriceFactor": "Encryption",
+      "encryptedPriceFactor_info": "If an election requires encryption for maintaining secrecy until the end (encryptedVotes)",
+      "factors": "Factors",
+      "info_text": "The formula used to calculate an election price takes into account various factors, each reflecting one specific aspect of the election process. ",
+      "overwritePriceFactor": "Overwrite",
+      "overwritePriceFactor_info": "Is proportional to the maximum number of vote overwrites and the maximum number of votes allowed in the election. It also takes into account the blockchain's capacity to ensure the price reflects the current resource constraints.",
+      "sizePriceFactor": "Size",
+      "sizePriceFactor_info": "The size price component is directly proportional to the maximum number of votes allowed in the election",
+      "sizeScaling": "Growth factor",
+      "sizeScaling_info": "Rate of price growth for elections with a maximum number of votes (maxCensusSize) exceeding the k7 threshold."
+    },
+    "price_factors_title": "Price factors",
     "seconds_one": "{{ count }} second",
     "seconds_other": "{{ count }} seconds",
-    "sync_status": "Sync status",
     "syncing": "Syncing",
-    "total_elections": "Total processes",
-    "total_accounts": "Total accounts",
-    "total_votes": "Total votes",
+    "tokens": "Tokens",
+    "transactions_one": "{{count}} transactions",
+    "transactions_other": "{{count}} transactions",
+    "transactions_count": "Transactions count",
+    "validators_one": "{{count}} validators",
+    "validators_other": "{{count}} validators",
+    "validators_count": "Validators count",
     "view_all_blocks": "View all blocks",
-    "votes_one": "{{ count }} vote",
-    "votes_other": "{{ count }} votes"
+    "voc_tokens": "VOC Tokens",
+    "votes": "Votes"
   },
   "transactions": {
     "belong_to_accounts": "Belongs to account",
     "belongs_to_process": "Belongs to process",
     "block": "Block",
     "created_on": "Created {{createdOn}}",
+    "error_parsing_vote_package": "Vote package may be encrypted",
     "go_to_tx": "Go to transaction",
+    "invalid_tx_count": "Invalid chain transactions count",
+    "invalid_tx_search": "Must to be a valid tx hash or index",
+    "send_tokens_from": "From",
+    "send_tokens_to": "To",
+    "tokens_transferred": "Tokens transferred",
     "transactions_list": "Transactions",
     "tx_count_one": "Total {{ count }} transaction",
     "tx_count_other": "Total {{ count }} transactions",
-    "tx_title": "Transaction #{{ number }}",
     "tx_hash": "Transaction hash",
     "tx_index": "Transaction index",
+    "tx_title": "Transaction #{{ number }}",
     "tx_type": "Transaction type",
-    "vote_package": "Vote package:"
+    "vote_package": "Vote package:",
+    "vote_sense": "Vote sense"
   },
   "validators": {
-    "pubkey": "PubKey:",
+    "account": "Account",
+    "joined_on_block": "Joined on block",
+    "pubKey": "Public Key",
+    "score": "Score",
+    "validator_details": "Validator details",
     "validators": "Validators",
     "validators_count_one": "Total {{ count }} validator",
     "validators_count_other": "Total {{ count }} validators",
-    "voting_power": "Voting power: {{power}}"
+    "votes": "Votes",
+    "voting_power": "Voting power: {{power}}",
+    "voting_power_cell": "Voting power"
   },
   "verify": {
     "add_your_vote_id": "Add your vote id",
