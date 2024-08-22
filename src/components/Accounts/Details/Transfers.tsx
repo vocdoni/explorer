@@ -26,6 +26,7 @@ import { AccountData } from '@vocdoni/sdk'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 import { Pagination } from '~components/Pagination/Pagination'
+import { useOrganization } from '@vocdoni/react-providers'
 
 const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps) => {
   const { t } = useTranslation()
@@ -48,37 +49,34 @@ const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps
   )
 }
 
-interface AccountTransfersProps {
-  txCount: number | undefined
-  org: AccountData
-}
-
-const AccountTransfers = (txProps: AccountTransfersProps) => {
+const AccountTransfers = () => {
   return (
     <PaginationProvider>
-      <AccountTransfersTable {...txProps} />
+      <AccountTransfersTable />
     </PaginationProvider>
   )
 }
 
-const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
+const AccountTransfersTable = () => {
   const { page } = usePagination()
   const { formatDistance } = useDateFns()
+  const { t } = useTranslation()
+  const { organization } = useOrganization()
+
+  if (!organization) return null
+
+  const txCount = organization.transfersCount ?? 0
 
   const { data, isLoading, isError, error } = useAccountTransfers({
-    address: org.address,
+    address: organization.address,
     page: page,
     options: {
-      enabled: !!txCount && txCount > 0,
+      enabled: txCount > 0,
     },
   })
 
-  if (txCount && !(txCount > 0)) {
-    return (
-      <Text>
-        <Trans i18nKey={'account.transfers.no_transfers'}>No transfers yet!</Trans>
-      </Text>
-    )
+  if (txCount === 0) {
+    return <NoResultsError msg={t('account.transfers.no_transfers', { defaultValue: 'No transfers yet!' })} />
   }
 
   if (!txCount || isLoading) {
@@ -116,7 +114,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
             </Thead>
             <Tbody>
               {data.transfers.map((transfer, i) => {
-                const isIncoming = transfer.to === org.address
+                const isIncoming = transfer.to === organization.address
                 let fromToAddress = isIncoming ? transfer.from : transfer.to
                 return (
                   <Tr key={i}>

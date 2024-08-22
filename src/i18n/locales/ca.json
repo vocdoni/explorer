@@ -83,7 +83,7 @@
   },
   "errors": {
     "content_error": "Sembla que el contingut al qual intentaves accedir ha generat un error.",
-    "no_results": "Sembla que no hi ha resultats per mostrar."
+    "no_results": "Sembla que no hi ha res a mostrar."
   },
   "featured": {
     "a_cutting_edge_voting_protocol": "Un protocol de votació avançat",

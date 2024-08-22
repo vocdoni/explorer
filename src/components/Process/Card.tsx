@@ -36,7 +36,7 @@ const ElectionCardSkeleton = (rest: CardProps) => {
 
   if (!election) return null
   if (election instanceof InvalidElectionType) {
-    return <InvalidElection />
+    return <InvalidElectionCard election={election} {...rest} />
   }
 
   return (
@@ -64,6 +64,22 @@ const ElectionCardSkeleton = (rest: CardProps) => {
         <OrganizationProvider id={election.organizationId}>
           <SmallAccountCard id={election.organizationId} />
         </OrganizationProvider>
+      </CardBody>
+    </LinkCard>
+  )
+}
+
+const InvalidElectionCard = ({ election, ...rest }: { election: InvalidElectionType } & CardProps) => {
+  return (
+    <LinkCard
+      direction={'row'}
+      alignItems='center'
+      pl={4}
+      to={generatePath(RoutePath.Process, { pid: election.id, tab: null })}
+      {...rest}
+    >
+      <CardBody>
+        <InvalidElection />
       </CardBody>
     </LinkCard>
   )

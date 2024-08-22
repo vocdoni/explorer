@@ -121,12 +121,9 @@ const TransactionsListCards = ({
   error: Error | null
   height?: number
 }) => {
+  const { t } = useTranslation()
   if (!data || (data && data.transactions.length <= 0)) {
-    return (
-      <Text>
-        <Trans i18nKey={'blocks.no_txs_on_block'}>There are no transactions.</Trans>
-      </Text>
-    )
+    return <NoResultsError msg={t('blocks.no_txs_on_block', { defaultValue: 'There are no transactions' })} />
   }
 
   if (isLoading) {

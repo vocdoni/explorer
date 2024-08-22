@@ -5,9 +5,13 @@ import { Trans, useTranslation } from 'react-i18next'
 import { FaUserAlt } from 'react-icons/fa'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { AppBaseURL } from '~constants'
+import { useOrganization } from '@vocdoni/react-providers'
 
-const AccountDetails = ({ org }: { org: AccountData }) => {
+const AccountDetails = () => {
   const { t } = useTranslation()
+  const { organization: org } = useOrganization()
+
+  if (!org) return null
 
   const details: GridItemProps[] = [
     {

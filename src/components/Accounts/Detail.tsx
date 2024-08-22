@@ -22,8 +22,8 @@ const AccountDetail = () => {
   if (!organization) return null
 
   const id = organization.address
-  const transfersCount = organization.transfersCount
-  const feesCount = organization.feesCount
+  const transfersCount = organization.transfersCount ?? 0
+  const feesCount = organization.feesCount ?? 0
 
   return (
     <>
@@ -64,16 +64,16 @@ const AccountDetail = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <AccountDetails org={organization} />
+            <AccountDetails />
           </TabPanel>
           <TabPanel>
-            <AccountElections org={organization} />
+            <AccountElections />
           </TabPanel>
           <TabPanel>
-            <AccountTransfers org={organization} txCount={transfersCount} />
+            <AccountTransfers />
           </TabPanel>
           <TabPanel>
-            <AccountFees org={organization} />
+            <AccountFees />
           </TabPanel>
           <TabPanel>
             <RawContentBox obj={organization} />
