@@ -6,7 +6,7 @@ export const NoResultsError = ({ msg }: { msg?: string }) => {
   return (
     <Alert status='info'>
       <AlertIcon />
-      {msg ?? t('errors.no_results', { defaultValue: 'Looks like there are nothing to show.' })}
+      {msg ?? t('errors.no_results', { defaultValue: 'Looks like there is nothing to show.' })}
     </Alert>
   )
 }

@@ -80,7 +80,7 @@
   },
   "errors": {
     "content_error": "Looks like the content you were accessing threw an error.",
-    "no_results": "Looks like there are nothing to show."
+    "no_results": "Looks like there is nothing to show."
   },
   "featured": {
     "a_cutting_edge_voting_protocol": "A cutting edge voting protocol",
