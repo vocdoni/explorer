@@ -1,6 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react'
 import { AccountData } from '@vocdoni/sdk'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { LoadingCards } from '~components/Layout/Loading'
 import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
@@ -14,12 +14,10 @@ interface OrgComponentProps {
 }
 
 const AccountElections = ({ org }: OrgComponentProps) => {
+  const { t } = useTranslation()
+
   if (org.electionIndex === 0) {
-    return (
-      <Text>
-        <Trans i18nKey={'account.no_elections'}>No elections yet!</Trans>
-      </Text>
-    )
+    return <NoResultsError msg={t('account.no_elections', { defaultValue: 'No elections yet!' })} />
   }
 
   return (

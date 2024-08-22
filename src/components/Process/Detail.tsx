@@ -50,6 +50,7 @@ import { FallbackHeaderImg, RoutePath } from '~constants'
 import { useElectionKeys, useElectionVotesList } from '~queries/processes'
 import { ucfirst } from '~utils/strings'
 import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
+import { NoResultsError } from '~components/Layout/ContentError'
 
 const Detail = () => {
   const { election } = useElection()
@@ -161,10 +162,7 @@ const Detail = () => {
             {election.description?.default ? (
               <ElectionDescription />
             ) : (
-              <Alert status='warning'>
-                <AlertIcon />
-                <Trans i18nKey={'process.no_description'}>No description set!</Trans>
-              </Alert>
+              <NoResultsError msg={t('process.no_description', { defaultValue: 'No description set!' })} />
             )}
           </TabPanel>
           <TabPanel>
@@ -221,13 +219,10 @@ const ElectionKeys = ({ electionId }: { electionId: string }) => {
 const EnvelopeExplorer = () => {
   const { election: e } = useElection()
   const election = e as PublishedElection
+  const { t } = useTranslation()
 
   if (!election || election.voteCount === 0) {
-    return (
-      <Text>
-        <Trans i18nKey={'election.no_votes_yet'}>No votes yet!</Trans>
-      </Text>
-    )
+    return <NoResultsError msg={t('election.no_votes_yet', { defaultValue: 'No votes yet!' })} />
   }
 
   return (

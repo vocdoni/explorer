@@ -3,7 +3,12 @@ import { Trans, useTranslation } from 'react-i18next'
 
 export const NoResultsError = ({ msg }: { msg?: string }) => {
   const { t } = useTranslation()
-  return <Text>{msg ?? t('errors.no_results', { defaultValue: 'Looks like there are no results to show.' })}</Text>
+  return (
+    <Alert status='info'>
+      <AlertIcon />
+      {msg ?? t('errors.no_results', { defaultValue: 'Looks like there are nothing to show.' })}
+    </Alert>
+  )
 }
 
 export type ContentErrorType = Error | undefined | null | string

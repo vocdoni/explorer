@@ -64,6 +64,7 @@ const AccountTransfers = (txProps: AccountTransfersProps) => {
 const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
   const { page } = usePagination()
   const { formatDistance } = useDateFns()
+  const { t } = useTranslation()
 
   const { data, isLoading, isError, error } = useAccountTransfers({
     address: org.address,
@@ -74,11 +75,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
   })
 
   if (txCount === 0) {
-    return (
-      <Text>
-        <Trans i18nKey={'account.transfers.no_transfers'}>No transfers yet!</Trans>
-      </Text>
-    )
+    return <NoResultsError msg={t('account.transfers.no_transfers', { defaultValue: 'No transfers yet!' })} />
   }
 
   if (!txCount || isLoading) {

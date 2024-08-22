@@ -83,7 +83,7 @@
   },
   "errors": {
     "content_error": "Parece que el contenido al que accediste arrojó un error.",
-    "no_results": "Parece que no hay resultados para mostrar."
+    "no_results": "Parece que no hay nada para mostrar."
   },
   "featured": {
     "a_cutting_edge_voting_protocol": "Un protocolo de votación de vanguardia",
