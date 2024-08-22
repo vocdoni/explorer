@@ -2,7 +2,7 @@ import { Box, Flex, Link, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr 
 import { Trans } from 'react-i18next'
 import { LoadingCards } from '~components/Layout/Loading'
 import { useDateFns } from '~i18n/use-date-fns'
-import { AccountData, TransactionType } from '@vocdoni/sdk'
+import { TransactionType } from '@vocdoni/sdk'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { Pagination } from '~components/Pagination/Pagination'
 import { useAccountFees } from '~queries/accounts'
