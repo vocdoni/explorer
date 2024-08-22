@@ -91,11 +91,11 @@
     "view_profile": "Veure perfil"
   },
   "accounts": {
-    "accounts_count_one": "Total {{ count }} compta",
+    "accounts_count_one": "Total {{ count }} compte",
     "accounts_count_many": "",
     "accounts_count_other": "Total {{ count }} comptes",
     "accounts_list": "Comptes",
-    "search_by_org_id": "Cercar per identificador de compta"
+    "search_by_org_id": "Cercar per identificador de compte"
   },
   "process": {
     "badge": {
@@ -113,7 +113,7 @@
     "process_count_other": "Total {{count}} processos",
     "process_details": "Detalls del procés",
     "process_list": "Processos",
-    "search_by": "Cercar per procés o compta",
+    "search_by": "Cercar per procés o compte",
     "show_with_results": "Mostrar només processos amb resultats",
     "tab_description": "Descripció",
     "tab_details": "Detalls",
@@ -149,7 +149,7 @@
     "latest_blocks": "Últims blocs",
     "network_id": "Identificador de xarxa",
     "nr_of_validators": "Nombre de validadors",
-    "accounts_one": "{{ count }} compta",
+    "accounts_one": "{{ count }} compte",
     "accounts_many": "",
     "accounts_other": "{{ count }} comptes",
     "seconds_one": "{{ count }} segon",
@@ -158,7 +158,7 @@
     "sync_status": "Estat de sincronització",
     "syncing": "Sincronitzant",
     "total_elections": "Total de processos",
-    "total_accounts": "Total d'comptes",
+    "total_accounts": "Total de comptes",
     "total_votes": "Total de vots",
     "view_all_blocks": "Veure tots els blocs",
     "votes_one": "{{ count }} vot",
@@ -166,7 +166,7 @@
     "votes_other": "{{ count }} vots"
   },
   "transactions": {
-    "belong_to_accounts": "Pertany a la compta",
+    "belong_to_accounts": "Pertany a el compte",
     "belongs_to_process": "Pertany al procés",
     "block": "Bloc",
     "created_on": "Creat {{createdOn}}",
