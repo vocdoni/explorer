@@ -20,6 +20,7 @@ import { SmallAccountCard } from '~components/Accounts/Card'
 import { RoutePath } from '~constants'
 import { b64ToHex } from '~utils/objects'
 import { VotePackage } from '~components/Envelope/Detail'
+import { VotePackageType } from '@vocdoni/chakra-components'
 
 export const processIdGridItem = (processId: string, t: TFunction): GridItemProps => {
   return {
@@ -60,12 +61,14 @@ const organizationIdGridItem = (orgId: string, t: TFunction): GridItemProps => {
 
 const VoteTxDetails = ({ rawTx, votePackage, processId }: { rawTx: any } & VoteEnvelope) => {
   const { t } = useTranslation()
+  let showVoteSense = false
   if (votePackage) {
     // Decode the vote package from base64
     votePackage = atob(votePackage)
     // And copy it alsow to rawTx
     try {
       rawTx['tx']['vote']['votePackage'] = JSON.parse(votePackage)
+      showVoteSense = true
     } catch (e) {
       // If vote package cannot be parsed as JSON, it may be encrypted
       const msg = t('transactions.error_parsing_vote_package', { defaultValue: 'Vote package may be encrypted' })
@@ -85,7 +88,7 @@ const VoteTxDetails = ({ rawTx, votePackage, processId }: { rawTx: any } & VoteE
           },
         ]
       : []),
-    ...(votePackage
+    ...(showVoteSense
       ? [
           {
             label: t('transactions.vote_sense', { defaultValue: 'Vote sense' }),

@@ -10,8 +10,14 @@ import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { RoutePath } from '~constants'
 import { ContentError, NoResultsError } from '~components/Layout/ContentError'
+import { useOrganization } from '@vocdoni/react-providers'
 
-const AccountFees = (org: { org: AccountData }) => {
+interface AccountFeessProps {
+  feesCount: number
+  org: AccountData
+}
+
+const AccountFees = (org: AccountFeessProps) => {
   return (
     <PaginationProvider>
       <AccountFeesTable {...org} />
@@ -19,7 +25,7 @@ const AccountFees = (org: { org: AccountData }) => {
   )
 }
 
-const AccountFeesTable = ({ org }: { org: AccountData }) => {
+const AccountFeesTable = ({ org, feesCount }: AccountFeessProps) => {
   const { page } = usePagination()
   const { formatDistance } = useDateFns()
 
@@ -28,13 +34,16 @@ const AccountFeesTable = ({ org }: { org: AccountData }) => {
       accountId: org.address,
       page,
     },
+    options: {
+      enabled: feesCount > 0,
+    },
   })
 
   if (isLoading) {
     return <LoadingCards />
   }
 
-  if (data?.pagination.totalItems === 0) {
+  if (data?.pagination.totalItems === 0 || feesCount === 0) {
     return <NoResultsError />
   }
 

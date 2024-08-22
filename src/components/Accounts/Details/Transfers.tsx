@@ -49,7 +49,7 @@ const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps
 }
 
 interface AccountTransfersProps {
-  txCount: number | undefined
+  txCount: number
   org: AccountData
 }
 
@@ -73,7 +73,7 @@ const AccountTransfersTable = ({ txCount, org }: AccountTransfersProps) => {
     },
   })
 
-  if (txCount && !(txCount > 0)) {
+  if (txCount === 0) {
     return (
       <Text>
         <Trans i18nKey={'account.transfers.no_transfers'}>No transfers yet!</Trans>

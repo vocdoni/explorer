@@ -22,8 +22,8 @@ const AccountDetail = () => {
   if (!organization) return null
 
   const id = organization.address
-  const transfersCount = organization.transfersCount
-  const feesCount = organization.feesCount
+  const transfersCount = organization.transfersCount ?? 0
+  const feesCount = organization.feesCount ?? 0
 
   return (
     <>
@@ -73,7 +73,7 @@ const AccountDetail = () => {
             <AccountTransfers org={organization} txCount={transfersCount} />
           </TabPanel>
           <TabPanel>
-            <AccountFees org={organization} />
+            <AccountFees org={organization} feesCount={feesCount} />
           </TabPanel>
           <TabPanel>
             <RawContentBox obj={organization} />
