@@ -64,16 +64,16 @@ const AccountDetail = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <AccountDetails org={organization} />
+            <AccountDetails />
           </TabPanel>
           <TabPanel>
-            <AccountElections org={organization} />
+            <AccountElections />
           </TabPanel>
           <TabPanel>
-            <AccountTransfers org={organization} txCount={transfersCount} />
+            <AccountTransfers />
           </TabPanel>
           <TabPanel>
-            <AccountFees org={organization} feesCount={feesCount} />
+            <AccountFees />
           </TabPanel>
           <TabPanel>
             <RawContentBox obj={organization} />

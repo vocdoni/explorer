@@ -12,26 +12,26 @@ import { RoutePath } from '~constants'
 import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 import { useOrganization } from '@vocdoni/react-providers'
 
-interface AccountFeessProps {
-  feesCount: number
-  org: AccountData
-}
-
-const AccountFees = (org: AccountFeessProps) => {
+const AccountFees = () => {
   return (
     <PaginationProvider>
-      <AccountFeesTable {...org} />
+      <AccountFeesTable />
     </PaginationProvider>
   )
 }
 
-const AccountFeesTable = ({ org, feesCount }: AccountFeessProps) => {
+const AccountFeesTable = () => {
   const { page } = usePagination()
   const { formatDistance } = useDateFns()
+  const { organization } = useOrganization()
+
+  if (!organization) return null
+
+  const feesCount = organization.feesCount ?? 0
 
   const { data, isLoading, isError, error } = useAccountFees({
     params: {
-      accountId: org.address,
+      accountId: organization.address,
       page,
     },
     options: {

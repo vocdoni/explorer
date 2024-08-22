@@ -8,33 +8,36 @@ import { ElectionCard } from '~components/Process/Card'
 import { RoutePath } from '~constants'
 import { useOrganizationElections } from '~queries/accounts'
 import { ContentError, NoResultsError } from '~components/Layout/ContentError'
+import { useOrganization } from '@vocdoni/react-providers'
 
-interface OrgComponentProps {
-  org: AccountData
-}
-
-const AccountElections = ({ org }: OrgComponentProps) => {
+const AccountElections = () => {
   const { t } = useTranslation()
+  const { organization } = useOrganization()
 
-  if (org.electionIndex === 0) {
+  if (!organization) return null
+
+  if (organization.electionIndex === 0) {
     return <NoResultsError msg={t('account.no_elections', { defaultValue: 'No elections yet!' })} />
   }
 
   return (
     <RoutedPaginationProvider path={RoutePath.Account}>
-      <AccountElectionsList org={org} />
+      <AccountElectionsList />
     </RoutedPaginationProvider>
   )
 }
 
-const AccountElectionsList = ({ org }: OrgComponentProps) => {
+const AccountElectionsList = () => {
   const { page }: { page?: number } = useRoutedPagination()
+  const { organization } = useOrganization()
+
+  if (!organization) return null
 
   const { data, isLoading, isError, error } = useOrganizationElections({
-    address: org.address,
+    address: organization.address,
     page: page,
     options: {
-      enabled: !!org.address,
+      enabled: !!organization.address,
     },
   })
 
