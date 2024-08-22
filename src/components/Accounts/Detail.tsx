@@ -53,7 +53,10 @@ const AccountDetail = () => {
             />
           </Tab>
           <Tab>
-            <TextAndTag text={t('account.fees', { defaultValue: 'Fees' })} tagLabel={feesCount?.toString() ?? '0'} />
+            <TextAndTag
+              text={t('account.fees.fees', { defaultValue: 'Fees' })}
+              tagLabel={feesCount?.toString() ?? '0'}
+            />
           </Tab>
           <Tab>
             <Trans i18nKey={'raw'}>Raw</Trans>

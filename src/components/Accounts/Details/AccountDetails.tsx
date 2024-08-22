@@ -19,7 +19,7 @@ const AccountDetails = ({ org }: { org: AccountData }) => {
       children: org.balance,
     },
     {
-      label: t('account.election_count', { defaultValue: 'Elections' }),
+      label: t('account.elections_count', { defaultValue: 'Elections' }),
       children: org.electionIndex,
     },
     {
