@@ -1,6 +1,6 @@
 import { Flex, Icon, Link } from '@chakra-ui/react'
 import { OrganizationDescription } from '@vocdoni/chakra-components'
-import { AccountData, ensure0x } from '@vocdoni/sdk'
+import { ensure0x } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { FaUserAlt } from 'react-icons/fa'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
