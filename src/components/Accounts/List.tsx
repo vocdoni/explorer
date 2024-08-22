@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { InputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
-import { OrganizationCard } from '~components/Organizations/Card'
+import { AccountCard } from '~components/Accounts/Card'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { RoutePath } from '~constants'
-import { useOrganizationCount, useOrganizationList } from '~queries/organizations'
+import { useOrganizationCount, useOrganizationList } from '~queries/accounts'
 import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 
-export const OrganizationsFilter = () => {
+export const AccountsFilter = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { query } = useParams<{ query?: string }>()
@@ -18,9 +18,9 @@ export const OrganizationsFilter = () => {
   return (
     <InputSearch
       maxW={'300px'}
-      placeholder={t('organizations.search_by_org_id')}
+      placeholder={t('accounts.search_by_org_id')}
       onChange={(value: string) => {
-        navigate(generatePath(RoutePath.OrganizationsList, { page: '0', query: value as string }))
+        navigate(generatePath(RoutePath.AccountsList, { page: '0', query: value as string }))
       }}
       debounceTime={500}
       initialValue={query}
@@ -28,15 +28,15 @@ export const OrganizationsFilter = () => {
   )
 }
 
-export const PaginatedOrganizationsList = () => {
+export const PaginatedAccountsList = () => {
   return (
-    <RoutedPaginationProvider path={RoutePath.OrganizationsList}>
-      <OrganizationsList />
+    <RoutedPaginationProvider path={RoutePath.AccountsList}>
+      <AccountsList />
     </RoutedPaginationProvider>
   )
 }
 
-export const OrganizationsList = () => {
+export const AccountsList = () => {
   const { page }: { page?: number } = useRoutedPagination()
   const { query }: { query?: string } = useParams()
   const { data: count, isLoading: isLoadingCount } = useOrganizationCount()
@@ -72,7 +72,7 @@ export const OrganizationsList = () => {
   return (
     <>
       {orgs?.organizations.map((org) => (
-        <OrganizationCard key={org.organizationID} id={org.organizationID} electionCount={org.electionCount} />
+        <AccountCard key={org.organizationID} id={org.organizationID} electionCount={org.electionCount} />
       ))}
       <RoutedPagination pagination={orgs.pagination} />
     </>

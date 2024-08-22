@@ -68,7 +68,7 @@
     "blog": "Blog",
     "docs": "Docs",
     "help": "Help",
-    "organizations": "Organizations",
+    "accounts": "Accounts",
     "processes": "Processes",
     "support": "Support",
     "transactions": "Transactions",
@@ -79,7 +79,7 @@
   "menu": {
     "burger_aria_label": "Menu"
   },
-  "organization": {
+  "account": {
     "avatar_alt": "Avatar",
     "description": "Description",
     "elections_list": "Elections",
@@ -88,11 +88,11 @@
     "process_count_other": "<0>Process:</0> {{count}}",
     "view_profile": "View profile"
   },
-  "organizations": {
-    "organizations_count_one": "Total {{ count }} organization",
-    "organizations_count_other": "Total {{ count }} organizations",
-    "organizations_list": "Organizations",
-    "search_by_org_id": "Search by organization id"
+  "accounts": {
+    "accounts_count_one": "Total {{ count }} account",
+    "accounts_count_other": "Total {{ count }} accounts",
+    "accounts_list": "Accounts",
+    "search_by_org_id": "Search by account id"
   },
   "process": {
     "badge": {
@@ -109,7 +109,7 @@
     "process_count_other": "Total {{count}} processes",
     "process_details": "Process details",
     "process_list": "Processes",
-    "search_by": "Search by process or organization",
+    "search_by": "Search by process or account",
     "show_with_results": "Show only processes with results",
     "tab_description": "Description",
     "tab_details": "Details",
@@ -144,21 +144,21 @@
     "latest_blocks": "Latest blocks",
     "network_id": "Network id",
     "nr_of_validators": "Nr of validators",
-    "organizations_one": "{{ count }} organization",
-    "organizations_other": "{{ count }} organizations",
+    "accounts_one": "{{ count }} account",
+    "accounts_other": "{{ count }} accounts",
     "seconds_one": "{{ count }} second",
     "seconds_other": "{{ count }} seconds",
     "sync_status": "Sync status",
     "syncing": "Syncing",
     "total_elections": "Total processes",
-    "total_organizations": "Total organizations",
+    "total_accounts": "Total accounts",
     "total_votes": "Total votes",
     "view_all_blocks": "View all blocks",
     "votes_one": "{{ count }} vote",
     "votes_other": "{{ count }} votes"
   },
   "transactions": {
-    "belong_to_organization": "Belongs to organization",
+    "belong_to_accounts": "Belongs to account",
     "belongs_to_process": "Belongs to process",
     "block": "Block",
     "created_on": "Created {{createdOn}}",

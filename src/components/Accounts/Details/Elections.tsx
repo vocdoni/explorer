@@ -6,30 +6,30 @@ import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { ElectionCard } from '~components/Process/Card'
 import { RoutePath } from '~constants'
-import { useOrganizationElections } from '~queries/organizations'
+import { useOrganizationElections } from '~queries/accounts'
 import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 
 interface OrgComponentProps {
   org: AccountData
 }
 
-const OrganizationElections = ({ org }: OrgComponentProps) => {
+const AccountElections = ({ org }: OrgComponentProps) => {
   if (org.electionIndex === 0) {
     return (
       <Text>
-        <Trans i18nKey={'organization.no_elections'}>No elections yet!</Trans>
+        <Trans i18nKey={'account.no_elections'}>No elections yet!</Trans>
       </Text>
     )
   }
 
   return (
-    <RoutedPaginationProvider path={RoutePath.Organization}>
-      <OrganizationElectionsList org={org} />
+    <RoutedPaginationProvider path={RoutePath.Account}>
+      <AccountElectionsList org={org} />
     </RoutedPaginationProvider>
   )
 }
 
-const OrganizationElectionsList = ({ org }: OrgComponentProps) => {
+const AccountElectionsList = ({ org }: OrgComponentProps) => {
   const { page }: { page?: number } = useRoutedPagination()
 
   const { data, isLoading, isError, error } = useOrganizationElections({
@@ -62,4 +62,4 @@ const OrganizationElectionsList = ({ org }: OrgComponentProps) => {
   )
 }
 
-export default OrganizationElections
+export default AccountElections

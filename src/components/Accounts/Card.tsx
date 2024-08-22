@@ -7,7 +7,7 @@ import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { FallbackAccountImg, RoutePath } from '~constants'
 import LinkCard from '~components/Layout/LinkCard'
 
-type IOrganizationCardProps = {
+type IAccountCardProps = {
   id?: string
   electionCount?: number
 } & CardProps
@@ -19,17 +19,17 @@ type IOrganizationCardProps = {
  * @param rest chakra CardProps
  * @constructor
  */
-export const OrganizationCard = ({ id, ...rest }: IOrganizationCardProps) => {
-  if (!id) return <OrganizationCardSkeleton {...rest} />
+export const AccountCard = ({ id, ...rest }: IAccountCardProps) => {
+  if (!id) return <AccountCardSkeleton {...rest} />
 
   return (
     <OrganizationProvider id={id}>
-      <OrganizationCardSkeleton id={id} {...rest} />
+      <AccountCardSkeleton id={id} {...rest} />
     </OrganizationProvider>
   )
 }
 
-const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationCardProps) => {
+const AccountCardSkeleton = ({ electionCount: ec, ...rest }: IAccountCardProps) => {
   const { organization, loading } = useOrganization()
   const { t } = useTranslation()
 
@@ -40,7 +40,7 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
 
   return (
     <LinkCard
-      to={generatePath(RoutePath.Organization, { pid, tab: null, page: null })}
+      to={generatePath(RoutePath.Account, { pid, tab: null, page: null })}
       direction={'row'}
       alignItems='center'
       pl={4}
@@ -50,7 +50,7 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
         <Avatar
           mx='auto'
           fallbackSrc={FallbackAccountImg}
-          alt={t('organization.avatar_alt', {
+          alt={t('account.avatar_alt', {
             name: organization?.account.name.default || organization?.address,
           }).toString()}
         />
@@ -68,7 +68,7 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
         </ReducedTextAndCopy>
         {electionCount && (
           <Text fontSize={'sm'}>
-            <Trans i18nKey={'organization.process_count'} count={electionCount}>
+            <Trans i18nKey={'account.process_count'} count={electionCount}>
               <strong>Process:</strong> {{ count: electionCount }}
             </Trans>
           </Text>
@@ -78,12 +78,12 @@ const OrganizationCardSkeleton = ({ electionCount: ec, ...rest }: IOrganizationC
   )
 }
 
-export const SmallOrganizationCard = ({ id, flex, avatar }: { id: string; flex?: FlexProps; avatar?: BoxProps }) => {
+export const SmallAccountCard = ({ id, flex, avatar }: { id: string; flex?: FlexProps; avatar?: BoxProps }) => {
   const { organization } = useOrganization()
   const { t } = useTranslation()
 
   const orgName = organization?.account.name.default
-  const orgLink = generatePath(RoutePath.Organization, { pid: id, tab: null, page: null })
+  const orgLink = generatePath(RoutePath.Account, { pid: id, tab: null, page: null })
 
   return (
     <Flex direction={'row'} alignItems={'center'} gap={2} {...flex}>
@@ -91,7 +91,7 @@ export const SmallOrganizationCard = ({ id, flex, avatar }: { id: string; flex?:
         <Avatar
           mx='auto'
           fallbackSrc={'/images/fallback-account-dark.png'}
-          alt={t('organization.avatar_alt', {
+          alt={t('account.avatar_alt', {
             name: orgName || organization?.address,
           }).toString()}
         />

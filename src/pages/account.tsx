@@ -1,16 +1,16 @@
 import { OrganizationProvider } from '@vocdoni/react-providers'
 import { AccountData } from '@vocdoni/sdk'
 import { useLoaderData } from 'react-router-dom'
-import OrganizationDetail from '~components/Organizations/Detail'
+import AccountDetail from '~components/Accounts/Detail'
 
-const Organization = () => {
+const Account = () => {
   const org = useLoaderData() as AccountData
 
   return (
     <OrganizationProvider organization={org}>
-      <OrganizationDetail />
+      <AccountDetail />
     </OrganizationProvider>
   )
 }
 
-export default Organization
+export default Account

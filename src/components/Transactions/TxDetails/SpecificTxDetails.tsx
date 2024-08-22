@@ -16,7 +16,7 @@ import { BiTransferAlt } from 'react-icons/bi'
 import { generatePath } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
-import { SmallOrganizationCard } from '~components/Organizations/Card'
+import { SmallAccountCard } from '~components/Accounts/Card'
 import { RoutePath } from '~constants'
 import { b64ToHex } from '~utils/objects'
 import { VotePackage } from '~components/Envelope/Detail'
@@ -45,7 +45,7 @@ const OrganizationCard = ({ orgId }: { orgId: string }) => (
   <OrganizationProvider id={orgId}>
     {/*This box is fixing the alignment with the grid label*/}
     <Box display={'flex'} alignItems={'last baseline'}>
-      <SmallOrganizationCard id={orgId} avatar={{ w: '20px', minW: '20px' }} />
+      <SmallAccountCard id={orgId} avatar={{ w: '20px', minW: '20px' }} />
     </Box>
   </OrganizationProvider>
 )
@@ -53,7 +53,7 @@ const OrganizationCard = ({ orgId }: { orgId: string }) => (
 const organizationIdGridItem = (orgId: string, t: TFunction): GridItemProps => {
   const _orgId = ensure0x(orgId)
   return {
-    label: t('transactions.belong_to_organization', { defaultValue: 'Belongs to organization' }),
+    label: t('transactions.belong_to_accounts', { defaultValue: 'Belongs to organization' }),
     children: <OrganizationCard orgId={_orgId} />,
   }
 }

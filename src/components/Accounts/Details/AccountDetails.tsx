@@ -6,35 +6,35 @@ import { FaUserAlt } from 'react-icons/fa'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { AppBaseURL } from '~constants'
 
-const OrgDetails = ({ org }: { org: AccountData }) => {
+const AccountDetails = ({ org }: { org: AccountData }) => {
   const { t } = useTranslation()
 
   const details: GridItemProps[] = [
     {
-      label: t('organization.nonce', { defaultValue: 'Nonce' }),
+      label: t('account.nonce', { defaultValue: 'Nonce' }),
       children: org.nonce,
     },
     {
-      label: t('organization.balance', { defaultValue: 'Balance' }),
+      label: t('account.balance', { defaultValue: 'Balance' }),
       children: org.balance,
     },
     {
-      label: t('organization.election_count', { defaultValue: 'Elections' }),
+      label: t('account.election_count', { defaultValue: 'Elections' }),
       children: org.electionIndex,
     },
     {
-      label: t('organization.profile', { defaultValue: 'Profile' }),
+      label: t('account.profile', { defaultValue: 'Profile' }),
       children: (
         <Link target='blank' href={`${AppBaseURL}/organization/${ensure0x(org.address)}`}>
           <Icon as={FaUserAlt} boxSize={3} mr={2} />
-          <Trans i18nKey={'organization.view_profile'}></Trans>
+          <Trans i18nKey={'account.view_profile'}></Trans>
         </Link>
       ),
     },
     ...(org.account.description.default
       ? [
           {
-            label: t('organization.description', { defaultValue: 'Description' }),
+            label: t('account.description', { defaultValue: 'Description' }),
             children: <OrganizationDescription />,
           },
         ]
@@ -47,4 +47,4 @@ const OrgDetails = ({ org }: { org: AccountData }) => {
   )
 }
 
-export default OrgDetails
+export default AccountDetails

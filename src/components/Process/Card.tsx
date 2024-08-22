@@ -3,10 +3,10 @@ import { ElectionSchedule, ElectionTitle } from '@vocdoni/chakra-components'
 import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/react-providers'
 import { ArchivedElection, InvalidElection as InvalidElectionType, PublishedElection } from '@vocdoni/sdk'
 import { generatePath } from 'react-router-dom'
-import { ElectionStatusBadge } from '~components/Organizations/StatusBadge'
+import { ElectionStatusBadge } from '~components/Accounts/StatusBadge'
 import InvalidElection from '~components/Process/InvalidElection'
 import { RoutePath } from '~constants'
-import { SmallOrganizationCard } from '~components/Organizations/Card'
+import { SmallAccountCard } from '~components/Accounts/Card'
 import LinkCard from '~components/Layout/LinkCard'
 
 export type ElectionCardProps = {
@@ -62,7 +62,7 @@ const ElectionCardSkeleton = (rest: CardProps) => {
           <ElectionTitle textAlign={'start'} fontWeight={'bold'} wordBreak='break-all' fontSize='lg' />
         </Flex>
         <OrganizationProvider id={election.organizationId}>
-          <SmallOrganizationCard id={election.organizationId} />
+          <SmallAccountCard id={election.organizationId} />
         </OrganizationProvider>
       </CardBody>
     </LinkCard>

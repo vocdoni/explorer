@@ -16,8 +16,8 @@ const Home = lazy(() => import('~pages/Home'))
 const Block = lazy(() => import('~pages/block'))
 const BlocksList = lazy(() => import('~pages/blocks'))
 const Envelope = lazy(() => import('~pages/envelope'))
-const Organization = lazy(() => import('~pages/organization'))
-const OrganizationsList = lazy(() => import('~pages/organizations'))
+const Organization = lazy(() => import('~pages/account'))
+const OrganizationsList = lazy(() => import('~pages/accounts'))
 const ProcessList = lazy(() => import('~pages/processes'))
 const Process = lazy(() => import('~pages/process'))
 const Transaction = lazy(() => import('~pages/transaction'))
@@ -65,7 +65,7 @@ export const RoutesProvider = () => {
               ),
             },
             {
-              path: RoutePath.Organization,
+              path: RoutePath.Account,
               element: (
                 <SuspenseLoader>
                   <Organization />
@@ -83,7 +83,7 @@ export const RoutesProvider = () => {
               loader: async ({ params }) => await client.voteInfo(params.verifier as string),
             },
             {
-              path: RoutePath.OrganizationsList,
+              path: RoutePath.AccountsList,
               element: (
                 <SuspenseLoader>
                   <OrganizationsList />

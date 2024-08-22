@@ -69,7 +69,7 @@
     "blog": "Blog",
     "docs": "Docs",
     "help": "Ajuda",
-    "organizations": "Organitzacions",
+    "accounts": "Comptes",
     "processes": "Processos",
     "support": "Suport",
     "transactions": "Transaccions",
@@ -80,7 +80,7 @@
   "menu": {
     "burger_aria_label": "Menú"
   },
-  "organization": {
+  "account": {
     "avatar_alt": "Avatar",
     "description": "Descripció",
     "elections_list": "Eleccions",
@@ -90,12 +90,12 @@
     "process_count_other": "<0>Processos:</0> {{count}}",
     "view_profile": "Veure perfil"
   },
-  "organizations": {
-    "organizations_count_one": "Total {{ count }} organització",
-    "organizations_count_many": "",
-    "organizations_count_other": "Total {{ count }} organitzacions",
-    "organizations_list": "Organitzacions",
-    "search_by_org_id": "Cercar per identificador d'organització"
+  "accounts": {
+    "accounts_count_one": "Total {{ count }} compte",
+    "accounts_count_many": "",
+    "accounts_count_other": "Total {{ count }} comptes",
+    "accounts_list": "Comptes",
+    "search_by_org_id": "Cercar per identificador de compte"
   },
   "process": {
     "badge": {
@@ -113,7 +113,7 @@
     "process_count_other": "Total {{count}} processos",
     "process_details": "Detalls del procés",
     "process_list": "Processos",
-    "search_by": "Cercar per procés o organització",
+    "search_by": "Cercar per procés o compte",
     "show_with_results": "Mostrar només processos amb resultats",
     "tab_description": "Descripció",
     "tab_details": "Detalls",
@@ -149,16 +149,16 @@
     "latest_blocks": "Últims blocs",
     "network_id": "Identificador de xarxa",
     "nr_of_validators": "Nombre de validadors",
-    "organizations_one": "{{ count }} organització",
-    "organizations_many": "",
-    "organizations_other": "{{ count }} organitzacions",
+    "accounts_one": "{{ count }} compte",
+    "accounts_many": "",
+    "accounts_other": "{{ count }} comptes",
     "seconds_one": "{{ count }} segon",
     "seconds_many": "",
     "seconds_other": "{{ count }} segons",
     "sync_status": "Estat de sincronització",
     "syncing": "Sincronitzant",
     "total_elections": "Total de processos",
-    "total_organizations": "Total d'organitzacions",
+    "total_accounts": "Total de comptes",
     "total_votes": "Total de vots",
     "view_all_blocks": "Veure tots els blocs",
     "votes_one": "{{ count }} vot",
@@ -166,7 +166,7 @@
     "votes_other": "{{ count }} vots"
   },
   "transactions": {
-    "belong_to_organization": "Pertany a l'organització",
+    "belong_to_accounts": "Pertany a el compte",
     "belongs_to_process": "Pertany al procés",
     "block": "Bloc",
     "created_on": "Creat {{createdOn}}",
