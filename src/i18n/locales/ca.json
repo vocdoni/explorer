@@ -233,6 +233,10 @@
     "go_to_tx": "Anar a la transacció",
     "invalid_tx_count": "Nombre de transaccions no vàlides en la cadena",
     "invalid_tx_search": "Ha de ser un hash de tx o un índex vàlid",
+    "not_found": "Transacció no trobada",
+    "not_found_message": "La transacció que estàs intentant accedir no s'ha trobat",
+    "on_block": "En el bloc {{block}}",
+    "on_block_n": "Al Bloc {{height}}",
     "send_tokens_from": "De",
     "send_tokens_to": "A",
     "tokens_transferred": "Tokens transferits",
@@ -245,7 +249,9 @@
     "tx_title": "Transacció #{{number}}",
     "tx_type": "Tipus de Transacció",
     "vote_package": "Paquet de vot:",
-    "vote_sense": "Sentit del vot"
+    "vote_sense": "Sentit del vot",
+    "with_hash_or_height": "Amb hash o alçada {{hashOrHeight}}",
+    "with_index": "Amb índex {{index}}"
   },
   "validators": {
     "account": "Compte",

@@ -1,6 +1,6 @@
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
-import { IChainTxReference } from '@vocdoni/sdk'
+import { ErrTransactionNotFound, IChainTxReference } from '@vocdoni/sdk'
 import { lazy } from 'react'
 import { createBrowserRouter, generatePath, redirect, RouteObject, RouterProvider } from 'react-router-dom'
 import { RoutePath } from '~constants'
@@ -11,6 +11,7 @@ import Error404 from './errors/Error404'
 import RouteError from './errors/RouteError'
 import RouteRedirector from './RouteRedirector'
 import { SuspenseLoader } from './SuspenseLoader'
+import { TransactionNotFound } from '~src/router/errors/TransactionNotFound'
 
 const Home = lazy(() => import('~pages/Home'))
 const Block = lazy(() => import('~pages/block'))
@@ -116,6 +117,7 @@ export const RoutesProvider = () => {
                 </SuspenseLoader>
               ),
               loader: async ({ params }) => await client.txInfoByBlock(Number(params.block), Number(params.index)),
+              errorElement: <TransactionNotFound />,
             },
             {
               path: RoutePath.TransactionsList,
@@ -132,6 +134,7 @@ export const RoutesProvider = () => {
                   <Transaction />
                 </SuspenseLoader>
               ),
+              errorElement: <TransactionNotFound />,
               loader: async ({ params: { hashOrHeight } }) => {
                 let tx: IChainTxReference
                 if (hashOrHeight && (hashOrHeight.startsWith('0x') || isNaN(Number(hashOrHeight)))) {
@@ -139,6 +142,8 @@ export const RoutesProvider = () => {
                 } else {
                   tx = await client.txByIndex(Number(hashOrHeight))
                 }
+
+                if (!tx) throw new ErrTransactionNotFound()
 
                 return redirect(
                   generatePath(RoutePath.Transaction, {

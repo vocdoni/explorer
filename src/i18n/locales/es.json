@@ -233,6 +233,10 @@
     "go_to_tx": "Ir a la transacción",
     "invalid_tx_count": "Conteo de transacciones no válidas de la cadena",
     "invalid_tx_search": "Debe ser un hash de Tx o un índice válido",
+    "not_found": "Transacción no encontrada",
+    "not_found_message": "La transacción a la que estás intentando acceder no se ha encontrado",
+    "on_block": "En el bloque {{block}}",
+    "on_block_n": "En el bloque {{height}}",
     "send_tokens_from": "De",
     "send_tokens_to": "A",
     "tokens_transferred": "Tokens transferidos",
@@ -245,7 +249,9 @@
     "tx_title": "Transacción #{{number}}",
     "tx_type": "Tipo de transacción ",
     "vote_package": "Paquete de votos:",
-    "vote_sense": "Sentido del voto"
+    "vote_sense": "Sentido del voto",
+    "with_hash_or_height": "Con hash o altura {{hashOrHeight}}",
+    "with_index": "Con índice {{index}}"
   },
   "validators": {
     "account": "Cuenta",
