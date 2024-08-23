@@ -1,9 +1,8 @@
-import { Alert, AlertIcon, Box, Code, Flex, Heading, Stack, VStack } from '@chakra-ui/react'
+import { Alert, AlertIcon, Code, Flex, Heading, Stack, VStack } from '@chakra-ui/react'
 import { ErrBlockNotFound } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
 import { useParams, useRouteError } from 'react-router-dom'
 import RouteError from '~src/router/errors/RouteError'
-import Layout from '~src/layout/Default'
 
 export const BlockNotFound = () => {
   const error = useRouteError() as Error

@@ -224,6 +224,10 @@
     "go_to_tx": "Go to transaction",
     "invalid_tx_count": "Invalid chain transactions count",
     "invalid_tx_search": "Must to be a valid tx hash or index",
+    "not_found": "Transaction not found",
+    "not_found_message": "The transaction you are trying to access is not found",
+    "on_block": "On block {{block}}",
+    "on_block_n": "On Block {{height}}",
     "send_tokens_from": "From",
     "send_tokens_to": "To",
     "tokens_transferred": "Tokens transferred",
@@ -235,7 +239,9 @@
     "tx_title": "Transaction #{{ number }}",
     "tx_type": "Transaction type",
     "vote_package": "Vote package:",
-    "vote_sense": "Vote sense"
+    "vote_sense": "Vote sense",
+    "with_hash_or_height": "With hash or height {{hashOrHeight}}",
+    "with_index": "With index {{index}}"
   },
   "validators": {
     "account": "Account",
