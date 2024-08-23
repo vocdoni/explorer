@@ -71,8 +71,8 @@ export const AccountsList = () => {
 
   return (
     <>
-      {orgs?.organizations.map((org) => (
-        <AccountCard key={org.organizationID} id={org.organizationID} electionCount={org.electionCount} />
+      {orgs?.organizations.map((org, i) => (
+        <AccountCard key={i} id={org.organizationID} electionCount={org.electionCount} />
       ))}
       <RoutedPagination pagination={orgs.pagination} />
     </>

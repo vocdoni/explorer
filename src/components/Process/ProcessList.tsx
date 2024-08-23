@@ -135,7 +135,6 @@ export const PaginatedProcessList = () => {
 }
 
 const ProcessList = () => {
-  const { t } = useTranslation()
   const { page }: { page?: number } = useRoutedPagination()
   const { queryParams: processFilters } = useQueryParams<FilterQueryParams>()
 
