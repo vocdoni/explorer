@@ -20,7 +20,7 @@ export const AccountsFilter = () => {
       maxW={'300px'}
       placeholder={t('accounts.search_by_org_id')}
       onChange={(value: string) => {
-        navigate(generatePath(RoutePath.AccountsList, { page: '0', query: value as string }))
+        navigate(generatePath(RoutePath.AccountsList, { page: '1', query: value as string }))
       }}
       debounceTime={500}
       initialValue={query}
