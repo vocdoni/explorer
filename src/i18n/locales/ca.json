@@ -250,7 +250,7 @@
     "tx_type": "Tipus de Transacció",
     "vote_package": "Paquet de vot:",
     "vote_sense": "Sentit del vot",
-    "with_hash_or_height": "Amb hash o height {{hashOrHeight}}",
+    "with_hash_or_height": "Amb hash o alçada {{hashOrHeight}}",
     "with_index": "Amb índex {{index}}"
   },
   "validators": {
