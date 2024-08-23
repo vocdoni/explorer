@@ -58,9 +58,7 @@ export const PaginatedTransactionList = () => {
 }
 const TransactionsList = () => {
   const { page }: { page?: number } = useRoutedPagination()
-  const { data: count, isLoading: isLoadingCount } = useTransactionsCount()
-
-  const totalPages = Math.ceil(count / PaginationItemsPerPage)
+  const { isLoading: isLoadingCount } = useTransactionsCount()
 
   const {
     data,
@@ -122,16 +120,13 @@ const TransactionsListCards = ({
   height?: number
 }) => {
   const { t } = useTranslation()
-  if (!data || (data && data.transactions.length <= 0)) {
-    return <NoResultsError msg={t('blocks.no_txs_on_block', { defaultValue: 'There are no transactions' })} />
-  }
 
   if (isLoading) {
     return <LoadingCards spacing={4} />
   }
 
-  if (data?.pagination.totalItems === 0) {
-    return <NoResultsError />
+  if (data && data.transactions.length <= 0) {
+    return <NoResultsError msg={t('blocks.no_txs_on_block', { defaultValue: 'There are no transactions' })} />
   }
 
   if (isError || !data) {

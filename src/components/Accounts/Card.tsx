@@ -29,12 +29,12 @@ export const AccountCard = ({ id, ...rest }: IAccountCardProps) => {
   )
 }
 
-const AccountCardSkeleton = ({ electionCount: ec, ...rest }: IAccountCardProps) => {
+const AccountCardSkeleton = ({ electionCount: ec, id, ...rest }: IAccountCardProps) => {
   const { organization, loading } = useOrganization()
   const { t } = useTranslation()
 
   const electionCount = ec ?? organization?.electionIndex
-  const pid = organization?.address
+  const pid = id ?? organization?.address
 
   if (!pid) return null
 
