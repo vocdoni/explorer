@@ -204,9 +204,9 @@
       "sizePriceFactor": "Mida",
       "sizePriceFactor_info": "El component del preu per mida és directament proporcional al nombre màxim de vots permesos en l'elecció",
       "sizeScaling": "Factor de creixement",
-      "sizeScaling_info": "Taxa de creixement del preu per a eleccions amb un nombre màxim de vots (maxCensusSize) superior al llindar k7."
+      "sizeScaling_info": "Taxa de creixement del preu per a eleccions amb un nombre màxim de vots (maxCensusSize) superior al llindar k7.",
+      "title": "Factors de preu"
     },
-    "price_factors_title": "Factors del preu",
     "seconds_one": "{{count}} segon",
     "seconds_many": "{{count}} segons",
     "seconds_other": "{{count}} segons",
