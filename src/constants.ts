@@ -24,7 +24,7 @@ export enum RoutePath {
   BlocksList = '/blocks/:page?',
   Envelope = '/envelope/:verifier/:tab?',
   Account = '/account/:pid/:tab?/:page?',
-  AccountsList = '/accounts/:page?/:query?',
+  AccountsList = '/accounts/:page?',
   Process = '/process/:pid/:tab?',
   ProcessesList = '/processes/:page?',
   Transaction = '/transactions/:block/:index/:tab?',

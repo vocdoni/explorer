@@ -1,8 +1,9 @@
-import { AccountsFilter, PaginatedAccountsList } from '~components/Accounts/List'
+import { AccountsFilter, AccountsList } from '~components/Accounts/List'
 import ListPageLayout from '~components/Layout/ListPageLayout'
 import { useOrganizationCount } from '~queries/accounts'
 import { useTranslation } from 'react-i18next'
-import { RefreshIntervalPagination } from '~constants'
+import { RefreshIntervalPagination, RoutePath } from '~constants'
+import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
 
 const OrganizationList = () => {
   const { t } = useTranslation()
@@ -13,9 +14,11 @@ const OrganizationList = () => {
   const subtitle = !isLoading ? t('accounts.accounts_count', { count: orgsCount || 0 }) : ''
 
   return (
-    <ListPageLayout title={t('accounts.accounts_list')} subtitle={subtitle} rightComponent={<AccountsFilter />}>
-      <PaginatedAccountsList />
-    </ListPageLayout>
+    <RoutedPaginationProvider path={RoutePath.AccountsList}>
+      <ListPageLayout title={t('accounts.accounts_list')} subtitle={subtitle} rightComponent={<AccountsFilter />}>
+        <AccountsList />
+      </ListPageLayout>
+    </RoutedPaginationProvider>
   )
 }
 
