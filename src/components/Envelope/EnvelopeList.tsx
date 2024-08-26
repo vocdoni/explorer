@@ -10,6 +10,8 @@ import { Pagination } from '~components/Pagination/Pagination'
 import { BiEnvelope } from 'react-icons/bi'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { RoutePath } from '~constants'
+import LinkCard from '~components/Layout/LinkCard'
+import { BlockIconLink, TxIconLink } from '~components/Layout/IconLink'
 
 export const PaginatedEnvelopeList = () => {
   const { election: e } = useElection()
@@ -66,7 +68,7 @@ const EnvelopeList = () => {
 
 const EnvelopeCard = ({ envelope, count }: { envelope: VoteSummary; count: number }) => {
   return (
-    <Card maxW='xs'>
+    <LinkCard to={generatePath(RoutePath.Envelope, { verifier: envelope.voteID, tab: null })} maxW='xs'>
       <CardHeader>
         <Flex justify={'space-between'}>
           <Text fontWeight={'bold'}>
@@ -81,31 +83,18 @@ const EnvelopeCard = ({ envelope, count }: { envelope: VoteSummary; count: numbe
       </CardHeader>
       <CardBody>
         <Flex direction={'column'}>
-          <Link
-            as={RouterLink}
-            to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString(), tab: null, page: null })}
-          >
-            <Trans i18nKey={'envelopes.block'} height={envelope.blockHeight}>
-              Block {{ height: envelope.blockHeight }}
-            </Trans>
-          </Link>
-          <Link
-            as={RouterLink}
-            to={generatePath(RoutePath.Transaction, {
-              block: envelope.blockHeight.toString(),
-              index: envelope.transactionIndex.toString(),
-              tab: null,
-            })}
-          >
-            <Trans i18nKey={'envelopes.tx_number'} transactionIndex={envelope.transactionIndex}>
-              Transaction: {{ transactionIndex: envelope.transactionIndex }}
-            </Trans>
-          </Link>
-          <Link as={RouterLink} to={generatePath(RoutePath.Envelope, { verifier: envelope.voteID, tab: null })}>
-            <Trans i18nKey={'envelopes.details'}>Details</Trans>
-          </Link>
+          {/*<Link*/}
+          {/*  as={RouterLink}*/}
+          {/*  to={generatePath(RoutePath.Block, { height: envelope.blockHeight.toString(), tab: null, page: null })}*/}
+          {/*>*/}
+          {/*  <Trans i18nKey={'envelopes.block'} height={envelope.blockHeight}>*/}
+          {/*    Block {{ height: envelope.blockHeight }}*/}
+          {/*  </Trans>*/}
+          {/*</Link>*/}
+          <BlockIconLink height={envelope.blockHeight} />
+          <TxIconLink block={envelope.blockHeight} index={envelope.transactionIndex} />
         </Flex>
       </CardBody>
-    </Card>
+    </LinkCard>
   )
 }

@@ -5,6 +5,19 @@ import { RoutePath } from '~constants'
 import { IconType } from 'react-icons'
 import { Icons } from '~src/theme/components/Icons'
 
+export const TxIconLink = ({ block, index }: { block: number; index: number }) => (
+  <IconLink
+    icon={Icons.TxIcon}
+    to={generatePath(RoutePath.Transaction, {
+      block: block.toString(),
+      index: index.toString(),
+      tab: null,
+    })}
+  >
+    {index}
+  </IconLink>
+)
+
 export const BlockIconLink = ({ height }: { height: number }) => (
   <IconLink
     icon={Icons.BlockIcon}
