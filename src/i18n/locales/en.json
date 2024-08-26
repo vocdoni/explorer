@@ -198,9 +198,9 @@
       "sizePriceFactor": "Size",
       "sizePriceFactor_info": "The size price component is directly proportional to the maximum number of votes allowed in the election",
       "sizeScaling": "Growth factor",
-      "sizeScaling_info": "Rate of price growth for elections with a maximum number of votes (maxCensusSize) exceeding the k7 threshold."
+      "sizeScaling_info": "Rate of price growth for elections with a maximum number of votes (maxCensusSize) exceeding the k7 threshold.",
+      "title": "Price factors"
     },
-    "price_factors_title": "Price factors",
     "seconds_one": "{{ count }} second",
     "seconds_other": "{{ count }} seconds",
     "syncing": "Syncing",

@@ -52,11 +52,6 @@ export const ChainInfo = () => {
       children: timestampInfo,
       isNumber: true,
     },
-    {
-      label: t('stats.blockTimestamp', { defaultValue: 'Block timestamp' }),
-      children: timestampInfo,
-      isNumber: true,
-    },
   ]
 
   const tokensData: GridItemProps[] = [
@@ -66,7 +61,7 @@ export const ChainInfo = () => {
       isNumber: true,
     },
     {
-      label: t('stats.price_factors_title', { defaultValue: 'Price factors' }),
+      label: t('stats.price_factors.title', { defaultValue: 'Price factors' }),
       children: <PriceFactorsModal />,
       isNumber: true,
     },

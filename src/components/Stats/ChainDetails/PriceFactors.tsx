@@ -32,7 +32,7 @@ export const PriceFactorsModal = () => {
   return (
     <>
       <StatsModalWrapper
-        title={t('stats.price_factors', { defaultValue: 'Price factors' })}
+        title={t('stats.price_factors.title', { defaultValue: 'Price factors' })}
         icon={IoIosPricetag}
         link={'https://developer.vocdoni.io/vocdoni-api/price-factors-information'}
         isError={isError}

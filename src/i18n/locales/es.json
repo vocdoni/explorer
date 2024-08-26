@@ -204,9 +204,9 @@
       "sizePriceFactor": "Tamaño",
       "sizePriceFactor_info": "El componente de precio de tamaño es directamente proporcional al número máximo de votos permitidos en la elección",
       "sizeScaling": "Factor de crecimiento",
-      "sizeScaling_info": "Tasa de crecimiento de precios para elecciones con un número máximo de votos (tamaño máximo del censo) que excede el umbral k7."
+      "sizeScaling_info": "Tasa de crecimiento de precios para elecciones con un número máximo de votos (tamaño máximo del censo) que excede el umbral k7.",
+      "title": "Factores de precio"
     },
-    "price_factors_title": "Factores del precio",
     "seconds_one": "{{ count }} segundo",
     "seconds_many": "{{ count }} segundos",
     "seconds_other": "{{ count }} segundos",
