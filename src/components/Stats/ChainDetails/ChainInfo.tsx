@@ -52,11 +52,6 @@ export const ChainInfo = () => {
       children: timestampInfo,
       isNumber: true,
     },
-    {
-      label: t('stats.blockTimestamp', { defaultValue: 'Block timestamp' }),
-      children: timestampInfo,
-      isNumber: true,
-    },
   ]
 
   const tokensData: GridItemProps[] = [
