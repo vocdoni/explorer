@@ -1,7 +1,10 @@
 import {
+  Box,
   Button,
   Checkbox,
   Flex,
+  FormControl,
+  FormErrorMessage,
   IconButton,
   Popover,
   PopoverBody,
@@ -22,6 +25,8 @@ import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
 import { ElectionCard } from './Card'
 import { LuListFilter } from 'react-icons/lu'
+import { isValidPartialProcessId } from '~utils/strings'
+import { useState } from 'react'
 
 type FilterQueryParams = {
   [K in keyof Omit<FetchElectionsParameters, 'organizationId'>]: string
@@ -66,22 +71,31 @@ const PopoverFilter = () => {
 export const ProcessSearchBox = () => {
   const { t } = useTranslation()
   const { queryParams, setQueryParams } = useQueryParams<FilterQueryParams>()
+  const [isInvalid, setIsInvalid] = useState(false)
 
   return (
-    <Flex direction={{ base: 'column', lg: 'row' }} flexDirection={{ base: 'column-reverse', lg: 'row' }} gap={4}>
-      <PopoverFilter />
-      <Flex>
-        <InputSearch
-          maxW={'300px'}
-          placeholder={t('process.search_by')}
-          onChange={(value: string) => {
-            setQueryParams({ ...queryParams, electionId: value })
-          }}
-          initialValue={queryParams.electionId}
-          debounceTime={500}
-        />
+    <FormControl isInvalid={isInvalid}>
+      <Flex direction={{ base: 'column', lg: 'row' }} flexDirection={{ base: 'column', md: 'row' }} gap={4}>
+        <PopoverFilter />
+        <Flex direction={'column'}>
+          <InputSearch
+            maxW={'300px'}
+            placeholder={t('process.search_by')}
+            onChange={(value: string) => {
+              const isInvalid = value !== '' && !isValidPartialProcessId(value)
+              setIsInvalid(isInvalid)
+              if (!isInvalid) {
+                setQueryParams({ ...queryParams, electionId: value })
+              }
+            }}
+            initialValue={queryParams.electionId}
+            debounceTime={500}
+            isInvalid={isInvalid}
+          />
+          <Box minHeight='25px'>{isInvalid && <FormErrorMessage>Not valid partial process id</FormErrorMessage>}</Box>
+        </Flex>
       </Flex>
-    </Flex>
+    </FormControl>
   )
 }
 
