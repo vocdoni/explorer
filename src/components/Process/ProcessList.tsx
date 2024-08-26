@@ -17,9 +17,8 @@ import { Trans, useTranslation } from 'react-i18next'
 import { InputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
 import { ContentError, NoResultsError } from '~components/Layout/ContentError'
-import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
+import { useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { RoutedPagination } from '~components/Pagination/RoutedPagination'
-import { RoutePath } from '~constants'
 import { useProcessList } from '~queries/processes'
 import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
@@ -33,7 +32,12 @@ type FilterQueryParams = {
 }
 
 const PopoverFilter = () => {
-  const { queryParams, setQueryParams } = useQueryParams<FilterQueryParams>()
+  const { queryParams, getNewParams } = useQueryParams<FilterQueryParams>()
+  const { setPage } = useRoutedPagination()
+
+  const setFilters = (filters: Partial<FilterQueryParams>) => {
+    setPage(1, `?${getNewParams(filters).toString()}`)
+  }
 
   return (
     <Popover>
@@ -45,19 +49,19 @@ const PopoverFilter = () => {
           <Flex direction={'column'}>
             <Checkbox
               isChecked={queryParams.withResults === 'true'}
-              onChange={(e) => setQueryParams({ ...queryParams, withResults: e.target.checked ? 'true' : undefined })}
+              onChange={(e) => setFilters({ ...queryParams, withResults: e.target.checked ? 'true' : undefined })}
             >
               <Trans i18nKey='process.show_with_results'>Show only processes with results</Trans>
             </Checkbox>
             <Checkbox
               isChecked={queryParams.finalResults === 'true'}
-              onChange={(e) => setQueryParams({ ...queryParams, finalResults: e.target.checked ? 'true' : undefined })}
+              onChange={(e) => setFilters({ ...queryParams, finalResults: e.target.checked ? 'true' : undefined })}
             >
               <Trans i18nKey='process.final_results'>Final results</Trans>
             </Checkbox>
             <Checkbox
               isChecked={queryParams.manuallyEnded === 'true'}
-              onChange={(e) => setQueryParams({ ...queryParams, manuallyEnded: e.target.checked ? 'true' : undefined })}
+              onChange={(e) => setFilters({ ...queryParams, manuallyEnded: e.target.checked ? 'true' : undefined })}
             >
               <Trans i18nKey='process.manually_ended'>Manually ended</Trans>
             </Checkbox>
@@ -70,8 +74,14 @@ const PopoverFilter = () => {
 
 export const ProcessSearchBox = () => {
   const { t } = useTranslation()
-  const { queryParams, setQueryParams } = useQueryParams<FilterQueryParams>()
   const [isInvalid, setIsInvalid] = useState(false)
+
+  const { queryParams, getNewParams } = useQueryParams<FilterQueryParams>()
+  const { setPage } = useRoutedPagination()
+
+  const setFilters = (filters: Partial<FilterQueryParams>) => {
+    setPage(1, `?${getNewParams(filters).toString()}`)
+  }
 
   return (
     <FormControl isInvalid={isInvalid}>
@@ -85,7 +95,7 @@ export const ProcessSearchBox = () => {
               const isInvalid = value !== '' && !isValidPartialProcessId(value)
               setIsInvalid(isInvalid)
               if (!isInvalid) {
-                setQueryParams({ ...queryParams, electionId: value })
+                setFilters({ ...queryParams, electionId: value })
               }
             }}
             initialValue={queryParams.electionId}
@@ -101,7 +111,12 @@ export const ProcessSearchBox = () => {
 
 export const ProcessByTypeFilter = () => {
   const { t } = useTranslation()
-  const { queryParams, setQueryParams } = useQueryParams<FilterQueryParams>()
+  const { queryParams, getNewParams } = useQueryParams<FilterQueryParams>()
+  const { setPage } = useRoutedPagination()
+
+  const setFilters = (filters: Partial<FilterQueryParams>) => {
+    setPage(1, `?${getNewParams(filters).toString()}`)
+  }
 
   const currentStatus = queryParams.status
 
@@ -130,7 +145,7 @@ export const ProcessByTypeFilter = () => {
         <Button
           flex={{ base: 'none', md: '1' }}
           key={i}
-          onClick={() => setQueryParams({ ...queryParams, status: filter.value })}
+          onClick={() => setFilters({ ...queryParams, status: filter.value })}
           variant={currentStatus !== filter.value ? 'solid' : 'outline'}
         >
           {filter.label}
@@ -140,15 +155,7 @@ export const ProcessByTypeFilter = () => {
   )
 }
 
-export const PaginatedProcessList = () => {
-  return (
-    <RoutedPaginationProvider path={RoutePath.ProcessesList}>
-      <ProcessList />
-    </RoutedPaginationProvider>
-  )
-}
-
-const ProcessList = () => {
+export const ProcessList = () => {
   const { page }: { page?: number } = useRoutedPagination()
   const { queryParams: processFilters } = useQueryParams<FilterQueryParams>()
 

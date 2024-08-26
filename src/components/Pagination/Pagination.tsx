@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, ButtonGroupProps, ButtonProps, Input, InputProps, Text } from '@chakra-ui/react'
 import { ReactElement, useMemo, useState } from 'react'
-import { generatePath, Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import { usePagination, useRoutedPagination } from './PaginationProvider'
 import { PaginationResponse } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
@@ -203,22 +203,16 @@ export const Pagination = ({ maxButtons = 10, buttonProps, inputProps, paginatio
 }
 
 export const RoutedPagination = ({ maxButtons = 10, buttonProps, pagination, ...rest }: PaginationProps) => {
-  const { path } = useRoutedPagination()
-  const { search } = useLocation()
-  const { page, ...extraParams }: { page?: number } = useParams()
-  const navigate = useNavigate()
+  const { getPathForPage, setPage } = useRoutedPagination()
 
   const totalPages = pagination.lastPage + 1
-
   const currentPage = pagination.currentPage
-
-  const _generatePath = (page: number) => generatePath(path, { page, ...extraParams }) + search
 
   return (
     <PaginationButtons
-      goToPage={(page) => navigate(_generatePath(page))}
+      goToPage={(page) => setPage(page)}
       createPageButton={(i) => (
-        <RoutedPageButton key={i} to={_generatePath(i + 1)} page={i} currentPage={currentPage} {...buttonProps} />
+        <RoutedPageButton key={i} to={getPathForPage(i + 1)} page={i} currentPage={currentPage} {...buttonProps} />
       )}
       currentPage={currentPage}
       totalPages={totalPages}

@@ -16,7 +16,7 @@ const useQueryParams = <T extends Record<string, string>>() => {
     return queryObj
   }, [search])
 
-  const setQueryParams = (newParams: Partial<T>) => {
+  const getNewParams = (newParams: Partial<T>) => {
     const params = new URLSearchParams(search)
     for (const key in newParams) {
       if (newParams[key]) {
@@ -25,10 +25,14 @@ const useQueryParams = <T extends Record<string, string>>() => {
         params.delete(key)
       }
     }
-    navigate(`${location.pathname}?${params.toString()}`)
+    return params
   }
 
-  return { queryParams, setQueryParams }
+  const setQueryParams = (newParams: Partial<T>) => {
+    navigate(`${location.pathname}?${getNewParams(newParams).toString()}`)
+  }
+
+  return { queryParams, setQueryParams, getNewParams }
 }
 
 export default useQueryParams
