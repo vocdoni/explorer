@@ -25,6 +25,7 @@ import {
   ElectionResults,
   ElectionSchedule,
   ElectionTitle,
+  QuestionsTypeBadge,
 } from '@vocdoni/chakra-components'
 import { useElection } from '@vocdoni/react-providers'
 import {
@@ -108,6 +109,7 @@ const Detail = () => {
       </Flex>
       {/*Information tags */}
       <Flex wrap={'wrap'} gap={2}>
+        <QuestionsTypeBadge />
         {election.fromArchive && (
           <Tag variant={'vocdoni'}>
             <Trans i18nKey={'process.badge.archive'}>From archive</Trans>

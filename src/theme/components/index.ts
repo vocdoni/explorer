@@ -6,6 +6,7 @@ import Questions from './Questions'
 import Radio from './Radio'
 import Tag from './Tag'
 import Envelope from '~src/theme/components/Envelope'
+import { QuestionsTypeBadge } from '~src/theme/components/QuestionsTypeBadge'
 
 const components = {
   Card,
@@ -13,6 +14,7 @@ const components = {
   ElectionHeader,
   Envelope,
   Questions,
+  QuestionsTypeBadge,
   Radio,
   ElectionResults,
   Tag,
