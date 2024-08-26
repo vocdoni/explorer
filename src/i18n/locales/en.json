@@ -61,20 +61,17 @@
     "no_votes_yet": "No votes yet!"
   },
   "envelopes": {
-    "block": "Block",
     "committed_in_block": "Commited in block",
     "content": "Envelope Content",
-    "details": "Details",
     "emitted": "Emitted",
     "encryption_keys": "Encryption keys",
-    "envelope_number": "Envelope nº {{num}}",
+    "envelope_number": "Envelope #{{num}}",
     "envelope_weight": "Envelope weight",
     "from_election_title": "From election: <a>{{title}}</a>",
     "not_found": "Envelope not found",
     "on_transaction": "On Transaction",
     "overwrite_count": "Overwrite count",
     "registered_correctly": "Vote has been registered correctly",
-    "tx_number": "Transaction: {{transactionIndex}}",
     "verifier_code": "Verifier code",
     "vote_registered": "Vote registered"
   },
