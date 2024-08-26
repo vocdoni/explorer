@@ -64,20 +64,17 @@
     "no_votes_yet": "¡Aún no hay votos!"
   },
   "envelopes": {
-    "block": "Bloque",
     "committed_in_block": "Registrado en el bloque",
     "content": "Contenido del sobre",
-    "details": "Detalles",
     "emitted": "Emitido",
     "encryption_keys": "Claves de cifrado",
-    "envelope_number": "Sobre nº {{num}}",
+    "envelope_number": "Sobre #{{num}}",
     "envelope_weight": "Peso del sobre",
     "from_election_title": "De la elección: <a>{{ title }}</a>",
     "not_found": "Sobre no encontrado",
     "on_transaction": "En la transacción",
     "overwrite_count": "Conteo de sobrescritura",
     "registered_correctly": "El voto ha sido registrado correctamente",
-    "tx_number": "Transacción: {{transactionIndex}}",
     "verifier_code": "Código verificador",
     "vote_registered": "Voto registrado"
   },
