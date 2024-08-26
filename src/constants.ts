@@ -42,7 +42,7 @@ export enum OldRoutePath {
   OrganizationDetails = '/organizations/show/#/',
   ProcessDetails = '/processes/show/#/',
   TransactionDetails = '/transactions/show/#/',
-  Verify = '/verify',
+  Verify = '/verify/#/',
   Stats = '/stats',
   OrganizationsList = '/organizations',
   Organization = '/organization',
