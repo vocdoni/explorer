@@ -1,7 +1,10 @@
 import { useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useRoutedPagination } from '~components/Pagination/PaginationProvider'
 
-const useQueryParams = <T extends Record<string, string>>() => {
+export type QueryParamsType = Record<string, string>
+
+const useQueryParams = <T extends QueryParamsType>() => {
   const { search } = useLocation()
   const navigate = useNavigate()
   const location = useLocation()
@@ -16,7 +19,7 @@ const useQueryParams = <T extends Record<string, string>>() => {
     return queryObj
   }, [search])
 
-  const setQueryParams = (newParams: Partial<T>) => {
+  const getNewParams = (newParams: Partial<T>) => {
     const params = new URLSearchParams(search)
     for (const key in newParams) {
       if (newParams[key]) {
@@ -25,7 +28,25 @@ const useQueryParams = <T extends Record<string, string>>() => {
         params.delete(key)
       }
     }
-    navigate(`${location.pathname}?${params.toString()}`)
+    return params
+  }
+
+  const setQueryParams = (newParams: Partial<T>) => {
+    navigate(`${location.pathname}?${getNewParams(newParams).toString()}`)
+  }
+
+  return { queryParams, setQueryParams, getNewParams }
+}
+
+/**
+ * Hook to manage query params and pagination.
+ * When a query param is set, the page is reset to 1.
+ */
+export const useRoutedPaginationQueryParams = <T extends QueryParamsType>() => {
+  const { queryParams, getNewParams } = useQueryParams<T>()
+  const { setPage } = useRoutedPagination()
+  const setQueryParams = (filters: Partial<T>) => {
+    setPage(1, `?${getNewParams(filters).toString()}`)
   }
 
   return { queryParams, setQueryParams }

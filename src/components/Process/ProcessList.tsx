@@ -1,7 +1,10 @@
 import {
+  Box,
   Button,
   Checkbox,
   Flex,
+  FormControl,
+  FormErrorMessage,
   IconButton,
   Popover,
   PopoverBody,
@@ -14,21 +17,22 @@ import { Trans, useTranslation } from 'react-i18next'
 import { InputSearch } from '~components/Layout/Inputs'
 import { LoadingCards } from '~components/Layout/Loading'
 import { ContentError, NoResultsError } from '~components/Layout/ContentError'
-import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
+import { useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { RoutedPagination } from '~components/Pagination/RoutedPagination'
-import { RoutePath } from '~constants'
 import { useProcessList } from '~queries/processes'
-import useQueryParams from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
 import { ElectionCard } from './Card'
 import { LuListFilter } from 'react-icons/lu'
+import { isValidPartialProcessId } from '~utils/strings'
+import { useState } from 'react'
+import { useRoutedPaginationQueryParams } from '~src/router/use-query-params'
 
 type FilterQueryParams = {
   [K in keyof Omit<FetchElectionsParameters, 'organizationId'>]: string
 }
 
 const PopoverFilter = () => {
-  const { queryParams, setQueryParams } = useQueryParams<FilterQueryParams>()
+  const { queryParams, setQueryParams } = useRoutedPaginationQueryParams<FilterQueryParams>()
 
   return (
     <Popover>
@@ -65,29 +69,38 @@ const PopoverFilter = () => {
 
 export const ProcessSearchBox = () => {
   const { t } = useTranslation()
-  const { queryParams, setQueryParams } = useQueryParams<FilterQueryParams>()
+  const [isInvalid, setIsInvalid] = useState(false)
+  const { queryParams, setQueryParams } = useRoutedPaginationQueryParams<FilterQueryParams>()
 
   return (
-    <Flex direction={{ base: 'column', lg: 'row' }} flexDirection={{ base: 'column-reverse', lg: 'row' }} gap={4}>
-      <PopoverFilter />
-      <Flex>
-        <InputSearch
-          maxW={'300px'}
-          placeholder={t('process.search_by')}
-          onChange={(value: string) => {
-            setQueryParams({ ...queryParams, electionId: value })
-          }}
-          initialValue={queryParams.electionId}
-          debounceTime={500}
-        />
+    <FormControl isInvalid={isInvalid}>
+      <Flex direction={{ base: 'column', lg: 'row' }} flexDirection={{ base: 'column', md: 'row' }} gap={4}>
+        <PopoverFilter />
+        <Flex direction={'column'}>
+          <InputSearch
+            maxW={'300px'}
+            placeholder={t('process.search_by')}
+            onChange={(value: string) => {
+              const isInvalid = value !== '' && !isValidPartialProcessId(value)
+              setIsInvalid(isInvalid)
+              if (!isInvalid) {
+                setQueryParams({ ...queryParams, electionId: value })
+              }
+            }}
+            initialValue={queryParams.electionId}
+            debounceTime={500}
+            isInvalid={isInvalid}
+          />
+          <Box minHeight='25px'>{isInvalid && <FormErrorMessage>Not valid partial process id</FormErrorMessage>}</Box>
+        </Flex>
       </Flex>
-    </Flex>
+    </FormControl>
   )
 }
 
 export const ProcessByTypeFilter = () => {
   const { t } = useTranslation()
-  const { queryParams, setQueryParams } = useQueryParams<FilterQueryParams>()
+  const { queryParams, setQueryParams } = useRoutedPaginationQueryParams<FilterQueryParams>()
 
   const currentStatus = queryParams.status
 
@@ -126,17 +139,9 @@ export const ProcessByTypeFilter = () => {
   )
 }
 
-export const PaginatedProcessList = () => {
-  return (
-    <RoutedPaginationProvider path={RoutePath.ProcessesList}>
-      <ProcessList />
-    </RoutedPaginationProvider>
-  )
-}
-
-const ProcessList = () => {
+export const ProcessList = () => {
   const { page }: { page?: number } = useRoutedPagination()
-  const { queryParams: processFilters } = useQueryParams<FilterQueryParams>()
+  const { queryParams: processFilters } = useRoutedPaginationQueryParams<FilterQueryParams>()
 
   const { data, isLoading, isFetching, isError, error } = useProcessList({
     filters: {

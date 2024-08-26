@@ -13,7 +13,12 @@ const ListPageLayout = ({
 } & PropsWithChildren) => {
   return (
     <Flex direction='column' mt={10} gap={6}>
-      <Flex direction={{ base: 'column', md: 'row' }} justify='space-between' gap={4} align={'center'}>
+      <Flex
+        direction={{ base: 'column', md: 'row' }}
+        justify='space-between'
+        gap={4}
+        align={{ base: 'center', lg: 'start' }}
+      >
         <Flex direction='column' textAlign={{ base: 'center', md: 'start' }}>
           <Heading isTruncated wordBreak='break-word'>
             {title}
@@ -21,7 +26,7 @@ const ListPageLayout = ({
           {subtitle && <Text color='lighterText'>{subtitle}</Text>}
         </Flex>
         {rightComponent && (
-          <Flex align='center' justify={{ base: 'center', md: 'end' }}>
+          <Flex mt={{ base: 0, md: 4 }} align='center' justify={{ base: 'center', md: 'end' }}>
             {rightComponent}
           </Flex>
         )}
