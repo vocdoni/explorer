@@ -3,7 +3,7 @@ import { createMultiStyleConfigHelpers } from '@chakra-ui/react'
 
 const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(tagAnatomy.keys)
 
-const vocdoniStatusBadge = definePartsStyle({
+export const vocdoniStatusBadge = definePartsStyle({
   container: {
     padding: '4px 12px',
     borderRadius: '4px',
