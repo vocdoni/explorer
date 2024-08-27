@@ -201,15 +201,15 @@
     "seconds_one": "{{ count }} second",
     "seconds_other": "{{ count }} seconds",
     "syncing": "Syncing",
-    "tokens": "Tokens",
+    "tokens": "Gas Token details",
     "transactions_one": "{{count}} transactions",
     "transactions_other": "{{count}} transactions",
     "transactions_count": "Transactions count",
+    "tx_prices": "Transaction prices",
     "validators_one": "{{count}} validators",
     "validators_other": "{{count}} validators",
     "validators_count": "Validators count",
     "view_all_blocks": "View all blocks",
-    "voc_tokens": "VOC Tokens",
     "votes": "Votes"
   },
   "transactions": {
