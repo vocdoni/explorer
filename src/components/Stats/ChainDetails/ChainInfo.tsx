@@ -56,7 +56,7 @@ export const ChainInfo = () => {
 
   const tokensData: GridItemProps[] = [
     {
-      label: t('stats.voc_tokens', { defaultValue: 'VOC Tokens' }),
+      label: t('stats.tx_prices', { defaultValue: 'Transaction prices' }),
       children: <TxCostsModal />,
       isNumber: true,
     },
@@ -93,7 +93,7 @@ export const ChainInfo = () => {
       </VStack>
       <DetailsGrid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} details={statsData} rowGap={0} />
       <Text fontSize='lg' fontWeight={'bold'} pt={2}>
-        <Trans i18nKey={'stats.tokens'}>Tokens</Trans>
+        <Trans i18nKey={'stats.tokens'}>Gas token details</Trans>
       </Text>
       <DetailsGrid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} details={tokensData} rowGap={0} />
     </StatsCardWrapper>
