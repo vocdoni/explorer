@@ -6,7 +6,7 @@ on:
     - d/**
   pull_request:
 jobs:
-  build-dev-explorer:
+  build-explorer:
     runs-on: ubuntu-22.04
     environment:
       name: development
@@ -30,13 +30,10 @@ jobs:
       - name: Install
         run: yarn
 
-      - name: Lint
-        run: yarn lint
-
       - name: Build explorer dev
         run: yarn build
         env:
-          VOCDONI_ENVIRONMENT: dev
+          VOCDONI_ENVIRONMENT: prod
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0
@@ -52,51 +49,4 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: f938714e-6ca2-4a3d-bf29-397cdd3b9c17
-        timeout-minutes: 1
-
-  build-stg-explorer:
-    runs-on: ubuntu-22.04
-    environment:
-      name: development
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-
-      - name: Cache Node.js modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install
-        run: yarn
-
-      - name: Lint
-        run: yarn lint
-
-      - name: Build explorer stg
-        run: yarn build
-        env:
-          VOCDONI_ENVIRONMENT: stg
-
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v2.0
-        with:
-          publish-dir: './dist'
-          production-branch: main
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: 'Explorer STG Deploy from GitHub Actions'
-          enable-pull-request-comment: true
-          enable-commit-comment: true
-          overwrites-pull-request-comment: true
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: 4c2393c0-e1fc-4ed8-8183-909f56032a24
         timeout-minutes: 1
