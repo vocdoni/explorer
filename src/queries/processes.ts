@@ -16,7 +16,7 @@ export const useProcessList = ({
   filters,
   ...options
 }: {
-  filters?: Partial<Omit<FetchElectionsParametersWithPagination, 'limit'>>
+  filters?: Partial<FetchElectionsParametersWithPagination>
 } & Omit<UseQueryOptions<ElectionListWithPagination>, 'queryKey'>) => {
   const { client } = useClient()
 
