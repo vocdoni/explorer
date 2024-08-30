@@ -1,6 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
-import { IChainTxListResponse } from '@vocdoni/sdk'
+import { IChainTxListResponse, IChainTxReference } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
@@ -14,6 +14,7 @@ import { useTransactionList, useTransactionsCount } from '~queries/transactions'
 import { useCallback, useState } from 'react'
 import { isValidHash } from '~utils/strings'
 import { ContentError, NoResultsError } from '~components/Layout/ContentError'
+import AsyncListLayout from '~components/Layout/AsyncListLayout'
 
 export const TransactionFilter = () => {
   const { t } = useTranslation()
@@ -123,28 +124,20 @@ const TransactionsListCards = ({
 }) => {
   const { t } = useTranslation()
 
-  if (isLoading) {
-    return <LoadingCards spacing={4} />
-  }
-
-  if (data && data.transactions.length <= 0) {
-    return <NoResultsError msg={t('blocks.no_txs_on_block', { defaultValue: 'There are no transactions' })} />
-  }
-
-  if (isError || !data) {
-    return <ContentError error={error} />
-  }
-
   return (
-    <>
-      {data.transactions.map((tx, i) => (
+    <AsyncListLayout
+      isLoading={isLoading}
+      elements={data?.transactions}
+      isError={isError}
+      error={error}
+      noResultsMsg={t('blocks.no_txs_on_block', { defaultValue: 'There are no transactions' })}
+      pagination={data?.pagination}
+      component={(tx) => (
         <TransactionCard
-          key={i}
           {...tx}
           blockHeight={height ?? tx.blockHeight} // If is IBlockTransactionsResponse the block height is not on tx info
         />
-      ))}
-      <RoutedPagination pagination={data.pagination} />
-    </>
+      )}
+    />
   )
 }

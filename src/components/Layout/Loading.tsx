@@ -20,14 +20,12 @@ export const Loading = () => (
   </Square>
 )
 
-export const LoadingCards = ({
-  length = 4,
-  skeletonCircle,
-  ...rest
-}: {
+export type SkeletonCardsProps = {
   length?: number
   skeletonCircle?: boolean
-} & SkeletonTextProps) => (
+} & SkeletonTextProps
+
+export const LoadingCards = ({ length = 4, skeletonCircle, ...rest }: SkeletonCardsProps) => (
   <>
     {Array.from({ length }).map((_, i) => (
       <Card key={i} direction='row'>
