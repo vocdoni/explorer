@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { IChainTxListResponse } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
@@ -8,7 +8,7 @@ import { LoadingCards } from '~components/Layout/Loading'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { TransactionCard } from '~components/Transactions/TransactionCard'
-import { PaginationItemsPerPage, RoutePath } from '~constants'
+import { RoutePath } from '~constants'
 import { useBlockTransactions } from '~queries/blocks'
 import { useTransactionList, useTransactionsCount } from '~queries/transactions'
 import { useCallback, useState } from 'react'
@@ -102,7 +102,9 @@ const TransactionsListByBlock = ({ blockHeight, totalTxs }: ITxListByBlock) => {
   })
 
   return (
-    <TransactionsListCards isLoading={isLoading} data={data} isError={isError} error={error} height={blockHeight} />
+    <Flex direction={'column'} gap={4}>
+      <TransactionsListCards isLoading={isLoading} data={data} isError={isError} error={error} height={blockHeight} />
+    </Flex>
   )
 }
 
