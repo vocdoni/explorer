@@ -15,10 +15,7 @@ import { keepPreviousData } from '@tanstack/react-query'
 import { FetchElectionsParameters } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
 import { InputSearch } from '~components/Layout/Inputs'
-import { LoadingCards } from '~components/Layout/Loading'
-import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 import { useRoutedPagination } from '~components/Pagination/PaginationProvider'
-import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { useProcessList } from '~queries/processes'
 import { isEmpty } from '~utils/objects'
 import { ElectionCard } from './Card'
@@ -26,6 +23,7 @@ import { LuListFilter } from 'react-icons/lu'
 import { isValidPartialProcessId } from '~utils/strings'
 import { useState } from 'react'
 import { useRoutedPaginationQueryParams } from '~src/router/use-query-params'
+import AsyncListLayout from '~components/Layout/AsyncListLayout'
 
 type FilterQueryParams = {
   [K in keyof Omit<FetchElectionsParameters, 'organizationId'>]: string
@@ -156,22 +154,15 @@ export const ProcessList = () => {
     placeholderData: keepPreviousData,
   })
 
-  if (isLoading || (isFetching && !isEmpty(processFilters))) {
-    return <LoadingCards spacing={4} pl={4} skeletonHeight={4} />
-  }
-
-  if (data?.pagination.totalItems === 0) {
-    return <NoResultsError />
-  }
-
-  if (!data || isError) {
-    return <ContentError error={error} />
-  }
-
   return (
-    <>
-      {data?.elections.map((election, i) => <ElectionCard key={i} id={election.id} election={election} />)}
-      <RoutedPagination pagination={data.pagination} />
-    </>
+    <AsyncListLayout
+      isLoading={isLoading || (isFetching && !isEmpty(processFilters))}
+      elements={data?.elections}
+      isError={isError}
+      error={error}
+      pagination={data?.pagination}
+      component={({ element }) => <ElectionCard id={element.id} election={element} />}
+      skeletonProps={{ spacing: 4, pl: 4, skeletonHeight: 4 }}
+    />
   )
 }

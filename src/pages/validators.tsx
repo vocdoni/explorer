@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useLoaderData } from 'react-router-dom'
 import { IChainValidatorsListResponse } from '@vocdoni/sdk'
 import { ValidatorCard } from '~components/Validators/ValidatorCard'
+import AsyncListLayout from '~components/Layout/AsyncListLayout'
 
 const Validators = () => {
   const validators = (useLoaderData() as IChainValidatorsListResponse).validators
@@ -13,11 +14,7 @@ const Validators = () => {
 
   return (
     <ListPageLayout title={t('validators.validators')} subtitle={subtitle}>
-      {validators.map((validator, i) => (
-        // todo(kon): remove this ignore when https://github.com/vocdoni/vocdoni-sdk/pull/402 is merged
-        // @ts-ignore
-        <ValidatorCard key={i} {...validator} />
-      ))}
+      <AsyncListLayout elements={validators} component={({ element }) => <ValidatorCard {...element} />} />
     </ListPageLayout>
   )
 }

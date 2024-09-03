@@ -1,19 +1,16 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
-import { IChainTxListResponse, IChainTxReference } from '@vocdoni/sdk'
-import { Trans, useTranslation } from 'react-i18next'
+import { IChainTxListResponse } from '@vocdoni/sdk'
+import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
-import { LoadingCards } from '~components/Layout/Loading'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
-import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { TransactionCard } from '~components/Transactions/TransactionCard'
 import { RoutePath } from '~constants'
 import { useBlockTransactions } from '~queries/blocks'
 import { useTransactionList, useTransactionsCount } from '~queries/transactions'
 import { useCallback, useState } from 'react'
 import { isValidHash } from '~utils/strings'
-import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 import AsyncListLayout from '~components/Layout/AsyncListLayout'
 
 export const TransactionFilter = () => {
@@ -132,12 +129,13 @@ const TransactionsListCards = ({
       error={error}
       noResultsMsg={t('blocks.no_txs_on_block', { defaultValue: 'There are no transactions' })}
       pagination={data?.pagination}
-      component={(tx) => (
+      component={({ element }) => (
         <TransactionCard
-          {...tx}
-          blockHeight={height ?? tx.blockHeight} // If is IBlockTransactionsResponse the block height is not on tx info
+          {...element}
+          blockHeight={height ?? element.blockHeight} // If is IBlockTransactionsResponse the block height is not on tx info
         />
       )}
+      skeletonProps={{ spacing: 4 }}
     />
   )
 }

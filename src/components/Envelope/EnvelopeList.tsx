@@ -2,7 +2,7 @@ import { Flex, Grid } from '@chakra-ui/react'
 import { useElection } from '@vocdoni/react-providers'
 import { PublishedElection } from '@vocdoni/sdk'
 import { useTranslation } from 'react-i18next'
-import { NoResultsError } from '~components/Layout/ContentError'
+import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 import { LoadingCards } from '~components/Layout/Loading'
 import { Pagination } from '~components/Pagination/Pagination'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
@@ -30,7 +30,7 @@ const EnvelopeList = () => {
   const { election: e } = useElection()
   const election = e as PublishedElection
 
-  const { data: envelopes, isLoading } = useElectionVotesList({
+  const { data, isLoading, isError, error } = useElectionVotesList({
     params: {
       electionId: election?.id,
       page: page,
@@ -42,20 +42,22 @@ const EnvelopeList = () => {
     return <LoadingCards />
   }
 
-  if (!envelopes) {
-    // todo(kon): add error handling
-    return null
+  if (data && data.votes?.length <= 0) {
+    return <NoResultsError />
   }
 
+  if (isError || !data) {
+    return <ContentError error={error} />
+  }
   return (
     <Flex direction={'column'} gap={4}>
       <Grid
         templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(5, 1fr)' }}
         gap={4}
       >
-        {envelopes?.votes.map((envelope, i) => <EnvelopeCard key={i} envelope={envelope} count={page * 10 + i + 1} />)}
+        {data?.votes.map((envelope, i) => <EnvelopeCard key={i} envelope={envelope} count={page * 10 + i + 1} />)}
       </Grid>
-      <Pagination pagination={envelopes.pagination} />
+      <Pagination pagination={data.pagination} />
     </Flex>
   )
 }
