@@ -11,7 +11,7 @@ import { useBlockTransactions } from '~queries/blocks'
 import { useTransactionList, useTransactionsCount } from '~queries/transactions'
 import { useCallback, useState } from 'react'
 import { isValidHash } from '~utils/strings'
-import AsyncListLayout from '~components/Layout/AsyncListLayout'
+import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 
 export const TransactionFilter = () => {
   const { t } = useTranslation()
@@ -122,7 +122,7 @@ const TransactionsListCards = ({
   const { t } = useTranslation()
 
   return (
-    <AsyncListLayout
+    <PaginatedAsyncList
       isLoading={isLoading}
       elements={data?.transactions}
       isError={isError}

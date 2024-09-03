@@ -8,7 +8,7 @@ import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagin
 import { PaginationItemsPerPage, RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
-import AsyncListLayout from '~components/Layout/AsyncListLayout'
+import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 
 export const BlocksFilter = () => {
   const { t } = useTranslation()
@@ -76,7 +76,7 @@ export const BlocksList = () => {
   })
 
   return (
-    <AsyncListLayout
+    <PaginatedAsyncList
       isLoading={isLoadingStats || isLoadingBlocks}
       elements={data?.blocks}
       isError={isError}

@@ -23,7 +23,7 @@ import { LuListFilter } from 'react-icons/lu'
 import { isValidPartialProcessId } from '~utils/strings'
 import { useState } from 'react'
 import { useRoutedPaginationQueryParams } from '~src/router/use-query-params'
-import AsyncListLayout from '~components/Layout/AsyncListLayout'
+import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 
 type FilterQueryParams = {
   [K in keyof Omit<FetchElectionsParameters, 'organizationId'>]: string
@@ -155,7 +155,7 @@ export const ProcessList = () => {
   })
 
   return (
-    <AsyncListLayout
+    <PaginatedAsyncList
       isLoading={isLoading || (isFetching && !isEmpty(processFilters))}
       elements={data?.elections}
       isError={isError}

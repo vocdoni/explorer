@@ -5,7 +5,7 @@ import { AccountCard } from '~components/Accounts/Card'
 import { useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { useOrganizationList } from '~queries/accounts'
 import { useRoutedPaginationQueryParams } from '~src/router/use-query-params'
-import AsyncListLayout from '~components/Layout/AsyncListLayout'
+import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 
 type FilterQueryParams = {
   accountId?: string
@@ -42,7 +42,7 @@ export const AccountsList = () => {
   })
 
   return (
-    <AsyncListLayout
+    <PaginatedAsyncList
       isLoading={isLoading || (!!accountId && isFetching)}
       elements={data?.organizations}
       isError={isError}

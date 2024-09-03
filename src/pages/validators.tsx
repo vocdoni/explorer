@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useLoaderData } from 'react-router-dom'
 import { IChainValidatorsListResponse } from '@vocdoni/sdk'
 import { ValidatorCard } from '~components/Validators/ValidatorCard'
-import AsyncListLayout from '~components/Layout/AsyncListLayout'
+import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 
 const Validators = () => {
   const validators = (useLoaderData() as IChainValidatorsListResponse).validators
@@ -14,7 +14,7 @@ const Validators = () => {
 
   return (
     <ListPageLayout title={t('validators.validators')} subtitle={subtitle}>
-      <AsyncListLayout elements={validators} component={({ element }) => <ValidatorCard {...element} />} />
+      <PaginatedAsyncList elements={validators} component={({ element }) => <ValidatorCard {...element} />} />
     </ListPageLayout>
   )
 }
