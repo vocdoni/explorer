@@ -1,16 +1,16 @@
-import { Box, Flex, Link, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
-import { Trans } from 'react-i18next'
-import { LoadingCards } from '~components/Layout/Loading'
-import { useDateFns } from '~i18n/use-date-fns'
-import { TransactionType } from '@vocdoni/sdk'
-import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
-import { Pagination } from '~components/Pagination/Pagination'
-import { useAccountFees } from '~queries/accounts'
-import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
-import { generatePath, Link as RouterLink } from 'react-router-dom'
-import { RoutePath } from '~constants'
-import { ContentError, NoResultsError } from '~components/Layout/ContentError'
+import { Box, Flex, Link, Skeleton, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
 import { useOrganization } from '@vocdoni/react-providers'
+import { Fee, TransactionType } from '@vocdoni/sdk'
+import { Trans } from 'react-i18next'
+import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { ListDataDisplay } from '~components/Layout/AsyncList'
+import { Pagination } from '~components/Pagination/Pagination'
+import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
+import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
+import { RoutePath } from '~constants'
+import { useDateFns } from '~i18n/use-date-fns'
+import { useAccountFees } from '~queries/accounts'
+import { generateListStub, PaginationStub } from '~utils/stubs'
 
 const AccountFees = () => {
   return (
@@ -22,45 +22,35 @@ const AccountFees = () => {
 
 const AccountFeesTable = () => {
   const { page } = usePagination()
-  const { formatDistance } = useDateFns()
   const { organization } = useOrganization()
 
   if (!organization) return null
 
   const feesCount = organization.feesCount ?? 0
 
-  const { data, isLoading, isError, error } = useAccountFees({
+  const { data, isLoading, isError, error, isPlaceholderData } = useAccountFees({
     params: {
       accountId: organization.address,
       page,
     },
     options: {
       enabled: feesCount > 0,
+      placeholderData: {
+        fees: generateListStub<Fee>({
+          cost: 12,
+          from: 'string',
+          height: 12,
+          reference: 'string',
+          timestamp: '2024-08-28T15:20:06Z',
+          txType: 'string',
+        }),
+        pagination: PaginationStub,
+      },
     },
   })
 
-  if (isLoading) {
-    return <LoadingCards />
-  }
-
-  if (data?.pagination.totalItems === 0 || feesCount === 0) {
-    return <NoResultsError />
-  }
-
-  if (isError || !data) {
-    return <ContentError error={error} />
-  }
-
-  if (!data.fees.length) {
-    return (
-      <Text>
-        <Trans i18nKey={'account.fees.no_fees'}>No fees yet!</Trans>
-      </Text>
-    )
-  }
-
   return (
-    <>
+    <ListDataDisplay elements={data?.fees} isError={isError} error={error}>
       <Box overflow='auto' w='auto'>
         <TableContainer>
           <Table>
@@ -78,35 +68,53 @@ const AccountFeesTable = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {data.fees.map((fee, i) => (
-                <Tr key={i}>
-                  <Td>
-                    <Flex direction={'column'} align={'start'} gap={3}>
-                      <TransactionTypeBadge transactionType={fee.txType as TransactionType} />
-                      <Text fontWeight={100} color={'lighterText'} fontSize={'sm'}>
-                        {formatDistance(new Date(fee.timestamp), new Date())}
-                      </Text>
-                    </Flex>
-                  </Td>
-                  <Td>
-                    <Link
-                      as={RouterLink}
-                      to={generatePath(RoutePath.Block, { height: fee.height.toString(), tab: null, page: null })}
-                    >
-                      {fee.height}
-                    </Link>
-                  </Td>
-                  <Td>{fee.cost}</Td>
-                </Tr>
-              ))}
+              {data?.fees.map((fee, i) => <AccountFeesRow key={i} fee={fee} isLoading={isPlaceholderData} />)}
             </Tbody>
           </Table>
         </TableContainer>
       </Box>
-      <Box pt={4}>
-        <Pagination pagination={data.pagination} />
-      </Box>
-    </>
+      {data?.pagination && (
+        <Box pt={4}>
+          <Pagination pagination={data.pagination} />
+        </Box>
+      )}
+    </ListDataDisplay>
+  )
+}
+
+const AccountFeesRow = ({ fee, isLoading }: { fee: Fee; isLoading: boolean }) => {
+  const { formatDistance } = useDateFns()
+
+  return (
+    <Tr>
+      <Td>
+        <Flex direction={'column'} align={'start'} gap={3}>
+          <Skeleton isLoaded={!isLoading} fitContent>
+            <TransactionTypeBadge transactionType={fee.txType as TransactionType} />
+          </Skeleton>
+          <Skeleton isLoaded={!isLoading} fitContent>
+            <Text fontWeight={100} color={'lighterText'} fontSize={'sm'}>
+              {formatDistance(new Date(fee.timestamp), new Date())}
+            </Text>
+          </Skeleton>
+        </Flex>
+      </Td>
+      <Td>
+        <Skeleton isLoaded={!isLoading} fitContent>
+          <Link
+            as={RouterLink}
+            to={generatePath(RoutePath.Block, { height: fee.height.toString(), tab: null, page: null })}
+          >
+            {fee.height}
+          </Link>
+        </Skeleton>
+      </Td>
+      <Td>
+        <Skeleton isLoaded={!isLoading} fitContent>
+          {fee.cost}
+        </Skeleton>
+      </Td>
+    </Tr>
   )
 }
 
