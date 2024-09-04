@@ -1,5 +1,5 @@
 import { PaginationResponse } from '@vocdoni/sdk'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useMemo } from 'react'
 import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 import { LoadingCards, SkeletonCardsProps } from '~components/Layout/Loading'
 import { Pagination } from '~components/Pagination/Pagination'
@@ -48,9 +48,14 @@ export const PaginatedAsyncList = <T,>({
     return <LoadingCards spacing={4} {...skeletonProps} />
   }
 
+  const memoizedComponents = useMemo(
+    () => elements?.map((element, index) => <Component key={index} element={element} index={index} />),
+    [elements]
+  )
+
   return (
     <ListDataDisplay elements={elements} {...rest}>
-      {elements?.map((element, index) => <Component key={index} element={element} index={index} />)}
+      {memoizedComponents}
       {pagination && routedPagination && <RoutedPagination pagination={pagination} />}
       {pagination && !routedPagination && <Pagination pagination={pagination} />}
     </ListDataDisplay>
