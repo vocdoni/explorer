@@ -142,10 +142,7 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
             <Trans i18nKey={'process.tab_details'}>Details</Trans>
           </Tab>
           <Tab>
-            <TextAndTag
-              text={t('process.tab_txs', { defaultValue: 'Transactions' })}
-              tagLabel={block?.data?.txs?.length?.toString() ?? '0'}
-            />
+            <TextAndTag text={t('process.tab_txs', { defaultValue: 'Transactions' })} tagLabel={txCount ?? '0'} />
           </Tab>
           <Tab>
             <Trans i18nKey={'raw'}>Raw</Trans>
