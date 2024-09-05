@@ -1,10 +1,9 @@
-import { Box, Flex, Link, Skeleton, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
+import { Flex, Link, Skeleton, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
 import { useOrganization } from '@vocdoni/react-providers'
 import { Fee, TransactionType } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
-import { ListDataDisplay } from '~components/Layout/AsyncList'
-import { Pagination } from '~components/Pagination/Pagination'
+import { PaginatedAsyncTable } from '~components/Layout/AsyncList'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
 import { RoutePath } from '~constants'
@@ -28,7 +27,7 @@ const AccountFeesTable = () => {
 
   const feesCount = organization.feesCount ?? 0
 
-  const { data, isLoading, isError, error, isPlaceholderData } = useAccountFees({
+  const { data, isError, error, isPlaceholderData } = useAccountFees({
     params: {
       accountId: organization.address,
       page,
@@ -50,35 +49,31 @@ const AccountFeesTable = () => {
   })
 
   return (
-    <ListDataDisplay elements={data?.fees} isError={isError} error={error}>
-      <Box overflow='auto' w='auto'>
-        <TableContainer>
-          <Table>
-            <Thead>
-              <Tr>
-                <Th>
-                  <Trans i18nKey={'account.fees.tx_type'}>Tx Type</Trans>
-                </Th>
-                <Th>
-                  <Trans i18nKey={'account.transfers.block'}>Block</Trans>
-                </Th>
-                <Th>
-                  <Trans i18nKey={'account.fees.cost'}>Cost</Trans>
-                </Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {data?.fees.map((fee, i) => <AccountFeesRow key={i} fee={fee} isLoading={isPlaceholderData} />)}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </Box>
-      {data?.pagination && (
-        <Box pt={4}>
-          <Pagination pagination={data.pagination} />
-        </Box>
-      )}
-    </ListDataDisplay>
+    <PaginatedAsyncTable
+      isLoading={isPlaceholderData}
+      elements={data?.fees}
+      isError={isError}
+      error={error}
+      pagination={data?.pagination}
+      component={({ element }) => <AccountFeesRow fee={element} isLoading={isPlaceholderData} />}
+      skeletonProps={{ skeletonCircle: true }}
+      routedPagination={false}
+      th={
+        <Thead>
+          <Tr>
+            <Th>
+              <Trans i18nKey={'account.fees.tx_type'}>Tx Type</Trans>
+            </Th>
+            <Th>
+              <Trans i18nKey={'account.transfers.block'}>Block</Trans>
+            </Th>
+            <Th>
+              <Trans i18nKey={'account.fees.cost'}>Cost</Trans>
+            </Th>
+          </Tr>
+        </Thead>
+      }
+    />
   )
 }
 
