@@ -11,6 +11,7 @@ import { PaginatedBlockTransactionsList } from '~components/Transactions/Transac
 import { RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useDateFns } from '~i18n/use-date-fns'
 import { useBlocksHeight } from '~queries/blocks'
+import TextAndTag from '~components/Layout/TextAndTag'
 
 const HeightNavigator = ({ height }: { height: number }) => {
   const { data, isLoading } = useBlocksHeight({
@@ -120,6 +121,7 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
   // @ts-ignore
   const txCount = block.txCount
 
+  const { t } = useTranslation()
   const { formatDistance } = useDateFns()
 
   return (
@@ -140,7 +142,10 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
             <Trans i18nKey={'process.tab_details'}>Details</Trans>
           </Tab>
           <Tab>
-            <Trans i18nKey={'process.tab_txs'}>Transactions</Trans>
+            <TextAndTag
+              text={t('process.tab_txs', { defaultValue: 'Transactions' })}
+              tagLabel={block?.data?.txs?.length?.toString() ?? '0'}
+            />
           </Tab>
           <Tab>
             <Trans i18nKey={'raw'}>Raw</Trans>
