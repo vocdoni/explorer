@@ -1,13 +1,12 @@
 import { Flex } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
-import { LoadingCards } from '~components/Layout/Loading'
-import { RoutedPagination } from '~components/Pagination/Pagination'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { ElectionCard } from '~components/Process/Card'
 import { RoutePath } from '~constants'
 import { useOrganizationElections } from '~queries/accounts'
-import { ContentError, NoResultsError } from '~components/Layout/ContentError'
+import { NoResultsError } from '~components/Layout/ContentError'
 import { useOrganization } from '@vocdoni/react-providers'
+import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 
 const AccountElections = () => {
   const { t } = useTranslation()
@@ -40,24 +39,16 @@ const AccountElectionsList = () => {
     },
   })
 
-  if (isLoading) {
-    return <LoadingCards />
-  }
-
-  if (data?.pagination.totalItems === 0) {
-    return <NoResultsError />
-  }
-
-  if (isError || !data) {
-    return <ContentError error={error} />
-  }
-
   return (
     <Flex direction={'column'} gap={4}>
-      {data.elections?.map((election) => {
-        return <ElectionCard key={election.id} election={election} />
-      })}
-      <RoutedPagination pagination={data.pagination} />
+      <PaginatedAsyncList
+        isLoading={isLoading}
+        elements={data?.elections}
+        isError={isError}
+        error={error}
+        pagination={data?.pagination}
+        component={({ element }) => <ElectionCard key={element.id} election={element} />}
+      />
     </Flex>
   )
 }

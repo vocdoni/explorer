@@ -1,31 +1,17 @@
-import {
-  Box,
-  Flex,
-  Icon,
-  IconProps,
-  Link,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tooltip,
-  Tr,
-} from '@chakra-ui/react'
-import { Trans, useTranslation } from 'react-i18next'
-import { generatePath, Link as RouterLink } from 'react-router-dom'
-import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
-import { LoadingCards } from '~components/Layout/Loading'
-import { RoutePath } from '~constants'
-import { useAccountTransfers } from '~queries/accounts'
-import { useDateFns } from '~i18n/use-date-fns'
-import { BiLogInCircle, BiLogOutCircle } from 'react-icons/bi'
-import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
-import { ContentError, NoResultsError } from '~components/Layout/ContentError'
-import { Pagination } from '~components/Pagination/Pagination'
+import { Box, Flex, Icon, IconProps, Link, Skeleton, Td, Text, Th, Thead, Tooltip, Tr } from '@chakra-ui/react'
 import { useOrganization } from '@vocdoni/react-providers'
+import { AccountData, ITransfer } from '@vocdoni/sdk'
+import { formatDistance } from 'date-fns'
+import { Trans, useTranslation } from 'react-i18next'
+import { BiLogInCircle, BiLogOutCircle } from 'react-icons/bi'
+import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { PaginatedAsyncTable } from '~components/Layout/AsyncList'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
+import { RoutePath } from '~constants'
+import { useDateFns } from '~i18n/use-date-fns'
+import { useAccountTransfers } from '~queries/accounts'
+import { generateListStub, PaginationStub } from '~utils/stubs'
 
 const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps) => {
   const { t } = useTranslation()
@@ -66,122 +52,141 @@ const AccountTransfersTable = () => {
 
   const txCount = organization.transfersCount ?? 0
 
-  const { data, isLoading, isError, error } = useAccountTransfers({
+  const { data, isError, error, isPlaceholderData } = useAccountTransfers({
     address: organization.address,
     page: page,
     options: {
       enabled: txCount > 0,
+      placeholderData: {
+        transfers: generateListStub<ITransfer>({
+          amount: 12,
+          from: 'string',
+          height: 12,
+          timestamp: '2024-08-28T15:20:06Z',
+          to: 'string',
+          txHash: 'string',
+        }),
+        pagination: PaginationStub,
+      },
     },
   })
 
-  if (txCount === 0) {
-    return <NoResultsError msg={t('account.transfers.no_transfers', { defaultValue: 'No transfers yet!' })} />
-  }
+  return (
+    <PaginatedAsyncTable
+      isLoading={isPlaceholderData}
+      elements={data?.transfers}
+      isError={isError}
+      error={error}
+      pagination={data?.pagination}
+      component={({ element }) => (
+        <TransfersRow transfer={element} organization={organization} isLoading={isPlaceholderData} />
+      )}
+      skeletonProps={{ skeletonCircle: true }}
+      routedPagination={false}
+      th={
+        <Thead>
+          <Tr>
+            <Th>
+              <Trans i18nKey={'account.transfers.tx_hash'}>Tx Hash</Trans>
+            </Th>
+            <Th>
+              <Trans i18nKey={'account.transfers.block'}>Block</Trans>
+            </Th>
+            <Th>
+              <Trans i18nKey={'account.transfers.from_to'}>From/To</Trans>
+            </Th>
+            <Th>
+              <Trans i18nKey={'account.transfers.amount'}>Amount</Trans>
+            </Th>
+          </Tr>
+        </Thead>
+      }
+    />
+  )
+}
 
-  if (!txCount || isLoading) {
-    return <LoadingCards />
-  }
-
-  if (data?.pagination.totalItems === 0) {
-    return <NoResultsError />
-  }
-
-  if (isError || !data) {
-    return <ContentError error={error} />
-  }
+const TransfersRow = ({
+  transfer,
+  organization,
+  isLoading,
+}: {
+  transfer: ITransfer
+  organization: AccountData
+  isLoading: boolean
+}) => {
+  const isIncoming = transfer.to === organization.address
+  let fromToAddress = isIncoming ? transfer.from : transfer.to
 
   return (
-    <>
-      <Box overflow='auto' w='auto'>
-        <TableContainer>
-          <Table>
-            <Thead>
-              <Tr>
-                <Th>
-                  <Trans i18nKey={'account.transfers.tx_hash'}>Tx Hash</Trans>
-                </Th>
-                <Th>
-                  <Trans i18nKey={'account.transfers.block'}>Block</Trans>
-                </Th>
-                <Th>
-                  <Trans i18nKey={'account.transfers.from_to'}>From/To</Trans>
-                </Th>
-                <Th>
-                  <Trans i18nKey={'account.transfers.amount'}>Amount</Trans>
-                </Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {data.transfers.map((transfer, i) => {
-                const isIncoming = transfer.to === organization.address
-                let fromToAddress = isIncoming ? transfer.from : transfer.to
-                return (
-                  <Tr key={i}>
-                    <Td>
-                      <Flex direction={'column'} align={'start'} gap={3}>
-                        <ReducedTextAndCopy
-                          breakPoint={{ base: true }}
-                          color={'textAccent1'}
-                          toCopy={transfer.txHash}
-                          fontWeight={'normal'}
-                          fontSize={'sm'}
-                          to={generatePath(RoutePath.TransactionByHashOrHeight, { hashOrHeight: transfer.txHash })}
-                        >
-                          {transfer.txHash}
-                        </ReducedTextAndCopy>
-
-                        <Text fontWeight={100} color={'lighterText'} fontSize={'sm'}>
-                          {formatDistance(new Date(transfer.timestamp), new Date())}
-                        </Text>
-                      </Flex>
-                    </Td>
-                    <Td>
-                      <Link
-                        as={RouterLink}
-                        to={generatePath(RoutePath.Block, {
-                          height: transfer.height.toString(),
-                          tab: null,
-                          page: null,
-                        })}
-                      >
-                        {transfer.height}
-                      </Link>
-                    </Td>
-                    <Td>
-                      <Flex align={'center'} gap={1}>
-                        <Box>
-                          <FromToIcon isIncoming={isIncoming} boxSize={5} />
-                        </Box>
-                        <ReducedTextAndCopy
-                          breakPoint={{ base: true }}
-                          color={'textAccent1'}
-                          toCopy={fromToAddress}
-                          fontWeight={'normal'}
-                          fontSize={'md'}
-                          p={1}
-                          h={8}
-                          to={generatePath(RoutePath.Account, {
-                            pid: fromToAddress,
-                            tab: null,
-                            page: null,
-                          })}
-                        >
-                          {fromToAddress}
-                        </ReducedTextAndCopy>
-                      </Flex>
-                    </Td>
-                    <Td>{transfer.amount}</Td>
-                  </Tr>
-                )
+    <Tr>
+      <Td>
+        <Flex direction={'column'} align={'start'} gap={3}>
+          <Skeleton isLoaded={!isLoading} fitContent>
+            <ReducedTextAndCopy
+              breakPoint={{ base: true }}
+              color={'textAccent1'}
+              toCopy={transfer.txHash}
+              fontWeight={'normal'}
+              fontSize={'sm'}
+              to={generatePath(RoutePath.TransactionByHashOrHeight, { hashOrHeight: transfer.txHash })}
+            >
+              {transfer.txHash}
+            </ReducedTextAndCopy>
+          </Skeleton>
+          <Skeleton isLoaded={!isLoading} fitContent>
+            <Text fontWeight={100} color={'lighterText'} fontSize={'sm'}>
+              {formatDistance(new Date(transfer.timestamp), new Date())}
+            </Text>
+          </Skeleton>
+        </Flex>
+      </Td>
+      <Td>
+        <Skeleton isLoaded={!isLoading} fitContent>
+          <Link
+            as={RouterLink}
+            to={generatePath(RoutePath.Block, {
+              height: transfer.height.toString(),
+              tab: null,
+              page: null,
+            })}
+          >
+            {transfer.height}
+          </Link>
+        </Skeleton>
+      </Td>
+      <Td>
+        <Flex align={'center'} gap={1}>
+          <Skeleton isLoaded={!isLoading} fitContent>
+            <Box>
+              <FromToIcon isIncoming={isIncoming} boxSize={5} />
+            </Box>
+          </Skeleton>
+          <Skeleton isLoaded={!isLoading} fitContent>
+            <ReducedTextAndCopy
+              breakPoint={{ base: true }}
+              color={'textAccent1'}
+              toCopy={fromToAddress}
+              fontWeight={'normal'}
+              fontSize={'md'}
+              p={1}
+              h={8}
+              to={generatePath(RoutePath.Account, {
+                pid: fromToAddress,
+                tab: null,
+                page: null,
               })}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </Box>
-      <Box pt={4}>
-        <Pagination pagination={data.pagination} />
-      </Box>
-    </>
+            >
+              {fromToAddress}
+            </ReducedTextAndCopy>
+          </Skeleton>
+        </Flex>
+      </Td>
+      <Td>
+        <Skeleton isLoaded={!isLoading} fitContent>
+          {transfer.amount}
+        </Skeleton>
+      </Td>
+    </Tr>
   )
 }
 

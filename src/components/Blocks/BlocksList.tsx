@@ -4,13 +4,11 @@ import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { BlockCard } from '~components/Blocks/BlockCard'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
-import { LoadingCards } from '~components/Layout/Loading'
-import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
-import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { PaginationItemsPerPage, RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
+import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 
 export const BlocksFilter = () => {
   const { t } = useTranslation()
@@ -63,7 +61,7 @@ export const BlocksList = () => {
   const blockCount = stats?.height || 0
 
   const {
-    data: blocksResponse,
+    data,
     isLoading: isLoadingBlocks,
     isError,
     error,
@@ -77,28 +75,15 @@ export const BlocksList = () => {
     placeholderData: keepPreviousData,
   })
 
-  const isLoading = isLoadingStats || isLoadingBlocks
-
-  if (isLoading) {
-    return <LoadingCards noOfLines={2} />
-  }
-
-  const blocks = blocksResponse?.blocks
-
-  if (blocksResponse?.pagination.totalItems === 0) {
-    return <NoResultsError />
-  }
-
-  if (isError || !blocks) {
-    return <ContentError error={error} />
-  }
-
   return (
-    <>
-      {blocks.map((block, i) => (
-        <BlockCard key={i} block={block} />
-      ))}
-      <RoutedPagination pagination={blocksResponse.pagination} />
-    </>
+    <PaginatedAsyncList
+      isLoading={isLoadingStats || isLoadingBlocks}
+      elements={data?.blocks}
+      isError={isError}
+      error={error}
+      pagination={data?.pagination}
+      component={({ element }) => <BlockCard block={element} />}
+      skeletonProps={{ noOfLines: 2 }}
+    />
   )
 }

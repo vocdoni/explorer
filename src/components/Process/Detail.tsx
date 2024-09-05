@@ -1,6 +1,4 @@
 import {
-  Alert,
-  AlertIcon,
   Box,
   Card,
   CardBody,
@@ -9,8 +7,6 @@ import {
   Flex,
   Grid,
   GridItem,
-  Icon,
-  Link,
   Tab,
   TabList,
   TabPanel,
@@ -28,27 +24,16 @@ import {
   QuestionsTypeBadge,
 } from '@vocdoni/chakra-components'
 import { useElection } from '@vocdoni/react-providers'
-import {
-  ElectionStatus,
-  IElectionInfoResponse,
-  InvalidElection as InvalidElectionType,
-  PublishedElection,
-  VoteSummary,
-} from '@vocdoni/sdk'
+import { ElectionStatus, IElectionInfoResponse, InvalidElection as InvalidElectionType } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
-import { BiEnvelope } from 'react-icons/bi'
-import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
-import { LoadingCards } from '~components/Layout/Loading'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { AccountCard } from '~components/Accounts/Card'
 import { ElectionStatusBadge } from '~components/Accounts/StatusBadge'
-import { Pagination } from '~components/Pagination/Pagination'
-import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import InvalidElection from '~components/Process/InvalidElection'
 import { FallbackHeaderImg, RoutePath } from '~constants'
-import { useElectionKeys, useElectionVotesList } from '~queries/processes'
+import { useElectionKeys } from '~queries/processes'
 import { ucfirst } from '~utils/strings'
 import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 import { NoResultsError } from '~components/Layout/ContentError'

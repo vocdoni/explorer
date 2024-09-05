@@ -1,19 +1,17 @@
-import { Text } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { IChainTxListResponse } from '@vocdoni/sdk'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
-import { LoadingCards } from '~components/Layout/Loading'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
-import { RoutedPagination } from '~components/Pagination/RoutedPagination'
 import { TransactionCard } from '~components/Transactions/TransactionCard'
-import { PaginationItemsPerPage, RoutePath } from '~constants'
+import { RoutePath } from '~constants'
 import { useBlockTransactions } from '~queries/blocks'
 import { useTransactionList, useTransactionsCount } from '~queries/transactions'
 import { useCallback, useState } from 'react'
 import { isValidHash } from '~utils/strings'
-import { ContentError, NoResultsError } from '~components/Layout/ContentError'
+import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 
 export const TransactionFilter = () => {
   const { t } = useTranslation()
@@ -102,7 +100,9 @@ const TransactionsListByBlock = ({ blockHeight, totalTxs }: ITxListByBlock) => {
   })
 
   return (
-    <TransactionsListCards isLoading={isLoading} data={data} isError={isError} error={error} height={blockHeight} />
+    <Flex direction={'column'} gap={4}>
+      <TransactionsListCards isLoading={isLoading} data={data} isError={isError} error={error} height={blockHeight} />
+    </Flex>
   )
 }
 
@@ -121,28 +121,21 @@ const TransactionsListCards = ({
 }) => {
   const { t } = useTranslation()
 
-  if (isLoading) {
-    return <LoadingCards spacing={4} />
-  }
-
-  if (data && data.transactions.length <= 0) {
-    return <NoResultsError msg={t('blocks.no_txs_on_block', { defaultValue: 'There are no transactions' })} />
-  }
-
-  if (isError || !data) {
-    return <ContentError error={error} />
-  }
-
   return (
-    <>
-      {data.transactions.map((tx, i) => (
+    <PaginatedAsyncList
+      isLoading={isLoading}
+      elements={data?.transactions}
+      isError={isError}
+      error={error}
+      noResultsMsg={t('blocks.no_txs_on_block', { defaultValue: 'There are no transactions' })}
+      pagination={data?.pagination}
+      component={({ element }) => (
         <TransactionCard
-          key={i}
-          {...tx}
-          blockHeight={height ?? tx.blockHeight} // If is IBlockTransactionsResponse the block height is not on tx info
+          {...element}
+          blockHeight={height ?? element.blockHeight} // If is IBlockTransactionsResponse the block height is not on tx info
         />
-      ))}
-      <RoutedPagination pagination={data.pagination} />
-    </>
+      )}
+      skeletonProps={{ spacing: 4 }}
+    />
   )
 }
