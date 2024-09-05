@@ -1,6 +1,6 @@
 import { Flex, Grid } from '@chakra-ui/react'
 import { useElection } from '@vocdoni/react-providers'
-import { PublishedElection } from '@vocdoni/sdk'
+import { PublishedElection, VoteSummary } from '@vocdoni/sdk'
 import { useTranslation } from 'react-i18next'
 import { ListDataDisplay } from '~components/Layout/AsyncList'
 import { NoResultsError } from '~components/Layout/ContentError'
@@ -8,6 +8,7 @@ import { Pagination } from '~components/Pagination/Pagination'
 import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { useElectionVotesList } from '~queries/processes'
 import { EnvelopeCard } from './EnvelopeCard'
+import { generateListStub, PaginationStub } from '~utils/stubs'
 
 export const PaginatedEnvelopeList = () => {
   const { election: e } = useElection()
@@ -30,12 +31,26 @@ const EnvelopeList = () => {
   const { election: e } = useElection()
   const election = e as PublishedElection
 
-  const { data, isLoading, isError, error } = useElectionVotesList({
+  const { data, isPlaceholderData, isError, error } = useElectionVotesList({
     params: {
       electionId: election?.id,
       page: page,
     },
     enabled: !!election?.id,
+    placeholderData: {
+      votes: generateListStub<VoteSummary>(
+        {
+          txHash: 'txHash',
+          voteID: 'voteID',
+          voterID: 'voterID',
+          electionID: 'electionID',
+          blockHeight: 1,
+          transactionIndex: 2,
+        },
+        10
+      ),
+      pagination: PaginationStub,
+    },
   })
 
   return (
@@ -45,9 +60,11 @@ const EnvelopeList = () => {
           templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(5, 1fr)' }}
           gap={4}
         >
-          {data?.votes.map((envelope, i) => <EnvelopeCard key={i} envelope={envelope} count={page * 10 + i + 1} />)}
+          {data?.votes.map((envelope, i) => (
+            <EnvelopeCard isLoading={isPlaceholderData} key={i} envelope={envelope} count={page * 10 + i + 1} />
+          ))}
         </Grid>
-        {data?.pagination && <Pagination pagination={data?.pagination} />}
+        {!isPlaceholderData && data?.pagination && <Pagination pagination={data?.pagination} />}
       </ListDataDisplay>
     </Flex>
   )
