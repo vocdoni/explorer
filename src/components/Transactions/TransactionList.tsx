@@ -1,43 +1,41 @@
 import { Flex } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { IChainTxListResponse } from '@vocdoni/sdk'
+import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate } from 'react-router-dom'
+import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { TransactionCard } from '~components/Transactions/TransactionCard'
 import { RoutePath } from '~constants'
 import { useBlockTransactions } from '~queries/blocks'
 import { useTransactionList, useTransactionsCount } from '~queries/transactions'
-import { useCallback, useState } from 'react'
 import { isValidHash } from '~utils/strings'
-import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 
 export const TransactionFilter = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { data } = useTransactionsCount()
-  const [txNumberOrHash, setTxNumberOrHash] = useState('')
+  const [txHash, setTxHash] = useState('')
 
   const goTo = useCallback(() => {
     if (!data) {
       throw new Error(t('transactions.invalid_tx_count', { defaultValue: 'Invalid chain transactions count' }))
     }
-    const num = parseInt(txNumberOrHash)
     // Throw an error if the input is not a valid hash or num is not a number and is not between 0 and data
-    if (!isValidHash(txNumberOrHash) && (isNaN(num) || num <= 0 || num > data)) {
-      throw new Error(t('transactions.invalid_tx_search', { defaultValue: 'Must to be a valid tx hash or index' }))
+    if (!isValidHash(txHash)) {
+      throw new Error(t('transactions.invalid_tx_search', { defaultValue: 'Must to be a valid tx hash' }))
     }
-    const hashOrHeight = isValidHash(txNumberOrHash) ? txNumberOrHash : num.toString()
-    navigate(generatePath(RoutePath.TransactionByHashOrHeight, { hashOrHeight }))
-  }, [txNumberOrHash, data])
+    navigate(generatePath(RoutePath.TransactionByHash, { hash: txHash, tab: null }))
+  }, [txHash, data])
 
   return (
     <PopoverInputSearch
       input={{
         placeholder: t('transactions.go_to_tx', { defaultValue: 'Go to transaction' }),
         onChange: (value: string) => {
-          setTxNumberOrHash(value)
+          setTxHash(value)
         },
       }}
       button={{
@@ -132,7 +130,7 @@ const TransactionsListCards = ({
       component={({ element }) => (
         <TransactionCard
           {...element}
-          blockHeight={height ?? element.blockHeight} // If is IBlockTransactionsResponse the block height is not on tx info
+          height={height ?? element.height} // If is IBlockTransactionsResponse the block height is not on tx info
         />
       )}
       skeletonProps={{ spacing: 4 }}

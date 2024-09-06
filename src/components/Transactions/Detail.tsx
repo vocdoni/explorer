@@ -5,13 +5,13 @@ import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { SpecificTxDetails } from '~components/Transactions/TxDetails/SpecificTxDetails'
 import { TxDetailsGrid } from '~components/Transactions/TxDetails/TxDetails'
+import { RoutePath } from '~constants'
 import { useDateFns } from '~i18n/use-date-fns'
 import { useBlockToDate } from '~queries/stats'
 import { objectB64StringsToHex } from '~utils/objects'
-import { RoutePath } from '~constants'
 
 export const TransactionDetail = (tx: Tx) => {
-  const { data } = useBlockToDate({ height: tx.txInfo.blockHeight })
+  const { data } = useBlockToDate({ height: tx.txInfo.height })
   const { formatDistance } = useDateFns()
 
   let createdOn = ''
@@ -33,8 +33,8 @@ export const TransactionDetail = (tx: Tx) => {
     <Flex direction={'column'} mt={'40px'} gap={6}>
       <VStack align='start'>
         <Heading isTruncated wordBreak='break-word' mb={0}>
-          <Trans i18nKey={'transactions.tx_title'} number={tx.txInfo.transactionNumber}>
-            Transaction #{{ number: tx.txInfo.transactionNumber }}
+          <Trans i18nKey={'transactions.tx_title'} number={tx.txInfo.index}>
+            Transaction details
           </Trans>
         </Heading>
         {createdOn && (

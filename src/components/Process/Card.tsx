@@ -1,17 +1,17 @@
 import { CardBody, CardProps, Flex, HStack } from '@chakra-ui/react'
 import { ElectionSchedule, ElectionTitle } from '@vocdoni/chakra-components'
 import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/react-providers'
-import { ArchivedElection, InvalidElection as InvalidElectionType, PublishedElection } from '@vocdoni/sdk'
+import { InvalidElection as InvalidElectionType, PublishedElection } from '@vocdoni/sdk'
 import { generatePath } from 'react-router-dom'
+import { SmallAccountCard } from '~components/Accounts/Card'
 import { ElectionStatusBadge } from '~components/Accounts/StatusBadge'
+import LinkCard from '~components/Layout/LinkCard'
 import InvalidElection from '~components/Process/InvalidElection'
 import { RoutePath } from '~constants'
-import { SmallAccountCard } from '~components/Accounts/Card'
-import LinkCard from '~components/Layout/LinkCard'
 
 export type ElectionCardProps = {
   id?: string
-  election?: PublishedElection | ArchivedElection | InvalidElectionType
+  election?: PublishedElection | InvalidElectionType
 } & CardProps
 
 /**

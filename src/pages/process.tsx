@@ -1,8 +1,8 @@
-import { useLoaderData } from 'react-router-dom'
-import { ArchivedElection, InvalidElection as InvalidElectionType, PublishedElection } from '@vocdoni/sdk'
-import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/react-providers'
-import Detail from '~components/Process/Detail'
 import { Flex } from '@chakra-ui/react'
+import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/react-providers'
+import { InvalidElection as InvalidElectionType, PublishedElection } from '@vocdoni/sdk'
+import { useLoaderData } from 'react-router-dom'
+import Detail from '~components/Process/Detail'
 import InvalidElection from '~components/Process/InvalidElection'
 
 const ProcessView = () => {
@@ -20,7 +20,7 @@ const ProcessView = () => {
 }
 
 const Process = () => {
-  const election = useLoaderData() as PublishedElection | ArchivedElection
+  const election = useLoaderData() as PublishedElection
   return (
     <Flex direction={'column'} mt={'40px'} gap={6}>
       <ElectionProvider election={election}>

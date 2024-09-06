@@ -7,11 +7,11 @@ import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
+import TextAndTag from '~components/Layout/TextAndTag'
 import { PaginatedBlockTransactionsList } from '~components/Transactions/TransactionList'
 import { RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useDateFns } from '~i18n/use-date-fns'
 import { useBlocksHeight } from '~queries/blocks'
-import TextAndTag from '~components/Layout/TextAndTag'
 
 const HeightNavigator = ({ height }: { height: number }) => {
   const { data, isLoading } = useBlocksHeight({
@@ -117,8 +117,6 @@ const DetailsTab = ({ block }: { block: IChainBlockInfoResponse }) => {
 export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
   const height = block.header.height
   const date = new Date(block.header.time)
-  // Not on the SDK yet
-  // @ts-ignore
   const txCount = block.txCount
 
   const { t } = useTranslation()
@@ -142,7 +140,10 @@ export const BlockDetail = ({ block }: { block: IChainBlockInfoResponse }) => {
             <Trans i18nKey={'process.tab_details'}>Details</Trans>
           </Tab>
           <Tab>
-            <TextAndTag text={t('process.tab_txs', { defaultValue: 'Transactions' })} tagLabel={txCount ?? '0'} />
+            <TextAndTag
+              text={t('process.tab_txs', { defaultValue: 'Transactions' })}
+              tagLabel={txCount.toString() ?? '0'}
+            />
           </Tab>
           <Tab>
             <Trans i18nKey={'raw'}>Raw</Trans>
