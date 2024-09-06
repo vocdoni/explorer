@@ -1,17 +1,17 @@
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
-import { ErrTransactionNotFound, IChainTxReference } from '@vocdoni/sdk'
 import { lazy } from 'react'
-import { createBrowserRouter, generatePath, redirect, RouteObject, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom'
 import { RoutePath } from '~constants'
 import Layout from '~src/layout/Default'
+import { TransactionNotFound } from '~src/router/errors/TransactionNotFound'
+import { DeprecatedChainAPI } from '~utils/api'
 import { BlockNotFound } from './errors/BlockNotFound'
 import { ElectionError } from './errors/ElectionError'
 import Error404 from './errors/Error404'
 import RouteError from './errors/RouteError'
 import RouteRedirector from './RouteRedirector'
 import { SuspenseLoader } from './SuspenseLoader'
-import { TransactionNotFound } from '~src/router/errors/TransactionNotFound'
 
 const Home = lazy(() => import('~pages/Home'))
 const Block = lazy(() => import('~pages/block'))
@@ -116,7 +116,8 @@ export const RoutesProvider = () => {
                   <Transaction />
                 </SuspenseLoader>
               ),
-              loader: async ({ params }) => await client.txInfoByBlock(Number(params.block), Number(params.index)),
+              loader: async ({ params }) =>
+                DeprecatedChainAPI.txInfoByBlock(client.url, Number(params.block), Number(params.index)),
               errorElement: <TransactionNotFound />,
             },
             {
@@ -128,31 +129,14 @@ export const RoutesProvider = () => {
               ),
             },
             {
-              path: RoutePath.TransactionByHashOrHeight,
+              path: RoutePath.TransactionByHash,
               element: (
                 <SuspenseLoader>
                   <Transaction />
                 </SuspenseLoader>
               ),
               errorElement: <TransactionNotFound />,
-              loader: async ({ params: { hashOrHeight } }) => {
-                let tx: IChainTxReference
-                if (hashOrHeight && (hashOrHeight.startsWith('0x') || isNaN(Number(hashOrHeight)))) {
-                  tx = await client.txInfo(hashOrHeight)
-                } else {
-                  tx = await client.txByIndex(Number(hashOrHeight))
-                }
-
-                if (!tx) throw new ErrTransactionNotFound()
-
-                return redirect(
-                  generatePath(RoutePath.Transaction, {
-                    block: tx.blockHeight.toString(),
-                    index: tx.transactionIndex.toString(),
-                    tab: null,
-                  })
-                )
-              },
+              loader: async ({ params }) => await client.txInfo(params.hash as string),
             },
             {
               path: RoutePath.Validator,
