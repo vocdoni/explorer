@@ -1,11 +1,11 @@
 import { keepPreviousData } from '@tanstack/react-query'
-import { RoutedPaginationProvider, useRoutedPagination } from '@vocdoni/react-providers'
 import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { BlockCard } from '~components/Blocks/BlockCard'
 import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
+import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { PaginationItemsPerPage, RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
@@ -14,7 +14,7 @@ export const BlocksFilter = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [blockHeight, setBlockHeight] = useState('')
-  const { data: stats } = useChainInfo()
+  const { data: stats, isLoading: isLoadingStats } = useChainInfo()
 
   const blockCount = stats?.height || 0
 
@@ -27,7 +27,7 @@ export const BlocksFilter = () => {
       throw new Error(t('blocks.invalid_block_search', { defaultValue: 'Must to be a valid block height' }))
     }
     navigate(generatePath(RoutePath.Block, { height: num.toString(), tab: null, page: null }))
-  }, [blockHeight, blockCount, navigate, t])
+  }, [blockHeight, blockCount])
 
   return (
     <PopoverInputSearch
@@ -57,6 +57,8 @@ export const BlocksList = () => {
   const { data: stats, isLoading: isLoadingStats } = useChainInfo({
     refetchInterval: RefreshIntervalBlocks,
   })
+
+  const blockCount = stats?.height || 0
 
   const {
     data,

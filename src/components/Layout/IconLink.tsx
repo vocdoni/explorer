@@ -1,8 +1,8 @@
-import { Box, Flex, Icon, IconProps, Link } from '@chakra-ui/react'
-import { PropsWithChildren } from 'react'
-import { IconType } from 'react-icons'
+import { Box, Flex, Icon, IconProps, Link, Text } from '@chakra-ui/react'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { PropsWithChildren } from 'react'
 import { RoutePath } from '~constants'
+import { IconType } from 'react-icons'
 import { Icons } from '~src/theme/components/Icons'
 
 export const TxIconLink = ({ block, index }: { block: number; index: number }) => (

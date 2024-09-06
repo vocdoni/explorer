@@ -1,8 +1,8 @@
-import { useTranslation } from 'react-i18next'
 import ListPageLayout from '~components/Layout/ListPageLayout'
+import { useTranslation } from 'react-i18next'
 import { PaginatedTransactionList, TransactionFilter } from '~components/Transactions/TransactionList'
-import { RefreshIntervalPagination } from '~constants'
 import { useTransactionsCount } from '~queries/transactions'
+import { RefreshIntervalPagination } from '~constants'
 
 const TransactionsList = () => {
   const { t } = useTranslation()

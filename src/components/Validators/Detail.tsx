@@ -1,13 +1,13 @@
 import { Flex, Heading, HStack, Tab, TabList, TabPanel, TabPanels, Text, VStack } from '@chakra-ui/react'
 import { ensure0x, IChainValidator } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
-import { generatePath } from 'react-router-dom'
-import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
-import { BlockIconLink } from '~components/Layout/IconLink'
 import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import { BlockIconLink } from '~components/Layout/IconLink'
 import { ValidatorName } from '~components/Validators/ValidatorCard'
+import { generatePath } from 'react-router-dom'
 import { RoutePath } from '~constants'
 
 const DetailsTab = ({ validator }: { validator: IChainValidator }) => {

@@ -1,13 +1,14 @@
 import { Flex, Grid } from '@chakra-ui/react'
-import { Pagination } from '@vocdoni/chakra-components'
-import { PaginationProvider, useElection, usePagination } from '@vocdoni/react-providers'
+import { useElection } from '@vocdoni/react-providers'
 import { PublishedElection, VoteSummary } from '@vocdoni/sdk'
 import { useTranslation } from 'react-i18next'
 import { ListDataDisplay } from '~components/Layout/AsyncList'
 import { NoResultsError } from '~components/Layout/ContentError'
+import { Pagination } from '~components/Pagination/Pagination'
+import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { useElectionVotesList } from '~queries/processes'
-import { generateListStub, PaginationStub } from '~utils/stubs'
 import { EnvelopeCard } from './EnvelopeCard'
+import { generateListStub, PaginationStub } from '~utils/stubs'
 
 export const PaginatedEnvelopeList = () => {
   const { election: e } = useElection()

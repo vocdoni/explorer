@@ -14,12 +14,13 @@ import { TFunction } from 'i18next/index'
 import { useTranslation } from 'react-i18next'
 import { BiTransferAlt } from 'react-icons/bi'
 import { generatePath } from 'react-router-dom'
-import { SmallAccountCard } from '~components/Accounts/Card'
-import { VotePackage } from '~components/Envelope/Detail'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
+import { SmallAccountCard } from '~components/Accounts/Card'
 import { RoutePath } from '~constants'
 import { b64ToHex } from '~utils/objects'
+import { VotePackage } from '~components/Envelope/Detail'
+import { VotePackageType } from '@vocdoni/chakra-components'
 
 export const processIdGridItem = (processId: string, t: TFunction): GridItemProps => {
   return {

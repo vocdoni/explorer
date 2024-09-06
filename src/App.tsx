@@ -1,10 +1,10 @@
 import { ColorModeScript } from '@chakra-ui/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ClientProvider } from '@vocdoni/chakra-components'
-import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { EnvOptions } from '@vocdoni/sdk'
-import { VocdoniEnvironment } from '~constants'
 import { RoutesProvider } from './router'
+import { VocdoniEnvironment } from '~constants'
+import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const queryClient = new QueryClient()
 

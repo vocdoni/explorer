@@ -1,5 +1,5 @@
 import { Box, Flex, Icon, IconProps, Link, Skeleton, Td, Text, Th, Thead, Tooltip, Tr } from '@chakra-ui/react'
-import { PaginationProvider, useOrganization, usePagination } from '@vocdoni/react-providers'
+import { useOrganization } from '@vocdoni/react-providers'
 import { AccountData, ITransfer } from '@vocdoni/sdk'
 import { formatDistance } from 'date-fns'
 import { Trans, useTranslation } from 'react-i18next'
@@ -7,7 +7,9 @@ import { BiLogInCircle, BiLogOutCircle } from 'react-icons/bi'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { PaginatedAsyncTable } from '~components/Layout/AsyncList'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { RoutePath } from '~constants'
+import { useDateFns } from '~i18n/use-date-fns'
 import { useAccountTransfers } from '~queries/accounts'
 import { generateListStub, PaginationStub } from '~utils/stubs'
 
@@ -32,23 +34,29 @@ const FromToIcon = ({ isIncoming, ...rest }: { isIncoming: boolean } & IconProps
   )
 }
 
-const AccountTransfers = () => (
-  <PaginationProvider>
-    <AccountTransfersTable />
-  </PaginationProvider>
-)
+const AccountTransfers = () => {
+  return (
+    <PaginationProvider>
+      <AccountTransfersTable />
+    </PaginationProvider>
+  )
+}
 
 const AccountTransfersTable = () => {
   const { page } = usePagination()
+  const { formatDistance } = useDateFns()
+  const { t } = useTranslation()
   const { organization } = useOrganization()
 
-  const txCount = organization?.transfersCount ?? 0
+  if (!organization) return null
+
+  const txCount = organization.transfersCount ?? 0
 
   const { data, isError, error, isPlaceholderData } = useAccountTransfers({
-    address: organization?.address as string,
+    address: organization.address,
     page: page,
     options: {
-      enabled: !!organization && txCount > 0,
+      enabled: txCount > 0,
       placeholderData: {
         transfers: generateListStub<ITransfer>({
           amount: 12,
@@ -62,8 +70,6 @@ const AccountTransfersTable = () => {
       },
     },
   })
-
-  if (!organization) return null
 
   return (
     <PaginatedAsyncTable

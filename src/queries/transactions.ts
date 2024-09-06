@@ -1,8 +1,8 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query'
-import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
-import { useClient } from '@vocdoni/react-providers'
-import { FetchTransactionsParametersWithPagination, IChainTxListResponse } from '@vocdoni/sdk'
 import { useChainInfo, useChainInfoOptions } from '~queries/stats'
+import { useQuery, UseQueryOptions } from '@tanstack/react-query'
+import { FetchTransactionsParametersWithPagination, IChainTxListResponse } from '@vocdoni/sdk'
+import { useClient } from '@vocdoni/react-providers'
+import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
 
 export const useTransactionList = ({
   params,

@@ -1,6 +1,6 @@
-import { useRoutedPagination } from '@vocdoni/react-providers'
 import { useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useRoutedPagination } from '~components/Pagination/PaginationProvider'
 
 export type QueryParamsType = Record<string, string>
 

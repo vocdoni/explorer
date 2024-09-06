@@ -1,8 +1,8 @@
+import { useChainCosts, useTxsCosts } from '~queries/stats'
 import { useTranslation } from 'react-i18next'
+import { Icons } from '~src/theme/components/Icons'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { StatsModalWrapper } from '~components/Stats/StatsCardWrapper'
-import { useTxsCosts } from '~queries/stats'
-import { Icons } from '~src/theme/components/Icons'
 
 export const TxCostsModal = () => {
   const { t } = useTranslation()

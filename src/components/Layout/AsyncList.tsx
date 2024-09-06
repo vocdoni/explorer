@@ -1,8 +1,15 @@
 import { Box, Table, TableContainer, Tbody } from '@chakra-ui/react'
+import { PaginationResponse } from '@vocdoni/sdk'
 import { PropsWithChildren, ReactNode, useMemo } from 'react'
 import { ContentError, NoResultsError } from '~components/Layout/ContentError'
 import { LoadingCards, SkeletonCardsProps } from '~components/Layout/Loading'
-import { AsyncListPaginationProps, PaginatorSelector } from './RoutedPagination'
+import { Pagination } from '~components/Pagination/Pagination'
+import { RoutedPagination } from '~components/Pagination/RoutedPagination'
+
+type AsyncListPaginationProps = {
+  pagination?: Pick<PaginationResponse, 'pagination'>['pagination']
+  routedPagination?: boolean
+}
 
 type AsyncListLayoutProps<T> = {
   elements?: T[] | null | undefined
@@ -12,6 +19,12 @@ type AsyncListLayoutProps<T> = {
   skeletonProps?: SkeletonCardsProps
   isLoading?: boolean
 } & PropsWithChildren
+
+const PaginatorSelector = ({ routedPagination = true, pagination }: AsyncListPaginationProps) => {
+  if (!pagination) return null
+  if (routedPagination) return <RoutedPagination pagination={pagination} />
+  return <Pagination pagination={pagination} />
+}
 
 export const ListDataDisplay = <T,>({ elements, isError, error, noResultsMsg, children }: AsyncListLayoutProps<T>) => {
   if (isError) {
@@ -37,14 +50,14 @@ export const PaginatedAsyncList = <T,>({
   component: React.ComponentType<{ element: T; index: number }>
 } & AsyncListLayoutProps<T> &
   AsyncListPaginationProps) => {
-  const memoizedComponents = useMemo(
-    () => elements?.map((element, index) => <Component key={index} element={element} index={index} />),
-    [Component, elements]
-  )
-
   if (isLoading) {
     return <LoadingCards spacing={4} {...skeletonProps} />
   }
+
+  const memoizedComponents = useMemo(
+    () => elements?.map((element, index) => <Component key={index} element={element} index={index} />),
+    [elements]
+  )
 
   return (
     <ListDataDisplay elements={elements} {...rest}>
@@ -71,7 +84,7 @@ export const PaginatedAsyncTable = <T,>({
   AsyncListPaginationProps) => {
   const memoizedComponents = useMemo(
     () => elements?.map((element, index) => <Component key={index} element={element} index={index} />),
-    [Component, elements]
+    [elements]
   )
 
   return (

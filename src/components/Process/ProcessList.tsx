@@ -12,18 +12,18 @@ import {
   PopoverTrigger,
 } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
-import { useRoutedPagination } from '@vocdoni/react-providers'
 import { FetchElectionsParameters } from '@vocdoni/sdk'
-import { useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { LuListFilter } from 'react-icons/lu'
-import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 import { InputSearch } from '~components/Layout/Inputs'
+import { useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { useProcessList } from '~queries/processes'
-import { useRoutedPaginationQueryParams } from '~src/router/use-query-params'
 import { isEmpty } from '~utils/objects'
-import { isValidPartialProcessId } from '~utils/strings'
 import { ElectionCard } from './Card'
+import { LuListFilter } from 'react-icons/lu'
+import { isValidPartialProcessId } from '~utils/strings'
+import { useState } from 'react'
+import { useRoutedPaginationQueryParams } from '~src/router/use-query-params'
+import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 
 type FilterQueryParams = {
   [K in keyof Omit<FetchElectionsParameters, 'organizationId'>]: string

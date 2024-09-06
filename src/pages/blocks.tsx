@@ -1,7 +1,7 @@
-import { useTranslation } from 'react-i18next'
-import { BlocksFilter, PaginatedBlocksList } from '~components/Blocks/BlocksList'
 import ListPageLayout from '~components/Layout/ListPageLayout'
+import { useTranslation } from 'react-i18next'
 import { useChainInfo } from '~queries/stats'
+import { BlocksFilter, PaginatedBlocksList } from '~components/Blocks/BlocksList'
 
 const BlocksList = () => {
   const { t } = useTranslation()

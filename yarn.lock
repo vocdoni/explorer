@@ -1974,12 +1974,12 @@
     magic-string "^0.27.0"
     react-refresh "^0.14.0"
 
-"@vocdoni/chakra-components@~0.9.2":
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@vocdoni/chakra-components/-/chakra-components-0.9.2.tgz#9c172b8e9abc06ed619bc73690399ac1f345b9fe"
-  integrity sha512-Rmj9bK4oTv/+cTwvXLoJHb1EegLk68Ga4p/VXx7iQLWkxYH+GeTKZ0C/lhh0qQ038olr2/wel1ZXIjz74d94lA==
+"@vocdoni/chakra-components@~0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@vocdoni/chakra-components/-/chakra-components-0.9.0.tgz#b604dd153d731a389060b9c4d2253aad656a6bc2"
+  integrity sha512-e3+TAYPVWtaY4T9BdK+pGUtsb+SRXriM1cZujdDSmDu7pR797g6EmisvoHc/nhTBeuE3JNOKBCem0oVmulHgLA==
   dependencies:
-    "@vocdoni/react-providers" "~0.5.1"
+    "@vocdoni/react-providers" "~0.5.0"
 
 "@vocdoni/extended-sdk@~0.2.0":
   version "0.2.0"
@@ -1994,10 +1994,10 @@
     long "^5.2.1"
     protobufjs "^7.1.2"
 
-"@vocdoni/react-providers@~0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@vocdoni/react-providers/-/react-providers-0.5.1.tgz#c7e05c6adc54e76e0aa6165d6c330f7836985705"
-  integrity sha512-YYH1kO/F/BcJQTpfCnt862TruYPoeEu/KlcnZ2WcRMKgotxFzMi8/Sr38TGnYM1bkN1s2PattX1nRn2DUTCtig==
+"@vocdoni/react-providers@~0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@vocdoni/react-providers/-/react-providers-0.5.0.tgz#454cfc699f5397367ce2f7e53788f2cca11ae756"
+  integrity sha512-WFwHkMJEB4V9UvShIY9EzbbQTXPt8+CSqs994jvV/AL7fp9St/MWRBcSTzUVar/bBzewvTY/CVt1OMQ82bi3tQ==
 
 "@vocdoni/sdk@~0.9.0":
   version "0.9.0"
@@ -5206,16 +5206,7 @@ streamx@^2.12.0, streamx@^2.12.5, streamx@^2.13.2, streamx@^2.14.0:
   optionalDependencies:
     bare-events "^2.2.0"
 
-"string-width-cjs@npm:string-width@^4.2.0":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
-  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
-  dependencies:
-    emoji-regex "^8.0.0"
-    is-fullwidth-code-point "^3.0.0"
-    strip-ansi "^6.0.1"
-
-string-width@^4.1.0:
+"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -5247,14 +5238,7 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
-  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
-  dependencies:
-    ansi-regex "^5.0.1"
-
-strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==

@@ -1,12 +1,12 @@
 import { Flex } from '@chakra-ui/react'
 import { keepPreviousData } from '@tanstack/react-query'
-import { RoutedPaginationProvider, useRoutedPagination } from '@vocdoni/react-providers'
 import { IChainTxListResponse } from '@vocdoni/sdk'
 import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
+import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { TransactionCard } from '~components/Transactions/TransactionCard'
 import { RoutePath } from '~constants'
 import { useBlockTransactions } from '~queries/blocks'
@@ -28,7 +28,7 @@ export const TransactionFilter = () => {
       throw new Error(t('transactions.invalid_tx_search', { defaultValue: 'Must to be a valid tx hash' }))
     }
     navigate(generatePath(RoutePath.TransactionByHash, { hash: txHash, tab: null }))
-  }, [data, txHash, navigate, t])
+  }, [txHash, data])
 
   return (
     <PopoverInputSearch

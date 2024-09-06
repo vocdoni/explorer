@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Code, Stack } from '@chakra-ui/react'
+import { Alert, AlertIcon, Code, Stack, Text } from '@chakra-ui/react'
 import { Trans, useTranslation } from 'react-i18next'
 
 export const NoResultsError = ({ msg }: { msg?: string }) => {

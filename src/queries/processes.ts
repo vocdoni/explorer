@@ -8,9 +8,9 @@ import {
   IElectionKeysResponse,
   IVoteListResponse,
 } from '@vocdoni/sdk'
-import { PaginationItemsPerPage } from '~constants'
 import { useChainInfo, useChainInfoOptions } from '~queries/stats'
 import { isValidPartialProcessId } from '~utils/strings'
+import { PaginationItemsPerPage } from '~constants'
 
 export const useProcessList = ({
   filters,

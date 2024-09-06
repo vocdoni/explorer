@@ -1,8 +1,9 @@
-import { Flex, Heading } from '@chakra-ui/react'
+import { Flex, Heading, Text } from '@chakra-ui/react'
 import { useParams, useRouteError } from 'react-router-dom'
-import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import ShowRawButton from '~components/Layout/ShowRawButton'
 import RouteError from '~src/router/errors/RouteError'
+import { PublishedElection } from '@vocdoni/sdk'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 
 export const ElectionError = () => {
   const error = useRouteError() as Error & { raw?: unknown; electionId: string }
