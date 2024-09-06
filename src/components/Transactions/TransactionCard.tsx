@@ -15,7 +15,10 @@ export const TransactionTypeBadge = ({ transactionType }: { transactionType: str
   )
 }
 
-export const TransactionCard = ({ index, hash, height, subtype }: IChainTxReference) => {
+export const TransactionCard = ({ index, hash, height, subtype, type }: IChainTxReference) => {
+  let _type = subtype
+  if (!subtype || subtype === '') _type = type
+
   return (
     <LinkCard
       to={generatePath(RoutePath.Transaction, {
@@ -27,7 +30,7 @@ export const TransactionCard = ({ index, hash, height, subtype }: IChainTxRefere
       <CardBody>
         <Flex gap={3} direction={'column'}>
           <Flex gap={2}>
-            <TransactionTypeBadge transactionType={subtype} />
+            <TransactionTypeBadge transactionType={_type} />
           </Flex>
 
           <Flex align='center' gap={2}>

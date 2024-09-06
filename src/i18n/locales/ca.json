@@ -237,6 +237,7 @@
     "on_block_n": "Al Bloc {{height}}",
     "send_tokens_from": "De",
     "send_tokens_to": "A",
+    "subtype": "Subtipus",
     "tokens_transferred": "Tokens transferits",
     "transactions_list": "Transaccions",
     "tx_count_one": "Total {{count}} transacció",

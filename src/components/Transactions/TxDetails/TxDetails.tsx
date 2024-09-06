@@ -12,6 +12,11 @@ import { useBlockToDate } from '~queries/stats'
 export const TxDetailsGrid = (tx: Tx) => {
   const blockHeight = tx.txInfo.height
   const txIndex = tx.txInfo.index
+  const type = tx.txInfo.type
+  let subtype = ''
+  if (tx.txInfo.subtype && tx.txInfo.subtype !== '' && tx.txInfo.subtype !== type) {
+    subtype = tx.txInfo.subtype
+  }
 
   const { data } = useBlockToDate({ height: blockHeight })
   const { t } = useTranslation()
@@ -32,6 +37,14 @@ export const TxDetailsGrid = (tx: Tx) => {
       label: t('transactions.tx_type', { defaultValue: 'Transaction type' }),
       children: !!txType ? <TransactionTypeBadge transactionType={txType} /> : null,
     },
+    ...(subtype
+      ? [
+          {
+            label: t('transactions.subtype', { defaultValue: 'Subtype' }),
+            children: <TransactionTypeBadge transactionType={subtype} />,
+          },
+        ]
+      : []),
     ...(timestamp
       ? [
           {
