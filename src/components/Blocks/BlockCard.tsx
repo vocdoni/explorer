@@ -17,10 +17,7 @@ interface IBlockCardProps {
 export const BlockCard = ({ block, compact = false }: IBlockCardProps) => {
   const { formatDistance } = useDateFns()
 
-  const height = block.height
-  const time = block.time
-  const proposer = block.proposer
-  const txn = block.txCount
+  const { height, time, proposer, txCount } = block
 
   const date = new Date(time)
 
@@ -33,7 +30,7 @@ export const BlockCard = ({ block, compact = false }: IBlockCardProps) => {
             <HStack spacing={1}>
               <Icon as={Icons.TxIcon} boxSize={5} />
               <Text fontSize={'sm'} fontWeight={'bold'}>
-                {txn}
+                {txCount}
               </Text>
             </HStack>
             <Text fontWeight={100} color={'lighterText'}>
