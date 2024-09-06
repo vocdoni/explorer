@@ -245,7 +245,7 @@
     "tx_count_other": "Total {{count}} transaccions",
     "tx_hash": "Hash de la Transacció",
     "tx_index": "Index de la Transacció",
-    "tx_title": "Transacció #{{number}}",
+    "tx_title": "Detalls de la Transacció",
     "tx_type": "Tipus de Transacció",
     "vote_package": "Paquet de vot:",
     "vote_sense": "Sentit del vot",

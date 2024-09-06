@@ -34,8 +34,7 @@ export const TransactionDetail = (tx: Tx) => {
       <VStack align='start'>
         <Heading isTruncated wordBreak='break-word' mb={0}>
           <Trans i18nKey={'transactions.tx_title'} number={tx.txInfo.index}>
-            // todo(sdkbump)
-            {/*Transaction #{{ number: tx.txInfo.transactionNumber }}*/}
+            Transaction details
           </Trans>
         </Heading>
         {createdOn && (

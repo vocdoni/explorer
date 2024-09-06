@@ -234,7 +234,7 @@
     "tx_count_other": "Total {{ count }} transactions",
     "tx_hash": "Transaction hash",
     "tx_index": "Transaction index",
-    "tx_title": "Transaction #{{ number }}",
+    "tx_title": "Transaction details",
     "tx_type": "Transaction type",
     "vote_package": "Vote package:",
     "vote_sense": "Vote sense",

@@ -245,7 +245,7 @@
     "tx_count_other": "Total {{ count }} transacciones",
     "tx_hash": "Hash de la transacción ",
     "tx_index": "Índice de la transacción ",
-    "tx_title": "Transacción #{{number}}",
+    "tx_title": "Detalles de la Transacción",
     "tx_type": "Tipo de transacción ",
     "vote_package": "Paquete de votos:",
     "vote_sense": "Sentido del voto",
