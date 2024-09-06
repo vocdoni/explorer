@@ -1,5 +1,5 @@
-import { useLoaderData, useParams } from 'react-router-dom'
 import { ensure0x, IChainValidator, IChainValidatorsListResponse } from '@vocdoni/sdk'
+import { useLoaderData, useParams } from 'react-router-dom'
 import { ValidatorDetail } from '~components/Validators/Detail'
 
 const Validator = () => {

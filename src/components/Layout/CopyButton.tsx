@@ -64,8 +64,9 @@ export const ReducedTextAndCopy = ({
   ...rest
 }: ReducedTextAndCopyProps) => {
   let text = children
+  const bpv = useBreakpointValue(breakPoint)
   // If breakpoint is true and the length of the string is more than 13 it shorts the string
-  if (breakPoint && useBreakpointValue(breakPoint) && children.length > 13) {
+  if (breakPoint && bpv && children.length > 13) {
     text = shortStr(children)
   }
 

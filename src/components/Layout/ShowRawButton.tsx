@@ -13,11 +13,10 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
+import { FaCode } from 'react-icons/fa'
 import { CopyButtonIcon } from '~components/Layout/CopyButton'
 import { JsonViewer } from '~components/Layout/JsonViewer'
-import { useTranslation } from 'react-i18next'
-import { FaCode } from 'react-icons/fa'
 
 const ShowRawButton = ({ obj, ...props }: { obj: object } & Omit<ButtonProps, 'onClick'>) => {
   const { getDisclosureProps, getButtonProps } = useDisclosure()

@@ -1,7 +1,7 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
-import { VoteInfoResponse } from '@vocdoni/sdk'
-import { useClient } from '@vocdoni/react-providers'
 import { ExtendedSDKClient } from '@vocdoni/extended-sdk'
+import { useClient } from '@vocdoni/react-providers'
+import { VoteInfoResponse } from '@vocdoni/sdk'
 
 export const useVoteInfo = ({
   verifier,
