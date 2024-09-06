@@ -1,10 +1,12 @@
-import { Box, CardBody, Flex, Icon, Tag } from '@chakra-ui/react'
+import { Box, CardBody, Flex, Icon, Tag, Text } from '@chakra-ui/react'
 import { IChainTxReference } from '@vocdoni/sdk'
 import { generatePath } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { BlockIconLink } from '~components/Layout/IconLink'
 import LinkCard from '~components/Layout/LinkCard'
 import { RoutePath } from '~constants'
+import { useDateFns } from '~i18n/use-date-fns'
+import { useBlockToDate } from '~queries/stats'
 import { Icons } from '~src/theme/components/Icons'
 
 export const TransactionTypeBadge = ({ transactionType }: { transactionType: string }) => {
@@ -16,8 +18,16 @@ export const TransactionTypeBadge = ({ transactionType }: { transactionType: str
 }
 
 export const TransactionCard = ({ index, hash, height, subtype, type }: IChainTxReference) => {
+  const { formatDistance } = useDateFns()
+
   let _type = subtype
   if (!subtype || subtype === '') _type = type
+
+  const { data } = useBlockToDate({ height })
+  let date: Date | undefined
+  if (data?.date) {
+    date = new Date(data.date)
+  }
 
   return (
     <LinkCard
@@ -31,6 +41,11 @@ export const TransactionCard = ({ index, hash, height, subtype, type }: IChainTx
         <Flex gap={3} direction={'column'}>
           <Flex gap={2}>
             <TransactionTypeBadge transactionType={_type} />
+            {date && (
+              <Text fontWeight={100} color={'lighterText'}>
+                {formatDistance(date, new Date())}
+              </Text>
+            )}
           </Flex>
 
           <Flex align='center' gap={2}>

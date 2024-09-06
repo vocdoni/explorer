@@ -14,7 +14,7 @@ export const TxDetailsGrid = (tx: Tx) => {
   const txIndex = tx.txInfo.index
   const type = tx.txInfo.type
   let subtype = ''
-  if (tx.txInfo.subtype && tx.txInfo.subtype !== '' && tx.txInfo.subtype !== type) {
+  if (tx.txInfo.subtype && tx.txInfo.subtype !== '') {
     subtype = tx.txInfo.subtype
   }
 
