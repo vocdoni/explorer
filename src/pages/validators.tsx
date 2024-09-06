@@ -1,9 +1,9 @@
-import ListPageLayout from '~components/Layout/ListPageLayout'
+import { IChainValidatorsListResponse } from '@vocdoni/sdk'
 import { useTranslation } from 'react-i18next'
 import { useLoaderData } from 'react-router-dom'
-import { IChainValidatorsListResponse } from '@vocdoni/sdk'
-import { ValidatorCard } from '~components/Validators/ValidatorCard'
 import { PaginatedAsyncList } from '~components/Layout/AsyncList'
+import ListPageLayout from '~components/Layout/ListPageLayout'
+import { ValidatorCard } from '~components/Validators/ValidatorCard'
 
 const Validators = () => {
   const validators = (useLoaderData() as IChainValidatorsListResponse).validators

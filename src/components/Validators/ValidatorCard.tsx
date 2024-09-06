@@ -1,10 +1,10 @@
 import { CardBody, Flex, HStack, Text } from '@chakra-ui/react'
-import { Trans } from 'react-i18next'
-import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
-import { generatePath } from 'react-router-dom'
-import { RoutePath } from '~constants'
-import LinkCard from '~components/Layout/LinkCard'
 import { IChainValidator } from '@vocdoni/sdk'
+import { Trans } from 'react-i18next'
+import { generatePath } from 'react-router-dom'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import LinkCard from '~components/Layout/LinkCard'
+import { RoutePath } from '~constants'
 
 export const ValidatorName = ({ name, useCopy, address }: { name?: string; useCopy?: boolean; address: string }) => {
   const showName = !!name

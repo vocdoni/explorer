@@ -1,13 +1,13 @@
-import ListPageLayout from '~components/Layout/ListPageLayout'
+import { RoutedPaginationProvider } from '@vocdoni/react-providers'
 import { useTranslation } from 'react-i18next'
-import { useProcessesCount } from '~queries/processes'
+import ListPageLayout from '~components/Layout/ListPageLayout'
 import {
   ProcessList as PaginatedProcessList,
   ProcessByTypeFilter,
   ProcessSearchBox,
 } from '~components/Process/ProcessList'
 import { RefreshIntervalPagination, RoutePath } from '~constants'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { useProcessesCount } from '~queries/processes'
 
 const ProcessList = () => {
   const { t } = useTranslation()

@@ -1,12 +1,12 @@
 import { Badge, HStack, Text, VStack } from '@chakra-ui/react'
 import { Trans, useTranslation } from 'react-i18next'
-import { useChainInfo } from '~queries/stats'
-import { useDateFns } from '~i18n/use-date-fns'
 import { MdSpeed } from 'react-icons/md'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
-import { StatsCardWrapper } from '~components/Stats/StatsCardWrapper'
-import { TxCostsModal } from '~components/Stats/ChainDetails/TxCosts'
 import { PriceFactorsModal } from '~components/Stats/ChainDetails/PriceFactors'
+import { TxCostsModal } from '~components/Stats/ChainDetails/TxCosts'
+import { StatsCardWrapper } from '~components/Stats/StatsCardWrapper'
+import { useDateFns } from '~i18n/use-date-fns'
+import { useChainInfo } from '~queries/stats'
 
 const SyncBadge = ({ syncing }: { syncing: boolean }) => {
   const { t } = useTranslation()

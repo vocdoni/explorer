@@ -23,12 +23,9 @@ import {
 } from '@chakra-ui/react'
 import { PropsWithChildren } from 'react'
 import { IconType } from 'react-icons'
-import { RawModal } from '~components/Layout/ShowRawButton'
 import { ContentError, ContentErrorType } from '~components/Layout/ContentError'
-import { useTranslation } from 'react-i18next/index'
-import { useChainCosts } from '~queries/stats'
+import { RawModal } from '~components/Layout/ShowRawButton'
 import { Icons } from '~src/theme/components/Icons'
-import { IoIosPricetag } from 'react-icons/io'
 
 interface StatisticsCardProps {
   title: string
