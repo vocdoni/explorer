@@ -128,7 +128,7 @@ const TransfersRow = ({
               toCopy={transfer.txHash}
               fontWeight={'normal'}
               fontSize={'sm'}
-              to={generatePath(RoutePath.TransactionByHashOrHeight, { hashOrHeight: transfer.txHash })}
+              to={generatePath(RoutePath.TransactionByHash, { hash: transfer.txHash, tab: null })}
             >
               {transfer.txHash}
             </ReducedTextAndCopy>

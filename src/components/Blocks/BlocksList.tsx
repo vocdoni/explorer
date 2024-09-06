@@ -3,12 +3,12 @@ import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { BlockCard } from '~components/Blocks/BlockCard'
+import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 import { PopoverInputSearch } from '~components/Layout/Inputs'
 import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
 import { PaginationItemsPerPage, RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
-import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 
 export const BlocksFilter = () => {
   const { t } = useTranslation()
@@ -67,7 +67,6 @@ export const BlocksList = () => {
     error,
   } = useBlockList({
     params: {
-      totalItems: blockCount,
       page: page,
       limit: PaginationItemsPerPage,
     },

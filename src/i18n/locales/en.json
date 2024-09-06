@@ -220,7 +220,7 @@
     "error_parsing_vote_package": "Vote package may be encrypted",
     "go_to_tx": "Go to transaction",
     "invalid_tx_count": "Invalid chain transactions count",
-    "invalid_tx_search": "Must to be a valid tx hash or index",
+    "invalid_tx_search": "Must to be a valid tx hash",
     "not_found": "Transaction not found",
     "not_found_message": "The transaction you are trying to access is not found",
     "on_block": "On block {{block}}",

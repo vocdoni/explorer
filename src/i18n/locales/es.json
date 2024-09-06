@@ -230,7 +230,7 @@
     "error_parsing_vote_package": "El paquete de votos puede estar cifrado",
     "go_to_tx": "Ir a la transacción",
     "invalid_tx_count": "Conteo de transacciones no válidas de la cadena",
-    "invalid_tx_search": "Debe ser un hash de Tx o un índice válido",
+    "invalid_tx_search": "Debe ser un hash de Tx",
     "not_found": "Transacción no encontrada",
     "not_found_message": "La transacción a la que estás intentando acceder no se ha encontrado",
     "on_block": "En el bloque {{block}}",

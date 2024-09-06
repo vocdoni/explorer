@@ -1,10 +1,8 @@
-import { Box, Card, CardBody, Flex, Link, HStack, Icon, Text } from '@chakra-ui/react'
-import { BlockError, BlockNotFoundError } from '@vocdoni/extended-sdk'
-import { IChainBlockInfoResponse } from '@vocdoni/sdk'
-import { Trans, useTranslation } from 'react-i18next'
-import { BiTransferAlt } from 'react-icons/bi'
+import { Box, CardBody, Flex, HStack, Icon, Text } from '@chakra-ui/react'
+import { IBlock } from '@vocdoni/sdk'
+import { Trans } from 'react-i18next'
 
-import { generatePath, Link as RouterLink } from 'react-router-dom'
+import { generatePath } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import LinkCard from '~components/Layout/LinkCard'
 import { RoutePath } from '~constants'
@@ -12,19 +10,16 @@ import { useDateFns } from '~i18n/use-date-fns'
 import { Icons } from '~src/theme/components/Icons'
 
 interface IBlockCardProps {
-  block: IChainBlockInfoResponse | BlockError
+  block: IBlock
   compact?: boolean
 }
 
 export const BlockCard = ({ block, compact = false }: IBlockCardProps) => {
   const { formatDistance } = useDateFns()
-  if (block instanceof BlockError) return <BlockErrorCard error={block} height={block.height} />
 
-  const height = block.header.height
-  const time = block.header.time
-  const proposer = block.header.proposerAddress
-  // Not on the SDK yet
-  // @ts-ignore
+  const height = block.height
+  const time = block.time
+  const proposer = block.proposer
   const txn = block.txCount
 
   const date = new Date(time)
@@ -60,23 +55,5 @@ export const BlockCard = ({ block, compact = false }: IBlockCardProps) => {
         </Flex>
       </CardBody>
     </LinkCard>
-  )
-}
-
-const BlockErrorCard = ({ height, error }: { height: number; error: BlockError }) => {
-  const { t } = useTranslation()
-
-  let message = error.message
-  if (error instanceof BlockNotFoundError) {
-    message = t('blocks.block_not_found')
-  }
-
-  return (
-    <Card>
-      <CardBody>
-        <Text fontWeight='bold'># {height}</Text>
-        <Text wordBreak='break-word'>{message}</Text>
-      </CardBody>
-    </Card>
   )
 }

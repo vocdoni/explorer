@@ -3,11 +3,11 @@ import { keepPreviousData } from '@tanstack/react-query'
 import { Trans } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { BlockCard } from '~components/Blocks/BlockCard'
+import { ContentError } from '~components/Layout/ContentError'
 import { LoadingCards } from '~components/Layout/Loading'
 import { RoutePath } from '~constants'
 import { useBlockList } from '~queries/blocks'
 import { useChainInfo } from '~queries/stats'
-import { ContentError } from '~components/Layout/ContentError'
 
 export const LatestBlocks = () => {
   const blockListSize = 3
@@ -22,7 +22,6 @@ export const LatestBlocks = () => {
     params: {
       page: 0,
       limit: blockListSize,
-      totalItems: stats?.height ?? 0,
     },
     enabled: !!stats?.height,
     placeholderData: keepPreviousData,

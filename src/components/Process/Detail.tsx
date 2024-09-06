@@ -26,18 +26,18 @@ import {
 import { useElection } from '@vocdoni/react-providers'
 import { ElectionStatus, IElectionInfoResponse, InvalidElection as InvalidElectionType } from '@vocdoni/sdk'
 import { Trans, useTranslation } from 'react-i18next'
-import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
-import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
-import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { AccountCard } from '~components/Accounts/Card'
 import { ElectionStatusBadge } from '~components/Accounts/StatusBadge'
+import { PaginatedEnvelopeList } from '~components/Envelope/EnvelopeList'
+import { NoResultsError } from '~components/Layout/ContentError'
+import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
+import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
+import { RawContentBox } from '~components/Layout/ShowRawButton'
 import InvalidElection from '~components/Process/InvalidElection'
 import { FallbackHeaderImg, RoutePath } from '~constants'
 import { useElectionKeys } from '~queries/processes'
 import { ucfirst } from '~utils/strings'
-import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
-import { NoResultsError } from '~components/Layout/ContentError'
-import { PaginatedEnvelopeList } from '~components/Envelope/EnvelopeList'
 
 const Detail = () => {
   const { election } = useElection()
@@ -52,9 +52,6 @@ const Detail = () => {
 
   const raw = election.raw as IElectionInfoResponse
   const censusOrigin = ucfirst(raw.census.censusOrigin.replace('_', ' ').toLocaleLowerCase())
-  const autoStart = raw.electionMode.autoStart
-    ? t('processes.process_mode_badge.autostart')
-    : t('processes.process_mode_badge.notAutostart')
   const encryptedVotes = raw.voteMode.encryptedVotes
     ? t('processes.envelope_type_badge.encrypted_votes')
     : t('processes.envelope_type_badge.not_encrypted_votes')
@@ -96,18 +93,12 @@ const Detail = () => {
       {/*Information tags */}
       <Flex wrap={'wrap'} gap={2}>
         <QuestionsTypeBadge />
-        {election.fromArchive && (
-          <Tag variant={'vocdoni'}>
-            <Trans i18nKey={'process.badge.archive'}>From archive</Trans>
-          </Tag>
-        )}
         {raw.voteMode.anonymous && (
           <Tag variant={'vocdoni'}>
             <Trans i18nKey={'process.badge.anonymous'}>Anonymous</Trans>
           </Tag>
         )}
         <Tag variant={'vocdoni'}>{censusOrigin}</Tag>
-        <Tag variant={'vocdoni'}>{autoStart}</Tag>
         <Tag variant={'vocdoni'}>{encryptedVotes}</Tag>
       </Flex>
       {/*Organization card and other cards*/}

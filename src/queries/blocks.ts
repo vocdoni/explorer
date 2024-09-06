@@ -1,19 +1,15 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
-import {
-  BlockListParametersWithPagination,
-  BlockListResponseWithPagination,
-  ExtendedSDKClient,
-} from '@vocdoni/extended-sdk'
+import { BlockListQueryParamsWithPagination, ExtendedSDKClient } from '@vocdoni/extended-sdk'
 import { useClient } from '@vocdoni/react-providers'
-import { IChainTxListResponse } from '@vocdoni/sdk'
+import { IChainBlocksListResponse, IChainTxListResponse } from '@vocdoni/sdk'
 import { useChainInfo, useChainInfoOptions } from '~queries/stats'
 
 export const useBlockList = ({
   params,
   ...options
 }: {
-  params: BlockListParametersWithPagination
-} & Omit<UseQueryOptions<BlockListResponseWithPagination>, 'queryKey'>) => {
+  params: BlockListQueryParamsWithPagination
+} & Omit<UseQueryOptions<IChainBlocksListResponse>, 'queryKey'>) => {
   const { client } = useClient<ExtendedSDKClient>()
 
   return useQuery({

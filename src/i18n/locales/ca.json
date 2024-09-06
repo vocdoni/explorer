@@ -230,7 +230,7 @@
     "error_parsing_vote_package": "El paquet de vots pot estar encriptat",
     "go_to_tx": "Anar a la transacció",
     "invalid_tx_count": "Nombre de transaccions no vàlides en la cadena",
-    "invalid_tx_search": "Ha de ser un hash de tx o un índex vàlid",
+    "invalid_tx_search": "Ha de ser un hash de tx",
     "not_found": "Transacció no trobada",
     "not_found_message": "La transacció que estàs intentant accedir no s'ha trobat",
     "on_block": "En el bloc {{block}}",

@@ -6,21 +6,22 @@ import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
 import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
 import { RoutePath } from '~constants'
-import { useBlockToDate } from '~queries/stats'
 import { useDateFns } from '~i18n/use-date-fns'
+import { useBlockToDate } from '~queries/stats'
 
 export const TxDetailsGrid = (tx: Tx) => {
-  const { data } = useBlockToDate({ height: tx.txInfo.blockHeight })
+  const blockHeight = tx.txInfo.height
+  const txIndex = tx.txInfo.index
+
+  const { data } = useBlockToDate({ height: blockHeight })
   const { t } = useTranslation()
   const { format } = useDateFns()
   let timestamp = ''
   if (data) {
     timestamp = format(new Date(data.date), 'PPPpp')
   }
-  const blockHeight = tx.txInfo.blockHeight
-  const txIndex = tx.txInfo.transactionIndex
 
-  const txHash = ensure0x(tx.txInfo.transactionHash)
+  const txHash = ensure0x(tx.txInfo.hash)
   let txType: TransactionType | undefined = undefined
   if (tx.tx) {
     txType = Object.keys(tx.tx)[0] as TransactionType
