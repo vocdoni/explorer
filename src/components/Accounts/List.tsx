@@ -1,11 +1,11 @@
 import { keepPreviousData } from '@tanstack/react-query'
+import { useRoutedPagination } from '@vocdoni/react-providers'
 import { useTranslation } from 'react-i18next'
-import { InputSearch } from '~components/Layout/Inputs'
 import { AccountCard } from '~components/Accounts/Card'
-import { useRoutedPagination } from '~components/Pagination/PaginationProvider'
+import { PaginatedAsyncList } from '~components/Layout/AsyncList'
+import { InputSearch } from '~components/Layout/Inputs'
 import { useOrganizationList } from '~queries/accounts'
 import { useRoutedPaginationQueryParams } from '~src/router/use-query-params'
-import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 
 type FilterQueryParams = {
   accountId?: string

@@ -4,8 +4,8 @@ import { OrganizationProvider, useOrganization } from '@vocdoni/react-providers'
 import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
-import { FallbackAccountImg, RoutePath } from '~constants'
 import LinkCard from '~components/Layout/LinkCard'
+import { FallbackAccountImg, RoutePath } from '~constants'
 
 type IAccountCardProps = {
   id?: string

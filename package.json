@@ -18,7 +18,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@tanstack/react-query": "^5.40.0",
-    "@vocdoni/chakra-components": "~0.9.0",
+    "@vocdoni/chakra-components": "~0.9.1",
     "@vocdoni/extended-sdk": "~0.2.0",
     "@vocdoni/sdk": "~0.9.0",
     "date-fns": "^2.29.3",

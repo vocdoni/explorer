@@ -1,29 +1,10 @@
-import { useChainCosts } from '~queries/stats'
+import { Text, VStack } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { IoIosPricetag } from 'react-icons/io'
-import {
-  Box,
-  Button,
-  HStack,
-  Icon,
-  IconButton,
-  Link,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Text,
-  useDisclosure,
-  VStack,
-} from '@chakra-ui/react'
-import { DetailsGrid } from '~components/Layout/DetailsGrid'
-import { Icons } from '~src/theme/components/Icons'
 import { ContentError } from '~components/Layout/ContentError'
-import { RawModal } from '~components/Layout/ShowRawButton'
+import { DetailsGrid } from '~components/Layout/DetailsGrid'
 import { StatsModalWrapper } from '~components/Stats/StatsCardWrapper'
+import { useChainCosts } from '~queries/stats'
 
 export const PriceFactorsModal = () => {
   const { t } = useTranslation()

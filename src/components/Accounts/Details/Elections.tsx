@@ -1,12 +1,11 @@
 import { Flex } from '@chakra-ui/react'
+import { RoutedPaginationProvider, useOrganization, useRoutedPagination } from '@vocdoni/react-providers'
 import { useTranslation } from 'react-i18next'
-import { RoutedPaginationProvider, useRoutedPagination } from '~components/Pagination/PaginationProvider'
+import { PaginatedAsyncList } from '~components/Layout/AsyncList'
+import { NoResultsError } from '~components/Layout/ContentError'
 import { ElectionCard } from '~components/Process/Card'
 import { RoutePath } from '~constants'
 import { useOrganizationElections } from '~queries/accounts'
-import { NoResultsError } from '~components/Layout/ContentError'
-import { useOrganization } from '@vocdoni/react-providers'
-import { PaginatedAsyncList } from '~components/Layout/AsyncList'
 
 const AccountElections = () => {
   const { t } = useTranslation()
@@ -29,15 +28,14 @@ const AccountElectionsList = () => {
   const { page }: { page?: number } = useRoutedPagination()
   const { organization } = useOrganization()
 
-  if (!organization) return null
-
   const { data, isLoading, isError, error } = useOrganizationElections({
-    address: organization.address,
+    address: organization?.address as string,
     page: page,
     options: {
-      enabled: !!organization.address,
+      enabled: !!organization?.address,
     },
   })
+  if (!organization) return null
 
   return (
     <Flex direction={'column'} gap={4}>

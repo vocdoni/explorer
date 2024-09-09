@@ -1,12 +1,12 @@
-import { IconType } from 'react-icons'
 import { Box, Card, CardBody, Flex, Grid, Heading, Icon, Link, Stack, Text } from '@chakra-ui/react'
-import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { useChainInfo } from '~queries/stats'
-import { RefreshIntervalBlocks, RoutePath } from '~constants'
 import { useTranslation } from 'react-i18next'
-import { Icons } from '~src/theme/components/Icons'
+import { IconType } from 'react-icons'
+import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { ContentError } from '~components/Layout/ContentError'
+import { RefreshIntervalBlocks, RoutePath } from '~constants'
+import { useChainInfo } from '~queries/stats'
+import { Icons } from '~src/theme/components/Icons'
 
 interface IStatsCardProps {
   title: string

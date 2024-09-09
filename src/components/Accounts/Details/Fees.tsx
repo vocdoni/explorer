@@ -1,35 +1,30 @@
 import { Flex, Link, Skeleton, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
-import { useOrganization } from '@vocdoni/react-providers'
+import { PaginationProvider, useOrganization, usePagination } from '@vocdoni/react-providers'
 import { Fee, TransactionType } from '@vocdoni/sdk'
 import { Trans } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { PaginatedAsyncTable } from '~components/Layout/AsyncList'
-import { PaginationProvider, usePagination } from '~components/Pagination/PaginationProvider'
 import { TransactionTypeBadge } from '~components/Transactions/TransactionCard'
 import { RoutePath } from '~constants'
 import { useDateFns } from '~i18n/use-date-fns'
 import { useAccountFees } from '~queries/accounts'
 import { generateListStub, PaginationStub } from '~utils/stubs'
 
-const AccountFees = () => {
-  return (
-    <PaginationProvider>
-      <AccountFeesTable />
-    </PaginationProvider>
-  )
-}
+const AccountFees = () => (
+  <PaginationProvider>
+    <AccountFeesTable />
+  </PaginationProvider>
+)
 
 const AccountFeesTable = () => {
   const { page } = usePagination()
   const { organization } = useOrganization()
 
-  if (!organization) return null
-
-  const feesCount = organization.feesCount ?? 0
+  const feesCount = organization?.feesCount ?? 0
 
   const { data, isError, error, isPlaceholderData } = useAccountFees({
     params: {
-      accountId: organization.address,
+      accountId: organization?.address as string,
       page,
     },
     options: {
@@ -47,6 +42,8 @@ const AccountFeesTable = () => {
       },
     },
   })
+
+  if (!organization) return null
 
   return (
     <PaginatedAsyncTable

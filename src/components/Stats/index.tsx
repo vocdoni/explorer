@@ -1,9 +1,9 @@
-import { Flex, VStack } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { VscGraphLine } from 'react-icons/vsc'
-import { LatestBlocks } from '~components/Stats/LatestBlocks'
 import { ChainInfo } from '~components/Stats/ChainDetails/ChainInfo'
 import { StatsCards } from '~components/Stats/ChainDetails/StatsCards'
+import { LatestBlocks } from '~components/Stats/LatestBlocks'
 import { StatsCardWrapper } from '~components/Stats/StatsCardWrapper'
 
 const Stats = () => {

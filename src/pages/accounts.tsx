@@ -1,9 +1,9 @@
+import { RoutedPaginationProvider } from '@vocdoni/react-providers'
+import { useTranslation } from 'react-i18next'
 import { AccountsFilter, AccountsList } from '~components/Accounts/List'
 import ListPageLayout from '~components/Layout/ListPageLayout'
-import { useOrganizationCount } from '~queries/accounts'
-import { useTranslation } from 'react-i18next'
 import { RefreshIntervalPagination, RoutePath } from '~constants'
-import { RoutedPaginationProvider } from '~components/Pagination/PaginationProvider'
+import { useOrganizationCount } from '~queries/accounts'
 
 const OrganizationList = () => {
   const { t } = useTranslation()
