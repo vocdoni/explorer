@@ -1,4 +1,5 @@
-import { Box, BoxProps, Grid } from '@chakra-ui/react'
+import { Box, BoxProps, Grid, useColorMode } from '@chakra-ui/react'
+import { useEffect } from 'react'
 import { Outlet, ScrollRestoration } from 'react-router-dom'
 import { Footer } from '~components/Layout/Footer'
 import { TopBar } from '~components/Layout/TopBar'
@@ -19,6 +20,7 @@ const DefaultLayout = (props: BoxProps) => (
 const Layout = () => (
   <Box minH='100vh' display='flex' flexDirection='column'>
     <ScrollRestoration />
+    <ForceLightTheme />
     <Grid p={{ base: 0, md: 3 }}>
       <TopBar />
       <DefaultLayout>
@@ -28,5 +30,16 @@ const Layout = () => (
     <Footer />
   </Box>
 )
+
+// We need to force the theme to light to avoid issues switching from the
+// composer layout (auto) to the default one (light)
+const ForceLightTheme = () => {
+  const { setColorMode } = useColorMode()
+  useEffect(() => {
+    setColorMode('light')
+  }, [])
+
+  return null
+}
 
 export default Layout
