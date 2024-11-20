@@ -227,6 +227,7 @@
     "on_block_n": "On Block {{height}}",
     "send_tokens_from": "From",
     "send_tokens_to": "To",
+    "signer": "Signer",
     "subtype": "Subtype",
     "tokens_transferred": "Tokens transferred",
     "transactions_list": "Transactions",
