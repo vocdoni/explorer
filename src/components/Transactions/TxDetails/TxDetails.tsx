@@ -21,6 +21,7 @@ export const TxDetailsGrid = ({ txInfo, tx }: Tx) => {
   }
 
   const txHash = ensure0x(hash)
+  const signer = ensure0x(txInfo.signer)
   let txType: TransactionType | undefined = undefined
   if (tx) {
     txType = Object.keys(tx)[0] as TransactionType
@@ -60,6 +61,22 @@ export const TxDetailsGrid = ({ txInfo, tx }: Tx) => {
           fontSize={'md'}
         >
           {txHash}
+        </ReducedTextAndCopy>
+      ),
+    },
+    {
+      label: t('validators.account', { defaultValue: 'Account' }),
+      children: (
+        <ReducedTextAndCopy
+          breakPoint={{ base: true, lg: false }}
+          p={0}
+          color={'textAccent1'}
+          toCopy={signer}
+          fontWeight={'normal'}
+          h={0}
+          fontSize={'md'}
+        >
+          {signer}
         </ReducedTextAndCopy>
       ),
     },
