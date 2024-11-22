@@ -237,7 +237,6 @@
     "on_block_n": "Al Bloc {{height}}",
     "send_tokens_from": "De",
     "send_tokens_to": "A",
-    "signer": "Signant",
     "subtype": "Subtipus",
     "tokens_transferred": "Tokens transferits",
     "transactions_list": "Transaccions",

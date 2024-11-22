@@ -237,7 +237,6 @@
     "on_block_n": "En el bloque {{height}}",
     "send_tokens_from": "De",
     "send_tokens_to": "A",
-    "signer": "Firmante",
     "subtype": "Subtipo",
     "tokens_transferred": "Tokens transferidos",
     "transactions_list": "Transacciones",

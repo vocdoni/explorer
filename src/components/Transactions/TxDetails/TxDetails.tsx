@@ -65,7 +65,7 @@ export const TxDetailsGrid = ({ txInfo, tx }: Tx) => {
       ),
     },
     {
-      label: t('transactions.signer', { defaultValue: 'Signer' }),
+      label: t('validators.account', { defaultValue: 'Account' }),
       children: (
         <ReducedTextAndCopy
           breakPoint={{ base: true, lg: false }}
