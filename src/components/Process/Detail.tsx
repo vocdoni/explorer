@@ -51,7 +51,12 @@ const Detail = () => {
   const id = election.id
 
   const raw = election.raw as IElectionInfoResponse
-  const censusOrigin = ucfirst(raw.census.censusOrigin.replace('_', ' ').toLocaleLowerCase())
+  const censusOrigin = raw.census.censusOrigin
+    .replaceAll('_', ' ')
+    .toLocaleLowerCase()
+    .split(' ')
+    .map((x) => ucfirst(x))
+    .join(' ')
   const encryptedVotes = raw.voteMode.encryptedVotes
     ? t('processes.envelope_type_badge.encrypted_votes')
     : t('processes.envelope_type_badge.not_encrypted_votes')

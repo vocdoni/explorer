@@ -153,8 +153,8 @@
   "processes": {
     "envelope_recount": "Recompte de sobres",
     "envelope_type_badge": {
-      "encrypted_votes": "Vots encriptats",
-      "not_encrypted_votes": "Vots no encriptats"
+      "encrypted_votes": "Vots Encriptats",
+      "not_encrypted_votes": "Vots No Encriptats"
     },
     "invalid_election": "Elecció no vàlida",
     "process_mode_badge": {

@@ -148,8 +148,8 @@
   "processes": {
     "envelope_recount": "Envelope recount",
     "envelope_type_badge": {
-      "encrypted_votes": "Encrypted votes",
-      "not_encrypted_votes": "Not encrypted votes"
+      "encrypted_votes": "Encrypted Votes",
+      "": "Not Encrypted Votes"
     },
     "invalid_election": "Invalid Election",
     "process_mode_badge": {
