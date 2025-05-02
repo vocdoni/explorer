@@ -149,7 +149,7 @@
     "envelope_recount": "Envelope recount",
     "envelope_type_badge": {
       "encrypted_votes": "Encrypted Votes",
-      "": "Not Encrypted Votes"
+      "not_encrypted_votes": "Not Encrypted Votes"
     },
     "invalid_election": "Invalid Election",
     "process_mode_badge": {
