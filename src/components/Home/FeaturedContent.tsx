@@ -74,7 +74,7 @@ export const FeaturedContent = () => {
                 Leveraging on decentralized technologies
               </Trans>
             </Text>
-            <Button as={Link} bgColor='accent1' color={'white'} href={'https://app-dev.vocdoni.io/'}>
+            <Button as={Link} bgColor='accent1' color={'white'} href={'https://app.vocdoni.io/'}>
               <Trans i18nKey='featured.know_more'>Know more</Trans>
             </Button>
           </Flex>
