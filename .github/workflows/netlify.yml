@@ -35,6 +35,7 @@ jobs:
         run: yarn build
         env:
           VOCDONI_ENVIRONMENT: dev
+          VOCHAIN_ENDPOINT: https://one-dev.vocdoni.net/v2
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0

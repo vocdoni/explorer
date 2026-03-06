@@ -23,6 +23,7 @@ const viteconfig = ({ mode }) => {
     base,
     define: {
       'import.meta.env.VOCDONI_ENVIRONMENT': JSON.stringify(vocdoniEnvironment),
+      'import.meta.env.VOCHAIN_ENDPOINT': JSON.stringify(process.env.VOCHAIN_ENDPOINT),
     },
     build: {
       // hides warnings `Module level directives cause errors when bundled, "use client"`
