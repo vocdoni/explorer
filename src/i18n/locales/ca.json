@@ -136,6 +136,7 @@
     "final_results": "Resultats finals",
     "manually_ended": "Finalitzat manualment",
     "no_description": "No s'ha establert cap descripció!",
+    "no_results": "No hi ha resultats per mostrar.",
     "process_count_one": "Total {{count}} procés",
     "process_count_many": "Total {{count}} processos",
     "process_count_other": "Total {{count}} processos",
@@ -148,7 +149,8 @@
     "tab_envelopes": "Sobres",
     "tab_raw": "Dades",
     "tab_results": "Resultats",
-    "tab_txs": "Transaccions"
+    "tab_txs": "Transaccions",
+    "untitled": "Procés sense títol"
   },
   "processes": {
     "envelope_recount": "Recompte de sobres",

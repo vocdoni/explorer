@@ -132,6 +132,7 @@
     "final_results": "Final results",
     "manually_ended": "Manually ended",
     "no_description": "No description set!",
+    "no_results": "No results to show.",
     "process_count_one": "Total {{count}} proces",
     "process_count_other": "Total {{count}} processes",
     "process_details": "Process details",
@@ -143,7 +144,8 @@
     "tab_envelopes": "Envelopes",
     "tab_raw": "Raw",
     "tab_results": "Results",
-    "tab_txs": "Transactions"
+    "tab_txs": "Transactions",
+    "untitled": "Untitled process"
   },
   "processes": {
     "envelope_recount": "Envelope recount",

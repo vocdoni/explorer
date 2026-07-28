@@ -14,7 +14,9 @@ export const ElectionError = () => {
   let title = ''
   if (error.raw) {
     raw = error.raw
-    title = raw['metadata']['title']['default']
+    // Metadata may be missing entirely (i.e. SaaS created processes), and the error page
+    // itself throwing would leave the user with nothing at all
+    title = raw?.metadata?.title?.default ?? ''
   }
 
   return (
