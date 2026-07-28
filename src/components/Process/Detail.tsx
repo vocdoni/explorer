@@ -31,6 +31,7 @@ import { ElectionStatusBadge } from '~components/Accounts/StatusBadge'
 import { PaginatedEnvelopeList } from '~components/Envelope/EnvelopeList'
 import { NoResultsError } from '~components/Layout/ContentError'
 import { ReducedTextAndCopy } from '~components/Layout/CopyButton'
+import { ErrorBoundary } from '~components/Layout/ErrorBoundary'
 import { HeroHeaderLayout } from '~components/Layout/HeroHeaderLayout'
 import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
@@ -50,14 +51,19 @@ const Detail = () => {
 
   const id = election.id
 
+  // Note the response is not always complete: processes created from the SaaS store their
+  // metadata outside IPFS, which the node can't resolve, so it ships them without a
+  // `metadata` key. Never dereference `raw` without guarding.
   const raw = election.raw as IElectionInfoResponse
-  const censusOrigin = raw.census.censusOrigin
-    .replaceAll('_', ' ')
-    .toLocaleLowerCase()
-    .split(' ')
-    .map((x) => ucfirst(x))
-    .join(' ')
-  const encryptedVotes = raw.voteMode.encryptedVotes
+  const censusOrigin = raw.census?.censusOrigin
+    ? raw.census.censusOrigin
+        .replaceAll('_', ' ')
+        .toLocaleLowerCase()
+        .split(' ')
+        .map((x) => ucfirst(x))
+        .join(' ')
+    : ''
+  const encryptedVotes = raw.voteMode?.encryptedVotes
     ? t('processes.envelope_type_badge.encrypted_votes')
     : t('processes.envelope_type_badge.not_encrypted_votes')
 
@@ -66,10 +72,18 @@ const Detail = () => {
   return (
     <>
       {/*Hero Layout*/}
-      <HeroHeaderLayout header={<ElectionHeader fallbackSrc={FallbackHeaderImg} />}>
+      <HeroHeaderLayout
+        header={
+          <ErrorBoundary fallback={null} resetKeys={[id]}>
+            <ElectionHeader fallbackSrc={FallbackHeaderImg} />
+          </ErrorBoundary>
+        }
+      >
         <VStack gap={2}>
           <ElectionStatusBadge status={election.status} />
-          <ElectionTitle />
+          <ErrorBoundary fallback={<UntitledProcess />} resetKeys={[id]}>
+            {election.title?.default ? <ElectionTitle /> : <UntitledProcess />}
+          </ErrorBoundary>
           <ReducedTextAndCopy color={'textAccent1'} toCopy={id} fontWeight={'normal'} h={0} fontSize={'md'}>
             {id}
           </ReducedTextAndCopy>
@@ -96,16 +110,19 @@ const Detail = () => {
         />
       </Flex>
       {/*Information tags */}
-      <Flex wrap={'wrap'} gap={2}>
-        <QuestionsTypeBadge />
-        {raw.voteMode.anonymous && (
-          <Tag variant={'vocdoni'}>
-            <Trans i18nKey={'process.badge.anonymous'}>Anonymous</Trans>
-          </Tag>
-        )}
-        <Tag variant={'vocdoni'}>{censusOrigin}</Tag>
-        <Tag variant={'vocdoni'}>{encryptedVotes}</Tag>
-      </Flex>
+      <ErrorBoundary fallback={null} resetKeys={[id]}>
+        <Flex wrap={'wrap'} gap={2}>
+          {/* QuestionsTypeBadge dereferences resultsType, which is absent without metadata */}
+          {!!election.resultsType?.name && <QuestionsTypeBadge />}
+          {raw.voteMode?.anonymous && (
+            <Tag variant={'vocdoni'}>
+              <Trans i18nKey={'process.badge.anonymous'}>Anonymous</Trans>
+            </Tag>
+          )}
+          {!!censusOrigin && <Tag variant={'vocdoni'}>{censusOrigin}</Tag>}
+          <Tag variant={'vocdoni'}>{encryptedVotes}</Tag>
+        </Flex>
+      </ErrorBoundary>
       {/*Organization card and other cards*/}
       <Grid templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4}>
         <GridItem colSpan={2}>
@@ -119,7 +136,7 @@ const Detail = () => {
         </GridItem>
       </Grid>
       {/*Encrypted votes */}
-      {raw.voteMode.encryptedVotes && <ElectionKeys electionId={id} />}
+      {raw.voteMode?.encryptedVotes && <ElectionKeys electionId={id} />}
       {/*Technical details tabs*/}
       <Text fontSize='2xl' color={'blueText'}>
         <Trans i18nKey={'process.detailed_data'}>Detailed data</Trans>
@@ -143,18 +160,30 @@ const Detail = () => {
         </Box>
         <TabPanels>
           <TabPanel>
-            {election.description?.default ? (
-              <ElectionDescription />
-            ) : (
-              <NoResultsError msg={t('process.no_description', { defaultValue: 'No description set!' })} />
-            )}
+            <ErrorBoundary>
+              {election.description?.default ? (
+                <ElectionDescription />
+              ) : (
+                <NoResultsError msg={t('process.no_description', { defaultValue: 'No description set!' })} />
+              )}
+            </ErrorBoundary>
           </TabPanel>
           <TabPanel>
-            <ElectionResults />
+            <ErrorBoundary>
+              {election.questions.length ? (
+                <ElectionResults />
+              ) : (
+                <NoResultsError msg={t('process.no_results', { defaultValue: 'No results to show.' })} />
+              )}
+            </ErrorBoundary>
           </TabPanel>
           <TabPanel>
-            <PaginatedEnvelopeList />
+            <ErrorBoundary>
+              <PaginatedEnvelopeList />
+            </ErrorBoundary>
           </TabPanel>
+          {/* Raw is the one tab that must render whatever the metadata looks like: it only
+              depends on the untouched API response, never on parsed metadata */}
           <TabPanel>
             <RawContentBox obj={raw} />
           </TabPanel>
@@ -163,6 +192,16 @@ const Detail = () => {
     </>
   )
 }
+
+/**
+ * Shown in place of the title when the process has no readable metadata, so the hero is
+ * never left blank.
+ */
+const UntitledProcess = () => (
+  <Text fontSize={'2xl'} fontWeight={'bold'} textAlign={'center'} color={'textAccent1'}>
+    <Trans i18nKey={'process.untitled'}>Untitled process</Trans>
+  </Text>
+)
 
 const InfoCard = ({ title, children, ...rest }: { title: string } & CardProps) => {
   return (
