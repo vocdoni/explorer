@@ -7,6 +7,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { CopyButton, ReducedTextAndCopy } from '~components/Layout/CopyButton'
 import { DetailsGrid, GridItemProps } from '~components/Layout/DetailsGrid'
+import { ErrorBoundary } from '~components/Layout/ErrorBoundary'
 import { RouteParamsTabs } from '~components/Layout/RouteParamsTabs'
 import { RawContentBox } from '~components/Layout/ShowRawButton'
 import { processIdGridItem } from '~components/Transactions/TxDetails/SpecificTxDetails'
@@ -61,13 +62,19 @@ const EnvelopeDetail = ({
         </TabList>
         <TabPanels>
           <TabPanel>
-            <ElectionProvider id={envelope.electionID}>
-              <VotePackage votePackage={envelope.package} />
-            </ElectionProvider>
+            <ErrorBoundary>
+              <ElectionProvider id={envelope.electionID}>
+                <VotePackage votePackage={envelope.package} />
+              </ElectionProvider>
+            </ErrorBoundary>
           </TabPanel>
           <TabPanel>
-            <EnvelopeDetailsGrid {...envelope} />
+            <ErrorBoundary>
+              <EnvelopeDetailsGrid {...envelope} />
+            </ErrorBoundary>
           </TabPanel>
+          {/* Raw is left unwrapped on purpose: it only reads the envelope response, so there's
+              nothing for a boundary to catch and it must render whatever the election looks like */}
           <TabPanel>
             <RawContentBox obj={envelope} />
           </TabPanel>
@@ -79,6 +86,7 @@ const EnvelopeDetail = ({
 
 export const VotePackage = ({ votePackage }: { votePackage: VotePackageType }) => {
   const { election } = useElection()
+  const { t } = useTranslation()
   if (!election || !(election instanceof PublishedElection)) return null
 
   return (
@@ -90,7 +98,8 @@ export const VotePackage = ({ votePackage }: { votePackage: VotePackageType }) =
           components={{
             a: <Link as={RouterLink} to={generatePath(RoutePath.Process, { pid: election.id, tab: null })} />,
           }}
-          values={{ title: election.title.default }}
+          // processes without readable metadata (i.e. those created from the SaaS) have no title
+          values={{ title: election.title?.default ?? t('process.untitled') }}
         />
       </Text>
     </Flex>

@@ -2,6 +2,7 @@ import { Flex, Heading } from '@chakra-ui/react'
 import { Trans } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import EnvelopeDetail from '~components/Envelope/Detail'
+import { ErrorBoundary } from '~components/Layout/ErrorBoundary'
 import { Loading } from '~components/Layout/Loading'
 import { VerifyForm, VerifyFormMinified } from '~components/Verify'
 import { RoutePath } from '~constants'
@@ -32,7 +33,11 @@ const Verify = () => {
           <Trans i18nKey={'envelopes.not_found'}>Envelope not found</Trans>{' '}
         </Heading>
       )}
-      {data && <EnvelopeDetail route={RoutePath.Verify} {...data} />}
+      {/* The search form is a sibling, so an unguarded throw here would leave the user without
+          any way to try another receipt. Resets whenever a different vote is looked up. */}
+      <ErrorBoundary resetKeys={[verifier]}>
+        {data && <EnvelopeDetail route={RoutePath.Verify} {...data} />}
+      </ErrorBoundary>
     </Flex>
   )
 }
